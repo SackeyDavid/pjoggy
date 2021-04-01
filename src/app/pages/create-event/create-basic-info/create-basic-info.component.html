@@ -77,22 +77,43 @@
             </div>
             <!-- /.description-->
 
-            <!-- event type and categories -->
+            <!-- event type and ticketing -->
             <div class="form-group">
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select" id="floatingType" aria-label="Floating label select example"
-                      formControlName="type" [ngClass]="{'is-invalid': saved && f.type.errors, 'is-valid': !f.type.errors}">
+                      formControlName="ticketing" [ngClass]="{'is-invalid': saved && f.ticketing.errors, 'is-valid': !f.ticketing.errors}">
                       <option value="1">Paid</option>
                       <option value="2">Free</option>
+                      <option value="3">Donations</option>
+                    </select>
+                    <label for="floatingType">Ticketing</label>
+                  </div>   
+                  <small *ngIf="saved && f.ticketing.errors" id="titleHelp" class="form-text invalid-feedback">
+                    Ticketing is required.
+                  </small>               
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingType" aria-label="Floating label select example"
+                      formControlName="type" [ngClass]="{'is-invalid': saved && f.type.errors, 'is-valid': !f.type.errors}">
+                      <option value="1">Public</option>
+                      <option value="2">Private</option>
                     </select>
                     <label for="floatingType">Event Type</label>
                   </div>   
                   <small *ngIf="saved && f.type.errors" id="titleHelp" class="form-text invalid-feedback">
                     Event type is required.
                   </small>               
-                </div>
+                </div>                
+              </div>
+            </div>
+            <!-- /.end -->
+
+            <!-- event categories -->
+            <div class="form-group">
+              <div class="row">                
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
@@ -332,7 +353,7 @@
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                   <div class="form-check my-2 py-2">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="venue_tobe_announced">
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" formControlName="venue_tobe_announced">
                     <label class="form-check-label" for="flexCheckDefault">
                       Venue Yet to be announced
                     </label>

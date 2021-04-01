@@ -69,12 +69,13 @@ export class CreateBasicInfoComponent implements OnInit {
       end_date: ['', Validators.required],
       start_time: ['', Validators.required],
       end_time: ['', Validators.required],
-      recurring: ['0'],
+      recurring: [0],
       type: ['', Validators.required],
+      ticketing: ['', Validators.required],
       category_id: ['', Validators.required],
       subcategory_id: ['', Validators.required],
       tags: [''],
-      venue_tobe_announced: ['0'],
+      venue_tobe_announced: [0],
       hosting: ['']
     });
   }
@@ -120,7 +121,7 @@ export class CreateBasicInfoComponent implements OnInit {
       tags: this.f.tags.value,
       venue_tobe_announced: this.f.venue_tobe_announced.value,
       hosting: this.f.hosting.value,
-      ticketing: this.f.type.value   
+      ticketing: this.f.ticketing.value   
     };
     return data;
   }

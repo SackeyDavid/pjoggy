@@ -11,6 +11,7 @@ import { EventDetailsService } from 'src/app/services/event-details/event-detail
 export class CreateEventDetailsComponent implements OnInit {
 
   isLoading: boolean;
+  isBannerSet: boolean;
   saved: boolean;
   form: FormGroup = new FormGroup({});
   imgSrc: string;
@@ -21,8 +22,9 @@ export class CreateEventDetailsComponent implements OnInit {
     private eventDetailsService: EventDetailsService
   ) {
     this.isLoading = false;
+    this.isBannerSet = false;
     this.saved = false;
-    this.imgSrc = '../../../../assets/images/placeholder-image.png';
+    this.imgSrc = '../../../../assets/images/placeholder.png';
   }
 
   ngOnInit(): void {
@@ -81,6 +83,8 @@ export class CreateEventDetailsComponent implements OnInit {
   onFileSelected(e: any){
     const file:File = e.target.files[0];
     if (file) {
+      this.isBannerSet = true;
+
       const formData = new FormData();
       formData.append("thumbnail", file);
 
