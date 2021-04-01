@@ -1,0 +1,76 @@
+<div class="container-fluid h-100">
+  <div class="row align-items-center h-100">
+    <div class="offset-lg-3 col-lg-6 mx-auto">
+
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 stuffs-side">
+              
+              <!-- comopnent -->
+
+              <app-form-side-pane 
+                [primaryText]="'Two Factor Authentication'"
+                [secondaryText]="'Your security is also our priority.'">
+              </app-form-side-pane>
+
+            </div>
+
+            <div class="col-lg-6 form-side">
+              
+              <!-- component -->
+
+              <app-form-header [formTitle]="'Authentication'"></app-form-header>
+
+              <!-- lofin form -->
+              <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+                
+                <div class="row">
+                  <div class="col">
+                    <p class="text-center"><small class="text-danger">{{errorMsgs.message}}</small></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="form-floating mt-3">
+                      <input type="text" class="form-control" id="floatingInput" placeholder="000000" formControlName="confirmationCode" required>
+                      <label for="floatingInput">Confirmation Code</label>
+                    </div>
+                    <small><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                  </div>
+                </div>   
+                
+                <div class="row mt-4">
+                  <div class="col">
+                    <small class="txt-muted">A confirmation code has been sent to your phone</small>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col">
+                    <button class="float-right btn btn-lg git-color">
+                      <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
+                      Submit
+                    </button>
+                  </div>
+                </div>
+  
+              </form>
+              <!-- /.authentication form -->
+
+              <!-- component -->
+
+              <app-form-footer></app-form-footer>
+              
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

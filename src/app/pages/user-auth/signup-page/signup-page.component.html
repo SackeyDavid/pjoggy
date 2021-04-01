@@ -1,0 +1,196 @@
+<div class="container-fluid h-100">
+  <div class="row align-items-center h-100">
+    <div class="offset-lg-3 col-lg-6 mx-auto">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 stuffs-side">
+              
+              <!-- comopnent -->
+
+              <app-form-side-pane 
+                [primaryText]="'Welcome back,'"
+                [secondaryText]="'One account for all of our amazing products.'">
+              </app-form-side-pane>
+
+            </div>
+
+            <!-- ---------------------------------------------------------------------------- -->
+
+            <div class="col-lg-6 form-side">
+
+              <!-- component -->
+
+              <app-form-header [formTitle]="'Create account'"></app-form-header>
+
+              <!-- signup form -->
+              <form *ngIf="!showPrompt" [formGroup]="registerForm" (ngSubmit)="onSubmit()">                
+
+                <div class="row text-center">
+                  <div class="col">
+                    <small class="text-danger">{{errorMsgs.message}}</small>
+                  </div>
+                </div>
+                
+                <mat-horizontal-stepper #registerStepper class="register-stepper">
+
+                  <!-- -------------------------------------------------------------------------------------------------- -->
+
+                  <mat-step>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="text" class="form-control" id="floatingFname" placeholder="Fname" formControlName="firstname" required>
+                          <label for="floatingFname">First Name</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small>
+                      </div>
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="text" class="form-control" id="floatingLname" placeholder="Lname" formControlName="lastname" required>
+                          <label for="floatingLname">Last Name</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <select class="form-select" id="floatingSelect" aria-label="Floating" formControlName="usertype" required>
+                            <option selected value="30">Individual</option>
+                            <option value="31">Organization</option>
+                          </select>
+                          <label for="floatingSelect">User Type</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.usertype" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <select class="form-select" id="floatingSelect1" formControlName="country" required>
+                            <option selected value="GH">Ghana</option>
+                            <option value="CM">Cambodia</option>
+                            <option value="UG">Uganda</option>
+                          </select>
+                          <label for="floatingSelect1">Country</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.country" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="tel" class="form-control" id="floatingInput" placeholder="Phone Number" formControlName="phone" required>
+                          <label for="floatingInput">Phone Number</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row mt-4">
+                      <div class="col mb-1">
+                        <button type="button" matStepperNext
+                          class="float-right btn btn-lg git-color">Next</button>
+                      </div>
+                    </div>
+
+                  </mat-step>
+
+                  <!-- ------------------------------------------------------------------------------------------------------------- -->
+
+                  <mat-step>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="text" class="form-control" id="floatingFname" placeholder="Fname" formControlName="username" required>
+                          <label for="floatingFname">Username</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.username" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="email" class="form-control" id="floatingFname" placeholder="Fname" formControlName="email" required>
+                          <label for="floatingFname">Email</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="password" class="form-control" id="floatingFname" placeholder="Fname" formControlName="password" required>
+                          <label for="floatingFname">Password</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
+                      </div>
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="password" class="form-control" id="floatingFname" placeholder="Fname" formControlName="password_confirmation" required>
+                          <label for="floatingFname">Confirm</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.password_confirmation" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+
+                    <div class="row mt-4">
+                      <div class="col mb-1">
+                        <button type="submit" class="float-right btn btn-lg git-color ml-2">
+                          <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
+                          Register
+                        </button>
+                        <button type="button" matStepperPrevious class="float-right btn btn-primary btn-lg"><i class="bi-arrow-left"></i></button>                      
+                      </div>
+                    </div>
+
+                  </mat-step>
+
+                  <!-- --------------------------------------------------------------------------------------------------------------------------------- -->
+
+                </mat-horizontal-stepper>
+
+                <div class="row mt-2 mb-5">
+                  <div class="col-lg-12">
+                    <p class="text-center">
+                      <small><a routerLink="/login" class="form-link">Already registered? Log in</a></small>
+                    </p>
+                  </div>
+                </div>
+
+              </form>
+              <!-- /.signup form -->
+
+              <div *ngIf="showPrompt" class="row align-items-center">
+                  <div class="col">
+                      <div class="card my-5">
+                          <div class="card-header text-center">
+                              <p class="p-3">Please confirm your email</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- component -->
+
+              <app-form-footer></app-form-footer>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

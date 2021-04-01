@@ -1,0 +1,129 @@
+span.title {
+  font-size: 12px;
+}
+
+span.bold {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 10px;
+}
+
+span.lead {
+  font-size: 10px;
+}
+
+p.card-text {
+  line-height: 20px;
+}
+
+h5.card-title {
+  font-size: 1rem;
+}
+
+.display-6 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.card {
+  border-radius: 9px;
+}
+
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+  padding-left: 25px;
+}
+
+.btn-group>:not(.btn-check)+.btn {
+  padding-right: 25px;
+}
+
+.nav-link {
+  color: #717171;
+  font-weight: 500;
+}
+
+ul.nav {
+  // border-top: 1px solid #ccc;
+  // border-bottom: 1px solid #ccc;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: small;
+}
+
+.ev-padlr-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.display-6 {
+  font-weight: 600 !important;
+  font-size: xx-large !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  border-radius: 30px !important;
+  border: 1px solid var(--blue) !important;
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+  // border-bottom: 2px solid var(--blue) !important;
+}
+
+.nav-pills .nav-link {
+  border-radius: 30px !important;
+  margin-left: 1rem !important;
+  background-color: #eeeded;
+  // border: 1px solid #717171 !important;
+  color: #000 !important;
+}
+
+.controls-top a {
+  color: #717171;
+}
+
+.ev-martop-5 {
+  margin-top: 5% !important;
+}
+
+.ev-display-only-non-mobile {
+  display: none;
+}
+
+.ev-display-only-mobile {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .ev-head-padl {
+    padding-left: 4% !important;
+  }
+  .ev-display-only-non-mobile {
+    display: none;
+  }
+  .ev-display-only-mobile {
+    display: block;
+  }
+}
+
+@media (min-width: 577px) {
+  .ev-head-padl {
+    padding-left: 1.5% !important;
+  }
+  .ev-display-only-non-mobile {
+    display: block;
+  }
+  .ev-display-only-mobile {
+    display: none;
+  }
+}
+
+@media  (min-width: 992px) {
+  .ev-head-padl {
+    padding-left: 1.2% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .ev-head-padl {
+    padding-left: 1.1% !important;
+  }
+}

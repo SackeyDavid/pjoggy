@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+.form-control:hover, select.form-control {
+  border-color: #bbb;
+}
+
+input.form-control {
+  box-shadow: none;
+}
+
+/* Ad banner Slider */
+.owl-theme .owl-dots .owl-dot.active span {
+  background: #0d6efd;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+  width: 45px;
+  height: 4px;
+  border-radius: 55px;
+}
+
+.owl-theme .owl-dots .owl-dot:hover span {
+  background-color: #99bff8;
+}
