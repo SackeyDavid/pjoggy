@@ -180,3 +180,9 @@
     display: none;
   }
 }
+
+@media (max-width: 970px) {
+  .page-info {
+    visibility: hidden;
+  }
+}

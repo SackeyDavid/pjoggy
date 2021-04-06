@@ -2,7 +2,12 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-lg-6">
+    <div class="col-md-4 col-lg-4">
+      <app-create-event-side-menu [currentPage]="'publishing'"></app-create-event-side-menu>
+      <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'"></app-side-menu-toggle>
+    </div>
+
+    <!-- <div class="col-lg-6 col-md-3">
       <div class="page-info">
         <div class="title">
           <h1>Let's publish your event. It's ready.</h1>
@@ -30,12 +35,11 @@
           </div>
         </div>
       </div>
-      <app-create-event-side-menu [currentPage]="'publishing'"></app-create-event-side-menu>
-    </div>
+    </div> -->
 
     <div class="col-1 display-non-lg"></div>
 
-    <div class="col-lg-5 col-md-7">
+    <div class="col-lg-5 col-md-8">
       <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'"></app-side-menu-toggle>
 
       <div class="form">
@@ -146,7 +150,7 @@
         <!--
           /. End Date time Section
         -->
-        
+
         <div class="navigation">
           <div class="nav-buttons">
             <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
@@ -155,7 +159,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="col-2 only-non-mobile"></div>
 
   </div>

@@ -18,20 +18,15 @@ import { RecoveryEmailComponent } from './pages/user-auth/recovery-email/recover
 import { PasswordResetComponent } from './pages/user-auth/password-reset/password-reset.component';
 import { UserProfilePageComponent } from './pages/profile/user-profile-page/user-profile-page.component';
 import { OrganizationProfilePageComponent } from './pages/profile/organization-profile-page/organization-profile-page.component';
+import { EditBasicInfoComponent } from './pages/edit-event/edit-basic-info/edit-basic-info.component';
+import { EditEventSchedulesComponent } from './pages/edit-event/edit-event-schedules/edit-event-schedules.component';
+import { EditEventDetailsComponent } from './pages/edit-event/edit-event-details/edit-event-details.component';
+import { EditEventTicketingComponent } from './pages/edit-event/edit-event-ticketing/edit-event-ticketing.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomePageComponent
-  },
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./components/new-home-page/new-home-page.module').then( m => m.NewHomePageModule)
-  // },
-  {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    component: HomePageComponent
   },
   {
     path: 'login',
@@ -86,10 +81,6 @@ const routes: Routes = [
         component: CreateBasicInfoComponent
       },
       {
-        path: 'edit_basic_info',
-        component: CreateBasicInfoComponent
-      },
-      {
         path: 'schedule',
         component: CreateEventSchedulesComponent
       },
@@ -100,6 +91,31 @@ const routes: Routes = [
       {
         path: 'ticketing',
         component: CreateEventTicketingComponent
+      },
+      {
+        path: 'publishing',
+        component: CreateEventPublishComponent
+      }
+    ]
+  },
+  {
+    path: 'edit_event',
+    children: [
+      {
+        path: 'basic_info',
+        component: EditBasicInfoComponent
+      },
+      {
+        path: 'schedule',
+        component: EditEventSchedulesComponent 
+      },
+      {
+        path: 'more_details',
+        component: EditEventDetailsComponent
+      },
+      {
+        path: 'ticketing',
+        component: EditEventTicketingComponent
       },
       {
         path: 'publishing',

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import _ from 'lodash';
 import moment from 'moment';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
+import { DatetimeFormatterService } from 'src/app/services/datetime-formatter/datetime-formatter.service';
 
 
 @Component({
@@ -18,25 +19,28 @@ export class CreateBasicInfoComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   categoriesData: any[];
   subCategoriesData: any[];
+  recurringStore: string;
 
-  url: string = ''
-  currentRoute: string = ''
+  url: string = '';
+  currentRoute: string = '';
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private basicInfoService: BasicInfoService
+    private basicInfoService: BasicInfoService,
+    private dtService: DatetimeFormatterService
   ) {
     this.isLoading = false;
     this.saved = false;
     this.categoriesData = [];
     this.subCategoriesData = [];
+    this.recurringStore = '0';
   }
 
   ngOnInit(): void {
     this.initForm();
     this.toggleVenueView();
-    this.getCategories();  
+    this.getCategories();
     this.disableSubcategory();
     this.initEnableSubcategory();
 
@@ -57,7 +61,7 @@ export class CreateBasicInfoComponent implements OnInit {
   public get f(): any {
     return this.form.controls;
   }
-  
+
 
   initForm(): void {
     this.form = this.formBuilder.group({
@@ -69,14 +73,14 @@ export class CreateBasicInfoComponent implements OnInit {
       end_date: ['', Validators.required],
       start_time: ['', Validators.required],
       end_time: ['', Validators.required],
-      recurring: [0],
+      recurring: ['0'],
       type: ['', Validators.required],
       ticketing: ['', Validators.required],
       category_id: ['', Validators.required],
       subcategory_id: ['', Validators.required],
       tags: [''],
       venue_tobe_announced: [0],
-      hosting: ['']
+      hosting: ['1']
     });
   }
 
@@ -85,11 +89,21 @@ export class CreateBasicInfoComponent implements OnInit {
     if (this.form.valid) {
       console.log('form is valid');
       this.isLoading = true;
+      // this.router.navigateByUrl('/create_event/more_details');
       this.basicInfoService.createBasicEvent(this.getFormData()).then(
         res => {
           if (res) {
+            console.log(res);
             this.isLoading = false;
-            this.router.navigateByUrl('/create_event/more_details');
+            this.getCreatedEvent(res);
+            console.log(this.getFormData().recurring)
+            
+            if(this.getFormData().recurring == '1') {
+              this.router.navigateByUrl('/edit_event/schedule');
+            } else {
+              this.router.navigateByUrl('/edit_event/more_details');
+            }
+            // this.router.navigateByUrl('/create_event/more_details');
           }
           else {
             this.isLoading = false;
@@ -105,32 +119,37 @@ export class CreateBasicInfoComponent implements OnInit {
   }
 
   getFormData(): any {
+    let f_start_date = this.f.start_date.value.year + '-' + this.f.start_date.value.month + '-' + this.f.start_date.value.day;
+    let f_end_date = this.f.end_date.value.year + '-' + this.f.end_date.value.month + '-' + this.f.end_date.value.day;
+    let f_start_time = this.f.start_time.value.hour + ':' + this.f.start_time.value.minute + ':' + this.f.start_time.value.second;
+    let f_end_time = this.f.end_time.value.hour + ':' + this.f.end_time.value.minute + ':' + this.f.end_time.value.second;
+
     const data = {
       title: this.f.title.value,
       description: this.f.description.value,
       venue: this.f.venue.value,
       gps: this.f.gps.value,
-      start_date: '2021-04-04 01:30:00',
-      end_date: '2021-04-11 15:30:00',
-      // start_date: this.f.start_date.value + ' ' + this.f.start_time.value,
-      // end_date: this.f.end_date.value + ' ' + this.f.end_time.value,
+      // start_date: f_start_date + ' ' + f_start_time,      
+      // end_date: f_end_date + ' ' + f_end_time,
+      start_date: this.dtService.formatDateTime(this.f.start_date.value, this.f.start_time.value),
+      end_date: this.dtService.formatDateTime(this.f.end_date.value, this.f.end_time.value),
       recurring: this.f.recurring.value,
       type: this.f.type.value,
       category_id: this.f.category_id.value,
       subcategory_id: this.f.subcategory_id.value,
       tags: this.f.tags.value,
-      venue_tobe_announced: this.f.venue_tobe_announced.value,
+      venue_tobe_announced: this.recurringStore,
       hosting: this.f.hosting.value,
-      ticketing: this.f.ticketing.value   
+      ticketing: this.f.ticketing.value
     };
     return data;
   }
 
-  setRecurring(value: number): void {
+  setRecurring(value: any): void {
     this.form.controls['recurring'].setValue(value);
   }
 
-  setHosting(value: number): void {
+  setHosting(value: any): void {
     this.form.controls['recurring'].setValue(value);
   }
 
@@ -140,12 +159,12 @@ export class CreateBasicInfoComponent implements OnInit {
       if (change == true) {
         this.form.controls['venue'].disable();
         this.form.controls['gps'].disable();
-        this.form.controls['recurring'].setValue(1);
+        this.recurringStore = '1'
       }
       else if (change == false) {
         this.form.controls['venue'].enable();
         this.form.controls['gps'].enable();
-        this.form.controls['recurring'].setValue(0)
+        this.recurringStore = '0'
       }
     });
   }
@@ -181,6 +200,18 @@ export class CreateBasicInfoComponent implements OnInit {
       res => {
         console.log(res);
         this.subCategoriesData = res.sub_categories;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getCreatedEvent(eventId: any): void {
+    this.basicInfoService.getCreatedEvent(eventId).then(
+      res => {
+        console.log(res);
+        sessionStorage.setItem('created_event', JSON.stringify(res));
       },
       err => {
         console.log(err);

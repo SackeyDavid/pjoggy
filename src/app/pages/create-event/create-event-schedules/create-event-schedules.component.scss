@@ -18,7 +18,7 @@
 }
 
 .page-info > .title > h1 {
-  font-size: 55px;
+  font-size: 45px;
   line-height: 1.2;
   color: #454b50;
 }
@@ -170,3 +170,15 @@
     visibility: visible;
   }
 }
+
+@media (min-width: 768px) and (orientation : landscape) {
+    .col-md-7 {
+      width: 50%;
+    }
+  }
+  
+  @media (min-width: 768px) and (orientation : portrait) {
+    .col-md-7 {
+      width: 100%;
+    }
+  }

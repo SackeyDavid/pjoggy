@@ -2,9 +2,9 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-3">
-      <!--  -->
-    <app-create-event-side-menu [currentPage]="'ticketing'"></app-create-event-side-menu>
+    <div class="col-md-4 col-lg-4">
+      <app-create-event-side-menu [currentPage]="'ticketing'"></app-create-event-side-menu>
+      <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'"></app-side-menu-toggle>
     </div>
 
     <!-- <div class="col-md-3">
@@ -38,9 +38,7 @@
       </div>
     </div> -->
 
-    <div class="col-md-4 col-sm-12">
-      <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'"></app-side-menu-toggle>
-
+    <div class="col-md-4 col-lg-4 col-sm-12">
       <form class="form" [formGroup]="form" (ngSubmit)="create()">
         <div class="divider mb-1 mt-5"></div>
         <div class="form-item">
@@ -186,7 +184,7 @@
                 <app-loading-button *ngIf="isSaving"></app-loading-button>
               </div>
             </div>
-            
+
             <!-- /.buttons -->
           </div>
         </div>
@@ -196,7 +194,7 @@
       </form>
     </div>
 
-    <div class="col-sm-12 col-xs-12 col-md-4">
+    <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
       <div class="divider mb-1 mt-5"></div>
 
         <!--
@@ -223,7 +221,7 @@
                 <li *ngFor="let ticket of createdTicketList; let i=index">
                   <div class="card mb-3">
                     <div class="row no-gutters">
-                      <div class="col-sm-4 col-md-2 d-xs-none d-sm-none d-md-block">
+                      <div class="col-sm-4 col-md-3">
                         <i class="bi-distribute-vertical" style="font-size: 30px; color: #ccc;"></i>
                       </div>
                       <div class="col-sm-8 col-md-6">
@@ -241,7 +239,7 @@
                           </p>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <button class="btn btn-light" type="button" (click)="edit(ticket, i)">
                           <i class="bi-pencil"></i>
                         </button>
@@ -260,11 +258,11 @@
         <!--
           /. End Tickets List
         -->
-        
+
     </div>
 
     <div class="col-12">
-      
+
       <div class="navigation">
         <div class="nav-buttons">
           <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>

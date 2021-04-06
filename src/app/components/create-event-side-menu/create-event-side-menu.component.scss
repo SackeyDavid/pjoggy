@@ -6,21 +6,20 @@
     z-index: 0; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    // background-color: #fcfcfc; /* Black */
     background-color: #f8f9fa;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 120px;
     transition: 0.5s;
     overflow-y: hidden;
   }
-  
+
   .sidenav .bottom {
     position: absolute;
     bottom: auto;
     width: 100%;
     margin-top: 2vh;
   }
-  
+
   .sidenav .bottom .list-group-item:last-child {
     border-right-style: none;
   }
@@ -30,13 +29,13 @@
   }
 
   .slide-right {
-    width: 250px !important;
+    width: 350px !important;
     visibility: visible;
     z-index: 999;
   }
 
-  
-  
+
+
   /* The navigation menu links */
   .sidenav a {
     padding: 15px 8px 15px 35px;
@@ -46,14 +45,14 @@
     font-weight: 500;
     display: block;
   }
-  
+
   /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
     color: #222;
     font-size: 16px;
     background-color: #eee;
   }
-  
+
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
@@ -83,16 +82,16 @@
 
   @media (min-width: 781px) {
     .sidenav {
-      width: 250px;
+      width: 350px;
     }
     .display-none {
       display: none;
     }
     .slide-left {
-      width: 250px !important;
+      width: 350px !important;
     }
   }
-  // added styles 
+  // added styles
   .ev-checkmark {
       display: inline-block;
       border-radius: 50%;
@@ -138,6 +137,7 @@
 
   .list-group-link {
       border-right: none !important;
+      border-left: none !important;
       background-color: var(--ev-item-background);
       color: var(--ev-menu-item);
   }
@@ -152,7 +152,7 @@
       visibility: visible;
     }
   }
-  
+
   @media (min-width: 781px) {
     .only-mobile {
       // display: none;
@@ -162,5 +162,16 @@
       // display: block;
       visibility: visible;
     }
+  }
+ 
+  .recurring-span {
+    display: block;
+    background-color: grey;
+    border-radius: 30px;
+    width: max-content;
+    color: #fff;
+    padding: 3px 13px;
+    font-size: 12px;
+    margin: 3%;
   }
 

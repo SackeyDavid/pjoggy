@@ -13,7 +13,7 @@
 
 .navbar-brand span {
   display: inline-block;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: -1vh;
 }
 
@@ -33,4 +33,12 @@
     .only-non-mobile {
       display: block;
     }
+  }
+
+  .ev-event-title-for-sm {
+    display: block;
+    width: 80vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
   }

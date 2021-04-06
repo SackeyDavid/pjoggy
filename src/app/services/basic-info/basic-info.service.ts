@@ -15,6 +15,7 @@ export class BasicInfoService {
   updateBasicUrl: string;
   getCategoriesUrl: string;
   getSubcategoriesUrl: string;
+  getEventUrl: string;
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
@@ -23,6 +24,7 @@ export class BasicInfoService {
     this.updateBasicUrl = this.endpoint.apiHost + '';  // not available
     this.getCategoriesUrl = this.endpoint.apiHost + '/view_categories';
     this.getSubcategoriesUrl = this.endpoint.apiHost + '/view_sub_categories/';
+    this.getEventUrl = this.endpoint.apiHost + '/get_event_data/';
   }
 
   createBasicEvent(event: any): Promise<any> {
@@ -51,7 +53,7 @@ export class BasicInfoService {
         res => {
           console.log('create_event_ok: ', res);
           if (_.toLower(res.message) == 'ok') {
-            resolve(res.id);
+            resolve(res.id);            
           }
           else {
             resolve(0);
@@ -67,13 +69,13 @@ export class BasicInfoService {
 
   getCategories(): Promise<any> {
     return new Promise((resolve, reject) => {
-      let tickets: any[] = [];
+      let categories: any[] = [];
       const url = this.getCategoriesUrl;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('get_categories_ok: ', res);
-          tickets = res;
-          resolve(tickets);
+          categories = res;
+          resolve(categories);
         },
         err => {
           console.log('get_categories_error: ', err);
@@ -85,16 +87,34 @@ export class BasicInfoService {
 
   getSubcategories(categoryId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      let tickets: any[] = [];
+      let subcategories: any[] = [];
       const url = this.getSubcategoriesUrl + categoryId;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('get_subcategories_ok: ', res);
-          tickets = res;
-          resolve(tickets);
+          subcategories = res;
+          resolve(subcategories);
         },
         err => {
           console.log('get_subcategories_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getCreatedEvent(eventId: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let event;
+      const url = this.getEventUrl + eventId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_created_event: ', res);
+          event = res;
+          resolve(event);
+        },
+        err => {
+          console.log('get_created_event_error: ', err);
           reject(err);
         }
       );

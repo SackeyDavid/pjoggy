@@ -6,12 +6,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+textarea {
+  resize: initial;
+}
+
 .form-control:hover, select.form-control {
   border-color: #bbb;
 }
 
-input.form-control {
-  box-shadow: none;
+input.form-control, .form-floating>.form-control, .form-floating>.form-select {
+  box-shadow: none !important;
 }
 
 /* Ad banner Slider */

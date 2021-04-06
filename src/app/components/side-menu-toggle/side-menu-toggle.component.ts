@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -22,6 +23,11 @@ export class SideMenuToggleComponent implements OnInit {
   toggleSideMenu() {
     
     $('#side_bar').attr('class', 'sidenav slide-right');
+  }
+
+  
+  getEventStartDateFormatted(date: any) {
+    return moment(date).format('ddd, MMM D, YYYY h:mm A')
   }
 
 }

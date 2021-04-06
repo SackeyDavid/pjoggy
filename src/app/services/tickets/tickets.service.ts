@@ -21,7 +21,7 @@ export class TicketsService {
     this.getTicketUrl = this.endpoint.apiHost + '/get_events_tickets/';
     this.createTicketUrtl = this.endpoint.apiHost + '/v1/create_ticket';
     this.hasTicketUrl = this.endpoint.apiHost + '/v1/hasTicket/';
-    this.deleteTicketUrl = this.endpoint.apiHost + '';
+    this.deleteTicketUrl = this.endpoint.apiHost + '/v1/delete_ticket/';
   }
 
   /**
@@ -153,10 +153,19 @@ export class TicketsService {
    */
   deleteTicket(ticketId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.deleteTicketUrl = ticketId;
-      this.http.post(url, {}, { headers: this.headers }).subscribe(
-        res => {},
-        err =>{}
+      const url = this.deleteTicketUrl + ticketId;
+      this.http.post<any>(url, {}, { headers: this.headers }).subscribe(
+        res => {
+          console.log('delete_ticket_ok:', res);
+          if (_.toLower(res.message) == 'ok')
+            resolve(true)
+          else 
+            resolve(false);
+        },
+        err =>{
+          console.log('delete_ticket_error: ', err);
+          reject(err);
+        }
       );
     });
   }

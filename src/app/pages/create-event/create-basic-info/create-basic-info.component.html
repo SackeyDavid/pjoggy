@@ -1,18 +1,17 @@
-<!-- <app-navbar *ngIf="currentRoute === 'basic_info'"></app-navbar> -->
 <app-create-event-navbar></app-create-event-navbar>
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-3">
-      <div class="page-info" *ngIf="currentRoute === 'basic_info'">
+    <div class="col-md-4 col-lg-4">
+      <div class="page-info">
         <div class="title ev-margin-top-bottom">
           <h1 class="ev-font-size-xxlarge">Let's start you off easy!</h1>
-          <!-- <h5>Steps 1 <span class="of">of</span> 5</h5> -->
+          <h5>Steps 1 <span class="of">of</span> 5</h5>
         </div>
 
-        <!-- <div class="image">
+        <div class="image">
           <i class="bi-journal-text" style="font-size: 10em;"></i>
-        </div> -->
+        </div>
 
         <div class="description">
           <div class="card">
@@ -30,12 +29,11 @@
             <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
-          <!-- <span class="mt-2 text-danger" *ngIf="saveError">oops! something went wrong</span> -->
         </div>
       </div>
 
-      
-      <app-create-event-side-menu [currentPage]="'edit_basic_info'" *ngIf="currentRoute === 'edit_basic_info'"></app-create-event-side-menu>
+
+      <!-- <app-create-event-side-menu [currentPage]="'edit_basic_info'" *ngIf="currentRoute === 'edit_basic_info'"></app-create-event-side-menu> -->
     </div>
 
     <div class="col-1 only-non-mobile"></div>
@@ -72,7 +70,7 @@
             <div class="form-group">
               <div class="form-floating">
                 <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="description"></textarea>
-                <label for="floatingDesc">Event Description</label>                
+                <label for="floatingDesc">Event Description</label>
               </div>
             </div>
             <!-- /.description-->
@@ -89,10 +87,10 @@
                       <option value="3">Donations</option>
                     </select>
                     <label for="floatingType">Ticketing</label>
-                  </div>   
+                  </div>
                   <small *ngIf="saved && f.ticketing.errors" id="titleHelp" class="form-text invalid-feedback">
                     Ticketing is required.
-                  </small>               
+                  </small>
                 </div>
                 <div class="col">
                   <div class="form-floating">
@@ -102,18 +100,18 @@
                       <option value="2">Private</option>
                     </select>
                     <label for="floatingType">Event Type</label>
-                  </div>   
+                  </div>
                   <small *ngIf="saved && f.type.errors" id="titleHelp" class="form-text invalid-feedback">
                     Event type is required.
-                  </small>               
-                </div>                
+                  </small>
+                </div>
               </div>
             </div>
             <!-- /.end -->
 
             <!-- event categories -->
             <div class="form-group">
-              <div class="row">                
+              <div class="row">
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
@@ -134,15 +132,12 @@
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
                       formControlName="subcategory_id" [ngClass]="{'is-invalid': saved && f.subcategory_id.errors, 'is-valid': !f.subcategory_id.errors}">
                       <option *ngFor="let x of subCategoriesData" value={{x.id}}>{{x.name}}</option>
-                      <!-- <option value="1">Party</option>
-                      <option value="2">Meeting</option>
-                      <option value="3">Face Time</option> -->
                     </select>
                     <label for="floatingSelect">Event sub-category</label>
-                  </div> 
+                  </div>
                   <small *ngIf="saved && f.subcategory_id.errors" id="titleHelp" class="form-text invalid-feedback">
                     Event sub-category type is required.
-                  </small>              
+                  </small>
                 </div>
               </div>
             </div>
@@ -152,13 +147,13 @@
             <div class="form-group">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
-                <label for="floatingTags">Tags</label>                
+                <label for="floatingTags">Tags</label>
               </div>
             </div>
             <!-- /.tags -->
 
             <!-- selected tags -->
-            <div class="form-group tags-view">
+            <!-- <div class="form-group tags-view">
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
                   <button type="button" class="btn btn-sm btn-outline-secondary pr-2">#business</button>
@@ -193,7 +188,7 @@
                   </button>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- /.selected tags -->
           </div>
         </div>
@@ -215,10 +210,10 @@
 
           <div class="form-body">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-              <li class="nav-item" role="presentation" (click)="setRecurring(0)">
+              <li class="nav-item" role="presentation" (click)="setRecurring('0')">
                 <a class="nav-link active" id="pills-onetime-tab" data-toggle="pill" href="#pills-onetime" role="tab" aria-controls="pills-onetime" aria-selected="true">One-time Event</a>
               </li>
-              <li class="nav-item" role="presentation" (click)="setRecurring(1)">
+              <li class="nav-item" role="presentation" (click)="setRecurring('1')">
                 <a class="nav-link" id="pills-recurring-tab" data-toggle="pill" href="#pills-recurring" role="tab" aria-controls="pills-recurring" aria-selected="false">Recurring Event</a>
               </li>
             </ul>
@@ -232,11 +227,11 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
                           <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
-                            formControlName="start_date" ngbDatepicker #sd="ngbDatepicker"
+                            formControlName="start_date" ngbDatepicker #sd="ngbDatepicker" (click)="sd.toggle()"
                             [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
-                          <div class="input-group-append">
+                          <!-- <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar" (click)="sd.toggle()" type="button"></button>
-                          </div>
+                          </div> -->
                           <label for="floatingStartDate">Start Date</label>
                           <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
                             Start date type is required.
@@ -249,11 +244,11 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
                           <input type="text" class="form-control" id="floatingEndDate" aria-describedby="titleHelp" placeholder="End date"
-                            formControlName="end_date" ngbDatepicker #ed="ngbDatepicker"
+                            formControlName="end_date" ngbDatepicker #ed="ngbDatepicker" (click)="ed.toggle()"
                             [ngClass]="{'is-invalid': saved && f.end_date.errors, 'is-valid': !f.end_date.errors}">
-                          <div class="input-group-append">
+                          <!-- <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar" (click)="ed.toggle()" type="button"></button>
-                          </div>
+                          </div> -->
                           <label for="floatingEndDate">End Date</label>
                           <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
                             End date type is required.
@@ -271,11 +266,9 @@
                     <div class="col">
                       <div class="form-floating">
                         <div class="form-floating mb-3">
-                          <!-- <input type="text" class="form-control" id="floatingStartTime" aria-describedby="titleHelp" placeholder="Start time"
-                            formControlName="start_time" [ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}"> -->
-                          <ngb-timepicker [seconds]="true" id="floatingStartTime" aria-describedby="titleHelp" formControlName="start_time" 
+                          <ngb-timepicker [seconds]="true" id="floatingStartTime" aria-describedby="titleHelp" formControlName="start_time"
                             [ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}"></ngb-timepicker>
-                          <label for="floatingStartTime">Start Time</label>
+                          <label style="top: -3.5vh;" for="floatingStartTime">Start Time</label>
                           <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
                             Start time type is required.
                           </small>
@@ -286,11 +279,9 @@
                     <div class="col">
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
-                          <!-- <input type="text" class="form-control" id="floatingEndTime" aria-describedby="titleHelp" placeholder="End time"
-                            formControlName="end_time" [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}"> -->
-                          <ngb-timepicker [seconds]="true" id="floatingEndTime" aria-describedby="titleHelp" formControlName="end_time" 
+                          <ngb-timepicker [seconds]="true" id="floatingEndTime" aria-describedby="titleHelp" formControlName="end_time"
                             [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}"></ngb-timepicker>
-                          <label for="floatingEndTime">End Time</label>
+                          <label style="top: -3.5vh;" for="floatingEndTime">End Time</label>
                           <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
                             End time type is required.
                           </small>
@@ -299,9 +290,8 @@
                     </div>
                   </div>
                 </div>
-                <!-- /.end -->
+                <!-- /.end -->                
               </div>
-              <!-- /.end one-time event -->
 
               <!-- recurring event -->
               <div class="tab-pane fade" id="pills-recurring" role="tabpanel" aria-labelledby="pills-recurring-tab">
@@ -339,16 +329,16 @@
             <!-- start & end date -->
             <div class="form-group">
               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation" (click)="setHosting(1)">
+                <li class="nav-item" role="presentation" (click)="setHosting('0')">
                   <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
                     Location
                   </a>
                 </li>
-                <li class="nav-item" role="presentation" (click)="setHosting(1)">
+                <li class="nav-item" role="presentation" (click)="setHosting('1')">
                   <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
                     Online Event
                   </a>
-                </li>
+                </li>                
               </ul>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -363,16 +353,16 @@
                     <div class="form-floating">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingVenue" aria-describedby="titleHelp" placeholder="Venue" formControlName="venue">
-                        <label for="floatingVenue">Venue</label>                        
+                        <label for="floatingVenue">Venue</label>
                       </div>
                     </div>
                   </div>
 
-                  <div class="row form-group">
-                    <div class="col-lg-5 form-floating">
+                  <div class="form-group">
+                    <div class="form-floating">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingGps" aria-describedby="titleHelp" placeholder="GPS cordinates" formControlName="gps">
-                        <label for="floatingGps">GPS Cordinates</label>                        
+                        <label for="floatingGps">GPS Cordinates</label>
                       </div>
                     </div>
                   </div>
@@ -389,6 +379,21 @@
           /. End Location Section
         -->
       </form>
+      
+      <div class="navigation" *ngIf="currentRoute === 'edit_basic_info'">
+        <div class="nav-buttons">
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
+          <app-loading-button *ngIf="isLoading"></app-loading-button>
+        </div>
+        <!-- <span class="mt-2 text-danger" *ngIf="saveError">oops! something went wrong</span> -->
+      </div>
+      
+      <div class="navigation only-mobile" *ngIf="currentRoute !== 'edit_basic_info'">
+        <div class="nav-buttons">
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
+          <app-loading-button *ngIf="isLoading"></app-loading-button>
+        </div>
+      </div>
     </div>
 
     <div class="col-2  only-non-mobile"></div>

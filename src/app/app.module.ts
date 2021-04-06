@@ -49,7 +49,6 @@ import { CreateEventDetailsComponent } from './pages/create-event/create-event-d
 import { CreateEventSchedulesComponent } from './pages/create-event/create-event-schedules/create-event-schedules.component';
 import { CreateEventTicketingComponent } from './pages/create-event/create-event-ticketing/create-event-ticketing.component';
 import { CreateEventPublishComponent } from './pages/create-event/create-event-publish/create-event-publish.component';
-import { EditEventPageComponent } from './pages/edit-event/edit-event-page/edit-event-page.component';
 import { EmailConfirmedComponent } from './pages/user-auth/email-confirmed/email-confirmed.component';
 import { EmailInvalidComponent } from './pages/user-auth/email-invalid/email-invalid.component';
 import { PhoneAuthenticationComponent } from './pages/user-auth/phone-authentication/phone-authentication.component';
@@ -68,6 +67,15 @@ import { FormFooterComponent } from './components/auth-forms/form-footer/form-fo
 import { CreateEventSideMenuComponent } from './components/create-event-side-menu/create-event-side-menu.component';
 import { CreateEventNavbarComponent } from './components/create-event-navbar/create-event-navbar.component';
 import { SideMenuToggleComponent } from './components/side-menu-toggle/side-menu-toggle.component';
+import { EditBasicInfoComponent } from './pages/edit-event/edit-basic-info/edit-basic-info.component';
+import { EditEventDetailsComponent } from './pages/edit-event/edit-event-details/edit-event-details.component';
+import { EditEventMediaComponent } from './pages/edit-event/edit-event-media/edit-event-media.component';
+import { EditEventOrganizersComponent } from './pages/edit-event/edit-event-organizers/edit-event-organizers.component';
+import { EditEventSchedulesComponent } from './pages/edit-event/edit-event-schedules/edit-event-schedules.component';
+import { EditEventSpeakersComponent } from './pages/edit-event/edit-event-speakers/edit-event-speakers.component';
+import { EditEventSponsorsComponent } from './pages/edit-event/edit-event-sponsors/edit-event-sponsors.component';
+import { EditEventTicketingComponent } from './pages/edit-event/edit-event-ticketing/edit-event-ticketing.component';
+import { EventsListPageComponent } from './pages/events-list-page/events-list-page.component';
 
 
 @NgModule({
@@ -101,7 +109,6 @@ import { SideMenuToggleComponent } from './components/side-menu-toggle/side-menu
     CreateEventSchedulesComponent,
     CreateEventTicketingComponent,
     CreateEventPublishComponent,
-    EditEventPageComponent,
     LoadingButtonComponent,
     EmailConfirmedComponent,
     EmailInvalidComponent,
@@ -121,6 +128,15 @@ import { SideMenuToggleComponent } from './components/side-menu-toggle/side-menu
     CreateEventSideMenuComponent,
     CreateEventNavbarComponent,
     SideMenuToggleComponent,
+    EditBasicInfoComponent,
+    EditEventDetailsComponent,
+    EditEventMediaComponent,
+    EditEventOrganizersComponent,
+    EditEventSchedulesComponent,
+    EditEventSpeakersComponent,
+    EditEventSponsorsComponent,
+    EditEventTicketingComponent,
+    EventsListPageComponent,
   ],
   imports: [
     BrowserModule,

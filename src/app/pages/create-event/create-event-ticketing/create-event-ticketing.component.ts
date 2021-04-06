@@ -82,6 +82,7 @@ export class CreateEventTicketingComponent implements OnInit {
           ok => {
             if (ok) {
               this.isSaving = false;
+              this.saved = false;
               this.form.reset();
             }
             else {
@@ -147,7 +148,7 @@ export class CreateEventTicketingComponent implements OnInit {
           }
           else {
             const createdTicket = this.getCreatedTicketData(ticketId);
-            this.createdTicketList.push(createdTicket);
+            this.createdTicketList.unshift(createdTicket);
             resolve(true);
           }
         },
@@ -198,15 +199,14 @@ export class CreateEventTicketingComponent implements OnInit {
   }
 
   deleteTicket(ticketId: string, index: number): void {
-    this.createdTicketList.splice(index, 1);
-    // this.ticketService.deleteTicket(ticketId).then(
-    //   ok => {
-    //     ok
-    //       ? this.createdTicketList.splice(index, 1)
-    //       : this.displayFailedDeleteToast();
-    //   },
-    //   err => {}
-    // );
+    this.ticketService.deleteTicket(ticketId).then(
+      ok => {
+        ok
+          ? this.createdTicketList.splice(index, 1)
+          : this.displayFailedDeleteToast();
+      },
+      err => {}
+    );
   }
 
 }
