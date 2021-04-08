@@ -24,12 +24,12 @@
           </div>
         </div>
 
-        <div class="navigation">
+        <!-- <div class="navigation">
           <div class="nav-buttons">
             <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
-        </div>
+        </div> -->
       </div>
 
 
@@ -82,9 +82,9 @@
                   <div class="form-floating">
                     <select class="form-select" id="floatingType" aria-label="Floating label select example"
                       formControlName="ticketing" [ngClass]="{'is-invalid': saved && f.ticketing.errors, 'is-valid': !f.ticketing.errors}">
-                      <option value="1">Paid</option>
-                      <option value="2">Free</option>
-                      <option value="3">Donations</option>
+                      <option value="0">Paid</option>
+                      <option value="1">Free</option>
+                      <option value="2">Donations</option>
                     </select>
                     <label for="floatingType">Ticketing</label>
                   </div>
@@ -217,11 +217,10 @@
                 <a class="nav-link" id="pills-recurring-tab" data-toggle="pill" href="#pills-recurring" role="tab" aria-controls="pills-recurring" aria-selected="false">Recurring Event</a>
               </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent">
-              <!-- one time event -->
-              <div class="tab-pane fade show active" id="pills-onetime" role="tabpanel" aria-labelledby="pills-onetime-tab">
+            <!-- <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-onetime" role="tabpanel" aria-labelledby="pills-onetime-tab"> -->
                 <!-- start & end date -->
-                <div class="form-group">
+                <div class="form-group mt-3">
                   <div class="row">
                     <div class="col">
                       <div class="form-floating">
@@ -294,18 +293,18 @@
               </div>
 
               <!-- recurring event -->
-              <div class="tab-pane fade" id="pills-recurring" role="tabpanel" aria-labelledby="pills-recurring-tab">
+              <!-- <div class="tab-pane fade" id="pills-recurring" role="tabpanel" aria-labelledby="pills-recurring-tab">
                 <p class="lead mb-3">
                   If your event repeats or occurs more than once, you can schedule additional times and dates in the next step.
                 </p>
                 <p class="lead">
                   Event details and ticket types will automatically appear on all event occurrences and can't be customized for an individual occurrence.
                 </p>
-              </div>
+              </div> -->
               <!-- /.end recurring event -->
             </div>
-          </div>
-        </div>
+          <!-- </div>
+        </div> -->
         <!--
           /. End Date time Section
         -->

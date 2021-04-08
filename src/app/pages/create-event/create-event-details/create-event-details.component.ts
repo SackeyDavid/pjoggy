@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
+import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 
 @Component({
   selector: 'app-create-event-details',
@@ -9,6 +10,9 @@ import { EventDetailsService } from 'src/app/services/event-details/event-detail
   styleUrls: ['./create-event-details.component.scss']
 })
 export class CreateEventDetailsComponent implements OnInit {
+
+  eventTitle: string = ''
+  eventDate: string = ''
 
   isLoading: boolean;
   isBannerSet: boolean;
@@ -25,7 +29,8 @@ export class CreateEventDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private eventDetailsService: EventDetailsService
+    private eventDetailsService: EventDetailsService,
+    private basicInfoService: BasicInfoService
   ) {
     this.isLoading = false;
     this.isBannerSet = false;
@@ -41,6 +46,11 @@ export class CreateEventDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    var data: any =  sessionStorage.getItem('created_event')
+    data = JSON.parse(data)
+    this.eventTitle = data.event[0].title;
+    this.eventDate = data.event[0].start_date_time
+    
   }
 
   previous() {
@@ -82,7 +92,7 @@ export class CreateEventDetailsComponent implements OnInit {
     var data: any =  sessionStorage.getItem('created_event');
     data = JSON.parse(data);
     var eventId = data.event[0].id;
-console.log(this.f.email);
+    console.log(this.f.email);
     this.saved = true;
     if (this.form.valid) {
       console.log('form is valid');
@@ -92,11 +102,12 @@ console.log(this.f.email);
         res => {
           if (res) {
             this.isLoading = false;
-            this.router.navigateByUrl('/edit_event/ticketing');
+            this.getCreatedEvent(eventId);
+            this.router.navigateByUrl('/create_event/ticketing');
           }
           else {
             this.isLoading = false;
-            alert('didnt create');
+            alert("oops, didn't create");
           }
         },
         err => {
@@ -161,6 +172,18 @@ console.log(this.f.email);
 
   setTeamsVisibility(){
     this.teamsVisibility = this.f.teams_checkbox.value;
+  }
+
+  getCreatedEvent(eventId: any): void {
+    this.eventDetailsService.getCreatedEvent(eventId).then(
+      res => {
+        console.log(res);
+        sessionStorage.setItem('created_event', JSON.stringify(res));
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

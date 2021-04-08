@@ -42,12 +42,6 @@ export class CreateBasicInfoComponent implements OnInit {
     this.toggleVenueView();
     this.getCategories();
     this.disableSubcategory();
-
-    // this.url = this.router.url
-    // var ind1 = this.url.indexOf('/');
-    // var ind2 = this.url.indexOf('/', ind1 + 1);
-
-    // this.currentRoute = this.url.substring(ind2 + 1);
   }
 
   public get f(): any {

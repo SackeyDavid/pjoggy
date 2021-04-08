@@ -72,7 +72,6 @@ export class TicketsService {
     return new Promise((resolve, reject) => {
       const url = this.editTicketUrl + ticketId;
       const body = {
-        // 'event_id': ticket.eventId,
         'name': ticket.name,
         'quantity': ticket.quantity,
         'price': ticket.price,
@@ -123,7 +122,7 @@ export class TicketsService {
   }
 
   /**
-   * Determines if an event has tickets.
+   * Determines if an event has tickets. 
    * @param eventId Event ID.
    * @returns 
    */

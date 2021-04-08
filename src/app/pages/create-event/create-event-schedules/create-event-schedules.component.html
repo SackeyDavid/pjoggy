@@ -6,7 +6,7 @@
       <app-create-event-side-menu [currentPage]="'schedule'"></app-create-event-side-menu>
 
       <ng-container *ngIf="eventTitle != null">
-        <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate ></app-side-menu-toggle>
+        <app-side-menu-toggle [eventTitle]=eventTitle [eventDate]=startDate ></app-side-menu-toggle>
       </ng-container>
      </div>
 
@@ -46,7 +46,7 @@
     <div class="col-md-7 col-lg-5 col-sm-12">
       <!-- As a link -->
       <!-- <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'"></app-side-menu-toggle> -->
-      <div class="form">
+      <form class="form" [formGroup]="form" (ngSubmit)="create()">
         <div class="divider mb-1 mt-5"></div>
 
         <!--
@@ -69,7 +69,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date" formControlName="start_date">
                       <label for="floatingTitle">Start Date</label>
                       <small id="titleHelp" class="form-text text-muted">
                         Start date is required.
@@ -81,7 +81,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date" formControlName="end_date">
                       <label for="floatingTitle">End Date</label>
                       <small id="titleHelp" class="form-text text-muted">
                         End date is required.
@@ -96,77 +96,74 @@
             <!-- occurence -->
             <div class="form-group">
               <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                  <option selected>Daily</option>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="recurs" (change)="setReccurance()"
+                  [ngClass]="{'is-invalid': saved && f.recurs.errors, 'is-valid': !f.recurs.errors}">
+                  <option value="0" selected>Daily</option>
                   <option value="1">Weekly</option>
                   <option value="2">Monthly</option>
-                  <option value="3">Yearly</option>
+                  <!-- <option value="3">Yearly</option> -->
                 </select>
                 <label for="floatingSelect">Occurs</label>
               </div>
-              <small id="descHelp" class="form-text text-muted">
-                Occurance date is required.
+              <small *ngIf="saved && f.recurs.errors" id="titleHelp" class="form-text invalid-feedback">
+                Recurance rate is required.
               </small>
             </div>
             <!-- /.end occurence -->
 
             <!-- specificity -->
-            <div class="form-group mb-4">
-              <div class="row">
-                <div class="col">
-                  <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                      <option selected>Wed</option>
-                      <option value="1">Mon</option>
-                      <option value="2">Tue</option>
-                      <option value="3">Wed</option>
-                      <option value="3">Thu</option>
-                      <option value="3">Fri</option>
-                      <option value="3">Sat</option>
-                      <option value="3">Sun</option>
-                      <option value="3">Everyday</option>
-                    </select>
-                    <label for="floatingSelect">Select Days</label>
-                  </div>
-                  <small id="descHelp" class="form-text text-muted">
-                    Day is required.
-                  </small>
-                </div>
-                <div class="col">
-                  <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                      <option selected>Jun</option>
-                      <option value="1">Jan</option>
-                      <option value="2">Feb</option>
-                      <option value="3">Mar</option>
-                      <option value="3">Apr</option>
-                      <option value="3">May</option>
-                      <option value="3">Jun</option>
-                      <option value="3">Jul</option>
-                      <option value="3">Aug</option>
-                      <option value="3">Sep</option>
-                      <option value="3">Oct</option>
-                      <option value="3">Nov</option>
-                      <option value="3">Dec</option>
-                      <option value="3">Once per month</option>
-                    </select>
-                    <label for="floatingSelect">Select Month</label>
-                  </div>
-                  <small id="descHelp" class="form-text text-muted">
-                    Month is required.
-                  </small>
-                </div>
+            <div *ngIf="isDaily == true" class="form-group mb-4">              
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="days">
+                  <option value=null>Everyday</option>
+                  <option value="1">Mon</option>
+                  <option value="2">Tue</option>
+                  <option value="3">Wed</option>
+                  <option value="4">Thu</option>
+                  <option value="5">Fri</option>
+                  <option value="6">Sat</option>
+                  <option value="7">Sun</option>
+                </select>
+                <label for="floatingSelect">Select Days</label>
               </div>
+              <!-- <small id="descHelp" class="form-text text-muted">
+                Day is required.
+              </small> -->
+            </div>
+
+            <div *ngIf="isMonthly == true" class="form-group mb-4">              
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="months">
+                  <option selected>Jun</option>
+                  <option value="1">Jan</option>
+                  <option value="2">Feb</option>
+                  <option value="3">Mar</option>
+                  <option value="3">Apr</option>
+                  <option value="3">May</option>
+                  <option value="3">Jun</option>
+                  <option value="3">Jul</option>
+                  <option value="3">Aug</option>
+                  <option value="3">Sep</option>
+                  <option value="3">Oct</option>
+                  <option value="3">Nov</option>
+                  <option value="3">Dec</option>
+                  <option value="3">Once per month</option>
+                </select>
+                <label for="floatingSelect">Select Month</label>
+              </div>
+              <!-- <small id="descHelp" class="form-text text-muted">
+                Month is required.
+              </small> -->
             </div>
             <!-- /.end -->
 
             <!-- start & end time -->
-            <div class="form-group">
+            <!-- <div class="form-group">
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start time">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start time"  formControlName="start_time">
                       <label for="floatingTitle">Start Time</label>
                       <small id="titleHelp" class="form-text text-muted">
                         Start time is required.
@@ -178,7 +175,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End time">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End time"  formControlName="end_time">
                       <label for="floatingTitle">End Time</label>
                       <small id="titleHelp" class="form-text text-muted">
                         End time is required.
@@ -187,14 +184,14 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- /.end -->
           </div>
         </div>
         <!--
           /. End Date time Section
         -->
-      </div>
+      </form>
 
       <!-- <div class="container">
         <div class="col-md-9 offset-md-3">
@@ -207,12 +204,12 @@
       <div class="col-sm-12 navigation">
         <div class="nav-buttons only-non-mobile">
           <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
-          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="save()">Save & Continue</button>
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
           <app-loading-button *ngIf="isLoading"></app-loading-button>
         </div>
         <div class="nav-buttons only-mobile">
           <button type="button" class="btn btn-md btn-warning mr-3" (click)="previous()">Previous</button>
-          <button *ngIf="!isLoading" type="button" class="btn btn-md btn-primary" (click)="save()">Save & Continue</button>
+          <button *ngIf="!isLoading" type="button" class="btn btn-md btn-primary" (click)="create()">Save & Continue</button>
           <app-loading-button *ngIf="isLoading"></app-loading-button>
         </div>
       </div>

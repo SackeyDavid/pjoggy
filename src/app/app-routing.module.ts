@@ -115,7 +115,7 @@ const routes: Routes = [
       },
       {
         path: 'ticketing',
-        component: EditEventTicketingComponent
+        component: CreateEventTicketingComponent
       },
       {
         path: 'publishing',

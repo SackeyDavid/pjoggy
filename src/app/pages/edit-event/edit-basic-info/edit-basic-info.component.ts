@@ -12,6 +12,9 @@ import { DatetimeFormatterService } from 'src/app/services/datetime-formatter/da
   styleUrls: ['./edit-basic-info.component.scss']
 })
 export class EditBasicInfoComponent implements OnInit {
+  
+  eventTitle: string = ''
+  eventDate: string = ''
 
   isLoading: boolean;
   saved: boolean;
@@ -55,6 +58,7 @@ export class EditBasicInfoComponent implements OnInit {
   ngOnInit(): void {
     this.populateForm()
     this.initForm();
+    this.populateSubCategory()
     this.toggleVenueView();
     this.getCategories();
     this.disableSubcategory();
@@ -65,6 +69,12 @@ export class EditBasicInfoComponent implements OnInit {
     var ind2 = this.url.indexOf('/', ind1 + 1);
 
     this.currentRoute = this.url.substring(ind2 + 1);
+
+    var data: any =  sessionStorage.getItem('created_event')
+    data = JSON.parse(data)
+    this.eventTitle = data.event[0].title;
+    this.eventDate = data.event[0].start_date_time
+    
   }
 
   save(): void {
@@ -194,9 +204,20 @@ export class EditBasicInfoComponent implements OnInit {
       console.log(change);
       if (change != '') {
         this.form.controls['subcategory_id'].enable();
-        this.getSubsategories();
+        this.form.controls['subcategory_id'].setValue('') ;
+        this.getSubsategories(this.f.category_id.value);
       }
     });
+  }
+
+  populateSubCategory(): void {
+    // this.form.controls['category_id'].valueChanges.subscribe(change => {
+    //   console.log(change);
+    //   if (change != '') {
+      this.form.controls['subcategory_id'].enable();
+      this.getSubsategories(this.event.category);
+      // }
+    // });
   }
 
   getCategories(): void {
@@ -211,8 +232,9 @@ export class EditBasicInfoComponent implements OnInit {
     );
   }
 
-  getSubsategories(): void {
-    this.basicInfoService.getSubcategories(this.f.category_id.value).then(
+  getSubsategories(id: any): void {
+    // this.f.category_id.value
+    this.basicInfoService.getSubcategories(id).then(
       res => {
         console.log(res);
         this.subCategoriesData = res.sub_categories;
@@ -243,26 +265,26 @@ export class EditBasicInfoComponent implements OnInit {
     this.event.recurring = data.event[0].recurring;
     this.event.title = data.event[0].title
     this.event.description = data.event[0].description
-    // switch (data.event[0].ticketing) {
-    //   case 'Donation':
-    //     this.event.ticketing = 2
+    // switch (data.event[0].Category) {
+    //   case 'Corporate Events':
+    //     this.event.category = 2
     //     break;
       
-    //   case 'Paid':
-    //     this.event.ticketing = 1
+    //   case 'Festivals':
+    //     this.event.category = 4
     //     break;
 
-    //   case 'Free':
-    //     this.event.ticketing = 0
+    //   case 'Social Events':
+    //     this.event.category = 3
     //     break;
-    
+     
     //   default:
-    //     this.event.ticketing = 0;
+    //     this.event.category = 2;
     // }
     this.event.ticketing = data.event[0].ticketing
-    this.event.type = ((data.event[0].type === true) ? '1' : '2')
-    this.event.category = ((data.event[0].Category == 'Corporate Events') ? '2' : '3')
-    this.event.subcategory = ((data.event[0].sub_category == 'Seminars') ? '2' : '1')
+    this.event.type = ((data.event[0].type === true) ? '2' : '1')
+    this.event.category = data.event[0].Category_id
+    this.event.subcategory = data.event[0].subcategory_id 
     this.event.tags = ((data.event[0].tags != null) ? data.event[0].tags : '')
     this.event.start_date = data.event[0].start_date_time.split(' ')[0]
     

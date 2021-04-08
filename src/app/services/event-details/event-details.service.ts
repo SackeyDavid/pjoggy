@@ -13,6 +13,7 @@ export class EventDetailsService {
   editDetailsUrl: string;
   getBasicUrl: string;
   updateBasicUrl: string;
+  getEventUrl: string
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
@@ -20,10 +21,11 @@ export class EventDetailsService {
     this.editDetailsUrl = this.endpoint.apiHost + '/v1/edit_more_event_info/'; 
     this.getBasicUrl = this.endpoint.apiHost + '';  // not available
     this.updateBasicUrl = this.endpoint.apiHost + '';  // not available
+    this.getEventUrl = this.endpoint.apiHost + '/get_event_data/';
   }
 
   editEventDetails(event: any, banner: File, eventId: any): Promise<any> {
-    console.log(this.editDetailsUrl);
+    console.log(this.editDetailsUrl, eventId);
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append("banner_image", banner);
@@ -37,7 +39,7 @@ export class EventDetailsService {
         res => {
           console.log('create_event_ok: ', res);
           if (_.toLower(res.message) == 'ok') {
-            resolve(res.message);
+            resolve(res.message); 
           }
           else {
             resolve(0);
@@ -45,6 +47,24 @@ export class EventDetailsService {
         },
         err => {
           console.error('create_event_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getCreatedEvent(eventId: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let event;
+      const url = this.getEventUrl + eventId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_created_event: ', res);
+          event = res;
+          resolve(event);
+        },
+        err => {
+          console.log('get_created_event_error: ', err);
           reject(err);
         }
       );
