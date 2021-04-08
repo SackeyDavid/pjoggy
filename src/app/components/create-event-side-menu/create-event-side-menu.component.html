@@ -9,11 +9,11 @@
     <span class="ev-event-date hide">{{getEventStartDateFormatted(event.start_date_time)}} 
       <!-- <span class="of">7:00</span> PM -->
     </span>
-    <span *ngIf="event.recurring === 'Yes'" class="recurring-span">
+    <span *ngIf="event.recurring === '1'" class="recurring-span">
       <i class="bi bi-arrow-repeat"></i> Recurring event
     </span>
   </div>
-  <ng-container *ngIf="event.recurring === 'Yes'">
+  <ng-container *ngIf="event.recurring === '1'">
     <a routerLink="/edit_event/basic_info" [class.active]="currentPage === 'basic_info'">
       <span class="ev-checkmark"><i class="bi bi-check2"></i></span> Basic Info</a>
 
@@ -42,7 +42,7 @@
       class="ev-checkmark">5</span> Publishing</a>
   </ng-container>
 
-  <ng-container *ngIf="event.recurring === 'No'">
+  <ng-container *ngIf="event.recurring === '0'">
     <a routerLink="/edit_event/basic_info" [class.active]="currentPage === 'basic_info'">
       <span class="ev-checkmark"><i class="bi bi-check2"></i></span> Basic Info</a>
     <!-- <a routerLink="/create_event/schedule" [class.active]="currentPage === 'schedule'"><span class="ev-checkmark">2</span> Schedule</a> -->

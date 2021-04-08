@@ -23,6 +23,22 @@ export class EditBasicInfoComponent implements OnInit {
   url: string = '';
   currentRoute: string = '';
 
+  event: any = {
+    title: '',
+    description: '',
+    ticketing: '',
+    type: '',
+    category: '',
+    subcategory: '',
+    tags: '',
+    start_date: '',
+    end_date: '',
+    start_time: '',
+    end_time: '',
+    venue: '',
+    gps: ''
+  }
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -37,6 +53,7 @@ export class EditBasicInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.populateForm()
     this.initForm();
     this.toggleVenueView();
     this.getCategories();
@@ -63,23 +80,24 @@ export class EditBasicInfoComponent implements OnInit {
 
 
   initForm(): void {
+    console.log(this.event.start_date)
     this.form = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: [''],
-      venue: [''],
-      gps: [''],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
-      start_time: ['', Validators.required],
-      end_time: ['', Validators.required],
-      recurring: ['0'],
-      type: ['', Validators.required],
-      ticketing: ['', Validators.required],
-      category_id: ['', Validators.required],
-      subcategory_id: ['', Validators.required],
-      tags: [''],
+      title: [this.event.title, Validators.required],
+      description: [this.event.description],
+      venue: [this.event.venue],
+      gps: [this.event.gps],
+      start_date: [this.event.start_date, Validators.required],
+      end_date: [this.event.end_date, Validators.required],
+      start_time: [this.event.start_time, Validators.required],
+      end_time: [this.event.end_time, Validators.required],
+      recurring: [this.event.recurring],
+      type: [this.event.type, Validators.required],
+      ticketing: [this.event.ticketing, Validators.required],
+      category_id: [this.event.category, Validators.required],
+      subcategory_id: [this.event.subcategory, Validators.required],
+      tags: [this.event.tags],
       venue_tobe_announced: [0],
-      hosting: ['1']
+      hosting: [this.event.hosting]
     });
   }
 
@@ -216,5 +234,48 @@ export class EditBasicInfoComponent implements OnInit {
       }
     );
   }
+
+  populateForm(): void {
+        
+    var data: any =  sessionStorage.getItem('created_event')
+    data = JSON.parse(data)
+    console.log(data)
+    this.event.recurring = data.event[0].recurring;
+    this.event.title = data.event[0].title
+    this.event.description = data.event[0].description
+    // switch (data.event[0].ticketing) {
+    //   case 'Donation':
+    //     this.event.ticketing = 2
+    //     break;
+      
+    //   case 'Paid':
+    //     this.event.ticketing = 1
+    //     break;
+
+    //   case 'Free':
+    //     this.event.ticketing = 0
+    //     break;
+    
+    //   default:
+    //     this.event.ticketing = 0;
+    // }
+    this.event.ticketing = data.event[0].ticketing
+    this.event.type = ((data.event[0].type === true) ? '1' : '2')
+    this.event.category = ((data.event[0].Category == 'Corporate Events') ? '2' : '3')
+    this.event.subcategory = ((data.event[0].sub_category == 'Seminars') ? '2' : '1')
+    this.event.tags = ((data.event[0].tags != null) ? data.event[0].tags : '')
+    this.event.start_date = data.event[0].start_date_time.split(' ')[0]
+    
+    this.event.end_date = data.event[0].end_date_time.split(' ')[0]
+    this.event.start_time = data.event[0].start_date_time.split(' ')[1]
+    this.event.end_time = data.event[0].end_date_time.split(' ')[1]
+
+    this.event.venue = ((data.event[0].venue != null) ? data.event[0].venue : '')
+    this.event.gps =((data.event[0].gps != null) ? data.event[0].gps : '')
+
+    console.log(this.event)
+      
+  }
+
 
 }

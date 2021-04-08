@@ -56,7 +56,7 @@
             <!-- title -->
             <div class="form-group">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event title"
+                <input  type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event title"
                   formControlName="title" [ngClass]="{'is-invalid': saved && f.title.errors, 'is-valid': !f.title.errors}">
                 <label for="floatingTitle">Event Title</label>
                 <small *ngIf="saved && f.title.errors" id="titleHelp" class="form-text invalid-feedback">
@@ -69,7 +69,7 @@
             <!-- description -->
             <div class="form-group">
               <div class="form-floating">
-                <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="description"></textarea>
+                <textarea [(ngModel)] = "event.description" class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="description"></textarea>
                 <label for="floatingDesc">Event Description</label>
               </div>
             </div>
@@ -82,9 +82,9 @@
                   <div class="form-floating">
                     <select class="form-select" id="floatingType" aria-label="Floating label select example"
                       formControlName="ticketing" [ngClass]="{'is-invalid': saved && f.ticketing.errors, 'is-valid': !f.ticketing.errors}">
-                      <option value="1">Paid</option>
-                      <option value="2">Free</option>
-                      <option value="3">Donations</option>
+                      <option value="0">Paid</option>
+                      <option value="1">Free</option>
+                      <option value="2">Donations</option>
                     </select>
                     <label for="floatingType">Ticketing</label>
                   </div>
@@ -226,7 +226,7 @@
                     <div class="col">
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
-                          <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
+                          <input [(ngModel)]="event.start_date" type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
                             formControlName="start_date" ngbDatepicker #sd="ngbDatepicker" (click)="sd.toggle()"
                             [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
                           <!-- <div class="input-group-append">

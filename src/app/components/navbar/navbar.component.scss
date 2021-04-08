@@ -219,3 +219,68 @@ nav {
   right: 1rem;
 }
 
+
+// user dropdown styles
+// user logged in dropdown css 
+.dropdown_user {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.dropdown-content_user {
+  display: none;
+  margin-left: -290%;
+  position: absolute;
+  background-color: #fff;
+  min-width: 250px;
+  border-radius: 15px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 1vh;
+  transition: 0.5s;
+}
+
+.dropdown-content_user a {
+  color: #595959;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 400 !important;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content_user a:hover {
+  background-color: #f4f4f4;
+    
+}
+
+.dropdown-content_user #logout_link:hover {
+  // background-color: #f4f4f4;
+  border-end-start-radius: 15px;
+  border-end-end-radius: 15px;
+}
+
+.dropdown-content_user #browse_events_link:hover {
+  // background-color: #f4f4f4;
+  border-start-start-radius: 15px;
+  border-start-end-radius: 15px;
+}
+
+ev-avatar img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.dropdown_user:hover .dropdown-content_user {
+  display: block;
+  transition: 0.5s;
+}
+
+.dropdown_user:hover .dropbtn_user {
+  background-color: inherit;
+  transition: 0.5s;
+}
+
+

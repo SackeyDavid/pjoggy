@@ -9,35 +9,35 @@ import _ from 'lodash';
 export class EventDetailsService {
 
   private headers: HttpHeaders;
+  private formHeaders: HttpHeaders;
   editDetailsUrl: string;
   getBasicUrl: string;
   updateBasicUrl: string;
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
-    this.editDetailsUrl = this.endpoint.apiHost + '/v1/edit_more_event_info/18';  // can't get event id for now
+    this.formHeaders = this.endpoint.formHeaders();
+    this.editDetailsUrl = this.endpoint.apiHost + '/v1/edit_more_event_info/'; 
     this.getBasicUrl = this.endpoint.apiHost + '';  // not available
     this.updateBasicUrl = this.endpoint.apiHost + '';  // not available
   }
 
-  editEventDetails(event: any): Promise<any> {
+  editEventDetails(event: any, banner: File, eventId: any): Promise<any> {
     console.log(this.editDetailsUrl);
     return new Promise((resolve, reject) => {
-      const body = {
-        'banner_image': event.banner_image,        
-        'organizer': event.organizer,        
-        'email': event.email,        
-        'phone': event.phone,        
-        'hosted_on': event.hosted_on,        
-      };
+      const formData = new FormData();
+      formData.append("banner_image", banner);
+      formData.append("organizer", event.organizer);
+      formData.append("email", event.email);
+      formData.append("phone", event.phone);
+      formData.append("hosted_on", JSON.stringify(event.hosted_on));
 
-      console.log(body);
-
-      this.http.post<any>(this.editDetailsUrl, JSON.stringify(body), { headers: this.headers}).subscribe(
+      const url = this.editDetailsUrl + eventId;
+      this.http.post<any>(url, formData, { headers: this.formHeaders}).subscribe(
         res => {
           console.log('create_event_ok: ', res);
           if (_.toLower(res.message) == 'ok') {
-            resolve(res.id);
+            resolve(res.message);
           }
           else {
             resolve(0);

@@ -147,7 +147,7 @@
                   <div class="form-floating">
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event organizer's phone number"
-                        formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': !f.phone.errors}">
+                        formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': f.phone.value!='' && !f.phone.errors}">
                       <label for="floatingTitle">Phone Number</label>
                       <small *ngIf="saved && f.phone.errors" id="titleHelp" class="form-text invalid-feedback">
                         Must begin with country code
@@ -160,7 +160,7 @@
                   <div class="form-floating">
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event organizer's email address"
-                        formControlName="email" [ngClass]="{'is-invalid': saved && f.email.errors, 'is-valid': !f.email.errors}">
+                        formControlName="email" [ngClass]="{'is-invalid': saved && f.email.errors, 'is-valid': f.email.value!='' && !f.email.errors}">
                       <label for="floatingTitle">Email Address</label>
                       <small *ngIf="saved && f.email.errors" id="titleHelp" class="form-text invalid-feedback">
                         Must provide a valid email address
@@ -176,6 +176,98 @@
         <!--
           /. End Contact Section
         -->
+
+        <div class="divider"></div>
+
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>External Hosting</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">Ralph will add more detail texts here.</p>
+            </div>
+          </div>
+
+          <div class="row ml-3 mb-3">
+            <div class="col">
+              <input type="checkbox" class="form-check-input" id="facebookCheckbox" formControlName="facebook_checkbox" (change)="setFacebookVisibility()">
+              <label class="form-check-label" for="facebookCheckbox">Facebook</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" class="form-check-input" id="zoomCheckbox" formControlName="zoom_checkbox" (change)="setZoomVisibility()">
+              <label class="form-check-label" for="zoomCheckbox">Zoom</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" class="form-check-input" id="youtubeCheckbox" formControlName="youtube_checkbox" (change)="setYoutubeVisibility()">
+              <label class="form-check-label" for="youtubeCheckbox">Youtube</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" class="form-check-input" id="meetCheckbox" formControlName="meet_checkbox" (change)="setMeetVisibility()">
+              <label class="form-check-label" for="meetCheckbox">Meet</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" class="form-check-input" id="teamsCheckbox" formControlName="teams_checkbox" (change)="setTeamsVisibility()">
+              <label class="form-check-label" for="teamsCheckbox">Teams</label>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="facebookVisibility==true">
+            <div class="col">
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-facebook"></i></span>
+                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="facebook_hosting">
+                  <label class="hosting-icon" for="floatingTitle">Facebook</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="zoomVisibility==true">
+            <div class="col">
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
+                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting">
+                  <label class="hosting-icon" for="floatingTitle">Zoom</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="youtubeVisibility==true">
+            <div class="col">
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-youtube"></i></span>
+                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="youtube_hosting">
+                  <label class="hosting-icon" for="floatingTitle">Youtube</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="meetVisibility==true">
+            <div class="col">
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
+                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting">
+                  <label class="hosting-icon" for="floatingTitle">Meet</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="teamsVisibility==true">
+            <div class="col">
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
+                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting">
+                  <label class="hosting-icon" for="floatingTitle">Teams</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="col-sm-12 navigation">
           <div class="nav-buttons only-non-mobile">

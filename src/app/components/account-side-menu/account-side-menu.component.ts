@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeSwitcherService } from 'src/app/services/theme-switcher.service';
+import { ThemeSwitcherService } from 'src/app/services/theme-switcher/theme-switcher.service';
 
 @Component({
   selector: 'app-account-side-menu',

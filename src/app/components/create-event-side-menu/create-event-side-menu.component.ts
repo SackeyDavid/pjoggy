@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ThemeSwitcherService } from 'src/app/services/theme-switcher.service';
+import { ThemeSwitcherService } from 'src/app/services/theme-switcher/theme-switcher.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import moment from 'moment';
-import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-check.service';
+import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-check/event-side-menu-check.service';
 declare var $: any;
 
 

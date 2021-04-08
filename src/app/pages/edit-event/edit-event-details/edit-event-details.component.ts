@@ -64,22 +64,22 @@ export class EditEventDetailsComponent implements OnInit {
     if (this.form.valid) {
       console.log('form is valid');
       this.isLoading = true;
-      this.eventDetailsService.editEventDetails(this.getFormData()).then(
-        res => {
-          if (res) {
-            this.isLoading = false;
-            this.router.navigateByUrl('/create_event/ticketing');
-          }
-          else {
-            this.isLoading = false;
-            alert('didnt create');
-          }
-        },
-        err => {
-          console.log(err);
-          this.isLoading = false;
-        }
-      );
+      // this.eventDetailsService.editEventDetails(this.getFormData()).then(
+      //   res => {
+      //     if (res) {
+      //       this.isLoading = false;
+      //       this.router.navigateByUrl('/create_event/ticketing');
+      //     }
+      //     else {
+      //       this.isLoading = false;
+      //       alert('didnt create');
+      //     }
+      //   },
+      //   err => {
+      //     console.log(err);
+      //     this.isLoading = false;
+      //   }
+      // );
     }
   }
 

@@ -114,9 +114,9 @@
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" (change)="getSubcategories()"
                       formControlName="category_id" [ngClass]="{'is-invalid': saved && f.category_id.errors, 'is-valid': !f.category_id.errors}">
-                      <option *ngFor="let x of categoriesData" value={{x.id}}>{{x.temp_name}}</option>
+                      <option *ngFor="let x of categoriesData" [value]=x.id>{{x.temp_name}}</option>
                       <!-- <option value="1">Business</option>
                       <option value="2">Conference</option>
                       <option value="3">Entertainment</option> -->
@@ -129,11 +129,11 @@
                 </div>
                 <div class="col">
                   <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
-                      formControlName="subcategory_id" [ngClass]="{'is-invalid': saved && f.subcategory_id.errors, 'is-valid': !f.subcategory_id.errors}">
-                      <option *ngFor="let x of subCategoriesData" value={{x.id}}>{{x.name}}</option>
+                    <select class="form-select" id="floatingSelect1" aria-label="Floating label select example"
+                      formControlName="subcategory_id" [ngClass]="{'is-invalid': saved && f.subcategory_id.errors, 'is-valid': f.subcategory_id.value!='' && !f.subcategory_id.errors}">
+                      <option *ngFor="let x of subCategoriesData" [value]=x.id>{{x.name}}</option>
                     </select>
-                    <label for="floatingSelect">Event sub-category</label>
+                    <label for="floatingSelect1">Event sub-category</label>
                   </div>
                   <small *ngIf="saved && f.subcategory_id.errors" id="titleHelp" class="form-text invalid-feedback">
                     Event sub-category type is required.
