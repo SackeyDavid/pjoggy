@@ -13,6 +13,7 @@ export class CreateEventDetailsComponent implements OnInit {
 
   eventTitle: string = ''
   eventDate: string = ''
+  eventID: string = ''
 
   isLoading: boolean;
   isBannerSet: boolean;
@@ -50,6 +51,7 @@ export class CreateEventDetailsComponent implements OnInit {
     data = JSON.parse(data)
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
+    this.eventID = data.event[0].id
     
   }
 
@@ -71,7 +73,7 @@ export class CreateEventDetailsComponent implements OnInit {
   initForm(): void {
     this.form = this.formBuilder.group({
       email: ['', Validators.email],
-      phone: ['', [Validators.minLength(12), Validators.maxLength(12)]],      
+      phone: ['', [Validators.minLength(13), Validators.maxLength(13)]],      
       hosted_on: [''],
       banner_image: [''],
       organizer: ['', Validators.required],
@@ -89,20 +91,21 @@ export class CreateEventDetailsComponent implements OnInit {
   }
 
   create(): void {
-    var data: any =  sessionStorage.getItem('created_event');
-    data = JSON.parse(data);
-    var eventId = data.event[0].id;
+    // var data: any =  sessionStorage.getItem('created_event');
+    // data = JSON.parse(data);
+    // var eventId = data.event[0].id;
     console.log(this.f.email);
     this.saved = true;
     if (this.form.valid) {
       console.log('form is valid');
       console.log(this.getFormData());
+      console.log( this.f.banner_image.value)
       this.isLoading = true;
-      this.eventDetailsService.editEventDetails(this.getFormData(), this.f.banner_image.value, eventId).then(
+      this.eventDetailsService.editEventDetails(this.getFormData(), this.f.banner_image.value, this.eventID).then(
         res => {
           if (res) {
             this.isLoading = false;
-            this.getCreatedEvent(eventId);
+            this.getCreatedEvent(this.eventID);
             this.router.navigateByUrl('/create_event/ticketing');
           }
           else {

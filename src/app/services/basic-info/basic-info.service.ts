@@ -13,6 +13,7 @@ export class BasicInfoService {
   createBasicUrl: string;
   getBasicUrl: string;
   updateBasicUrl: string;
+  editBasicUrl: string;
   getCategoriesUrl: string;
   getSubcategoriesUrl: string;
   getEventUrl: string;
@@ -22,6 +23,7 @@ export class BasicInfoService {
     this.createBasicUrl = this.endpoint.apiHost + '/v1/create_event';
     this.getBasicUrl = this.endpoint.apiHost + '/get_event_data';
     this.updateBasicUrl = this.endpoint.apiHost + '';  // not available
+    this.editBasicUrl = this.endpoint.apiHost + '/v1/edit_event/'
     this.getCategoriesUrl = this.endpoint.apiHost + '/view_categories';
     this.getSubcategoriesUrl = this.endpoint.apiHost + '/view_sub_categories/';
     this.getEventUrl = this.endpoint.apiHost + '/get_event_data/';
@@ -61,6 +63,53 @@ export class BasicInfoService {
         },
         err => {
           console.error('create_event_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  /**
+   * Edits an event basic info.
+   * @param eventID Event ID.
+   * @param event Event
+   * @returns 
+   */ 
+  editBasicEvent(eventID: any, event: any): Promise<any> {
+    // console.log(this.createBasicUrl);
+    const url = this.editBasicUrl + eventID
+    return new Promise((resolve, reject) => {
+      const body = {
+        'title': event.title,        
+        'description': event.description,
+        'venue': event.venue,        
+        'gps': event.gps,        
+        'start_date': event.start_date,        
+        'end_date': event.end_date,        
+        'recurring': event.recurring,        
+        'type': event.type,        
+        'category_id': event.category_id,        
+        'subcategory_id': event.subcategory_id,        
+        'tags': event.tags,        
+        'venue_tobe_announced': event.venue_tobe_announced,        
+        'hosting': event.hosting,
+        'ticketing': event.ticketing     
+      };
+
+      console.log(body);
+
+      this.http.post<any>(url, JSON.stringify(body), { headers: this.headers}).subscribe(
+        res => {
+          console.log('edit_event_ok: ', res);
+          if (_.toLower(res.message) == 'ok') {
+            resolve(true);            
+          }
+          else {
+            resolve(false);
+          }
+        },
+        err => {
+          console.error('edit_event_error: ', err);
           reject(err);
         }
       );

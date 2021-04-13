@@ -21,12 +21,21 @@ import { OrganizationProfilePageComponent } from './pages/profile/organization-p
 import { EditBasicInfoComponent } from './pages/edit-event/edit-basic-info/edit-basic-info.component';
 import { EditEventSchedulesComponent } from './pages/edit-event/edit-event-schedules/edit-event-schedules.component';
 import { EditEventDetailsComponent } from './pages/edit-event/edit-event-details/edit-event-details.component';
-import { EditEventTicketingComponent } from './pages/edit-event/edit-event-ticketing/edit-event-ticketing.component';
+import { UserEventsComponent } from './pages/user-events/user-events.component';
+import { CreateEventOrganizersComponent } from './pages/create-event/create-event-organizers/create-event-organizers.component';
+import { CreateEventSpeakersComponent } from './pages/create-event/create-event-speakers/create-event-speakers.component';
+import { CreateEventMediaComponent } from './pages/create-event/create-event-media/create-event-media.component';
+import { CreateEventSponsorsComponent } from './pages/create-event/create-event-sponsors/create-event-sponsors.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: HomePageComponent
+  },
+  {
+    path: 'user_events',
+    component: UserEventsComponent
   },
   {
     path: 'login',
@@ -122,7 +131,28 @@ const routes: Routes = [
         component: CreateEventPublishComponent
       }
     ]
-  }
+  },
+  {
+    path: 'create_advanced',
+    children: [
+      {
+        path: 'organizers',
+        component: CreateEventOrganizersComponent
+      },
+      {
+        path: 'speakers',
+        component: CreateEventSpeakersComponent
+      },
+      {
+        path: 'media',
+        component: CreateEventMediaComponent
+      },
+      {
+        path: 'sponsors',
+        component: CreateEventSponsorsComponent
+      },
+    ]
+  },
 ];
 
 @NgModule({

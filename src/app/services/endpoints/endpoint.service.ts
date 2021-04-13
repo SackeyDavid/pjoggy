@@ -86,7 +86,7 @@ export class EndpointService {
     const token = sessionStorage.getItem('x_auth_token');
     return new HttpHeaders({
       'Accept': 'application/json',
-      'Content-Type': 'multipart/form',
+      'Content-Type': 'multipart/form-data;',
       'Authorization': 'Bearer ' + token
     });
   }

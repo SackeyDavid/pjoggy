@@ -1,1 +1,109 @@
-<p>create-event-organizers works!</p>
+<app-create-event-navbar></app-create-event-navbar>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-4 col-lg-4">
+            <app-create-event-side-menu [currentPage]="'ticketing'"></app-create-event-side-menu>
+            <!-- <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle> -->
+            <app-side-menu-toggle></app-side-menu-toggle>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <form class="form" [formGroup]="form" (ngSubmit)="create()">
+              <div class="divider mb-1 mt-5"></div>
+              <div class="form-item">
+                <div class="form-header">
+                  <div class="form-title">
+                    <h2>New Organizer</h2>
+                  </div>                  
+                </div>
+      
+                <div class="form-body">
+                  <!-- title & quantity -->
+                  <div class="form-group">                   
+                    <div class="form-floating">
+                        <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Organizer name"
+                            formControlName="organizer" [ngClass]="{'is-invalid': saved && f.organizer.errors, 'is-valid': !f.organizer.errors}">
+                        <label for="floatingTitle">Organizer Name</label>
+                        <small *ngIf="saved && f.organizer.errors" id="titleHelp" class="form-text invalid-feedback">
+                            Organizer name is required.
+                        </small>
+                        </div>
+                    </div>                     
+                  </div>
+                  <!-- /.end -->
+
+                  <div class="form-group">
+                    <div class="form-floating">
+                      <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="bio"></textarea>
+                      <label for="floatingDesc">Organizer Bio</label>
+                    </div>
+                  </div>
+
+                  <!-- sm -->
+                    <div class="form-group">
+                        <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date">
+                                <label for="floatingTitle">Facebook</label>                                
+                            </div>
+                            </div>
+                        </div>
+        
+                        <div class="col">
+                            <div class="form-floating">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date">
+                                <label for="floatingTitle">Twitter</label>                                
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date">
+                                <label for="floatingTitle">Linked-In</label>                                
+                            </div>
+                            </div>
+                        </div>
+        
+                        <div class="col">
+                            <div class="form-floating">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date">
+                                <label for="floatingTitle">Instagram</label>                                
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- /.end -->
+
+                  <!-- buttons -->
+                <div class="form-group">
+                    <div *ngIf="!isEditMode" class="submit-button">
+                    <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Save Organizer</button>
+                    <app-loading-button *ngIf="isSaving"></app-loading-button>
+                    </div>
+    
+                    <div *ngIf="isEditMode" class="submit-button">
+                    <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Update Organizer</button>
+                    <app-loading-button *ngIf="isSaving"></app-loading-button>
+                    </div>
+                </div>
+                
+                </div>
+              </div>
+            </form>
+        </div>
+    
+    </div>
+</div>

@@ -97,7 +97,7 @@
                     <select class="form-select" id="floatingType" aria-label="Floating label select example"
                       formControlName="type" [ngClass]="{'is-invalid': saved && f.type.errors, 'is-valid': !f.type.errors}">
                       <option value="1">Public</option>
-                      <option value="2">Private</option>
+                      <option value="0">Private</option>
                     </select>
                     <label for="floatingType">Event Type</label>
                   </div>
@@ -217,8 +217,18 @@
                 <a class="nav-link" id="pills-recurring-tab" data-toggle="pill" href="#pills-recurring" role="tab" aria-controls="pills-recurring" aria-selected="false">Recurring Event</a>
               </li>
             </ul>
-            <!-- <div class="tab-content" id="pills-tabContent">
-              <div class="tab-pane fade show active" id="pills-onetime" role="tabpanel" aria-labelledby="pills-onetime-tab"> -->
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-onetime" role="tabpanel" aria-labelledby="pills-onetime-tab">
+              </div>
+              <div class="tab-pane fade" id="pills-recurring" role="tabpanel" aria-labelledby="pills-recurring-tab">
+                <p class="lead mb-3">
+                  If your event repeats or occurs more than once, you can schedule additional times and dates in the next step.
+                </p>
+                <p class="lead">
+                  Event details and ticket types will automatically appear on all event occurrences and can't be customized for an individual occurrence.
+                </p>
+              </div>
+            </div>
                 <!-- start & end date -->
                 <div class="form-group mt-3">
                   <div class="row">
@@ -226,14 +236,12 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
                           <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
-                            formControlName="start_date" ngbDatepicker #sd="ngbDatepicker" (click)="sd.toggle()"
+                            formControlName="start_date" [owlDateTime]="sd" [owlDateTimeTrigger]="sd"
                             [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
-                          <!-- <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="sd.toggle()" type="button"></button>
-                          </div> -->
+                          <owl-date-time #sd pickerType="calendar"></owl-date-time>
                           <label for="floatingStartDate">Start Date</label>
                           <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
-                            Start date type is required.
+                            Start date is required.
                           </small>
                         </div>
                       </div>
@@ -243,14 +251,12 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
                           <input type="text" class="form-control" id="floatingEndDate" aria-describedby="titleHelp" placeholder="End date"
-                            formControlName="end_date" ngbDatepicker #ed="ngbDatepicker" (click)="ed.toggle()"
+                            formControlName="end_date" [owlDateTime]="ed" [owlDateTimeTrigger]="ed"
                             [ngClass]="{'is-invalid': saved && f.end_date.errors, 'is-valid': !f.end_date.errors}">
-                          <!-- <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="ed.toggle()" type="button"></button>
-                          </div> -->
+                          <owl-date-time #ed pickerType="calendar"></owl-date-time>
                           <label for="floatingEndDate">End Date</label>
                           <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
-                            End date type is required.
+                            End date is required.
                           </small>
                         </div>
                       </div>
@@ -264,6 +270,18 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-floating">
+                        <div class="form-floating mb-3 input-group">
+                          <input type="text" class="form-control" id="floatingStartTime" aria-describedby="titleHelp" placeholder="Start time"
+                            formControlName="start_time" [owlDateTime]="st" [owlDateTimeTrigger]="st"
+                            [ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}">
+                          <owl-date-time #st pickerType="timer"></owl-date-time>
+                          <label for="floatingStartTime">Start Time</label>
+                          <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                            Start time is required.
+                          </small>
+                        </div>
+                      </div>
+                      <!-- <div class="form-floating">
                         <div class="form-floating mb-3">
                           <ngb-timepicker [seconds]="true" id="floatingStartTime" aria-describedby="titleHelp" formControlName="start_time"
                             [ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}"></ngb-timepicker>
@@ -272,11 +290,23 @@
                             Start time type is required.
                           </small>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="col">
                       <div class="form-floating">
+                        <div class="form-floating mb-3 input-group">
+                          <input type="text" class="form-control" id="floatingEndTime" aria-describedby="titleHelp" placeholder="End time"
+                            formControlName="end_time" [owlDateTime]="et" [owlDateTimeTrigger]="et"
+                            [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}">
+                          <owl-date-time #et pickerType="timer"></owl-date-time>
+                          <label for="floatingEndTime">End Time</label>
+                          <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                            End time is required.
+                          </small>
+                        </div>
+                      </div>
+                      <!-- <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
                           <ngb-timepicker [seconds]="true" id="floatingEndTime" aria-describedby="titleHelp" formControlName="end_time"
                             [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}"></ngb-timepicker>
@@ -285,7 +315,7 @@
                             End time type is required.
                           </small>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -328,12 +358,12 @@
             <!-- start & end date -->
             <div class="form-group">
               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation" (click)="setHosting('0')">
+                <li class="nav-item" role="presentation" (click)="setHosting('1')">
                   <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
                     Location
                   </a>
                 </li>
-                <li class="nav-item" role="presentation" (click)="setHosting('1')">
+                <li class="nav-item" role="presentation" (click)="setHosting('0')">
                   <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
                     Online Event
                   </a>

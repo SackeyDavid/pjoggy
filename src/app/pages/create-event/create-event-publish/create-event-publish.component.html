@@ -62,19 +62,19 @@
                   </div>
                   <div class="col-md-6">
                     <div class="card-body">
-                      <h5 class="card-title">12 Rules Of Negotiation</h5>
+                      <h5 class="card-title">{{eventTitle}}</h5>
                       <p class="card-text">
-                        This is a wider card with supporting text below as a natural lead-in to additional content.
+                        {{eventDescription}}
                       </p>
-                      <p class="card-text" style="font-weight: bold">
+                      <!-- <p class="card-text" style="font-weight: bold">
                         <i class="bi-cash-stack"></i> $12.00 &nbsp; - &nbsp; <i class="bi-person"></i> 200
-                      </p>
-                      <p class="card-text"><small class="text-muted">20th May 2021 <i><b>to</b></i> 21st May 2021 </small></p>
+                      </p> -->
+                      <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
 
                       <p class="card-text" style="font-size: 12px;">
-                        By: Ralph Marvin Addo <br>
-                        Phone: +233012345609 <br>
-                        Email: the_man_of_git@gitdevs.org
+                        <!-- By: Ralph Marvin Addo <br> -->
+                        {{eventContactPhone}} <br>
+                        {{eventContactEmail}}
                       </p>
                     </div>
                   </div>
@@ -102,7 +102,7 @@
 
           <div class="form-body">
             <!-- start & end time -->
-            <div class="form-group">
+            <!-- <div class="form-group">
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
@@ -129,20 +129,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- /.end -->
-
-            <!-- -->
-            <div class="form-group">
-              <div class="form-floating">
-                <input class="form-control" id="floatingDesc" aria-describedby="descHelp" placeholder="Third Party URL">
-                <label for="floatingDesc">Online Event URL</label>
-                <small id="descHelp" class="form-text text-muted">
-                  This is the link to your event via third party applications.
-                </small>
-              </div>
-            </div>
-            <!-- /.end -->
+            
           </div>
         </div>
         <!--
@@ -152,7 +141,9 @@
         <div class="navigation">
           <div class="nav-buttons">
             <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
-            <button type="button" class="btn btn-lg btn-primary" (lick)="publish()">Publish</button>
+            <!-- <button type="button" class="btn btn-lg btn-primary" (click)="publish()">Publish</button> -->
+            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="publish()">Publish</button>
+            <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
         </div>
       </div>

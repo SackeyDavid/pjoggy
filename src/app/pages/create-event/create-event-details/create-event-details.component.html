@@ -204,11 +204,11 @@
             </div>
             <div class="col">
               <input type="checkbox" class="form-check-input" id="meetCheckbox" formControlName="meet_checkbox" (change)="setMeetVisibility()">
-              <label class="form-check-label" for="meetCheckbox">Meet</label>
+              <label class="form-check-label" for="meetCheckbox">Google Meet</label>
             </div>
             <div class="col">
               <input type="checkbox" class="form-check-input" id="teamsCheckbox" formControlName="teams_checkbox" (change)="setTeamsVisibility()">
-              <label class="form-check-label" for="teamsCheckbox">Teams</label>
+              <label class="form-check-label" for="teamsCheckbox">Microsoft Teams</label>
             </div>
           </div>
 
@@ -229,10 +229,26 @@
                 <div class="form-floating input-group mb-3">
                   <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
                   <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Zoom</label>
+                  <label class="hosting-icon" for="floatingTitle">Zoom web link</label>
+                </div>
+              </div>
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
+                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting_id">
+                  <label class="hosting-icon" for="floatingTitle">Zoom ID</label>
+                </div>
+              </div>
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
+                  <input type="password" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting_password">
+                  <label class="hosting-icon" for="floatingTitle">Zoom Password</label>
                 </div>
               </div>
             </div>
+              
+            <br>
           </div>
           <div class="row" *ngIf="youtubeVisibility==true">
             <div class="col">
@@ -249,9 +265,16 @@
             <div class="col">
               <div class="form-floating">
                 <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
                   <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Meet</label>
+                  <label class="hosting-icon" for="floatingTitle">Google Meet</label>
+                </div>
+              </div>
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
+                  <input type="password" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting_password">
+                  <label class="hosting-icon" for="floatingTitle">Google Meet Password</label>
                 </div>
               </div>
             </div>
@@ -260,9 +283,16 @@
             <div class="col">
               <div class="form-floating">
                 <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
                   <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Teams</label>
+                  <label class="hosting-icon" for="floatingTitle">Microsoft Teams</label>
+                </div>
+              </div>
+              <div class="form-floating">
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
+                  <input type="password" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting_password">
+                  <label class="hosting-icon" for="floatingTitle">Microsoft Teams Password</label>
                 </div>
               </div>
             </div>

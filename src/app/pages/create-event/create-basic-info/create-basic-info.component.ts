@@ -73,27 +73,33 @@ export class CreateBasicInfoComponent implements OnInit {
   create(): void {
     this.saved = true;
     if (this.form.valid) {
-      console.log('form is valid');
       this.isLoading = true;
-      // this.router.navigateByUrl('/create_event/more_details');
-      this.basicInfoService.createBasicEvent(this.getFormData()).then(
+      const data = this.getFormData();
+      console.log(data);
+      this.basicInfoService.createBasicEvent(data).then(
         res => {
           if (res) {
             console.log(res);
-            this.isLoading = false;
-            this.getCreatedEvent(res);
-            console.log(this.getFormData().recurring)
-            
-            if(this.getFormData().recurring == '1') {
-              this.router.navigateByUrl('/create_event/schedule');
-            } else {
-              this.router.navigateByUrl('/create_event/more_details');
-            }
-            // this.router.navigateByUrl('/create_event/more_details');
+            console.log(data.recurring);
+            this.saveCreatedEvent(res).then(
+              ok => {
+                if (ok) {
+                  this.isLoading = false;
+                  data.recurring == '1'
+                    ? this.router.navigateByUrl('/create_event/schedule')
+                    : this.router.navigateByUrl('/create_event/more_details');
+                }
+              },
+              err => {
+                // we still navigate but will get the data from the side menu.
+                data.recurring == '1'
+                  ? this.router.navigateByUrl('/create_event/schedule')
+                  : this.router.navigateByUrl('/create_event/more_details');
+              }
+            );
           }
           else {
             this.isLoading = false;
-            alert('didnt create');
           }
         },
         err => {
@@ -125,15 +131,15 @@ export class CreateBasicInfoComponent implements OnInit {
   }
 
   setRecurring(value: any): void {
-    this.form.controls['recurring'].setValue(value);
+    this.f.recurring.setValue(value);
   }
 
   setHosting(value: any): void {
-    this.form.controls['recurring'].setValue(value);
+    this.f.hosting.setValue(value);
   }
 
   toggleVenueView(): void {
-    this.form.controls['venue_tobe_announced'].valueChanges.subscribe(change => {
+    this.f.venue_tobe_announced.valueChanges.subscribe((change: any) => {
       console.log(change);
       if (change == true) {
         this.form.controls['venue'].disable();
@@ -149,11 +155,11 @@ export class CreateBasicInfoComponent implements OnInit {
   }
 
   disableSubcategory(): void {
-    this.form.controls['subcategory_id'].disable();
+    this.f.subcategory_id.disable();
   }
 
   enableSubcategory(): void {
-    this.form.controls['subcategory_id'].enable();
+    this.f.subcategory_id.enable();
   }
 
   getCategories(): void {
@@ -181,16 +187,21 @@ export class CreateBasicInfoComponent implements OnInit {
     );
   }
 
-  getCreatedEvent(eventId: any): void {
-    this.basicInfoService.getCreatedEvent(eventId).then(
-      res => {
-        console.log(res);
-        sessionStorage.setItem('created_event', JSON.stringify(res));
-      },
-      err => {
-        console.log(err);
-      }
-    );
+  saveCreatedEvent(eventId: any): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.basicInfoService.getCreatedEvent(eventId).then(
+        res => {
+          console.log(res);
+          sessionStorage.removeItem('created_event');
+          sessionStorage.setItem('created_event', JSON.stringify(res));
+          resolve(true);
+        },
+        err => {
+          console.log(err);
+          reject(err);
+        }
+      );
+    });
   }
 
 }

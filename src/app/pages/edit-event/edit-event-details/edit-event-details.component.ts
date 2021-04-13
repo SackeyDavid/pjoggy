@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
+import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 
 @Component({
   selector: 'app-edit-event-details',
@@ -9,16 +10,26 @@ import { EventDetailsService } from 'src/app/services/event-details/event-detail
   styleUrls: ['./edit-event-details.component.scss']
 })
 export class EditEventDetailsComponent implements OnInit {
+
   isLoading: boolean;
   isBannerSet: boolean;
   saved: boolean;
   form: FormGroup = new FormGroup({});
   imgSrc: string;
 
+  details: any = {
+    banner_image: '',
+    organizer: '',
+    email: '',
+    phone: '',
+    hosted_on: '',
+  }
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private eventDetailsService: EventDetailsService
+    private eventDetailsService: EventDetailsService,
+    private basicInfoService: BasicInfoService,
   ) {
     this.isLoading = false;
     this.isBannerSet = false;
@@ -31,6 +42,7 @@ export class EditEventDetailsComponent implements OnInit {
       return false;
     };
     
+    this.populateForm()
     this.initForm();
   }
 
@@ -51,35 +63,38 @@ export class EditEventDetailsComponent implements OnInit {
 
   initForm(): void {
     this.form = this.formBuilder.group({
-      email: ['', Validators.email],
-      phone: ['', [Validators.minLength(12), Validators.maxLength(12)]],
-      hosted_on: [''],
-      banner_image: [''],
-      organizer: ['', Validators.required],
+      email: [this.details.email, Validators.email],
+      phone: [this.details.phone, [Validators.minLength(12), Validators.maxLength(12)]],
+      hosted_on: [this.details.hosted_on],
+      banner_image: [this.details.banner_image],
+      organizer: [this.details.organizer, Validators.required],
     });
   }
 
-  create(): void {
+  edit(): void {
     this.saved = true;
     if (this.form.valid) {
       console.log('form is valid');
       this.isLoading = true;
-      // this.eventDetailsService.editEventDetails(this.getFormData()).then(
-      //   res => {
-      //     if (res) {
-      //       this.isLoading = false;
-      //       this.router.navigateByUrl('/create_event/ticketing');
-      //     }
-      //     else {
-      //       this.isLoading = false;
-      //       alert('didnt create');
-      //     }
-      //   },
-      //   err => {
-      //     console.log(err);
-      //     this.isLoading = false;
-      //   }
-      // );
+      var data: any =  sessionStorage.getItem('created_event');
+      data = JSON.parse(data);
+      var eventId = data.event[0].id;
+      this.eventDetailsService.editEventDetails(this.getFormData(), this.f.banner_image.value, eventId).then(
+        res => {
+          if (res) {
+            this.isLoading = false;
+            this.router.navigateByUrl('/create_event/ticketing');
+          }
+          else {
+            this.isLoading = false;
+            alert("oops, didn't create");
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      );
     }
   }
 
@@ -110,4 +125,19 @@ export class EditEventDetailsComponent implements OnInit {
     return data;
   }
 
+  populateForm(): void {
+        
+    var data: any =  sessionStorage.getItem('created_event')
+    data = JSON.parse(data)
+    console.log(data)
+    this.details.banner_image = data.event[0].banner_image;    
+    this.details.organizer = data.event[0].organizer;
+    this.details.phone = data.event[0].contact_phone;
+    this.details.email = data.event[0].contact_email;
+    this.details.hosted_on = data.event[0].hosted_on;
+
+    console.log(this.details)
+      
+  }
+  
 }

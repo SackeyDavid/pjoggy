@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import { DatetimeFormatterService } from 'src/app/services/datetime-formatter/datetime-formatter.service';
+import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-check/event-side-menu-check.service';
 
 @Component({
   selector: 'app-edit-basic-info',
@@ -15,6 +16,7 @@ export class EditBasicInfoComponent implements OnInit {
   
   eventTitle: string = ''
   eventDate: string = ''
+  eventID: string = ''
 
   isLoading: boolean;
   saved: boolean;
@@ -39,14 +41,17 @@ export class EditBasicInfoComponent implements OnInit {
     start_time: '',
     end_time: '',
     venue: '',
-    gps: ''
+    gps: '',
+    recurring: '',
+    hosting: ''
   }
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private basicInfoService: BasicInfoService,
-    private dtService: DatetimeFormatterService
+    private dtService: DatetimeFormatterService,
+    private checkSessionData: EventSideMenuCheckService
   ) {
     this.isLoading = false;
     this.saved = false;
@@ -73,7 +78,10 @@ export class EditBasicInfoComponent implements OnInit {
     var data: any =  sessionStorage.getItem('created_event')
     data = JSON.parse(data)
     this.eventTitle = data.event[0].title;
-    this.eventDate = data.event[0].start_date_time
+    this.eventDate = data.event[0].start_date_time;
+    this.eventID = data.event[0].id;
+    this.setRecurring(data.event[0].recurring)
+    this.setHosting(data.event[0].hosting)
     
   }
 
@@ -111,23 +119,38 @@ export class EditBasicInfoComponent implements OnInit {
     });
   }
 
-  create(): void {
+  edit(): void {
     this.saved = true;
     if (this.form.valid) {
       console.log('form is valid');
       this.isLoading = true;
       // this.router.navigateByUrl('/create_event/more_details');
-      this.basicInfoService.createBasicEvent(this.getFormData()).then(
+      this.basicInfoService.editBasicEvent(this.eventID, this.getFormData()).then(
         res => {
           if (res) {
             console.log(res);
             this.isLoading = false;
-            this.getCreatedEvent(res);
+            this.getCreatedEvent(this.eventID);
             console.log(this.getFormData().recurring)
+
             if(this.getFormData().recurring == '1') {
-              this.router.navigateByUrl('/edit_event/schedule');
+
+              if(this.checkSessionData.eventHasScheduleData()) {
+                this.router.navigateByUrl('/edit_event/schedule');
+
+              } else {
+                this.router.navigateByUrl('/create_event/schedule');
+              }
+
             } else {
-              this.router.navigateByUrl('/edit_event/more_details');
+              
+              if(this.checkSessionData.eventHasMoreDetailsData()) {
+                this.router.navigateByUrl('/edit_event/more_details');
+
+              } else {
+                this.router.navigateByUrl('/create_event/more_details');
+              }
+
             }
             // this.router.navigateByUrl('/create_event/more_details');
           }
@@ -159,13 +182,13 @@ export class EditBasicInfoComponent implements OnInit {
       // end_date: f_end_date + ' ' + f_end_time,
       start_date: this.dtService.formatDateTime(this.f.start_date.value, this.f.start_time.value),
       end_date: this.dtService.formatDateTime(this.f.end_date.value, this.f.end_time.value),
-      recurring: this.f.recurring.value,
+      recurring: this.event.recurring,
       type: this.f.type.value,
       category_id: this.f.category_id.value,
       subcategory_id: this.f.subcategory_id.value,
       tags: this.f.tags.value,
       venue_tobe_announced: this.recurringStore,
-      hosting: this.f.hosting.value,
+      hosting: this.event.hosting,
       ticketing: this.f.ticketing.value
     };
     return data;
@@ -173,10 +196,41 @@ export class EditBasicInfoComponent implements OnInit {
 
   setRecurring(value: any): void {
     this.form.controls['recurring'].setValue(value);
+
+    this.event.recurring = this.form.controls['recurring'].value;
+    if(this.event.recurring == '0') {
+      var tab_active = document.getElementById('pills-onetime');
+      if (tab_active) tab_active.className = "tab-pane fade active show";
+
+      var tab_inactive =  document.getElementById('pills-recurring');
+      if (tab_inactive) tab_inactive.className = "tab-pane fade";
+    } else {
+      var tab_active = document.getElementById('pills-recurring');
+      if (tab_active) tab_active.className = "tab-pane fade active show";
+
+      var tab_inactive =  document.getElementById('pills-onetime');
+      if (tab_inactive) tab_inactive.className = "tab-pane fade";
+    }
+    // console.log(this.form.controls['recurring'].value)
   }
 
   setHosting(value: any): void {
-    this.form.controls['recurring'].setValue(value);
+    this.form.controls['hosting'].setValue(value);
+    this.event.hosting = this.form.controls['hosting'].value
+
+    if(this.event.hosting == '0') {
+      var tab_active = document.getElementById('pills-home');
+      if (tab_active) tab_active.className = "tab-pane fade active show";
+
+      var tab_inactive =  document.getElementById('pills-profile');
+      if (tab_inactive) tab_inactive.className = "tab-pane fade";
+    } else {
+      var tab_active = document.getElementById('pills-profile');
+      if (tab_active) tab_active.className = "tab-pane fade active show";
+
+      var tab_inactive =  document.getElementById('pills-home');
+      if (tab_inactive) tab_inactive.className = "tab-pane fade";
+    }
   }
 
   toggleVenueView(): void {
@@ -282,7 +336,7 @@ export class EditBasicInfoComponent implements OnInit {
     //     this.event.category = 2;
     // }
     this.event.ticketing = data.event[0].ticketing
-    this.event.type = ((data.event[0].type === true) ? '2' : '1')
+    this.event.type = ((data.event[0].type === true) ? '0' : '1')
     this.event.category = data.event[0].Category_id
     this.event.subcategory = data.event[0].subcategory_id 
     this.event.tags = ((data.event[0].tags != null) ? data.event[0].tags : '')
@@ -293,7 +347,8 @@ export class EditBasicInfoComponent implements OnInit {
     this.event.end_time = data.event[0].end_date_time.split(' ')[1]
 
     this.event.venue = ((data.event[0].venue != null) ? data.event[0].venue : '')
-    this.event.gps =((data.event[0].gps != null) ? data.event[0].gps : '')
+    this.event.gps = ((data.event[0].gps != null) ? data.event[0].gps : '')
+    this.event.hosting = data.event[0].hosting
 
     console.log(this.event)
       

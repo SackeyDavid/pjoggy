@@ -175,3 +175,24 @@
     margin: 3%;
   }
 
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  transition: 2s;
+  transition-property: display;
+  // background-color: #262626;
+  // padding-left: 8px;
+  a {
+    padding-left: 14%;
+  }
+}
+
+
+/* Optional: Style the caret down icon */
+.bi-chevron-down, .bi-chevron-up {
+  float: right;
+  padding-right: 8px;
+}
+
+
+

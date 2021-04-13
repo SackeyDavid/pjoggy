@@ -40,7 +40,7 @@
 
     <div class="col-md-7 col-lg-5 col-xs-12 col-sm-12">
       <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle>
-      <form class="form" [formGroup]="form" (ngSubmit)="create()">
+      <form class="form" [formGroup]="form" (ngSubmit)="edit()">
         <div class="divider mb-1 mt-5"></div>
         <div class="form-item">
           <div class="form-header">
@@ -97,7 +97,7 @@
                     <select class="form-select" id="floatingType" aria-label="Floating label select example"
                       formControlName="type" [ngClass]="{'is-invalid': saved && f.type.errors, 'is-valid': !f.type.errors}">
                       <option value="1">Public</option>
-                      <option value="2">Private</option>
+                      <option value="0">Private</option>
                     </select>
                     <label for="floatingType">Event Type</label>
                   </div>
@@ -208,25 +208,35 @@
             </div>
           </div>
 
+          
           <div class="form-body">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation" (click)="setRecurring('0')">
-                <a class="nav-link active" id="pills-onetime-tab" data-toggle="pill" href="#pills-onetime" role="tab" aria-controls="pills-onetime" aria-selected="true">One-time Event</a>
+                <a class="nav-link" [class.active] = "event.recurring == 0" id="pills-onetime-tab" data-toggle="pill" href="#pills-onetime" role="tab" aria-controls="pills-onetime" aria-selected="true">One-time Event</a>
               </li>
               <li class="nav-item" role="presentation" (click)="setRecurring('1')">
-                <a class="nav-link" id="pills-recurring-tab" data-toggle="pill" href="#pills-recurring" role="tab" aria-controls="pills-recurring" aria-selected="false">Recurring Event</a>
+                <a class="nav-link" [class.active] = "event.recurring == 1" id="pills-recurring-tab" data-toggle="pill" href="#pills-recurring" role="tab" aria-controls="pills-recurring" aria-selected="false">Recurring Event</a>
               </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-              <!-- one time event -->
               <div class="tab-pane fade show active" id="pills-onetime" role="tabpanel" aria-labelledby="pills-onetime-tab">
+              </div>
+              <div class="tab-pane fade" id="pills-recurring" role="tabpanel" aria-labelledby="pills-recurring-tab">
+                <p class="lead mb-3">
+                  If your event repeats or occurs more than once, you can schedule additional times and dates in the next step.
+                </p>
+                <p class="lead">
+                  Event details and ticket types will automatically appear on all event occurrences and can't be customized for an individual occurrence.
+                </p>
+              </div>
+            </div>
                 <!-- start & end date -->
-                <div class="form-group">
+                <div class="form-group mt-3">
                   <div class="row">
                     <div class="col">
                       <div class="form-floating">
                         <div class="form-floating mb-3 input-group">
-                          <input [(ngModel)]="event.start_date" type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
+                          <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
                             formControlName="start_date" ngbDatepicker #sd="ngbDatepicker" (click)="sd.toggle()"
                             [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
                           <!-- <div class="input-group-append">
@@ -292,19 +302,6 @@
                 </div>
                 <!-- /.end -->                
               </div>
-
-              <!-- recurring event -->
-              <div class="tab-pane fade" id="pills-recurring" role="tabpanel" aria-labelledby="pills-recurring-tab">
-                <p class="lead mb-3">
-                  If your event repeats or occurs more than once, you can schedule additional times and dates in the next step.
-                </p>
-                <p class="lead">
-                  Event details and ticket types will automatically appear on all event occurrences and can't be customized for an individual occurrence.
-                </p>
-              </div>
-              <!-- /.end recurring event -->
-            </div>
-          </div>
         </div>
         <!--
           /. End Date time Section
@@ -329,13 +326,13 @@
             <!-- start & end date -->
             <div class="form-group">
               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation" (click)="setHosting('0')">
-                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+                <li class="nav-item" role="presentation" (click)="setHosting('1')">
+                  <a class="nav-link" [class.active] = "event.hosting == 0" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
                     Location
                   </a>
                 </li>
-                <li class="nav-item" role="presentation" (click)="setHosting('1')">
-                  <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                <li class="nav-item" role="presentation" (click)="setHosting('0')">
+                  <a class="nav-link" [class.active] = "event.hosting == 1" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
                     Online Event
                   </a>
                 </li>                
@@ -382,7 +379,7 @@
       
       <div class="navigation" *ngIf="currentRoute === 'edit_basic_info'">
         <div class="nav-buttons">
-          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="edit()">Save & Continue</button>
           <app-loading-button *ngIf="isLoading"></app-loading-button>
         </div>
         <!-- <span class="mt-2 text-danger" *ngIf="saveError">oops! something went wrong</span> -->
@@ -390,7 +387,7 @@
       
       <div class="navigation only-mobile" *ngIf="currentRoute !== 'edit_basic_info'">
         <div class="nav-buttons">
-          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="edit()">Save & Continue</button>
           <app-loading-button *ngIf="isLoading"></app-loading-button>
         </div>
       </div>

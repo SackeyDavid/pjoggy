@@ -1,0 +1,31 @@
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    border-radius: 30px !important;
+    border: 1px solid var(--blue) !important;
+    background-color: var(--blue) !important;
+    color: var(--white) !important;
+    // border-bottom: 2px solid var(--blue) !important;
+  }
+  
+  .nav-pills .nav-link {
+    border-radius: 30px !important;
+    margin-left: 1rem !important;
+    background-color: #eeeded;
+    // border: 1px solid #717171 !important;
+    color: #000 !important;
+  }
+
+  .card-title{
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-text{
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }

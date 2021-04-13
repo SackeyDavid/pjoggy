@@ -73,7 +73,7 @@
 
     <div class="col-md-8 col-lg-5 col-sm-12">
       <!-- As a link -->
-      <form class="form" [formGroup]="form" (ngSubmit)="create()">
+      <form class="form" [formGroup]="form" (ngSubmit)="edit()">
         <div class="divider mb-1 mt-5"></div>
         <div class="form-item">
           <div class="form-header">
@@ -147,7 +147,7 @@
                   <div class="form-floating">
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event organizer's phone number"
-                        formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': !f.phone.errors}">
+                        formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': (f.phone.value!='' || f.phone.value!=null) && !f.phone.errors}">
                       <label for="floatingTitle">Phone Number</label>
                       <small *ngIf="saved && f.phone.errors" id="titleHelp" class="form-text invalid-feedback">
                         Must begin with country code
@@ -160,7 +160,7 @@
                   <div class="form-floating">
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event organizer's email address"
-                        formControlName="email" [ngClass]="{'is-invalid': saved && f.email.errors, 'is-valid': !f.email.errors}">
+                        formControlName="email" [ngClass]="{'is-invalid': saved && f.email.errors, 'is-valid': (f.email.value!='' || f.email.value!=null) && !f.email.errors}">
                       <label for="floatingTitle">Email Address</label>
                       <small *ngIf="saved && f.email.errors" id="titleHelp" class="form-text invalid-feedback">
                         Must provide a valid email address
@@ -180,12 +180,12 @@
         <div class="col-sm-12 navigation">
           <div class="nav-buttons only-non-mobile">
             <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
-            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
+            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="edit()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
           <div class="nav-buttons only-mobile">
             <button type="button" class="btn btn-md btn-warning mr-3" (click)="previous()">Previous</button>
-            <button *ngIf="!isLoading" type="button" class="btn btn-md btn-primary" (click)="create()">Save & Continue</button>
+            <button *ngIf="!isLoading" type="button" class="btn btn-md btn-primary" (click)="edit()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
         </div>

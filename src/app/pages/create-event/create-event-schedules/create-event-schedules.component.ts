@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { SchedulingService } from 'src/app/services/scheduling/scheduling.service';
 import { DatetimeFormatterService } from 'src/app/services/datetime-formatter/datetime-formatter.service';
+import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-check/event-side-menu-check.service';
 
 @Component({ 
   selector: 'app-create-event-schedules',
@@ -31,7 +32,8 @@ export class CreateEventSchedulesComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private schedulingService: SchedulingService,
-    private dtService: DatetimeFormatterService
+    private dtService: DatetimeFormatterService,
+    private checkSessionData: EventSideMenuCheckService
   ) {
     this.isLoading = false;
     this.saved = false; 
@@ -89,8 +91,15 @@ export class CreateEventSchedulesComponent implements OnInit {
           if (res) {
             console.log(res);
             this.isLoading = false;
-            
-            this.router.navigateByUrl('/create_event/more_details');
+            this.getCreatedEvent(this.eventId)
+
+            if(this.checkSessionData.eventHasMoreDetailsData()) {
+              this.router.navigateByUrl('/edit_event/more_details');
+
+            } else {
+              this.router.navigateByUrl('/create_event/more_details');
+            }
+
           }
           else {
             this.isLoading = false;
@@ -112,7 +121,7 @@ export class CreateEventSchedulesComponent implements OnInit {
       occurs_every: this.f.recurs.daily,
     };
     return data;
-  }
+  } 
 
   setReccurance(){
     console.log(this.f.recurs.value);
@@ -131,6 +140,19 @@ export class CreateEventSchedulesComponent implements OnInit {
       this.isWeekly = true;
       this.isMonthly = true;
     }    
+  }
+
+  
+  getCreatedEvent(eventId: any): void {
+    this.schedulingService.getCreatedEvent(eventId).then(
+      res => {
+        console.log(res);
+        sessionStorage.setItem('created_event', JSON.stringify(res));
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

@@ -17,6 +17,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { OwlModule } from 'ngx-owl-carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/user-auth/login-page/login-page.component';
@@ -76,6 +77,7 @@ import { EditEventSpeakersComponent } from './pages/edit-event/edit-event-speake
 import { EditEventSponsorsComponent } from './pages/edit-event/edit-event-sponsors/edit-event-sponsors.component';
 import { EditEventTicketingComponent } from './pages/edit-event/edit-event-ticketing/edit-event-ticketing.component';
 import { EventsListPageComponent } from './pages/events-list-page/events-list-page.component';
+import { UserEventsComponent } from './pages/user-events/user-events.component';
 
 
 @NgModule({
@@ -137,6 +139,7 @@ import { EventsListPageComponent } from './pages/events-list-page/events-list-pa
     EditEventSponsorsComponent,
     EditEventTicketingComponent,
     EventsListPageComponent,
+    UserEventsComponent,
   ],
   imports: [
     BrowserModule,
@@ -155,6 +158,8 @@ import { EventsListPageComponent } from './pages/events-list-page/events-list-pa
     ReactiveFormsModule,
     OwlModule,
     NgbModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

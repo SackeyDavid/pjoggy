@@ -124,17 +124,28 @@
                   <option value="6">Sat</option>
                   <option value="7">Sun</option>
                 </select>
-                <label for="floatingSelect">Select Days</label>
+                <label for="floatingSelect">Select Day</label>
               </div>
-              <!-- <small id="descHelp" class="form-text text-muted">
-                Day is required.
-              </small> -->
             </div>
+
+            <!-- <div *ngIf="isWeekly == true" class="form-group mb-4">              
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="days">
+                  <option value=null selected>Every Week</option>
+                  <option value="1">1st Week</option>
+                  <option value="1">2nd Week</option>
+                  <option value="1">3rd Week</option>
+                  <option value="1">4th Week</option>
+                  <option value="1">5th Week</option>
+                </select>
+                <label for="floatingSelect">Select Week</label>
+              </div>
+            </div> -->
 
             <div *ngIf="isMonthly == true" class="form-group mb-4">              
               <div class="form-floating">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="months">
-                  <option selected>Jun</option>
+                  <option value="null" selected>Every Month</option>
                   <option value="1">Jan</option>
                   <option value="2">Feb</option>
                   <option value="3">Mar</option>
@@ -147,13 +158,9 @@
                   <option value="3">Oct</option>
                   <option value="3">Nov</option>
                   <option value="3">Dec</option>
-                  <option value="3">Once per month</option>
                 </select>
                 <label for="floatingSelect">Select Month</label>
               </div>
-              <!-- <small id="descHelp" class="form-text text-muted">
-                Month is required.
-              </small> -->
             </div>
             <!-- /.end -->
 

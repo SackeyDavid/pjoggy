@@ -12,6 +12,7 @@ export class EventSideMenuCheckService {
   eventHasScheduleData() {
     this.data = sessionStorage.getItem('created_event')
     this.data = JSON.parse(this.data)
+    console.log(this.data)
     if(this.data.schedule.length > 0) {
       return true
     }
