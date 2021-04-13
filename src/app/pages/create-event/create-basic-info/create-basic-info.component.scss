@@ -190,7 +190,7 @@
     visibility: visible;
   }
   .page-info {
-    visibility: hidden;
+    visibility: hidden !important;
   }
 }
 
@@ -202,6 +202,9 @@
   .only-non-mobile {
     // display: block;
     visibility: visible;
+  }
+  .page-info {
+    visibility: visible !important;
   }
 }
 
@@ -226,4 +229,17 @@
 .ev-chevron-down-datepicker:hover {
   color: #fff !important;
   // background-color: inherit !important;
+}
+
+@media (max-width: 970px) {
+  .page-info {
+    display: none;
+  }
+}
+
+
+@media (min-width: 971px) {
+  .page-info {
+    display: block;
+  }
 }

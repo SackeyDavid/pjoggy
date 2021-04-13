@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PublishingService } from 'src/app/services/publishing/publishing.service';
+import { TicketsService } from 'src/app/services/tickets/tickets.service';
 
 @Component({
   selector: 'app-create-event-publish',
@@ -21,7 +22,13 @@ export class CreateEventPublishComponent implements OnInit {
   eventContactEmail: string = '';
   eventContactPhone: string = '';
 
-  constructor(private router: Router, private publishingService: PublishingService,) {
+  eventTickets: any;
+
+  constructor(
+    private router: Router, 
+    private publishingService: PublishingService,
+    private ticketService: TicketsService,
+  ) {
     this.isLoading = false;
   }
 
@@ -36,7 +43,9 @@ export class CreateEventPublishComponent implements OnInit {
     this.eventStartDate = data.event[0].start_date_time;    
     this.eventEndDate = data.event[0].end_date_time;   
     this.eventContactEmail = data.event[0].contact_email;    
-    this.eventContactPhone = data.event[0].contact_phone;    
+    this.eventContactPhone = data.event[0].contact_phone;
+    
+    this.getTickets();
   }
 
   previous() {
@@ -58,6 +67,19 @@ export class CreateEventPublishComponent implements OnInit {
           this.isLoading = false;
         }
       );
+  }
+
+  getTickets(): any {
+    this.ticketService.getTickets(this.eventId).then(
+      tickets => {
+        console.log(tickets);
+
+        this.eventTickets = tickets;
+        // _.forEach(tickets, (ticket) => {
+        //   this.createdTicketList.push(ticket);
+        // });
+      }
+    );
   }
 
 }

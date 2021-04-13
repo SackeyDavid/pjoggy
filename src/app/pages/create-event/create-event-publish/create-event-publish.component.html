@@ -56,19 +56,15 @@
             <!-- title -->
             <div class="form-group">
               <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-6">
-                    <img class="card-img" src="https://events369.com/storage/phpkJrbgx_2019-10-16%2016:30:56.jpg" alt="...">
-                  </div>
-                  <div class="col-md-6">
-                    <div class="card-body">
+                <img class="card-img-top" src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fmarketing%20space%2Fbanner--202102-outdoor-v2.webp?alt=media&token=cd0f4476-54ca-453f-a858-dc51fd86cfc3" alt="banner">
+                <div class="card-body">
                       <h5 class="card-title">{{eventTitle}}</h5>
                       <p class="card-text">
                         {{eventDescription}}
                       </p>
-                      <!-- <p class="card-text" style="font-weight: bold">
-                        <i class="bi-cash-stack"></i> $12.00 &nbsp; - &nbsp; <i class="bi-person"></i> 200
-                      </p> -->
+                      <p *ngFor="let ticket of eventTickets" class="card-text" style="font-weight: bold">
+                        <small><i class="bi-cash-stack"></i> {{ticket.currency}}{{ticket.price}} &nbsp; - &nbsp; <i class="bi-person"></i> {{ticket.max_quantity}}</small>
+                      </p>
                       <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
 
                       <p class="card-text" style="font-size: 12px;">
@@ -77,8 +73,6 @@
                         {{eventContactEmail}}
                       </p>
                     </div>
-                  </div>
-                </div>
               </div>
             </div>
             <!-- /.title -->
