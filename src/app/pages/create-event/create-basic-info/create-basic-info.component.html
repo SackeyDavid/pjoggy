@@ -69,8 +69,12 @@
             <!-- description -->
             <div class="form-group">
               <div class="form-floating">
-                <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="description"></textarea>
+                <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description"
+                [ngClass]="{'is-invalid': saved && f.description.errors, 'is-valid': !f.description.errors}" formControlName="description"></textarea>
                 <label for="floatingDesc">Event Description</label>
+                <small *ngIf="saved && f.description.errors" id="titleHelp" class="form-text invalid-feedback">
+                  Description is required.
+                </small>
               </div>
             </div>
             <!-- /.description-->
@@ -80,17 +84,17 @@
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
-                    <select class="form-select" id="floatingType" aria-label="Floating label select example"
+                    <select class="form-select" id="floatingTick" aria-label="Floating label select example"
                       formControlName="ticketing" [ngClass]="{'is-invalid': saved && f.ticketing.errors, 'is-valid': !f.ticketing.errors}">
                       <option value="0">Paid</option>
                       <option value="1">Free</option>
                       <option value="2">Donations</option>
                     </select>
-                    <label for="floatingType">Ticketing</label>
+                    <label for="floatingTick">Ticketing</label>
+                    <small *ngIf="saved && f.ticketing.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Ticketing is required.
+                    </small>
                   </div>
-                  <small *ngIf="saved && f.ticketing.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Ticketing is required.
-                  </small>
                 </div>
                 <div class="col">
                   <div class="form-floating">
@@ -100,10 +104,10 @@
                       <option value="0">Private</option>
                     </select>
                     <label for="floatingType">Event Type</label>
+                    <small *ngIf="saved && f.type.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Event type is required.
+                    </small>
                   </div>
-                  <small *ngIf="saved && f.type.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Event type is required.
-                  </small>
                 </div>
               </div>
             </div>
@@ -117,15 +121,12 @@
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example" (change)="getSubcategories()"
                       formControlName="category_id" [ngClass]="{'is-invalid': saved && f.category_id.errors, 'is-valid': !f.category_id.errors}">
                       <option *ngFor="let x of categoriesData" [value]=x.id>{{x.temp_name}}</option>
-                      <!-- <option value="1">Business</option>
-                      <option value="2">Conference</option>
-                      <option value="3">Entertainment</option> -->
                     </select>
                     <label for="floatingSelect">Event Category</label>
+                    <small *ngIf="saved && f.category_id.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Event category is required.
+                    </small>
                   </div>
-                  <small *ngIf="saved && f.category_id.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Event category is required.
-                  </small>
                 </div>
                 <div class="col">
                   <div class="form-floating">
@@ -134,10 +135,10 @@
                       <option *ngFor="let x of subCategoriesData" [value]=x.id>{{x.name}}</option>
                     </select>
                     <label for="floatingSelect1">Event sub-category</label>
+                    <small *ngIf="saved && f.subcategory_id.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Event sub-category type is required.
+                    </small>
                   </div>
-                  <small *ngIf="saved && f.subcategory_id.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Event sub-category type is required.
-                  </small>
                 </div>
               </div>
             </div>
@@ -229,41 +230,42 @@
                 </p>
               </div>
             </div>
-                <!-- start & end date -->
-                <div class="form-group mt-3">
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-floating">
-                        <div class="form-floating mb-3 input-group">
-                          <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
-                            formControlName="start_date" [owlDateTime]="sd" [owlDateTimeTrigger]="sd"
-                            [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
-                          <owl-date-time #sd pickerType="calendar"></owl-date-time>
-                          <label for="floatingStartDate">Start Date</label>
-                          <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
-                            Start date is required.
-                          </small>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div class="col">
-                      <div class="form-floating">
-                        <div class="form-floating mb-3 input-group">
-                          <input type="text" class="form-control" id="floatingEndDate" aria-describedby="titleHelp" placeholder="End date"
-                            formControlName="end_date" [owlDateTime]="ed" [owlDateTimeTrigger]="ed"
-                            [ngClass]="{'is-invalid': saved && f.end_date.errors, 'is-valid': !f.end_date.errors}">
-                          <owl-date-time #ed pickerType="calendar"></owl-date-time>
-                          <label for="floatingEndDate">End Date</label>
-                          <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
-                            End date is required.
-                          </small>
-                        </div>
-                      </div>
+            <!-- start & end date -->
+            <div class="form-group mt-3">
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
+                        formControlName="start_date" [owlDateTime]="sd" [owlDateTimeTrigger]="sd"
+                        [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
+                      <owl-date-time #sd pickerType="calendar"></owl-date-time>
+                      <label for="floatingStartDate">Start Date</label>
+                      <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
+                        Start date is required.
+                      </small>
                     </div>
                   </div>
                 </div>
-                <!-- /.end -->
+
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <input type="text" class="form-control" id="floatingEndDate" aria-describedby="titleHelp" placeholder="End date"
+                        formControlName="end_date" [owlDateTime]="ed" [owlDateTimeTrigger]="ed"
+                        [ngClass]="{'is-invalid': saved && f.end_date.errors, 'is-valid': !f.end_date.errors}">
+                      <owl-date-time #ed pickerType="calendar"></owl-date-time>
+                      <label for="floatingEndDate">End Date</label>
+                      <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
+                        End date is required.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.end -->
 
                 <!-- start & end time -->
                 <div class="form-group">

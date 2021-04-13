@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TicketsService } from 'src/app/services/tickets/tickets.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-create-event-ticketing',
@@ -51,7 +52,6 @@ export class CreateEventTicketingComponent implements OnInit {
     data = JSON.parse(data)
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
-    
   }
 
   
@@ -66,8 +66,8 @@ export class CreateEventTicketingComponent implements OnInit {
       quantity: [''],
       price: ['0'],
       currency: ['GHS'],
-      salesEndDate: ['2020-03-29 15:12:00'],
-      salesStartDate: ['2020-03-28 15:12:00']
+      salesEndDate: [''],
+      salesStartDate: ['']
     });
   }
 
@@ -116,15 +116,24 @@ export class CreateEventTicketingComponent implements OnInit {
   }
 
   getFormData(): any {
+    const endDate = this.f.salesEndDate.value == ''
+      ? moment().format('YYYY-MM-DD hh:mm:ss')
+      : moment(this.f.salesEndDate.value).format('YYYY-MM-DD');
+
+    const startDate = this.f.salesStartDate.value == ''
+      ? moment().format('YYYY-MM-DD hh:mm:ss')
+      : moment(this.f.salesStartDate.value).format('YYYY-MM-DD');
+
     const data = {
       name: this.f.name.value,
       quantity: this.f.quantity.value,
       price: this.f.price.value,
-      salesEndDate: this.f.salesEndDate.value,
-      salesStartDate: this.f.salesStartDate.value,
+      salesEndDate: endDate,
+      salesStartDate: startDate,
       currency: this.f.currency.value,
       eventId: this.eventId
     };
+
     return data;
   }
 
@@ -133,7 +142,7 @@ export class CreateEventTicketingComponent implements OnInit {
     const data = {
       ticketId: ticketId,
       name: ticket.name,
-      quantity: ticket.quantity,
+      quantity: ticket.quantity || ticket.max_quantity,
       price: ticket.price,
       salesEndDate: ticket.salesEndDate,
       salesStartDate: ticket.salesStartDate,
@@ -178,15 +187,20 @@ export class CreateEventTicketingComponent implements OnInit {
 
   edit(ticket: any, index: number): void {
     this.isEditMode = true;
+    const endDate = moment(ticket.sales_enddate_time || ticket.salesEndDate).format('YYYY-MM-DD');
+    const startDate = moment(ticket.sales_startdate_time || ticket.salesStartDate).format('YYYY-MM-DD');
+
     this.f.name.setValue(ticket.name);
     this.f.price.setValue(ticket.price);
     this.f.currency.setValue(ticket.currency);
     this.f.quantity.setValue(ticket.max_quantity || ticket.quantity);
-    this.f.salesEndDate.setValue(ticket.sales_enddate_time);
-    this.f.salesStartDate.setValue(ticket.sales_startdate_time);
+    this.f.salesEndDate.setValue(endDate);
+    this.f.salesStartDate.setValue(startDate);
 
     this.selectedTicketId = ticket.id;
     this.selectedTicketIndex = index;
+
+    console.log(ticket.sales_enddate_time);
   }
 
   editTicket(ticketId: string, index: number): void {
@@ -197,6 +211,8 @@ export class CreateEventTicketingComponent implements OnInit {
         if (ok) {
           this.isSaving = false;
           this.isEditMode = false;
+          this.resetForm();
+
           const editedTicket = this.createdTicketList[index];
           editedTicket.name = ticket.name;
           editedTicket.max_quantity = ticket.quantity;
@@ -223,6 +239,15 @@ export class CreateEventTicketingComponent implements OnInit {
       },
       err => {}
     );
+  }
+
+  resetForm() : void {
+    this.f.name.setValue('');
+    this.f.price.setValue('');
+    this.f.currency.setValue('');
+    this.f.quantity.setValue('');
+    this.f.salesEndDate.setValue('');
+    this.f.salesStartDate.setValue('');
   }
 
 }
