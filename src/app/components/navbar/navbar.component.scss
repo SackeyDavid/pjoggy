@@ -283,4 +283,26 @@ ev-avatar img {
   transition: 0.5s;
 }
 
+@media (max-width: 780px) {
+  .only-non-mobile {
+    display: none;
+    visibility: hidden;
+  }
+  .only-mobile {
+    display: block;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 781px) {
+  .only-mobile {
+    display: none;
+    visibility: hidden;
+  }
+  .only-non-mobile {
+    display: block;
+    visibility: visible;
+  }
+}
+
 
