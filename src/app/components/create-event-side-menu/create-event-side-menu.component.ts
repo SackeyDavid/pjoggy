@@ -16,7 +16,7 @@ export class CreateEventSideMenuComponent implements OnInit {
   @Input() currentPage: any;
   dark_theme: boolean = false;
 
-  dropdown_shown: boolean = false
+  dropdown_shown: boolean = false;
 
   _global_page_objects = this;
 
@@ -38,24 +38,28 @@ export class CreateEventSideMenuComponent implements OnInit {
    }
 
   toggleAdvancedSettings() {
+    var _local_page_objects = this._global_page_objects;
+
     $(document).ready(function(){
-      var dropdown_shown: boolean = false
+
       $('#advanced-dropdown').click(
         function () {
           //show its submenu
-          if (dropdown_shown) {
+          if (_local_page_objects.dropdown_shown) {
             $('.sidenav').attr('style', 'overflow-y: hidden'); 
             $('.dropdown-container').attr('style', 'display: none');  
-            dropdown_shown = false;
+            _local_page_objects.dropdown_shown = false;
           } 
           else {
             $('.sidenav').attr('style', 'overflow-y: scroll'); 
             $('.dropdown-container').attr('style', 'display: block');  
-            dropdown_shown = true;
+            _local_page_objects.dropdown_shown = true;
           }  
         }
       );
     });
+
+    this._global_page_objects = _local_page_objects;
   }
 
   ngOnInit(): void {
