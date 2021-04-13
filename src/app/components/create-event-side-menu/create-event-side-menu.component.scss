@@ -59,7 +59,7 @@
     .sidenav a {font-size: 18px;}
   }
 
-  @media (max-width: 780px) {
+  @media (max-width: 1024px) {
       .hidden {
         //   display: none;
         visibility: hidden;
@@ -80,7 +80,7 @@
       }
   }
 
-  @media (min-width: 781px) {
+  @media (min-width: 1025px) {
     .sidenav {
       width: 350px;
     }
@@ -142,7 +142,7 @@
       color: var(--ev-menu-item);
   }
 
-  @media (max-width: 780px) {
+  @media (max-width: 1024px) {
     .only-non-mobile {
       // display: none;
       visibility: hidden;
@@ -153,7 +153,8 @@
     }
   }
 
-  @media (min-width: 781px) {
+  // breakpoint at 780px at first
+  @media (min-width: 1025px) {
     .only-mobile {
       // display: none;
       visibility: hidden;
@@ -192,6 +193,10 @@
 .bi-chevron-down, .bi-chevron-up {
   float: right;
   padding-right: 8px;
+}
+
+.ev-font-size-xxlarge .bi-chevron-left {
+  float: right;
 }
 
 

@@ -27,5 +27,17 @@
     .col-md-4 {
       width: 100% !important;
     }
-  }  
+  }
+  
+  // @media (min-width: 992px) and (orientation : landscape) {
+  //   .col-lg-4 {
+  //     width: 100% !important;
+  //   }
+  // }
+
+  @media (min-width: 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    .col-md-4 {
+      width: 100% !important;
+    }
+  }
 }

@@ -116,11 +116,11 @@ export class CreateEventTicketingComponent implements OnInit {
   }
 
   getFormData(): any {
-    const endDate = this.f.salesEndDate.value == ''
+    const endDate = this.f.salesEndDate.value == '' || this.f.salesEndDate.value == null
       ? moment().format('YYYY-MM-DD hh:mm:ss')
       : moment(this.f.salesEndDate.value).format('YYYY-MM-DD');
 
-    const startDate = this.f.salesStartDate.value == ''
+    const startDate = this.f.salesStartDate.value == '' || this.f.salesStartDate.value == null
       ? moment().format('YYYY-MM-DD hh:mm:ss')
       : moment(this.f.salesStartDate.value).format('YYYY-MM-DD');
 
@@ -133,6 +133,8 @@ export class CreateEventTicketingComponent implements OnInit {
       currency: this.f.currency.value,
       eventId: this.eventId
     };
+
+    console.log('hdhdhd ', data);
 
     return data;
   }
