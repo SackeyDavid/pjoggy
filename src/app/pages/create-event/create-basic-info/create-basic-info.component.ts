@@ -21,6 +21,8 @@ export class CreateBasicInfoComponent implements OnInit {
   subCategoriesData: any[];
   recurringStore: string;
 
+  hosting: any = 1
+
   url: string = '';
   currentRoute: string = '';
 
@@ -66,7 +68,7 @@ export class CreateBasicInfoComponent implements OnInit {
       subcategory_id: ['', Validators.required],
       tags: [''],
       venue_tobe_announced: [0],
-      hosting: ['1']
+      hosting: [this.hosting]
     });
   }
 
@@ -124,7 +126,7 @@ export class CreateBasicInfoComponent implements OnInit {
       subcategory_id: this.f.subcategory_id.value,
       tags: this.f.tags.value,
       venue_tobe_announced: this.recurringStore,
-      hosting: this.f.hosting.value,
+      hosting: this.hosting,
       ticketing: this.f.ticketing.value
     };
     return data;
@@ -135,7 +137,12 @@ export class CreateBasicInfoComponent implements OnInit {
   }
 
   setHosting(value: any): void {
-    this.f.hosting.setValue(value);
+    // this.f.hosting.setValue(value);
+    this.form.controls['hosting'].setValue(value);
+    // console.log(this.form.controls['hosting'].value)
+    this.hosting =  this.form.controls['hosting'].value
+    console.log(value)
+
   }
 
   toggleVenueView(): void {

@@ -17,10 +17,11 @@ export class EventsService {
     this.getUserEventsUrl = this.endpoint.apiHost + '/v1/get_user_events_by_status/';
    }
 
-   getUserEvents(eventId: any, status: any): Promise<any> {
+   getUserEvents(status: any): Promise<any> {
     return new Promise((resolve, reject) => {
       let events: any[] = [];
-      const url = this.getUserEventsUrl + eventId + '/' + status;
+      var userId = sessionStorage.getItem('events_user_id');
+      const url = this.getUserEventsUrl + userId + '/' + status;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('get_user_events_ok: ', res);
