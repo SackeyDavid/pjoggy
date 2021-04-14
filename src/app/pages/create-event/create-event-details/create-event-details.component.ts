@@ -110,7 +110,7 @@ export class CreateEventDetailsComponent implements OnInit {
           }
           else {
             this.isLoading = false;
-            alert("oops, didn't create");
+            alert('oops, didn\'t create');
           }
         },
         err => {
@@ -127,7 +127,7 @@ export class CreateEventDetailsComponent implements OnInit {
       this.isBannerSet = true;
 
       // const formData = new FormData();
-      // formData.append("thumbnail", file);
+      // formData.append('thumbnail', file);
 
       this.f.banner_image.value = file;
 
@@ -141,11 +141,11 @@ export class CreateEventDetailsComponent implements OnInit {
 
   getFormData(): any {
     let hostedObject = [
-      { "platform": "Facebook", "link": this.f.facebook_hosting.value },
-      { "platform": "Zoom", "link": this.f.zoom_hosting.value },
-      { "platform": "Youtube", "link": this.f.youtube_hosting.value },
-      { "platform": "Meet", "link": this.f.meet_hosting.value },
-      { "platform": "Teams", "link": this.f.teams_hosting.value },
+      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Facebook', 'link': this.f.facebook_hosting.value },
+      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Zoom', 'link': this.f.zoom_hosting.value },
+      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Youtube', 'link': this.f.youtube_hosting.value },
+      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Meet', 'link': this.f.meet_hosting.value },
+      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
     ]
 
     const data = {

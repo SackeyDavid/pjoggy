@@ -15,7 +15,7 @@ export class EventDetailsService {
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
-    this.formHeaders = this.endpoint.formHeaders();
+    this.formHeaders = this.endpoint.headers(true);
     this.editDetailsUrl = this.endpoint.apiHost + '/v1/edit_more_event_info/'; 
     this.getEventUrl = this.endpoint.apiHost + '/get_event_data/';
   }

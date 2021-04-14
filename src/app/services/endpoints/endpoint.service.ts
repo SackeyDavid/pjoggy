@@ -78,17 +78,4 @@ export class EndpointService {
     });
   }
 
-  /**
-   * Set header for multipart/form content-type.
-   * @param token Token to set.
-   */
-   formHeaders() {
-    const token = sessionStorage.getItem('x_auth_token');
-    return new HttpHeaders({
-      'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data;',
-      'Authorization': 'Bearer ' + token
-    });
-  }
-
 }
