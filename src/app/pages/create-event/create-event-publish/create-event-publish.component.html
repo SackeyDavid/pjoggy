@@ -1,0 +1,151 @@
+<app-create-event-navbar></app-create-event-navbar>
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-4 col-lg-4">
+      <app-create-event-side-menu [currentPage]="'publishing'"></app-create-event-side-menu>
+      <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle>
+    </div>
+
+    <!-- <div class="col-lg-6 col-md-3">
+      <div class="page-info">
+        <div class="title">
+          <h1>Let's publish your event. It's ready.</h1>
+          <h5>Steps 5 <span class="of">of</span> 5</h5>
+        </div>
+
+        <div class="image">
+          <i class="bi-cloud-upload" style="font-size: 10em;"></i>
+        </div>
+
+        <div class="description">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title"><i class="bi-lightbulb text-warning"></i> &nbsp; Did You Know ?</h6>
+              <p class="card-text">Publishing your event right away is a good way to give attendees more time to properly adjust their calendar.</p>
+              <a href="#" class="card-link">Learn more</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+            <button type="button" class="btn btn-lg btn-primary" (lick)="publish()">Publish</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-1 display-non-lg"></div>
+
+    <div class="col-lg-5 col-md-8">
+      <div class="form">
+        <div class="divider mb-1 mt-5"></div>
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>Preview Event</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">Name your event and tell event-goers why they should come. Add details that highlight what makes it unique.</p>
+            </div>
+          </div>
+
+          <div class="form-body">
+            <!-- title -->
+            <div class="form-group">
+              <div class="card mb-3">
+                <img *ngIf="eventBanner != null" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{eventBanner}}" height="300" alt="banner">
+                <img *ngIf="eventBanner == null" class="card-img-top" src="../../../../assets/images/placeholder.png" height="300" alt="banner">
+                              
+                <div class="card-body">
+                      <h5 class="card-title">{{eventTitle}}</h5>
+                      <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
+                      <br>
+                      <p class="card-text">
+                        {{eventDescription}}
+                      </p>
+                      <p *ngFor="let ticket of eventTickets" class="card-text" style="font-weight: bold">
+                        <small><i class="bi-cash-stack"></i> {{ticket.currency}}{{ticket.price}} &nbsp; - &nbsp; <i class="bi-person"></i> {{ticket.max_quantity}}</small>
+                      </p>
+                      <p class="card-text" style="font-size: 12px;">
+                        <span>By: {{eventOrganizer}}</span> <br>
+                        <span *ngIf="eventContactPhone != null">Phone No.: {{eventContactPhone}}</span><br *ngIf="eventContactPhone != null">
+                        <span *ngIf="eventContactEmail != null">Email: {{eventContactEmail}}</span>
+                      </p>
+                    </div>
+              </div>
+            </div>
+            <!-- /.title -->
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!--
+          Date Time Section
+        -->
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>Publish</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">Tell event-goers when your event starts and ends so they can make plans to attend.</p>
+            </div>
+          </div>
+
+          <div class="form-body">
+            <!-- start & end time -->
+            <!-- <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected>Publish Now</option>
+                      <option value="2">Publish later</option>
+                    </select>
+                    <label for="floatingSelect">Publish At</label>
+                    <small id="titleHelp" class="form-text text-muted">
+                      Publishing time is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected>Public</option>
+                      <option value="2">Private</option>
+                    </select>
+                    <label for="floatingSelect">Event Visibility</label>
+                    <small id="titleHelp" class="form-text text-muted">
+                      This is required.
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- /.end -->
+            
+          </div>
+        </div>
+        <!--
+          /. End Date time Section
+        -->
+
+        <div class="navigation">
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+            <!-- <button type="button" class="btn btn-lg btn-primary" (click)="publish()">Publish</button> -->
+            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="publish()">Publish</button>
+            <app-loading-button *ngIf="isLoading"></app-loading-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2 only-non-mobile"></div>
+
+  </div>
+</div>

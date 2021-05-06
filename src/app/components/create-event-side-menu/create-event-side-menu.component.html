@@ -1,0 +1,111 @@
+<div id="side_bar" class="sidenav"
+  style="background-color: var(--ev-create-event-side-menu-background);color: var(--primary-color);">
+  <div class="container title ev-margin-top-bottom"  *ngIf="event?.title != null">
+    <h4 class="ev-font-size-xxlarge hide">
+      {{event?.title}}
+      </h4>
+    <h4 class="ev-font-size-xxlarge display-none only-mobile" (click)="hideSideMenu()"><i class="bi bi-chevron-left"></i></h4>
+
+    <span class="ev-event-date hide">
+      {{ getEventStartDateFormatted(event?.start_date_time) }} 
+    </span>
+    <span *ngIf="event?.recurring === '1'" class="recurring-span">
+      <i class="bi bi-arrow-repeat"></i> Recurring event
+    </span>
+  </div>
+  <ng-container *ngIf="event.recurring === '1'">
+    <a routerLink="/edit_event/basic_info" [class.active]="currentPage === 'basic_info'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span> Basic Info
+    </a>
+
+    <a *ngIf="event.hasScheduleData" routerLink="/edit_event/schedule" [class.active]="currentPage === 'schedule'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span> 
+      Schedule
+    </a>
+
+    <a *ngIf="!event.hasScheduleData" routerLink="/create_event/schedule" [class.active]="currentPage === 'schedule'">
+      <span class="ev-checkmark">2</span>
+      Schedule
+    </a>
+
+    <a *ngIf="event.hasMoreDetailsData" routerLink="/edit_event/more_details" [class.active]="currentPage === 'details'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  More Details
+    </a>
+
+    <a *ngIf="!event.hasMoreDetailsData" routerLink="/create_event/more_details" [class.active]="currentPage === 'details'">
+      <span class="ev-checkmark">3</span> More Details
+    </a>
+
+    <a *ngIf="event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Ticketing
+    </a>
+
+    <a *ngIf="!event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'">
+      <span class="ev-checkmark">4</span> Ticketing
+    </a>
+
+    <a *ngIf="event.hasPublishingData" routerLink="/edit_event/publishing" [class.active]="currentPage === 'publishing'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Publishing
+    </a>
+    
+    <a *ngIf="!event.hasPublishingData" routerLink="/create_event/publishing" [class.active]="currentPage === 'publishing'">
+      <span class="ev-checkmark">5</span> Publishing
+    </a>
+  </ng-container>
+
+  <ng-container *ngIf="event.recurring === '0'">
+    <a routerLink="/edit_event/basic_info" [class.active]="currentPage === 'basic_info'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span> Basic Info</a>
+      <a *ngIf="event.hasMoreDetailsData" routerLink="/edit_event/more_details" [class.active]="currentPage === 'details'">
+        <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  More Details</a>
+
+      <a *ngIf="!event.hasMoreDetailsData" routerLink="/create_event/more_details" [class.active]="currentPage === 'details'"><span
+        class="ev-checkmark">2</span> More Details</a>
+
+      <a *ngIf="event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'">
+        <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Ticketing</a>
+
+      <a *ngIf="!event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'"><span
+          class="ev-checkmark">3</span> Ticketing</a>
+
+      <a *ngIf="event.hasPublishingData" routerLink="/edit_event/publishing" [class.active]="currentPage === 'publishing'">
+        <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Publishing</a>
+      
+      <a *ngIf="!event.hasPublishingData" routerLink="/create_event/publishing" [class.active]="currentPage === 'publishing'"><span
+        class="ev-checkmark">4</span> Publishing</a>
+  </ng-container>
+
+  <div class="bottom">
+    <div class="list-group">
+      <!-- <a href="#" class="list-group-item list-group-item-action list-group-link">Marketing</a> -->
+        <a id="advanced-dropdown" style="border-bottom: none;border-top: none;"
+        class="list-group-item list-group-item-action list-group-link dropdown-btn">Advanced
+        <i *ngIf="!dropdown_shown" class="bi bi-chevron-down"></i>
+        <i *ngIf="dropdown_shown" class="bi bi-chevron-up"></i>
+        
+      </a>
+      <div class="dropdown-container">
+        <a routerLink="/create_advanced/organizers">Organizers</a>
+        <a routerLink="/create_advanced/speakers">Speakers</a>
+        <a routerLink="/create_advanced/media">Media</a>
+        <a routerLink="/create_advanced/sponsors">Sponsors</a>
+      </div>
+      <a href="/account/user" style="border-bottom: none;border-top: none;"
+        class="list-group-item list-group-item-action list-group-link">Account Settings</a>
+      
+      
+    </div>
+    <!-- <button class="dropdown-btn">Dropdown 
+      <i class="bi bi-caret-down"></i>
+    </button> -->
+    
+    <!-- <div class="custom-control custom-switch ml-4 mt-3">
+        <input (click)="switchTheme()" type="checkbox" class="custom-control-input" id="customSwitch1">
+        <label class="custom-control-label" for="customSwitch1" style="color: var(--ev-menu-item) !important;">
+         <ng-container *ngIf="dark_theme">Light Mode</ng-container>
+         Dark Mode
+        </label>
+      </div> -->
+      <br>
+  </div>
+</div>

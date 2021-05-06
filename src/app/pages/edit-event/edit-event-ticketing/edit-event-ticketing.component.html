@@ -1,0 +1,275 @@
+<app-create-event-navbar></app-create-event-navbar>
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-4 col-lg-4">
+      <app-create-event-side-menu [currentPage]="'ticketing'"></app-create-event-side-menu>
+      <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'"></app-side-menu-toggle>
+    </div>
+
+    <!-- <div class="col-md-3">
+      <div class="page-info">
+        <div class="title">
+          <h1>Let's get finances in order.</h1>
+          <h5>Steps 4 <span class="of">of</span> 5</h5>
+        </div>
+
+        <div class="image">
+          <i class="bi-credit-card-2-front" style="font-size: 7em;"></i>
+        </div>
+
+        <div class="description">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title"><i class="bi-lightbulb text-warning"></i> &nbsp; Did You Know ?</h6>
+              <p class="card-text">Statistics show events with affordable pricing sell all tickets in the first few weeks.</p>
+              <a href="#" class="card-link">Learn more</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="save()">Save & Continue</button>
+            <app-loading-button *ngIf="isLoading"></app-loading-button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-md-4 col-lg-4 col-sm-12">
+      <form class="form" [formGroup]="form" (ngSubmit)="create()">
+        <div class="divider mb-1 mt-5"></div>
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>New ticket</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">Setup tickets for your event if you want to sell tickets.</p>
+            </div>
+          </div>
+
+          <div class="form-body">
+            <!-- title & quantity -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="ticket name"
+                        formControlName="name" [ngClass]="{'is-invalid': saved && f.name.errors, 'is-valid': !f.name.errors}">
+                      <label for="floatingTitle">Name</label>
+                      <small *ngIf="saved && f.name.errors" id="titleHelp" class="form-text invalid-feedback">
+                        Ticket name is required.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="quantity"
+                        formControlName="quantity">
+                      <label for="floatingTitle">Quantity</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.end -->
+
+            <!-- pricing -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label" formControlName="currency">
+                      <option selected>Select Currency</option>
+                      <option value="GHS">GHS</option>
+                      <option value="USD">USD</option>
+                    </select>
+                    <label for="floatingSelect">Currency</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="price"
+                      formControlName="price">
+                      <label for="floatingTitle">Price</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.pricing-->
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!--
+          Advanced Section
+        -->
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>Advanced</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">Provide more information on how tickets should be purchased by the event attendees.</p>
+            </div>
+          </div>
+
+          <div class="form-body">
+            <!-- quantity -->
+            <div class="form-group">
+              <div class="row">
+                <h5 class="text-muted">Tickets Per Order</h5>
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date">
+                      <label for="floatingTitle">Min quantity</label>
+                      <small id="titleHelp" class="form-text text-muted">
+                        Minimum quantity is required.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date">
+                      <label for="floatingTitle">Max quantity</label>
+                      <small id="titleHelp" class="form-text text-muted">
+                        Maximum quantity is required.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.end -->
+
+            <!-- delivery mode -->
+            <div class="form-group">
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <option selected>Select Delivery Mode</option>
+                  <option value="1">eTicket</option>
+                  <option value="2">Door delivery</option>
+                </select>
+                <label for="floatingSelect">Delivery mode</label>
+              </div>
+              <small id="descHelp" class="form-text text-muted">
+                Delivery mode is required.
+              </small>
+            </div>
+            <!-- /.end -->
+
+            <!-- buttons -->
+            <div class="form-group">
+              <div *ngIf="!isEditMode" class="submit-button">
+                <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Save Ticket</button>
+                <app-loading-button *ngIf="isSaving"></app-loading-button>
+              </div>
+
+              <div *ngIf="isEditMode" class="submit-button">
+                <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Update Ticket</button>
+                <app-loading-button *ngIf="isSaving"></app-loading-button>
+              </div>
+            </div>
+
+            <!-- /.buttons -->
+          </div>
+        </div>
+        <!--
+          /. End Advanced Section
+        -->
+      </form>
+    </div>
+
+    <div class="col-sm-12 col-xs-12 col-md-4">
+      <div class="divider mb-1 mt-5"></div>
+
+        <!--
+          Tickets List Section
+        -->
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>Added Tickets</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">Help people in the area discover your event and let attendees know where to show up.</p>
+            </div>
+          </div>
+
+          <div *ngIf="isLoadingTickets" class="pt-3 pb-3 text-center">
+            <span class="spinner-border spinner-border-sm" style="width: 2em; height: 2em" role="status" aria-hidden="true"></span>
+          </div>
+
+          <div class="form-body">
+            <!-- start & end date -->
+            <div class="form-group">
+              <ul class="list-unstyled">
+                <li *ngFor="let ticket of createdTicketList; let i=index">
+                  <div class="card mb-3">
+                    <div class="row no-gutters">
+                      <div class="col-sm-4 col-md-2 d-xs-none d-sm-none d-md-block">
+                        <i class="bi-distribute-vertical" style="font-size: 30px; color: #ccc;"></i>
+                      </div>
+                      <div class="col-sm-8 col-md-6">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ ticket.name }}</h5>
+                          <p class="card-text">
+                            On Sale &nbsp; &nbsp; - {{ ticket.max_quantity }} <br>
+                            {{ ticket.currency }} {{ ticket.price }}
+                          </p>
+                          <p class="card-text">
+                            <small class="text-muted">
+                              {{ ticket.sales_startdate_time | date }} -
+                              {{ ticket.sales_enddate_time | date }}
+                            </small>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-light" type="button" (click)="edit(ticket, i)">
+                          <i class="bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-light" type="button" (click)="delete(ticket.id, i)">
+                          <i class="bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- /.end -->
+          </div>
+        </div>
+        <!--
+          /. End Tickets List
+        -->
+
+    </div>
+
+    <div class="col-12">
+
+      <div class="navigation">
+        <div class="nav-buttons">
+          <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="save()">Save & Continue</button>
+          <app-loading-button *ngIf="isLoading"></app-loading-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

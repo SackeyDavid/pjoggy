@@ -1,0 +1,89 @@
+:root {
+    
+  --ev-searchbar-background: #f8f7fb !important;
+  --ev-placeholder-background: #b7b2b2 !important;
+  --ev-searchbar-border: #f8f7fa !important;
+  --ev-nav-link-color: rgba(0,0,0,.55) !important;
+  --ev-background: #fff !important;
+  --ev-create-event-nav-background: #1e1e2e !important;
+  --ev-create-event-side-menu-background: #f9f9f9;
+  --ev-brandname-darkblue: #1e0a3c;
+  --ev-brandname-orange: #f05537;
+
+
+  .dark-theme {
+    --primary-color: #fff;
+    --ev-background: #1e1e2e;
+    --ev-sub-item-background: #516474;
+    --ev-item-background: #414553;
+    --ev-active: #0d79f8;
+    --ev-menu-item: #a4a4a4;
+    --ev-searchbar-background: #f8f7fb !important;
+    --ev-placeholder-background: #b7b2b2 !important;
+    --ev-searchbar-border: #f8f7fa !important;
+  }
+
+  @media (min-width: 768px) and (max-device-width : 1024px) and (orientation : portrait)  {
+    .col-md-8 {
+      width: 100% !important;
+    }
+    .col-md-4 {
+      width: 100% !important;
+    }
+  }
+  
+  // @media (min-width: 992px) and (orientation : landscape) {
+  //   .col-lg-4 {
+  //     width: 100% !important;
+  //   }
+  // }
+
+  @media (min-width: 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    .col-md-4 {
+      width: 100% !important;
+    }
+  }
+
+  .ev-spinner {
+    // position: relative;
+    // left: 48%;
+    margin: 1vh;
+    width: 8px; 
+    height: 8px;
+  }
+
+  .ev-display-only-non-mobile {
+    display: none;
+  }
+  .ev-display-only-mobile {
+    display: none;
+  }
+  
+  
+  @media (max-width: 576px) {
+    .ev-display-only-non-mobile {
+      display: none;
+    }
+    .ev-display-only-mobile {
+      display: block;
+    }
+  }
+  
+  @media (min-width: 577px) {
+    .ev-display-only-non-mobile {
+      display: block;
+    }
+    .ev-display-only-mobile {
+      display: none;
+    }
+  }
+
+  .ev-navbar {
+    width: 100%;
+    z-index: 99999;
+    background-color: var(--ev-create-event-nav-background) !important;
+    color: var(--primary-color);
+  }
+
+  
+}

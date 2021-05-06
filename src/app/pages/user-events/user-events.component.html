@@ -1,0 +1,402 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+<div class="row">
+
+    <div *ngIf="errMsg" class="alert alert-danger alert-dismissible" role="alert">
+        {{errMsg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+    <div class="col-12">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All 
+                <ng-container *ngIf="userEvents.length">
+                    ({{userEvents.length}})
+                </ng-container>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">Drafts
+                <ng-container *ngIf="createdEvents.length">
+                    ({{createdEvents.length}})
+                </ng-container>
+            </a>
+            
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">Published
+                <ng-container *ngIf="publishedEvents.length">
+                    ({{publishedEvents.length}})
+                    <!-- <span style="color: inherit;background-color: #fff;border-radius: 50%;">{{publishedEvents.length}})</span> -->
+                </ng-container>
+            </a>
+            
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
+                <ng-container *ngIf="archivedEvents.length">
+                    ({{archivedEvents.length}})
+                </ng-container>
+            </a>
+            
+        </li>
+    </ul>
+
+    
+    <div class="tab-content pt-3" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+            <div class="row">  
+                
+                
+            <div class="row" *ngIf="!userEvents || userEvents.length == 0">
+                <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                  <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                    <i class="bi bi-camera-reels-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                    <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Host your first event!</span>
+                    <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                      You have not hosted any event yet                      
+  
+                  </p>
+                </div>
+  
+              </div>
+
+                <div *ngFor="let event of userEvents; let i = index" class="col-lg-4 mb-4">
+                    <div class="card" *ngIf="i < loadIndex">
+                        <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250px" alt="{{event.title}}">
+                        <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" height="250px" alt="{{event.title}}">
+              
+                        <!-- <img class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" alt="banner"> -->
+                        <div class="card-body">                          
+                            <div class="col">
+                                <h4 class="card-title">{{event.title}}</h4>
+                                <span id="dots-{{event.id}}" style="color: #fff;">...</span>
+                                <span id="more-{{event.id}}" style="display: none;">
+
+                                    <hr>
+                                    <p class="card-text">{{event.description}}</p>
+                                    <p>
+                                        <!-- <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br> -->
+                                        <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br>
+                                        <!-- getEventStartDateFormatted(favorites.start_date_time) -->
+                                        <small class="text-muted">Category : {{event.Category}}</small><br>
+                                    </p>
+                                    <hr>
+                                    <div class="text-center">
+                                        <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                                        <!-- <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mx-1">Edit</button> -->
+                                    </div>
+                                    
+                                </span>
+
+                                <span id="myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMore(event.id)">See More</span>
+                                
+                            </div>
+                        </div>                       
+                    </div>
+                </div> 
+                
+                
+                <!-- <br><br><br> -->
+                <div class="row">
+                    <div class="col-12">
+                      <div class="d-flex flex-row justify-content-end p-1">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLess()">
+                            <i class="bi-arrow-up"></i>
+                          </button>
+                          <button *ngIf="loadIndex < userEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMore()">
+                            <i class="bi-arrow-down"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br><br><br>
+                  </div>
+                <!-- <div class="d-flex justify-content-center">
+                    <button  *ngIf="loadIndex < userEvents.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show more
+                    </button>
+
+                    <button  *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLess()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show less
+                    </button>
+                <br><br><br>
+                </div> -->
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-published" role="tabpanel" aria-labelledby="pills-published-tab">
+
+            
+            <div class="row" *ngIf="!publishedEvents || publishedEvents.length == 0">
+                <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                  <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                    <i class="bi bi-check-circle-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                    <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Publish an event</span>
+                    <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                      You have no published event yet
+  
+                  </p>
+                </div>
+  
+              </div>
+
+            <div class="row">
+                <div *ngFor="let event of publishedEvents" class="col-lg-4 mb-4">
+                    <div class="card">
+                        <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
+                        <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
+                        
+                        <div class="card-body">                          
+                            <div class="col">
+                                <h4 class="card-title">{{event.title}}</h4>
+                                <span id="published-dots-{{event.id}}" style="color: #fff;">...</span>
+                                <span id="published-more-{{event.id}}" style="display: none;">
+
+                                <hr>
+                                <p class="card-text">{{event.description}}</p>
+                                <p>
+                                    <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                    <small class="text-muted">Category : {{event.Category}}</small><br>
+                                </p>
+                                <hr>
+                                <div class="text-center">
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary mb-1 px-4 mx-1">Preview</button>
+                                    <button (click)="gotoEdit(event.id)" class="btn btn-secondary mb-1 px-4 mx-1">Edit</button>
+                                    <button (click)="archiveEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Delete</button>
+                                </div>
+
+                                </span>
+
+                                <span id="published-myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMorePublished(event.id)">See More</span>
+                                
+                            </div>
+                        </div>                       
+                    </div>
+                </div>  
+                
+                
+                <!-- <br><br><br> -->
+                <div class="row">
+                    <div class="col-12">
+                      <div class="d-flex flex-row justify-content-end p-1">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessPublished()">
+                            <i class="bi-arrow-up"></i>
+                          </button>
+                          <button *ngIf="published_loadIndex < publishedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMorePublished()">
+                            <i class="bi-arrow-down"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br><br><br>
+                  </div>
+                <!-- <br><br><br>
+                <div class="d-flex justify-content-center">
+                    <button  *ngIf="published_loadIndex < publishedEvents.length" class="btn btn-dark btn-lg" (click)="loadMorePublished()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show more
+                    </button>
+
+                    <button  *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessPublished()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show less
+                    </button>
+                <br><br><br>
+                </div> -->
+
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
+
+            <div class="row" *ngIf="!createdEvents || createdEvents.length == 0">
+                <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                  <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                    <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                    <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Drafts empty</span>
+                    <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                      You have no created event yet
+  
+                  </p>
+                </div>
+  
+              </div>
+
+            <div class="row">
+                <div *ngFor="let event of createdEvents; let i = index" class="col-lg-4 mb-4">
+                    <div class="card" *ngIf="i < draft_loadIndex">
+                        <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
+                        <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
+                        
+                        <div class="card-body">                          
+                            <div class="col">
+                                <h4 class="card-title">{{event.title}}</h4>
+                                
+                                <span id="draft-dots-{{event.id}}" style="color: #fff;">...</span>
+                                <span id="draft-more-{{event.id}}" style="display: none;">
+
+                                <hr>
+                                <p class="card-text">{{event.description}}</p>
+                                <p>
+                                    <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                    <small class="text-muted">Category : {{event.Category}}</small><br>
+                                </p>
+                                <hr>
+                                <div class="text-center">
+                                    <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1">Edit</button>
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1">Preview</button>
+                                    <button (click)="archiveEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Delete</button>
+                                </div>
+
+                                </span>
+
+                                <span id="draft-myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMoreDraft(event.id)">See More</span>
+                                
+                            </div>
+                        </div>                       
+                    </div>
+                </div>  
+                
+                
+                <!-- <br><br><br> -->
+                <div class="row">
+                    <div class="col-12">
+                      <div class="d-flex flex-row justify-content-end p-1">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
+                            <i class="bi-arrow-up"></i>
+                          </button>
+                          <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
+                            <i class="bi-arrow-down"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br><br><br>
+                  </div>
+                
+                <!-- <br><br><br>
+                <div class="d-flex justify-content-center">
+                    <button  *ngIf="draft_loadIndex < createdEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreDrafts()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show more
+                    </button>
+
+                    <button  *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessDrafts()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show less
+                    </button>
+                <br><br><br>
+                </div> -->
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-archived" role="tabpanel" aria-labelledby="pills-archived-tab">
+            
+            <div class="row" *ngIf="!archivedEvents || archivedEvents.length == 0">
+                <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                  <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                    <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                    <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Archive empty</span>
+                    <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                      You have no archived event yet
+  
+                  </p>
+                </div>
+  
+              </div>
+
+            <div class="row">
+                <div *ngFor="let event of archivedEvents" class="col-lg-4 mb-4">
+                    <div class="card">
+                        <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
+                        <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
+              
+                        <div class="card-body">                          
+                            <div class="col">
+                                <h4 class="card-title">{{event.title}}</h4>
+
+                                <span id="archived-dots-{{event.id}}" style="color: #fff;">...</span>
+                                <span id="archived-more-{{event.id}}" style="display: none;">
+
+                                <hr>
+                                <p class="card-text">{{event.description}}</p>
+                                <p>
+                                    <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                    <small class="text-muted">Category : {{event.Category}}</small><br>
+                                </p>
+                                <hr>
+                                <div class="text-center">
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary mb-1 px-4 mx-1">Preview</button>
+                                    <button (click)="recoverEvent(event.id)" class="btn btn-success mb-1 px-4 mx-1">Recover</button>
+                                </div>
+
+                                </span>
+
+                                <span id="archived-myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMoreArchived(event.id)">See More</span>
+                                
+                            </div>
+                        </div>                       
+                    </div>
+                </div>  
+                
+                
+                
+                <!-- <br><br><br> -->
+                <div class="row">
+                    <div class="col-12">
+                      <div class="d-flex flex-row justify-content-end p-1">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
+                            <i class="bi-arrow-up"></i>
+                          </button>
+                          <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
+                            <i class="bi-arrow-down"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br><br><br>
+                  </div>
+                <!-- <br><br><br>
+                <div class="d-flex justify-content-center">
+                    <button  *ngIf="archived_loadIndex < archivedEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreArchived()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show more
+                    </button>
+
+                    <button  *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessArchived()" type="button">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Show less
+                    </button>
+                <br><br><br>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+    
+<!-- <br><br><br>
+<div class="d-flex justify-content-center">
+  <button  *ngIf="loadIndex < userEvents.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Load more
+    </button>
+
+    <a href="/" *ngIf="loadIndex >= userEvents.length" class="btn btn-dark btn-lg">Show all events</a>
+</div> -->
+</div>
+</div>
+<app-footer></app-footer>

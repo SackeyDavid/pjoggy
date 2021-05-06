@@ -1,0 +1,131 @@
+<div class="container mt-5 pt-5 bg-white">
+  <div class="onzoom-homepage-total" style="margin-top: 0rem;">
+    <ng-containrer *ngIf="!bannerAdsData">
+      <div class="d-flex justify-content-center">
+        <!-- <div class="spinner-grow" role="status">  -->
+          <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+          <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+          <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+         
+        <!-- </div> -->
+      </div>
+    </ng-containrer>
+  <owl-carousel [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="bannerAdsData">
+    <!-- <div *ngFor="let banner of bannerAdsData" class="items">
+      <div class="container">
+        <div class="row"> -->
+          <!-- <div class="col-sm-12 col-md-12 col-lg-5 ev-padl-0">
+            <div class="bg-white p-5 rounded-lg p-3">
+              <h1 class="display-5">{{banner.message}}</h1>
+              <p class="lead">
+                {{banner.title}}
+              </p>
+              <hr class="my-4">
+              <p>For organizing events.</p>
+              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-7 col-sm-12 ev-padl-0">
+            <img class="rounded mx-auto d-block image mr-3 img-fluid" src="http://events369.logitall.biz/storage/banner/{{banner.image}}" alt="{{banner.message}}">
+          </div> -->
+        <!-- </div>
+      </div>
+    </div> -->
+
+    
+          
+
+      <div *ngFor="let banner of bannerAdsData" class="home-banner" style="margin-right: 1rem;">
+              <div class="home-banner-text only-non-mobile">
+                <div class="home-banner-text-core">
+                  <div class="home-banner-title">
+                    <span><span class="home-banner-weight-light">{{banner.message}}</span> <br> 
+                    <!-- <span>Real experiences.</span> -->
+                    </span>
+                  </div>
+                     <!-- <div class="home-banner-subtitle home-banner-weight-light"><span><span>Zoom for</span> 
+                      <span class="home-banner-link">You.</span></span>
+                    </div> -->
+                    <hr class="my-4">
+                    <a class="btn btn-primary btn-lg"target="_blank" href="/events/learn-more/" role="button">Learn more
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              
+               <div class="home-banner-figure only-non-mobile">
+                 <div class="onzoom-homepage-htm-scale-box">
+                   <div class="onzoom-homepage-htm-scale-box-wrap" style="padding-top: 38%;">
+                    <div class="onzoom-homepage-htm-scale-box-core">
+                     <div class="home-banner-figure-core" style="margin-right: 4rem; background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{banner.image}}&quot;);">
+                     </div>
+                    </div>
+                  </div>
+                </div>
+               </div>
+
+          <div class="home-banner-figure only-mobile"><div class="onzoom-homepage-htm-scale-box"><div class="onzoom-homepage-htm-scale-box-wrap" style="padding-top: 38%;"><div class="onzoom-homepage-htm-scale-box-core"><div class="home-banner-figure-core" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{banner.image}}&quot;);"></div></div></div></div>
+          </div>
+          <div class="home-banner-text only-mobile">
+            <div class="home-banner-text-core">
+              <div class="home-banner-title">
+                <span><span class="home-banner-weight-light">{{banner.message}}</span> <br> 
+                <!-- <span>Real experiences.</span> -->
+              </span>
+              </div>
+                <!-- <div class="home-banner-subtitle home-banner-weight-light"><span><span>Zoom for</span> 
+                  <span class="home-banner-link">You.</span></span>
+                </div> -->
+                <!-- <hr class="my-4"> -->
+                <a class="btn btn-primary btn-lg" target="_blank" href="/events/learn-more/" role="button">Learn more
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+          </div>
+      </div>
+    
+  
+    <!-- <div class="items">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-5 ev-padl-0">
+            <div class="bg-white p-5 rounded-lg m-3">
+              <h1 class="display-5">Online events.</h1>
+              <p class="lead">
+                Human Connections.
+              </p>
+              <hr class="my-4">
+              <p>Made for you</p>
+              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </div>
+          </div>
+          <div class="col-lg-7 col-sm-12 ev-padl-0">
+            <img class="rounded mx-auto d-block image" src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fmarketing%20space%2Fbanner--202102-birthday-v2.webp?alt=media&token=c066068c-2c2a-4ec5-a61d-c9b9aa2f7357" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="items">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-5 ev-padl-0">
+            <div class="bg-white p-5 rounded-lg m-3">
+              <h1 class="display-5">More stuffs</h1>
+              <p class="lead">
+                Plan with us
+              </p>
+              <hr class="my-4">
+              <p>Something goes here.</p>
+              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </div>
+          </div>
+          <div class="col-lg-7 col-sm-12 ev-padl-0">
+            <img class="rounded mx-auto d-block image" src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fmarketing%20space%2Fbanner--202102-music-v2.webp?alt=media&token=a57a9f9f-e87c-41b6-ab2e-e8ccf14abde7" alt="">
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </owl-carousel>
+  </div>
+</div>

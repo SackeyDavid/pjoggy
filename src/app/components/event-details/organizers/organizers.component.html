@@ -1,0 +1,93 @@
+<section id="organisers" id="ts-speakers" class="ts-speakers" style="background-image:url('../../assets/images/speakers/speaker_bg.png')">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-8 mx-auto">
+             <h2 class="section-title text-center">
+                <span>Meet the</span>
+                Event Organizers
+             </h2>
+          </div><!-- col end-->
+       </div><!-- row end-->
+
+       <div class="row">
+          <div *ngFor="let x of organizers" class="col-lg wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="400ms">
+             <div class="ts-speaker">
+                <div class="speaker-img">
+                   <!-- <img class="img-fluid" src="../../assets/images/speakers/speaker1.jpg" alt=""> -->
+                   <img class="img-fluid" src="http://events369.logitall.biz/storage/banner/{{x.image}}   " alt="">
+                   <a href="index.html#popup_1" class="view-speaker ts-image-popup" data-effect="mfp-zoom-in">
+                               <i class="icon icon-plus"></i>
+                           </a>
+                </div>
+                <div class="ts-speaker-info">
+                   <h3 class="ts-title"><a href="index.html#">{{x.name}}</a></h3>
+                   <!-- <p>
+                      Founder, Edilta
+                   </p> -->
+                </div>
+             </div>
+             <!-- popup start-->
+             <div id="popup_1" class="container ts-speaker-popup mfp-hide">
+                <div class="row">
+                   <div class="col-lg-6">
+                      <div class="ts-speaker-popup-img">
+                         <img src="../../assets/images/speakers/speaker1.jpg" alt="">
+                      </div>
+                   </div><!-- col end-->
+                   <div class="col-lg-6">
+                      <div class="ts-speaker-popup-content">
+                         <h3 class="ts-title">{{x.name}}</h3>
+                         <!-- <span class="speakder-designation">Cheif Architecture</span>
+                         <img class="company-logo" src="../../assets/images/sponsors/sponsor-6.png" alt=""> -->
+                         <p>{{x.bio}}</p>
+                         <!-- <h4 class="session-name">
+                            Sessions by David
+                         </h4>
+                         <div class="row">
+                            <div class="col-lg-6">
+                               <div class="speaker-session-info">
+                                  <h4>Day 1</h4>
+                                  <span>
+                                              10.30 - 11.30 am
+                                        </span>
+                                  <p>
+                                     Marketing Matters
+                                  </p>
+                               </div>
+                            </div>
+                            <div class="col-lg-6">
+                               <div class="speaker-session-info">
+                                  <h4>Day 1</h4>
+                                  <span>
+                                                 10.30 - 11.30 am
+                                           </span>
+                                  <p>
+                                     Marketing Matters
+                                  </p>
+                               </div>
+                            </div>
+                         </div> -->
+                         <div class="ts-speakers-social">
+                            <a href="x.facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="x.twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="x.instagram"><i class="fa fa-instagram"></i></a>
+                            <!-- <a href="index.html#"><i class="fa fa-google-plus"></i></a> -->
+                            <a href="x.linkedin"><i class="fa fa-linkedin"></i></a>
+                         </div>
+                      </div><!-- ts-speaker-popup-content end-->
+                   </div><!-- col end-->
+                </div><!-- row end-->
+             </div><!-- popup end-->
+          </div> <!-- col end-->          
+       </div><!-- row end-->
+
+    </div><!-- container end-->
+
+    <!-- shap img-->
+    <div class="speaker-shap">
+       <img class="shap1" src="../../assets/images/shap/home_speaker_memphis1.png" alt="">
+       <img class="shap2" src="../../assets/images/shap/home_speaker_memphis2.png" alt="">
+       <img class="shap3" src="../../assets/images/shap/home_speaker_memphis3.png" alt="">
+    </div>
+    <!-- shap img end-->
+ </section>

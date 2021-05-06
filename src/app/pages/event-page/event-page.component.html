@@ -1,0 +1,52 @@
+<div class="body-inner">
+  <app-header
+    [intro]="eventDisplay"
+    [speakers]="speakersDisplay"
+    [schedule]="scheduleDisplay"
+    [pricing]="pricingDisplay"
+    [organisers]="organisersDisplay"
+    [sponsors]="sponsorsDisplay"
+    [direction]="dataContent?.hosting == 'Physical' ? true:false">
+  </app-header>
+
+  <app-banner
+    [eventContent]="this.eventContent">    
+  </app-banner>
+
+  <app-basic-info
+    [eventContent]="this.eventContent">
+  </app-basic-info>
+
+  <app-speakers
+    *ngIf="speakersDisplay == true"
+    [speakers]="speakersContent">
+  </app-speakers>
+
+  <app-schedule
+    *ngIf="scheduleDisplay == true">
+  </app-schedule>
+
+  <app-pricing
+    *ngIf="pricingDisplay == true"
+    [pricing]="pricingContent">
+  </app-pricing>
+
+  <app-organizers
+    *ngIf="organisersDisplay ==true"
+    [organizers]="organisersContent">
+  </app-organizers>
+
+  <app-sponsors
+    *ngIf="sponsorsDisplay == true"
+    [sponsors]="sponsorsContent">
+  </app-sponsors>
+
+  <app-location
+    *ngIf="eventContent?.hosting == 'Physical'"
+    [venue]="eventContent.venue"
+    [contactPhone]="eventContent.contact_phone"
+    [contactEmail]="eventContent.contact_email">
+  </app-location>
+
+  <app-event-footer></app-event-footer>
+</div>

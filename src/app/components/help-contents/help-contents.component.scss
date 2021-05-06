@@ -1,0 +1,76 @@
+.help-banner {
+    background: url(../../../assets/images/help-image-banner.webp) 0 0/100% 100% no-repeat;
+    margin-top: 0;
+    min-height: 300px;
+}
+
+
+// .ev-nav-searchbar-input {
+//     background-color: var(--ev-searchbar-background) !important;
+//     border-color: var(--ev-searchbar-border) !important;
+//   }
+
+.card-img-top {
+    height: 64px;
+    width: 64px;
+    margin: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    padding: 5%;
+}
+
+tr td {
+    color: var(--ev-brandname-darkblue);
+    margin: 2%;
+}
+
+
+@media (max-width: 576px) {
+ .help-banner {
+    //  background: #fff !important;
+    max-height: 100px !important;
+ }
+ .help-banner-text {
+     color: var(--ev-brandname-darkblue) !important;
+     font-size: 20px !important;
+     margin-left: 5%;
+     margin-right: 5%;
+ }
+ .help-banner-text-minor {
+     font-size: 14px !important;
+     color: grey !important;
+ }
+ .search-form {
+     left: 5% !important;
+     top: 30% !important;
+     width: 90% !important;
+ }
+ .help-search-bar {
+    height: 6vh !important;
+    font-size: 15px !important;
+    background-color: #f8f7fb !important;
+ }
+ .help-searchbar-icon {
+    top: 15% !important; 
+    left: 4%;
+ }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}

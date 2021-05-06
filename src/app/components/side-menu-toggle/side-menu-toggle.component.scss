@@ -1,0 +1,44 @@
+.ev-marginlr {
+    margin-left: -2vh;
+    margin-right: -2vh;
+}
+
+.bi-list {
+    font-size: x-large !important;
+}
+.navbar-brand {
+  display: inline-flex;
+  color: var(--ev-create-event-nav-background) !important;
+}
+
+.navbar-brand span {
+  display: inline-block;
+  margin-left: 5%;
+  margin-top: -1vh;
+}
+
+@media (max-width: 1024px) {
+    .only-non-mobile {
+      display: none;
+    }
+    .only-mobile {
+      display: block;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .only-mobile {
+      display: none;
+    }
+    .only-non-mobile {
+      display: block;
+    }
+  }
+
+  .ev-event-title-for-sm {
+    display: block;
+    width: 80vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+  }

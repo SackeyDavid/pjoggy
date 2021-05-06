@@ -1,0 +1,9 @@
+<nav class="navbar navbar-light bg-light ev-marginlr only-mobile">
+    <a class="navbar-brand" (click)="toggleSideMenu()">
+      <i class="bi bi-list"></i>
+      <span>
+        <b class="ev-event-title-for-sm" style="font-weight: initial;">{{eventTitle}}</b> 
+        <p style="font-size: 12px;line-height: 1;margin-bottom: 0;">{{getEventStartDateFormatted(eventDate)}}</p>
+      </span>
+    </a>
+  </nav>
