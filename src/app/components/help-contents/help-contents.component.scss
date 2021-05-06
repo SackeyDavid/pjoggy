@@ -27,11 +27,15 @@ tr td {
     margin: 2%;
 }
 
+.only-mobile {
+    display: none;
+}
+
 
 @media (max-width: 576px) {
  .help-banner {
-    //  background: #fff !important;
-    max-height: 100px !important;
+     background:  inherit !important;
+    // max-height: 100px !important;
  }
  .help-banner-text {
      color: var(--ev-brandname-darkblue) !important;
@@ -45,7 +49,7 @@ tr td {
  }
  .search-form {
      left: 5% !important;
-     top: 30% !important;
+     top: 42% !important;
      width: 90% !important;
  }
  .help-search-bar {
@@ -56,6 +60,9 @@ tr td {
  .help-searchbar-icon {
     top: 15% !important; 
     left: 4%;
+ }
+ .only-mobile {
+    display: block;
  }
 }
 
@@ -73,4 +80,9 @@ tr td {
 
 @media (min-width: 1200px) {
 
+}
+
+.question-image {
+    height: 104px !important;
+    width: 104px !important;
 }

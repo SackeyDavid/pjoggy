@@ -28,6 +28,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
 
   userFavorites: any = []
   userID: string = '';
+  user_token: string = '';
   sliderOptions: any;
   
   users_favorite_event_ids: any = []
@@ -73,7 +74,9 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     }
 
   ngOnInit(): void {
-    var user_id: any =  sessionStorage.getItem('x_auth_token')
+    var user_token = sessionStorage.getItem('x_auth_token')
+    this.user_token = ((user_token !== null? user_token: ''))
+    var user_id: any =  sessionStorage.getItem('user_id')
     // user_id = JSON.parse(user_id)
     console.log(user_id)
     this.userID = user_id;
@@ -270,7 +273,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
   }
 
   saveEventAsFavorite(event_id: any): void {
-    if(this.userID == null) {
+    if(this.user_token == null) {
       this.router.navigateByUrl('/login')
       
     } else {

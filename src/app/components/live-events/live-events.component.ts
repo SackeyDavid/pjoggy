@@ -17,14 +17,15 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
   
   eventsNow: any;
 
-  watched_videos:any = []
+  watched_videos:any = [];
   _x = this;
 
-  userID: string = ''
+  userID: string = '';
+  user_token: string = '';
   
-  userFavorites: any = []
-  users_favorite_event_ids: any = []
-  users_favorite_event_id_and_fav_id: any = []
+  userFavorites: any = [];
+  users_favorite_event_ids: any = [];
+  users_favorite_event_id_and_fav_id: any = [];
 
   constructor(
     private eventsHappeningNow: HappeningNowService,
@@ -139,12 +140,14 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
     // using  http://events369.logitall.biz/api/get_events_by_type/1 for now, waiting for happening now api
 
     
-    var user_id: any =  sessionStorage.getItem('user_id')
-    console.log('user id: ', user_id)
+    var user_token = sessionStorage.getItem('x_auth_token');
+    this.user_token = ((user_token !== null? user_token: ''));
+    var user_id: any =  sessionStorage.getItem('user_id');
+    console.log('user id: ', user_id);
     this.userID = user_id;
 
-    this.getUsersFavorites()
-    console.log(this.users_favorite_event_ids)
+    this.getUsersFavorites();
+    console.log(this.users_favorite_event_ids);
 
 
     
@@ -203,7 +206,7 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
   }
 
   saveEventAsFavorite(event_id: any): void {
-    if(this.userID == null) {
+    if(this.user_token == null) {
       this.router.navigateByUrl('/login')
       
     } else {
