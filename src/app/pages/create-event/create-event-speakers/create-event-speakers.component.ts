@@ -155,7 +155,14 @@ export class CreateEventSpeakersComponent implements OnInit {
         this.isLoadingSpeakers = false;
         _.forEach(speakers, (speaker, i) => {
           this.createdSpeakerList.push(speaker);
-          this.imgSrcList[i] = 'http://events369.logitall.biz/storage/host/' + speakers[i].image;
+
+          if (!(speakers[i].image == null)){
+            this.imgSrcList[i] = 'http://events369.logitall.biz/storage/organizer/' + speakers[i].image;
+          }
+          else{
+            this.imgSrcList[i] = '../../../../assets/images/avatar-placeholder.png';
+          }
+          
           console.log(this.imgSrcList[i]);
         });
       }
@@ -170,7 +177,14 @@ export class CreateEventSpeakersComponent implements OnInit {
         speakerId => {          
             const createdSpeaker = this.getCreatedSpeakerData(speakerId);
             this.createdSpeakerList.unshift(createdSpeaker);
-            this.imgSrcList.unshift(this.createdImgSrc)
+            
+            if (!(this.createdImgSrc == '')){
+              this.imgSrcList.unshift(this.createdImgSrc)
+            }
+            else{
+              this.imgSrcList.unshift('../../../../assets/images/avatar-placeholder.png')
+            }
+
             resolve(true);
         },
         err => {
@@ -245,10 +259,8 @@ export class CreateEventSpeakersComponent implements OnInit {
 
   deleteSpeaker(speakerId: string, index: number): void {
     this.speakerService.deleteSpeaker(speakerId).then(
-      ok => {
-        ok
-          ? this.createdSpeakerList.splice(index, 1)
-          : this.displayFailedDeleteToast();
+      res => {
+        res ? this.createdSpeakerList.splice(index, 1) : this.displayFailedDeleteToast();
       },
       err => {}
     );

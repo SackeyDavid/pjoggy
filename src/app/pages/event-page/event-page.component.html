@@ -22,9 +22,9 @@
     [speakers]="speakersContent">
   </app-speakers>
 
-  <app-schedule
+  <!-- <app-schedule
     *ngIf="scheduleDisplay == true">
-  </app-schedule>
+  </app-schedule> -->
 
   <app-pricing
     *ngIf="pricingDisplay == true"
@@ -40,6 +40,11 @@
     *ngIf="sponsorsDisplay == true"
     [sponsors]="sponsorsContent">
   </app-sponsors>
+
+  <app-gallery
+    *ngIf="galleryDisplay == true"
+    [images]="galleryContent">
+  </app-gallery>
 
   <app-location
     *ngIf="eventContent?.hosting == 'Physical'"

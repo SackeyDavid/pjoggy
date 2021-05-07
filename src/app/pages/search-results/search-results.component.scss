@@ -1,0 +1,36 @@
+.search-row {
+    cursor: pointer;
+}
+
+.card,
+.card-img-bottom {
+    width: 100%;
+    height: 200px;
+    border-radius: 6px;
+}
+
+.card-title{
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+span.bold {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 28px;
+}
+
+span.lead {
+    font-size: 18px;
+}
+
+.description-text{
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

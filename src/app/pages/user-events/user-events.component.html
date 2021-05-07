@@ -66,7 +66,7 @@
               </div>
 
                 <div *ngFor="let event of userEvents; let i = index" class="col-lg-4 mb-4">
-                    <div class="card" *ngIf="i < loadIndex">
+                    <div class="card" *ngIf="i < loadIndex" (click)="showHideMore(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250px" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" height="250px" alt="{{event.title}}">
               
@@ -93,7 +93,7 @@
                                     
                                 </span>
 
-                                <span id="myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMore(event.id)">See More</span>
+                                <span id="myBtn-{{event.id}}" class="see-more-or-less">See More</span>
                                 
                             </div>
                         </div>                       
@@ -150,7 +150,7 @@
 
             <div class="row">
                 <div *ngFor="let event of publishedEvents" class="col-lg-4 mb-4">
-                    <div class="card">
+                    <div class="card" (click)="showHideMorePublished(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
                         
@@ -170,12 +170,13 @@
                                 <div class="text-center">
                                     <button (click)="gotoPreview(event.id)" class="btn btn-primary mb-1 px-4 mx-1">Preview</button>
                                     <button (click)="gotoEdit(event.id)" class="btn btn-secondary mb-1 px-4 mx-1">Edit</button>
-                                    <button (click)="archiveEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Delete</button>
+                                    <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button>
+                                    <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1">Delete</button>
                                 </div>
 
                                 </span>
 
-                                <span id="published-myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMorePublished(event.id)">See More</span>
+                                <span id="published-myBtn-{{event.id}}" class="see-more-or-less">See More</span>
                                 
                             </div>
                         </div>                       
@@ -233,7 +234,7 @@
 
             <div class="row">
                 <div *ngFor="let event of createdEvents; let i = index" class="col-lg-4 mb-4">
-                    <div class="card" *ngIf="i < draft_loadIndex">
+                    <div class="card" *ngIf="i < draft_loadIndex" (click)="showHideMoreDraft(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
                         
@@ -254,12 +255,13 @@
                                 <div class="text-center">
                                     <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1">Edit</button>
                                     <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1">Preview</button>
-                                    <button (click)="archiveEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Delete</button>
+                                    <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button>
+                                    <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1">Delete</button>
                                 </div>
 
                                 </span>
 
-                                <span id="draft-myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMoreDraft(event.id)">See More</span>
+                                <span id="draft-myBtn-{{event.id}}" class="see-more-or-less">See More</span>
                                 
                             </div>
                         </div>                       
@@ -317,7 +319,7 @@
 
             <div class="row">
                 <div *ngFor="let event of archivedEvents" class="col-lg-4 mb-4">
-                    <div class="card">
+                    <div class="card"  (click)="showHideMoreArchived(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
               
@@ -342,7 +344,7 @@
 
                                 </span>
 
-                                <span id="archived-myBtn-{{event.id}}" class="see-more-or-less" (click)="showHideMoreArchived(event.id)">See More</span>
+                                <span id="archived-myBtn-{{event.id}}" class="see-more-or-less">See More</span>
                                 
                             </div>
                         </div>                       

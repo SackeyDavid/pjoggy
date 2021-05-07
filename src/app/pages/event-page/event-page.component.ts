@@ -17,6 +17,7 @@ export class EventPageComponent implements OnInit, AfterViewInit {
   pricingContent: any;
   organisersContent: any;
   sponsorsContent: any;
+  galleryContent: any;
 
   eventDisplay: Boolean = false;
   speakersDisplay: Boolean = false;
@@ -24,6 +25,7 @@ export class EventPageComponent implements OnInit, AfterViewInit {
   pricingDisplay: Boolean = false;
   organisersDisplay: Boolean = false;
   sponsorsDisplay: Boolean = false;
+  galleryDisplay: Boolean = false;
 
   constructor(private http: HttpClient) { 
     this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + sessionStorage.getItem('preview_event_id');
@@ -52,6 +54,7 @@ export class EventPageComponent implements OnInit, AfterViewInit {
           this.pricingContent = this.dataContent.tickets;
           this.organisersContent = this.dataContent.organizers;
           this.sponsorsContent = this.dataContent.sponsors;
+          this.galleryContent = this.dataContent.images;
   
           console.log(this.eventContent);
 
@@ -67,9 +70,19 @@ export class EventPageComponent implements OnInit, AfterViewInit {
     if (Object.keys(this.eventContent)?.length > 0) this.eventDisplay = true;
     if (Object.keys(this.speakersContent)?.length > 0) this.speakersDisplay = true;
     if (Object.keys(this.scheduleContent)?.length > 0) this.scheduleDisplay = true;
-    if (Object.keys(this.pricingContent)?.length > 0) this.pricingContent = true;
+    if (Object.keys(this.pricingContent)?.length > 0) this.pricingDisplay = true;
     if (Object.keys(this.organisersContent)?.length > 0) this.organisersDisplay = true;
     if (Object.keys(this.sponsorsContent)?.length > 0) this.sponsorsDisplay = true;
+    if (Object.keys(this.galleryContent)?.length > 0) this.galleryDisplay = true;
+    
+    console.log({
+      speakers: this.speakersDisplay,
+      schedule: this.scheduleDisplay,
+      pricing: this.pricingDisplay,
+      organizers: this.organisersDisplay,
+      sponsors: this.sponsorsDisplay,
+      gallery: this.galleryDisplay
+    });
   }
 
 }

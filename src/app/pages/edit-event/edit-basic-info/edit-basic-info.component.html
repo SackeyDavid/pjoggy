@@ -25,7 +25,7 @@
         </div>
 
         <div class="navigation">
-          <div class="nav-buttons">
+          <div class="nav-buttons"> 
             <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
@@ -77,7 +77,7 @@
                 </small>
               </div>
               <small class="form-text text-muted">
-                {{250 - f.description.value.length}} characters
+                {{250 - f.description.value?.length}} characters
               </small>
             </div>
             <!-- /.description-->

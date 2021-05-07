@@ -1,8 +1,9 @@
 .help-banner {
-    background: url(../../../assets/images/help-image-banner.webp) 0 0/100% 100% no-repeat;
+    background: url(../../../assets/images/help-page-banner.webp) 0 0/100% 100% no-repeat;
     margin-top: 0;
     min-height: 300px;
 }
+
 
 
 // .ev-nav-searchbar-input {
@@ -80,6 +81,24 @@ tr td {
 
 @media (min-width: 1200px) {
 
+}
+
+@media (min-width: 1500px) {
+    .search-form {
+       top: 25% !important; 
+    }
+    .help-search-bar {
+        height: 6vh !important;
+    }
+    .help-banner-text {
+        padding-top: 4vh !important;
+    }
+    .help-banner {
+        background: url(../../../assets/images/help-banner-lg.webp) 0 0/100% 100% no-repeat !important; 
+    }
+    .help-banner-text-minor {
+        color: #bfbebe !important;
+    }
 }
 
 .question-image {

@@ -1,0 +1,25 @@
+<!-- gallery start -->
+<section class="ts-gallery p-60">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-8 mx-auto">
+             <!-- <h2 class="section-title white"> -->
+             <h2 class="section-title">
+                <span>Sneckpick</span>
+                Event Gallery
+             </h2>
+          </div><!-- col end-->
+       </div><!-- row end-->
+       <div class="row gallery-wrap">
+          <div *ngFor="let image of images" class="col">
+             <a href="http://events369.logitall.biz/storage/event_images/{{image.url}}" class="ts-popup">
+                <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{image.url}}" alt="">
+             </a>
+          </div><!-- col end-->          
+       </div><!-- row end-->
+    </div><!-- container end-->
+    <div class="speaker-shap">
+       <img class="shap1" src="images/shap/home_schedule_memphis2.png" alt="">
+    </div>
+ </section>
+ <!-- gallery end -->

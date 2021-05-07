@@ -1,7 +1,8 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,11 +12,17 @@ import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
 export class NavbarComponent implements OnInit {
 
   userAuthenticated: boolean = false;  
+  searchQuery: string = '';
 
-  constructor(private http: HttpClient, private endpoint: EndpointService) { }
+  @Output() searchEvent = new EventEmitter<string>();
+
+  constructor(private http: HttpClient, private router: Router, private endpoint: EndpointService) { }
 
   ngOnInit(): void {
-    this.checkIfUserAuthenticated()
+    this.checkIfUserAuthenticated();
+
+    let sessionQuery = sessionStorage.getItem('search_query');
+    sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
   }
 
   showSearchBar() {
@@ -83,7 +90,6 @@ export class NavbarComponent implements OnInit {
 
     this.userAuthenticated = ((data != null)? true : false)
     console.log('user authenticated: ', this.userAuthenticated)
-   
   }
 
   // logIn() {
@@ -105,6 +111,13 @@ export class NavbarComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  doSearch(){
+    console.log('lets search for ' + this.searchQuery);
+    sessionStorage.setItem('search_query', this.searchQuery);
+    this.searchEvent.emit(this.searchQuery);
+    this.router.navigateByUrl('/search_results');
   }
 
 }

@@ -38,7 +38,7 @@ export class OrganizersService {
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('image', image);
-      formData.append('name', organizer.name);
+      formData.append('organizer', organizer.name);
       formData.append('bio', organizer.bio);
       formData.append('facebook', organizer.facebook);      
       formData.append('twitter', organizer.twitter);      

@@ -11,6 +11,7 @@ export class EventsService {
 
   private headers: HttpHeaders;
   archiveEventUrl: string;
+  cancelEventUrl: string;
   recoverEventUrl: string;
   getUserEventsUrl: string;
   getAllUserEventsUrl: string;
@@ -27,6 +28,7 @@ export class EventsService {
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
     this.archiveEventUrl = this.endpoint.apiHost + '/v1/archive_event/';
+    this.cancelEventUrl = this.endpoint.apiHost + '/v1/cancel_event/';
     this.recoverEventUrl = this.endpoint.apiHost + '/v1/recover_event/';
     this.getUserEventsUrl = this.endpoint.apiHost + '/v1/get_user_events_by_status/';
     this.getCategoriesUrl = this.endpoint.apiHost + '/view_categories';
@@ -56,6 +58,27 @@ export class EventsService {
         },
         err => {
           console.error('archive_event_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  cancelEvent(eventId: any): Promise<any> {    
+    const url = this.cancelEventUrl + eventId;
+    return new Promise((resolve, reject) => {     
+      this.http.post<any>(url, null, { headers: this.headers}).subscribe(
+        res => {
+          console.log('cancel_event_ok: ', res);
+          if (_.toLower(res.message) == 'ok') {
+            resolve(res.id);            
+          }
+          else {
+            resolve(0);
+          }
+        },
+        err => {
+          console.error('cancel_event_error: ', err);
           reject(err);
         }
       );

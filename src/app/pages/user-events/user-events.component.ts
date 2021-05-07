@@ -132,6 +132,23 @@ export class UserEventsComponent implements OnInit {
     });
   }
 
+  cancelEvent(eventId: any){
+    return new Promise((resolve, reject) => {
+      this.eventsService.cancelEvent(eventId).then(
+        res => {
+          console.log(res);
+          // TODO: reload page          
+          resolve(true);
+        },
+        err => {
+          console.log(err);
+          this.errMsg = err
+          reject(err);
+        }
+      );
+    });
+  }
+
   recoverEvent(eventId: any){
     return new Promise((resolve, reject) => {
       this.eventsService.recoverEvent(eventId).then(

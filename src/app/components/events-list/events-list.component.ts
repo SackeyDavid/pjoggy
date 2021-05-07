@@ -61,8 +61,8 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
       
       $(document).ready(function(){ 
 
-      $(".save_live_event_div").on("mouseover", function(this: HTMLDivElement){
-        alert('Hi')
+      $(".save_live_event_div").on("click", function(this: HTMLDivElement){
+        // alert('Hi')
         $(this).find('svg').get(0).style.setProperty('fill', 'rgba(255, 101, 80, 0.4)');
         // .css('fill','rgba(255, 101, 80, 0.4);');
         console.log($(this).find('svg'))
@@ -86,13 +86,13 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     console.log(this.users_favorite_event_ids)  
 
     this.sliderOptions = {
-      items: 5,
+      items: 4,
       margin: 15,
       dots: false,      
       responsive:{        
         450: { items:2 },
         600: { items:3 },
-        900: { items:5 }
+        900: { items:4 }
       }
     };
   }
@@ -203,8 +203,16 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     if(this.userID !== '') {
       this.userFavoriteService.getUserFavorites(this.userID).then(
         res => {
-          console.log(res);
+          // console.log(res.event.data);
           this.userFavorites = res.event.data;
+
+          for (let i = 0; i < this.userFavorites.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites[i].id, fav_id: this.userFavorites[i].fav_id })
+            
+            
+          }
+
         },
         err => {
           console.log(err);
@@ -214,10 +222,10 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     }
 
 
-    for (let i = 0; i < this.userFavorites.length; i++) {
-      this.users_favorite_event_ids.push(this.userFavorites[i].id)
-      
-    }
+    
+    
+    // console.log(this.userID)
+    // console.log('Users favorites: ', this.users_favorite_event_ids)
   }
 
   getEventStartDateFormatted(date: any) {
@@ -284,8 +292,14 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
         res => {
           if (res) {
             console.log(res);
-  
             
+            // reload data so view reflects changes
+            this.getUsersFavorites();
+            // this.getEventsInSixHrs();
+            // this.getPopularEvents();
+            // this.getNewEvents();
+            // this.getAllEvents();
+
           }
           else {
             console.log('didnt add to favorites');
@@ -310,16 +324,24 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
 
       if(this.users_favorite_event_id_and_fav_id[i].event_id == event_id) {
           favorite_id = this.users_favorite_event_id_and_fav_id[i].fav_id
+          console.log(favorite_id)
       }
       
     }
-    console.log(this.users_favorite_event_id_and_fav_id)
-      console.log(favorite_id)
+    // console.log(this.users_favorite_event_id_and_fav_id)
+    //   console.log(favorite_id)
 
       this.userFavoriteService.removeEventFromFavorite(favorite_id).then(
         res => {
           if (res) {
             console.log(res); 
+
+            // reload data so view reflects
+            this.getUsersFavorites();
+            // this.getEventsInSixHrs();
+            // this.getPopularEvents();
+            // this.getNewEvents();
+            // this.getAllEvents();
             
           }
           else {

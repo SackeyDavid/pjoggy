@@ -9,7 +9,7 @@ export class SponsorsComponent implements OnInit {
 
   constructor() { }
 
-  @Input() organizers?: any;
+  @Input() sponsors?: any;
   
   ngOnInit(): void {
   }

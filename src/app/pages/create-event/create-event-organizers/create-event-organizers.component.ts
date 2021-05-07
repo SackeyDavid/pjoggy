@@ -109,7 +109,9 @@ export class CreateEventOrganizersComponent implements OnInit {
               alert('didnt create');
             }
           },
-          err => {}
+          err => {
+            console.log(err);
+          }
         );
       }
       else {
@@ -155,7 +157,12 @@ export class CreateEventOrganizersComponent implements OnInit {
         this.isLoadingOrganizers = false;
         _.forEach(organizers, (organizer, i) => {
           this.createdOrganizerList.push(organizer);
-          this.imgSrcList[i] = 'http://events369.logitall.biz/storage/organizer/' + organizers[i].image;
+          if (!(organizers[i].image == null)){
+            this.imgSrcList[i] = 'http://events369.logitall.biz/storage/organizer/' + organizers[i].image;
+          }
+          else{
+            this.imgSrcList[i] = '../../../../assets/images/avatar-placeholder.png';
+          }
         });
       }
     );
@@ -170,6 +177,14 @@ export class CreateEventOrganizersComponent implements OnInit {
             const createdOrganizer = this.getCreatedOrganizerData(organizerId);
             this.createdOrganizerList.unshift(createdOrganizer);
             this.imgSrcList.unshift(this.createdImgSrc)
+            
+            if (!(this.createdImgSrc == '')){
+              this.imgSrcList.unshift(this.createdImgSrc)
+            }
+            else{
+              this.imgSrcList.unshift('../../../../assets/images/avatar-placeholder.png')
+            }
+
             resolve(true);
         },
         err => {
@@ -240,16 +255,18 @@ export class CreateEventOrganizersComponent implements OnInit {
 
   delete(id: string, index: number): void {
     this.deleteOrganizer(id, index);
+    console.log('why aint u working?');
   }
 
   deleteOrganizer(organizerId: string, index: number): void {
     this.organizerService.deleteOrganizer(organizerId).then(
-      ok => {
-        ok
-          ? this.createdOrganizerList.splice(index, 1)
-          : this.displayFailedDeleteToast();
+      res => {
+        console.log(res);
+        res ? this.createdOrganizerList.splice(index, 1) : this.displayFailedDeleteToast();
       },
-      err => {}
+      err => {
+        console.log(err);
+      }
     );
   }
   

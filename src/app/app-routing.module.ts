@@ -34,12 +34,17 @@ import { CreateEventMediaComponent } from './pages/create-event/create-event-med
 import { CreateEventSponsorsComponent } from './pages/create-event/create-event-sponsors/create-event-sponsors.component';
 import { SignupEmailComponent } from './pages/user-auth/signup-email/signup-email.component';
 import { SignupMoreInfoComponent } from './pages/user-auth/signup-more-info/signup-more-info.component';
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: HomePageComponent
+  },
+  {
+    path: 'search_results',
+    component: SearchResultsComponent
   },
   {
     path: 'help',

@@ -79,6 +79,12 @@ nav:after {
 
 }
 
+@media (min-width: 1500px) {
+  nav:after {
+    width: 119.7% !important;
+  }
+}
+
 .navbar-light .navbar-nav .nav-link {
   padding-left: 1rem !important;
   padding-right: 1rem !important;

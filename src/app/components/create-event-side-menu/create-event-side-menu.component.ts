@@ -70,6 +70,22 @@ export class CreateEventSideMenuComponent implements OnInit {
     this.event.hasPublishingData = this.checkSessionEventData.eventHasPublishingData();
 
     console.log(this.event);
+
+    this.toggleOpenSideNav();
+
+  }
+
+  toggleOpenSideNav() {
+    if (this.currentPage == 'organizers' || this.currentPage == 'media' || this.currentPage == 'sponsors' || this.currentPage == 'speakers') {
+      $('.sidenav').attr('style', 'overflow-y: scroll'); 
+      $('.dropdown-container').attr('style', 'display: block');  
+      this._global_page_objects.dropdown_shown = true;
+    } 
+    else {
+      // $('.sidenav').attr('style', 'overflow-y: hidden'); 
+      // $('.dropdown-container').attr('style', 'display: none');  
+      // this._global_page_objects.dropdown_shown = false;
+    } 
   }
 
   getCreatedEvent(): void {

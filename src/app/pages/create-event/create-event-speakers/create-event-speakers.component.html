@@ -42,11 +42,11 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-8 mx-auto">
+                    <div class="col">
                       <input type="file" accept="image/*" class="file-input" formControlName="profile_image" (change)="onFileSelected($event)" #fileUpload>
                       <div class="card card-image-upload">
                         <div (click)="fileUpload.click()" class="text-center">
-                          <div *ngIf="!isImageSet" class="p-2">
+                          <div *ngIf="!isImageSet" class="p-2 mt-5">
                             <i class="bi bi-image" style="font-size: 4em; color: #ddd;"></i>
                             <div class="mt-3">
                               <h4 class="text-muted">Click to add a profile photo</h4>
@@ -54,7 +54,7 @@
                             </div>
                           </div>
                             <div *ngIf="isImageSet">
-                            <img class="card-img-bottom" [src]="createdImgSrc" height="250">
+                            <img class="card-img-bottom" [src]="createdImgSrc" height="400">
                           </div>
                         </div>
                       </div>
@@ -167,7 +167,7 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col-lg-5">
-                              <div class="profile-image-div">
+                              <div class="profile-image-div text-center">
                                 <img [src]="imgSrcList[i]" alt="" class="rounded-circle" width="120" height="120">
                               </div>
                             </div>

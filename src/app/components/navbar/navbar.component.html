@@ -4,7 +4,7 @@
   <form class="form" class="search-form">
     <div class="form-group has-search" style="margin-bottom: 0rem !important;">
       <span class="bi bi-search form-control-feedback"></span>
-      <input class="form-control mr-sm-2 ev-nav-searchbar-input" type="search" placeholder="What do you want to attend?" aria-label="Search">
+      <input [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()">
     </div>
    </form>
 
