@@ -259,7 +259,7 @@ export class CreateEventOrganizersComponent implements OnInit {
   }
 
   deleteOrganizer(organizerId: string, index: number): void {
-    this.organizerService.deleteOrganizer(organizerId).then(
+    this.organizerService.deleteOrganizer(organizerId, this.eventId).then(
       res => {
         console.log(res);
         res ? this.createdOrganizerList.splice(index, 1) : this.displayFailedDeleteToast();

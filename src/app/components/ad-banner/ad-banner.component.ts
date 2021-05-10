@@ -39,7 +39,10 @@ export class AdBannerComponent implements OnInit {
       margin: 30,
       center: true,
       loop: true,
-      autoplay: true
+      autoplay: true,
+      // autoplayTimeout: 5000,
+      animateIn: 'animateOut',
+      // animateOut: 'animateOut'
     };
 
  }

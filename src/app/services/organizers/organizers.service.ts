@@ -152,9 +152,9 @@ export class OrganizersService {
    * @param organizerId Organizer ID.
    * @returns 
    */
-  deleteOrganizer(organizerId: string): Promise<boolean> {
+  deleteOrganizer(organizerId: string, eventId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.deleteOrganizerUrl + organizerId;
+      const url = this.deleteOrganizerUrl + organizerId + '/' + eventId;
       this.http.post<any>(url, {}, { headers: this.headers }).subscribe(
         res => {
           console.log('delete_organizer_ok:', res);

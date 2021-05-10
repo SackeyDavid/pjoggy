@@ -37,6 +37,14 @@
             
         </li>
         <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">Cancelled
+                <ng-container *ngIf="cancelledEvents.length">
+                    ({{cancelledEvents.length}})
+                </ng-container>
+            </a>
+            
+        </li>
+        <li class="nav-item" role="presentation">
             <a class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
                 <ng-container *ngIf="archivedEvents.length">
                     ({{archivedEvents.length}})
@@ -106,9 +114,9 @@
                     <div class="col-12">
                       <div class="d-flex flex-row justify-content-end p-1">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                          <button *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLess()">
+                          <!-- <button *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLess()">
                             <i class="bi-arrow-up"></i>
-                          </button>
+                          </button> -->
                           <button *ngIf="loadIndex < userEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMore()">
                             <i class="bi-arrow-down"></i>
                           </button>
@@ -149,8 +157,8 @@
               </div>
 
             <div class="row">
-                <div *ngFor="let event of publishedEvents" class="col-lg-4 mb-4">
-                    <div class="card" (click)="showHideMorePublished(event.id)">
+                <div *ngFor="let event of publishedEvents; let i = index" class="col-lg-4 mb-4">
+                    <div class="card" (click)="showHideMorePublished(event.id)" *ngIf="i < published_loadIndex" (click)="showHideMore(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
                         
@@ -167,7 +175,7 @@
                                     <small class="text-muted">Category : {{event.Category}}</small><br>
                                 </p>
                                 <hr>
-                                <div class="text-center">
+                                <div class="float-left">
                                     <button (click)="gotoPreview(event.id)" class="btn btn-primary mb-1 px-4 mx-1">Preview</button>
                                     <button (click)="gotoEdit(event.id)" class="btn btn-secondary mb-1 px-4 mx-1">Edit</button>
                                     <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button>
@@ -189,9 +197,9 @@
                     <div class="col-12">
                       <div class="d-flex flex-row justify-content-end p-1">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                          <button *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessPublished()">
+                          <!-- <button *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessPublished()">
                             <i class="bi-arrow-up"></i>
-                          </button>
+                          </button> -->
                           <button *ngIf="published_loadIndex < publishedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMorePublished()">
                             <i class="bi-arrow-down"></i>
                           </button>
@@ -246,17 +254,17 @@
                                 <span id="draft-more-{{event.id}}" style="display: none;">
 
                                 <hr>
-                                <p class="card-text">{{event.description}}</p>
+                                <p class="card-text" *ngIf="event.description">{{event.description}}</p>
                                 <p>
                                     <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
                                     <small class="text-muted">Category : {{event.Category}}</small><br>
                                 </p>
                                 <hr>
                                 <div class="text-center">
-                                    <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1">Edit</button>
-                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1">Preview</button>
-                                    <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button>
-                                    <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1">Delete</button>
+                                    <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
+                                    <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1"> Cancel</button>
+                                    <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
                                 </div>
 
                                 </span>
@@ -274,9 +282,9 @@
                     <div class="col-12">
                       <div class="d-flex flex-row justify-content-end p-1">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                          <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
+                          <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
                             <i class="bi-arrow-up"></i>
-                          </button>
+                          </button> -->
                           <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
                             <i class="bi-arrow-down"></i>
                           </button>
@@ -302,6 +310,92 @@
 
             </div>
         </div>
+        <div class="tab-pane fade" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
+
+          <div class="row" *ngIf="!cancelledEvents || cancelledEvents.length == 0">
+              <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                  <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                  <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Cancelled empty</span>
+                  <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                    You have no cancelled event yet
+
+                </p>
+              </div>
+
+            </div>
+
+          <div class="row">
+              <div *ngFor="let event of cancelledEvents; let i = index" class="col-lg-4 mb-4">
+                  <div class="card" *ngIf="i < cancelled_loadIndex" (click)="showHideMoreCancelled(event.id)">
+                      <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
+                      <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/default-event-banner.jpg" class="card-img-top" height="250" alt="{{event.title}}">
+                      
+                      <div class="card-body">                          
+                          <div class="col">
+                              <h4 class="card-title">{{event.title}}</h4>
+                              
+                              <span id="cancelled-dots-{{event.id}}" style="color: #fff;">...</span>
+                              <span id="cancelled-more-{{event.id}}" style="display: none;">
+
+                              <hr>
+                              <p class="card-text">{{event.description}}</p>
+                              <p>
+                                  <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                  <small class="text-muted">Category : {{event.Category}}</small><br>
+                              </p>
+                              <hr>
+                              <div class="text-center">
+                                  <!-- <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1">Edit</button> -->
+                                  <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1">Preview</button>
+                                  <!-- <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button> -->
+                                  <button (click)="recoverEvent(event.id)" class="btn btn-success mb-1 px-4 mx-1">Recover</button>
+                                  <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1">Delete</button>
+                              </div>
+
+                              </span>
+
+                              <span id="cancelled-myBtn-{{event.id}}" class="see-more-or-less">See More</span>
+                              
+                          </div>
+                      </div>                       
+                  </div>
+              </div>  
+              
+              
+              <!-- <br><br><br> -->
+              <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex flex-row justify-content-end p-1">
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
+                          <i class="bi-arrow-up"></i>
+                        </button> -->
+                        <button *ngIf="cancelled_loadIndex < cancelledEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreCancelled()">
+                          <i class="bi-arrow-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <br><br><br>
+                </div>
+              
+              <!-- <br><br><br>
+              <div class="d-flex justify-content-center">
+                  <button  *ngIf="draft_loadIndex < createdEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreDrafts()" type="button">
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Show more
+                  </button>
+
+                  <button  *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessDrafts()" type="button">
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Show less
+                  </button>
+              <br><br><br>
+              </div> -->
+
+          </div>
+      </div>
         <div class="tab-pane fade" id="pills-archived" role="tabpanel" aria-labelledby="pills-archived-tab">
             
             <div class="row" *ngIf="!archivedEvents || archivedEvents.length == 0">
@@ -358,9 +452,9 @@
                     <div class="col-12">
                       <div class="d-flex flex-row justify-content-end p-1">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                          <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
+                          <!-- <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
                             <i class="bi-arrow-up"></i>
-                          </button>
+                          </button> -->
                           <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
                             <i class="bi-arrow-down"></i>
                           </button>

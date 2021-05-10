@@ -71,11 +71,19 @@ span.see-more-or-less {
   cursor: pointer;
   font-weight: 600 !important;
   color: var(--ev-brandname-darkblue) !important;
-  background: linear-gradient(to right, #f05537,#1e0a3c);
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
+  // background: linear-gradient(to right, #f05537,#1e0a3c);
+  // -webkit-text-fill-color: transparent;
+  // -webkit-background-clip: text;
 }
 
 .text-center {
   margin-top: 2vh !important;
+}
+
+img {
+  height: 250px !important;
+}
+
+.btn {
+  width: 45% !important;
 }

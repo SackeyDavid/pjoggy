@@ -71,7 +71,7 @@ export class EventsService {
         res => {
           console.log('cancel_event_ok: ', res);
           if (_.toLower(res.message) == 'ok') {
-            resolve(res.id);            
+            resolve(true);            
           }
           else {
             resolve(0);

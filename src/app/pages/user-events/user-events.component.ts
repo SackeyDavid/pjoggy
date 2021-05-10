@@ -15,12 +15,14 @@ export class UserEventsComponent implements OnInit {
   createdEvents: any = [];
   publishedEvents: any = [];
   archivedEvents: any = [];
+  cancelledEvents: any = [];
 
-  loading: boolean = false
-  loadIndex = 6
-  draft_loadIndex = 6
-  published_loadIndex = 6
-  archived_loadIndex = 6
+  loading: boolean = false;
+  loadIndex = 6;
+  draft_loadIndex = 6;
+  published_loadIndex = 6;
+  cancelled_loadIndex = 6;
+  archived_loadIndex = 6;
 
   errMsg = '';
 
@@ -34,9 +36,10 @@ export class UserEventsComponent implements OnInit {
 
   ngOnInit() {    
     this.getAllUserEvents();
-    this.getUserEvents(0)
-    this.getUserEvents(2)
-    this.getUserEvents(3)
+    this.getUserEvents(0);
+    this.getUserEvents(2);
+    this.getUserEvents(1); // not available yet : for cancelled events
+    this.getUserEvents(3);
   }
 
   getAllUserEvents(): void {
@@ -62,7 +65,7 @@ export class UserEventsComponent implements OnInit {
         this.createdEvents.sort(function(a: any, b:any){
           return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
         });
-
+ 
 
         if (eventStatus == 2) this.publishedEvents = res.all_events.data;
         this.publishedEvents.sort(function(a: any, b:any){
@@ -72,6 +75,13 @@ export class UserEventsComponent implements OnInit {
 
         if (eventStatus == 3) this.archivedEvents = res.all_events.data;
         this.archivedEvents.sort(function(a: any, b:any){
+          return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        });
+
+        
+        // not available yet, for cancelled events
+        if (eventStatus == 1) this.cancelledEvents = res.all_events.data;
+        this.cancelledEvents.sort(function(a: any, b:any){
           return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
         });
 
@@ -208,6 +218,24 @@ export class UserEventsComponent implements OnInit {
     this.loading = false
   }
 
+  loadMoreCancelled() {
+    this.loading = true
+    if(this.cancelled_loadIndex < this.cancelledEvents.length) {
+      this.cancelled_loadIndex += 6
+    }
+    
+    this.loading = false
+  }
+
+  loadLessCancelled() {
+    this.loading = true
+    if(this.cancelled_loadIndex >= this.cancelledEvents.length) {
+      this.cancelled_loadIndex = 6
+    }
+    
+    this.loading = false
+  }
+
   
   loadMorePublished() {
     this.loading = true
@@ -281,6 +309,22 @@ export class UserEventsComponent implements OnInit {
     var dots = document.getElementById("draft-dots-"+event_id) as HTMLSpanElement;
     var moreText = document.getElementById("draft-more-"+event_id) as HTMLSpanElement;
     var btnText = document.getElementById("draft-myBtn-"+event_id)  as HTMLSpanElement;
+
+    if (dots?.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "See more"; 
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "See less"; 
+      moreText.style.display = "inline";
+    }
+  }
+
+  showHideMoreCancelled(event_id: any) {
+    var dots = document.getElementById("cancelled-dots-"+event_id) as HTMLSpanElement;
+    var moreText = document.getElementById("cancelled-more-"+event_id) as HTMLSpanElement;
+    var btnText = document.getElementById("cancelled-myBtn-"+event_id)  as HTMLSpanElement;
 
     if (dots?.style.display === "none") {
       dots.style.display = "inline";
