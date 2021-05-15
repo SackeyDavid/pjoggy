@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { EventPageComponent } from './pages/event-page/event-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
 import { HappeningNowComponent } from './pages/happening-now/happening-now.component';
@@ -35,6 +34,7 @@ import { CreateEventSponsorsComponent } from './pages/create-event/create-event-
 import { SignupEmailComponent } from './pages/user-auth/signup-email/signup-email.component';
 import { SignupMoreInfoComponent } from './pages/user-auth/signup-more-info/signup-more-info.component';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { PreviewEventPageComponent } from './pages/preview-event-page/preview-event-page.component';
 
 
 const routes: Routes = [
@@ -92,7 +92,7 @@ const routes: Routes = [
   },
   {
     path: 'event_details',
-    component: EventPageComponent
+    component: PreviewEventPageComponent
   },
   {
     path: 'account',

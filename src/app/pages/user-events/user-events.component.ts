@@ -42,8 +42,8 @@ export class UserEventsComponent implements OnInit {
     this.getUserEvents(3);
   }
 
-  getAllUserEvents(): void {
-    this.eventsService.getAllUserEvents().then(
+  async getAllUserEvents() {
+    await this.eventsService.getAllUserEvents().then(
       res => {
         console.log(res);
         this.userEvents = res.all_events.data;

@@ -225,6 +225,7 @@ export class CreateEventTicketingComponent implements OnInit {
         if (ok) {
           this.isSaving = false;
           this.isEditMode = false;
+          this.saved = false;
           this.resetForm();
 
           const editedTicket = this.createdTicketList[index];

@@ -95,7 +95,17 @@ import { HelpContentsComponent } from './components/help-contents/help-contents.
 import { HelpPageComponent } from './pages/help-page/help-page.component';
 import { HelpNavbarComponent } from './components/help-navbar/help-navbar.component';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
-
+import { PreviewEventPageComponent } from './pages/preview-event-page/preview-event-page.component';
+import { PreviewHeaderComponent } from './components/preview-event/preview-header/preview-header.component';
+import { PreviewDetailsComponent } from './components/preview-event/preview-details/preview-details.component';
+import { PreviewScheduleComponent } from './components/preview-event/preview-schedule/preview-schedule.component';
+import { PreviewPricingComponent } from './components/preview-event/preview-pricing/preview-pricing.component';
+import { PreviewSpeakersComponent } from './components/preview-event/preview-speakers/preview-speakers.component';
+import { PreviewOrganizersComponent } from './components/preview-event/preview-organizers/preview-organizers.component';
+import { PreviewGalleryComponent } from './components/preview-event/preview-gallery/preview-gallery.component';
+import { PreviewSponsorsComponent } from './components/preview-event/preview-sponsors/preview-sponsors.component';
+import { PreviewLocationComponent } from './components/preview-event/preview-location/preview-location.component';
+import { PreviewBannerComponent } from './components/preview-event/preview-banner/preview-banner.component';
 
 
 @NgModule({
@@ -174,6 +184,17 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
     HelpPageComponent,
     HelpNavbarComponent,
     SearchResultsComponent,
+    PreviewEventPageComponent,
+    PreviewHeaderComponent,
+    PreviewDetailsComponent,
+    PreviewScheduleComponent,
+    PreviewPricingComponent,
+    PreviewSpeakersComponent,
+    PreviewOrganizersComponent,
+    PreviewGalleryComponent,
+    PreviewSponsorsComponent,
+    PreviewLocationComponent,
+    PreviewBannerComponent,
   ],
   imports: [
     BrowserModule,

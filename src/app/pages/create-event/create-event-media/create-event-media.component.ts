@@ -24,7 +24,8 @@ export class CreateEventMediaComponent implements OnInit {
   videoSrcList: any[];
   createdVideoSrc: string;
   eventId: string;
-  isSaving: boolean;
+  isImageSaving: boolean;
+  isVideoSaving: boolean;
 
   constructor(
     private router: Router,
@@ -33,7 +34,8 @@ export class CreateEventMediaComponent implements OnInit {
   ) { 
     this.isLoading = false;
     this.eventId = '';
-    this.isSaving = false;
+    this.isImageSaving = false;
+    this.isVideoSaving = false;
     this.isImageSet = false;
     this.imgSrcList = [];
     this.createdImgSrc = '';
@@ -72,24 +74,29 @@ export class CreateEventMediaComponent implements OnInit {
     console.log(this.eventId);
   }
 
-  createImage(): void {  
-    this.mediaService.storeImage(this.f.event_image.value, this.eventId).then(
-      res => {
-        if (res) {
+  createImage(): void {
+    if (this.createdImgSrc != ''){
+      this.isImageSaving = true;  
+      this.mediaService.storeImage(this.f.event_image.value, this.eventId).then(
+        res => {
+          if (res) {
+            this.isLoading = false;
+            this.imgSrcList.unshift(this.createdImgSrc)
+            this.isImageSet = false;
+            this.isImageSaving = false;
+            this.createdImgSrc = '';
+          }
+          else {
+            this.isLoading = false;
+            alert('oops, didn\'t create');
+          }
+        },
+        err => {
+          console.log(err);
           this.isLoading = false;
-          this.imgSrcList.unshift(this.createdImgSrc)
-          this.isImageSet = false;
         }
-        else {
-          this.isLoading = false;
-          alert('oops, didn\'t create');
-        }
-      },
-      err => {
-        console.log(err);
-        this.isLoading = false;
-      }
-    );  
+      );  
+    }
   }
 
   getExistingImages(): any {

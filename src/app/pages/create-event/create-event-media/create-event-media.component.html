@@ -52,8 +52,8 @@
 
                   <div class="row form-group">
                     <div class="col submit-button">
-                      <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary" (click)="createImage()">Save Image</button>
-                      <app-loading-button *ngIf="isSaving"></app-loading-button>
+                      <button *ngIf="!isImageSaving" type="submit" class="btn btn-lg btn-primary" (click)="createImage()">Save Image</button>
+                      <app-loading-button *ngIf="isImageSaving"></app-loading-button>
                     </div>
                   </div>
                 </div>
@@ -127,8 +127,8 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col submit-button">
-                        <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary" (click)="createVideo()">Save Video</button>
-                        <app-loading-button *ngIf="isSaving"></app-loading-button>
+                        <button *ngIf="!isVideoSaving" type="submit" class="btn btn-lg btn-primary" (click)="createVideo()">Save Video</button>
+                        <app-loading-button *ngIf="isVideoSaving"></app-loading-button>
                       </div>
                     </div>              
                   </div>

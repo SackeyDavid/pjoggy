@@ -261,6 +261,9 @@
                       <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
                         Start date is required.
                       </small>
+                      <small *ngIf="saved && !isDateCorrect" class="text-danger">
+                        Start date must be greater than current date.
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -276,10 +279,13 @@
                       <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
                         End date is required.
                       </small>
+                      <small *ngIf="saved && !isDateIntervalCorrect" id="titleHelp" class="text-danger">
+                        End date must be greater than start date.
+                      </small>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>              
             </div>
             <!-- /.end -->
 
@@ -296,6 +302,9 @@
                           <label for="floatingStartTime">Start Time</label>
                           <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
                             Start time is required.
+                          </small>
+                          <small *ngIf="saved && !isTimeCorrect" class="text-danger">
+                            Start time must be greater than current time.
                           </small>
                         </div>
                       </div>
@@ -322,6 +331,9 @@
                           <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
                             End time is required.
                           </small>
+                          <small *ngIf="saved && !isTimeIntervalCorrect" id="titleHelp" class="text-danger">
+                            End time must be greater than start time.
+                          </small>
                         </div>
                       </div>
                       <!-- <div class="form-floating">
@@ -335,7 +347,7 @@
                         </div>
                       </div> -->
                     </div>
-                  </div>
+                  </div>                                    
                 </div>
                 <!-- /.end -->                
               </div>

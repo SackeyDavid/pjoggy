@@ -23,6 +23,11 @@ export class CreateBasicInfoComponent implements OnInit {
   tagsList: Array<any>;
   recurringStore: string;
 
+  isDateCorrect: boolean;
+  isDateIntervalCorrect: boolean;
+  isTimeCorrect: boolean;
+  isTimeIntervalCorrect: boolean;
+
   hosting: any = 1
 
   url: string = '';
@@ -49,6 +54,11 @@ export class CreateBasicInfoComponent implements OnInit {
     this.tagsString = '';
     this.tagsList = [];
     this.recurringStore = '0';
+
+    this.isDateCorrect = true;
+    this.isDateIntervalCorrect = true;
+    this.isTimeCorrect = true;
+    this.isTimeIntervalCorrect = true;
   }
 
   ngOnInit(): void {
@@ -86,48 +96,89 @@ export class CreateBasicInfoComponent implements OnInit {
     this.setHostingValidators();
   }  
 
+  dateValidation(){
+    let date = new Date();
+    date.setHours(0,0,0,0);
+    let today = date.valueOf();
+    let sd = new Date(this.f.start_date.value).getFullYear() + '-' + new Date(this.f.start_date.value).getMonth() + '-' + new Date(this.f.start_date.value).getDate();
+    let ed = new Date(this.f.end_date.value).getFullYear() + '-' + new Date(this.f.end_date.value).getMonth() + '-' + new Date(this.f.end_date.value).getDate();    
+    let now = new Date().getTime();
+    let st = new Date(this.f.start_time.value).getTime();
+    let et = new Date(this.f.end_time.value).getTime();
+
+    console.log(Date.parse(sd));
+    console.log(Date.parse(ed));
+    console.log(today);
+
+    // check if event date is greater than today's date
+    // TODO: this check aint working
+    if (Date.parse(sd) > today) this.isDateCorrect = true;
+    else this.isDateCorrect = false;
+      
+    // check if end date is greater start date
+    if (Date.parse(ed) > Date.parse(sd)) this.isDateIntervalCorrect = true;
+    else this.isDateIntervalCorrect = false;
+
+    // if date is same check time
+    if (Date.parse(ed) == Date.parse(sd)){
+      // check if event time is greater than current time
+      if (st > now) this.isTimeCorrect = true;
+      else this.isTimeCorrect = false;
+
+      // check if end date is greater start date
+      if (et > st) this.isTimeIntervalCorrect = true;
+      else this.isTimeIntervalCorrect = false;
+    }
+  }
+
   create(): void {
     this.saved = true;
-    if (this.form.valid) {
-      this.isLoading = true;
-      const data = this.getFormData();
-      console.log(data);
-      this.basicInfoService.createBasicEvent(data).then(
-        res => {
-          if (res) {
-            console.log(res);
-            console.log(data.recurring);
-            this.saveCreatedEvent(res).then(
-              ok => {
-                if (ok) {
-                  this.isLoading = false;
-                  data.recurring == '1'
-                    ? this.router.navigateByUrl('/create_event/schedule')
-                    : this.router.navigateByUrl('/create_event/more_details');
-                }
-              },
-              err => {
-                // we still navigate but will get the data from the side menu.
-                data.recurring == '1'
-                  ? this.router.navigateByUrl('/create_event/schedule')
-                  : this.router.navigateByUrl('/create_event/more_details');
-              }
-            );
-          }
-          else {
-            this.isLoading = false;
-          }
-        },
-        err => {
-          console.log(err);
-          this.isLoading = false;
-        }
-      );
-    }
-    else{
-      console.log('scrolling to top');
-      window.scrollTo(0,0);
-    }
+    this.dateValidation();
+    console.log(this.isDateCorrect);
+    console.log(this.isDateIntervalCorrect);
+
+    // TODO: add date time validation variables to if statement
+
+    // if (this.form.valid) {
+    //   this.isLoading = true;
+    //   const data = this.getFormData();
+    //   console.log(data);
+    //   this.basicInfoService.createBasicEvent(data).then(
+    //     res => {
+    //       if (res) {
+    //         console.log(res);
+    //         console.log(data.recurring);
+    //         this.saveCreatedEvent(res).then(
+    //           ok => {
+    //             if (ok) {
+    //               this.isLoading = false;
+    //               data.recurring == '1'
+    //                 ? this.router.navigateByUrl('/create_event/schedule')
+    //                 : this.router.navigateByUrl('/create_event/more_details');
+    //             }
+    //           },
+    //           err => {
+    //             // we still navigate but will get the data from the side menu.
+    //             data.recurring == '1'
+    //               ? this.router.navigateByUrl('/create_event/schedule')
+    //               : this.router.navigateByUrl('/create_event/more_details');
+    //           }
+    //         );
+    //       }
+    //       else {
+    //         this.isLoading = false;
+    //       }
+    //     },
+    //     err => {
+    //       console.log(err);
+    //       this.isLoading = false;
+    //     }
+    //   );
+    // }
+    // else{
+    //   console.log('scrolling to top');
+    //   window.scrollTo(0,0);
+    // }
   }
 
   getFormData(): any {
