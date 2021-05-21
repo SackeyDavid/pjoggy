@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, 'Helvetica Neue', sans-serif; }
+body { margin: 0; font-family: 'Roboto', 'Helvetica Neue', sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
@@ -21,7 +20,8 @@ input.form-control, .form-floating>.form-control, .form-floating>.form-select {
 
 /* Ad banner Slider */
 .owl-theme .owl-dots .owl-dot.active span {
-  background: #0d6efd;
+  // background: #0d6efd;
+  background: #1e0a3c;
 }
 
 .owl-theme .owl-dots .owl-dot span {
@@ -31,5 +31,6 @@ input.form-control, .form-floating>.form-control, .form-floating>.form-select {
 }
 
 .owl-theme .owl-dots .owl-dot:hover span {
-  background-color: #99bff8;
+  // background-color: #99bff8;
+  background-color: #756b84;
 }

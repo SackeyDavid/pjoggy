@@ -1,0 +1,41 @@
+<!-- <div class="banner-item" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(&quot;../../../../../../assets/images/default-event-banner.jpg&quot;);"> -->
+<div class="banner-item" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent?.banner_image}}&quot;);">
+  
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8">
+            <div class="banner-content-wrap">
+               <p class="banner-info wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="500ms">{{eventContent?.start_date_time | date:'mediumDate'}} to {{eventContent?.end_date_time | date:'mediumDate'}}, {{eventContent?.venue}}</p>
+               <h1 class="banner-title wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="700ms">{{eventContent?.title}}</h1>
+
+               <div class="countdown wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">
+                  <div class="counter-item">
+                     <i class="icon icon-ring-1Asset-1"></i>
+                     <span class="days">{{daysToDday}}</span>
+                     <div class="smalltext">Days</div>
+                  </div>
+                  <div class="counter-item">
+                     <i class="icon icon-ring-4Asset-3"></i>
+                     <span class="hours">{{hoursToDday}}</span>
+                     <div class="smalltext">Hours</div>
+                  </div>
+                  <div class="counter-item">
+                     <i class="icon icon-ring-3Asset-2"></i>
+                     <span class="minutes">{{minutesToDday}}</span>
+                     <div class="smalltext">Minutes</div>
+                  </div>
+                  <div class="counter-item">
+                     <i class="icon icon-ring-4Asset-3"></i>
+                     <span class="seconds">{{secondsToDday}}</span>
+                     <div class="smalltext">Seconds</div>
+                  </div>
+               </div>
+
+               <div class="banner-btn wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">
+                  <a href="index.html#" class="btn btn-primary">Buy Ticket</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -25,7 +25,7 @@ export class PublishingService {
         res => {
           console.log('publish_ok: ', res);
           if (_.toLower(res.message) == 'ok') {
-            resolve(res.id);            
+            resolve(res);            
           }
           else {
             resolve(0);

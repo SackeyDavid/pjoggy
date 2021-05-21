@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light ev-navbar sticky-top">
-  <a id="brand-name" class="navbar-brand mr-5" routerLink="/home"><b class="ev-brandname-orange"> events</b> <b class="ev-brandname-darkblue">369</b></a>
+<nav [class.ev-navbar] = "userAuthenticated === false" [class.ev-navbar-authenticated] = "userAuthenticated === true" class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="position: sticky;">
+  <a id="brand-name" class="navbar-brand mr-5" routerLink="/"><b class="ev-brandname-orange"> events</b> <b [class.ev-brandname-darkblue]="userAuthenticated === false" [class.ev-brandname-white]="userAuthenticated === true">369</b></a>
   
   <form class="form" class="search-form">
     <div class="form-group has-search" style="margin-bottom: 0rem !important;">
       <span class="bi bi-search form-control-feedback"></span>
-      <input class="form-control mr-sm-2 ev-nav-searchbar-input" type="search" placeholder="What do you want to attend?" aria-label="Search">
+      <input [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()">
     </div>
    </form>
 
@@ -30,7 +30,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="nav navbar-nav mr-auto ml-5 ev-navbar-dropdown-content ev-nav-list">
       <li class="nav-item">
-        <a class="nav-link" target="_blank" href="https://about.gitlab.com/get-help/">Help</a>
+        <a [class.ev-color-white]="userAuthenticated === true" class="nav-link" target="_blank" routerLink="/help">Help</a>
       </li>
       <ng-container *ngIf="!userAuthenticated">
         <li class="nav-item">
@@ -42,7 +42,7 @@
       </ng-container>
       <ng-container *ngIf="userAuthenticated">
         <li class="nav-item">
-          <a class="nav-link" style="color: var(--blue);" routerLink="/create_event/basic_info">Host an event <span class="sr-only">(current)</span></a>
+          <a [class.ev-color-orange]="userAuthenticated === true" class="nav-link ev-color-blue"  routerLink="/create_event/basic_info">Host an event <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item only-mobile">
           <a class="nav-link" routerLink="/account/user">Account</a>
@@ -50,11 +50,11 @@
         
         <div class="dropdown_user only-non-mobile" style="height: 100% !important;padding: 3% 0;">
           <div class="dropbtn_user" style="display: grid;height: 100%;">
-                 <span style="display: flex;border: 1px solid #d7d7d7;padding: 3px 10px;border-radius: 30px;">
-                  <ev-avatar style="margin-top: 0vh;margin-bottom: 0;height: 4vh;width: 4vh;">
-                      <img style="border: 2px solid var(--ion-color-step-100);" src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fuser%20avatars%2Fprofile.webp?alt=media&token=e2096749-9938-46d6-a25a-bd32fd783d0a" />
-                  </ev-avatar> 
-                  <i class="bi bi-chevron-down" style="margin: 10%;"></i>
+                 <span [class.ev-border-authenticated] = "userAuthenticated === true" class="ev-avatar-border">
+                  <div class="avatar-container">
+                      <img src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fuser%20avatars%2Fprofile.webp?alt=media&token=e2096749-9938-46d6-a25a-bd32fd783d0a" />
+                  </div> 
+                  <i class="bi bi-chevron-down" style="margin: 10%;color: #9f9f9f;"></i>
                    <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
                  </span>
           </div>
@@ -78,11 +78,11 @@
               <!-- <a href="#">Saved</a> -->
               <!-- end of not working  -->
 
-               <a href="#">Host an event</a>
+               <a  routerLink="/create_event/basic_info">Host an event</a>
               <a routerLink="/account/user" style="border-top: 1px solid #ddd;">Account</a>
-              
-              <a href="#">Help</a>
-              <a href="#" id="logout_link">Log out</a>
+              <!-- href="https://about.gitlab.com/get-help/" -->
+              <a  target="_blank" routerLink="/help">Help</a>
+              <a href="#" (click)="logout($event)" id="logout_link">Log out</a>
             </div>
       </div>
       </ng-container>

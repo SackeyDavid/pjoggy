@@ -21,7 +21,7 @@ export class SignupPageComponent implements OnInit {
   showPrompt: Boolean = false;
 
   public registerForm: FormGroup = new FormGroup({});
-
+  
   constructor(private auth: UserAuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -29,7 +29,8 @@ export class SignupPageComponent implements OnInit {
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
       country: new FormControl('GH', Validators.required),
-      phone: new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
+      country_code: new FormControl('GH', Validators.required),
+      phone: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
       usertype: new FormControl('30', Validators.required),
       username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -38,11 +39,26 @@ export class SignupPageComponent implements OnInit {
     });
   }
 
-  get firstname() { return this.registerForm.get('firstname'); }
-  get lastname() { return this.registerForm.get('lastname'); }
+  public get f(): any {
+    return this.registerForm.controls;
+  }
+
+  getFormData(): any {
+    const data = {
+      firstname: this.f.firstname.value,
+      lastname: this.f.lastname.value,
+      country: this.f.country.value,
+      phone: this.formatPhoneNo(),
+      usertype: this.f.usertype.value,
+      username: this.f.username.value,
+      email: this.f.email.value,
+      password_confirmation: this.f.password_confirmation.value,
+    };
+    return data;
+  }
 
   onSubmit(){
-    console.log(this.registerForm.value);
+    console.log(this.getFormData());
     this.isSending = true;
 
     this.auth.regsiterUser(this.registerForm.value)
@@ -60,6 +76,21 @@ export class SignupPageComponent implements OnInit {
           this.stepper?.reset()
         }
       );
+  }
+
+  formatPhoneNo(){
+    var code = this.f.country_code.value;
+    let phone = this.f.phone.value;
+    if (phone.length == 10 && phone.charAt(0) == '0') {
+      phone = phone.substring(1);
+      console.log(code + phone);
+      return code + phone;
+    }
+    else if (phone.length == 9 && phone.charAt(0) != '0') {
+      console.log(code + phone);
+      return code + phone;
+    }
+    else return phone;
   }
 
 }

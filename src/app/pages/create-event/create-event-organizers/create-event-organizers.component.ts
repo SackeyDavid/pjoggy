@@ -17,6 +17,9 @@ export class CreateEventOrganizersComponent implements OnInit {
 
   isLoading: boolean;
   saved: boolean;
+  isImageSet: boolean;
+  imgSrcList: any[];
+  createdImgSrc: string;
   eventId: string;
   isEditMode: boolean;
   isSaving: boolean;
@@ -37,6 +40,9 @@ export class CreateEventOrganizersComponent implements OnInit {
     this.isSaving = false;
     this.isEditMode = false;
     this.isLoadingOrganizers = false;
+    this.isImageSet = false;
+    this.imgSrcList = [];
+    this.createdImgSrc = '';
     this.createdOrganizerList = [];
     this.selectedOrganizerIndex = -1;
     this.selectedOrganizerId = '';
@@ -52,7 +58,6 @@ export class CreateEventOrganizersComponent implements OnInit {
     data = JSON.parse(data)
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
-    
   }
 
   
@@ -62,13 +67,16 @@ export class CreateEventOrganizersComponent implements OnInit {
   
 
   initForm(): void {
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+
     this.form = this.formBuilder.group({
-      organizer: ['', Validators.required],
+      name: ['', Validators.required],
+      profile_image: [''],
       bio: [''],
-      facebook: [''],
-      twitter: [''],
-      linkedin: [''],
-      instagram: [''],
+      facebook: ['', Validators.pattern(urlRegex)],
+      twitter: ['', Validators.pattern(urlRegex)],
+      linkedin: ['', Validators.pattern(urlRegex)],
+      instagram: ['', Validators.pattern(urlRegex)],
     });
   }
 
@@ -93,13 +101,17 @@ export class CreateEventOrganizersComponent implements OnInit {
               this.isSaving = false;
               this.saved = false;
               this.form.reset();
+              this.createdImgSrc = '';
+              this.isImageSet = false;
             }
             else {
               this.isSaving = false;
               alert('didnt create');
             }
           },
-          err => {}
+          err => {
+            console.log(err);
+          }
         );
       }
       else {
@@ -110,7 +122,9 @@ export class CreateEventOrganizersComponent implements OnInit {
 
   getFormData(): any {
     const data = {
-      organizer: this.f.organizer.value,
+      event_id: this.eventId,
+      name: this.f.name.value,
+      profile_image: this.f.profile_image,
       bio: this.f.bio.value,
       facebook: this.f.facebook.value,
       twitter: this.f.twitter.value,
@@ -124,13 +138,15 @@ export class CreateEventOrganizersComponent implements OnInit {
     const organizer = this.getFormData();
     const data = {
       organizerId: organizerId,
-      organizer: organizer.organizer,
+      name: organizer.name,
       bio: organizer.bio,
+      profile_image: this.createdImgSrc,
       facebook: organizer.facebook,
       twitter: organizer.twitter,
       linkedin: organizer.linkedin,
       instagram: organizer.instagram,
     };
+    console.log(data);
     return data;
   }
 
@@ -139,8 +155,14 @@ export class CreateEventOrganizersComponent implements OnInit {
     this.organizerService.getOrganizers(this.eventId).then(
       organizers => {
         this.isLoadingOrganizers = false;
-        _.forEach(organizers, (organizer) => {
+        _.forEach(organizers, (organizer, i) => {
           this.createdOrganizerList.push(organizer);
+          if (!(organizers[i].image == null)){
+            this.imgSrcList[i] = 'http://events369.logitall.biz/storage/organizer/' + organizers[i].image;
+          }
+          else{
+            this.imgSrcList[i] = '../../../../assets/images/avatar-placeholder.png';
+          }
         });
       }
     );
@@ -148,17 +170,22 @@ export class CreateEventOrganizersComponent implements OnInit {
 
   async createOrganizer(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const organizerData = this.getFormData();
-      this.organizerService.createOrganizer(organizerData).then(
-        organizerId => {
-          if (organizerId == 0) {
-            resolve(false);
-          }
-          else { 
+      var organizerData = this.getFormData();
+      var image = this.f.profile_image.value;
+      this.organizerService.createOrganizer(organizerData, image, this.eventId).then(
+        organizerId => {          
             const createdOrganizer = this.getCreatedOrganizerData(organizerId);
             this.createdOrganizerList.unshift(createdOrganizer);
+            this.imgSrcList.unshift(this.createdImgSrc)
+            
+            if (!(this.createdImgSrc == '')){
+              this.imgSrcList.unshift(this.createdImgSrc)
+            }
+            else{
+              this.imgSrcList.unshift('../../../../assets/images/avatar-placeholder.png')
+            }
+
             resolve(true);
-          }
         },
         err => {
           console.log(err);
@@ -168,15 +195,32 @@ export class CreateEventOrganizersComponent implements OnInit {
     });
   }
 
+  onFileSelected(e: any){
+    const file:File = e.target.files[0];
+    if (file) {
+      this.isImageSet = true;
+
+      this.f.profile_image.value = file;
+
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e: any) => {
+        this.createdImgSrc = e.target.result;
+      }
+    }
+  }
+  
   edit(organizer: any, index: number): void {
     this.isEditMode = true;
-    this.f.organizer.setValue(organizer.organizer);
+    this.f.name.setValue(organizer.name);
     this.f.bio.setValue(organizer.bio);
     this.f.facebook.setValue(organizer.facebook);
     this.f.linkedin.setValue(organizer.linkedin);
     this.f.twitter.setValue(organizer.twitter);
     this.f.instagram.setValue(organizer.instagram);
-
+    this.createdImgSrc = this.imgSrcList[index];
+    this.isImageSet = true;
+    
     this.selectedOrganizerId = organizer.id;
     this.selectedOrganizerIndex = index;
   }
@@ -184,18 +228,25 @@ export class CreateEventOrganizersComponent implements OnInit {
   editOrganizer(organizerId: string, index: number): void {
     this.isSaving = true;
     const organizer = this.getFormData();
-    this.organizerService.editOrganizer(organizerId, organizer).then(
+    var image = this.f.profile_image.value;
+    console.log(organizer);
+    this.organizerService.editOrganizer(organizerId, organizer, image).then(
       ok => {
-        if (ok) {
-          this.isSaving = false;
-          this.isEditMode = false;
+        if (ok) {          
           const editedOrganizer = this.createdOrganizerList[index];
           editedOrganizer.name = organizer.name;
-          editedOrganizer.max_quantity = organizer.quantity;
-          editedOrganizer.price = organizer.price,
-          editedOrganizer.sales_enddate_time = organizer.salesEndDate,
-          editedOrganizer.sales_startdate_time = organizer.salesStartDate,
-          editedOrganizer.currency = organizer.currency;
+          editedOrganizer.bio = organizer.bio;
+          editedOrganizer.facebook = organizer.facebook,
+          editedOrganizer.linkedin = organizer.linkedin,
+          editedOrganizer.twitter = organizer.twitter,
+          editedOrganizer.instagram = organizer.instagram;
+          this.imgSrcList[index] = this.createdImgSrc;
+
+          this.isSaving = false;
+          this.isEditMode = false;
+          this.form.reset();
+          this.createdImgSrc = '';
+          this.isImageSet = false;
         }
       },
       err => {}
@@ -204,17 +255,40 @@ export class CreateEventOrganizersComponent implements OnInit {
 
   delete(id: string, index: number): void {
     this.deleteOrganizer(id, index);
+    console.log('why aint u working?');
   }
 
   deleteOrganizer(organizerId: string, index: number): void {
-    this.organizerService.deleteOrganizer(organizerId).then(
-      ok => {
-        ok
-          ? this.createdOrganizerList.splice(index, 1)
-          : this.displayFailedDeleteToast();
+    this.organizerService.deleteOrganizer(organizerId, this.eventId).then(
+      res => {
+        console.log(res);
+        res ? this.createdOrganizerList.splice(index, 1) : this.displayFailedDeleteToast();
       },
-      err => {}
+      err => {
+        console.log(err);
+      }
     );
+  }
+  
+  resetForm() {
+    this.f.name.setValue('');
+    this.f.bio.setValue('');
+    this.f.facebook.setValue('');
+    this.f.linkedin.setValue('');
+    this.f.twitter.setValue('');
+    this.f.instagram.setValue('');
+    this.createdImgSrc = '';
+    this.isImageSet = false;
+
+    this.isEditMode = false;
+  }
+
+  previous(): void {
+    this.router.navigateByUrl('/edit_event/basic_info');
+  }
+
+  save(): void {
+    this.router.navigateByUrl('/create_advanced/speakers');
   }
   
 }

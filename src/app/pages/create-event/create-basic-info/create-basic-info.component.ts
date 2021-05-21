@@ -19,12 +19,27 @@ export class CreateBasicInfoComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   categoriesData: any[];
   subCategoriesData: any[];
+  tagsString: string;
+  tagsList: Array<any>;
   recurringStore: string;
+
+  isDateCorrect: boolean;
+  isDateIntervalCorrect: boolean;
+  isTimeCorrect: boolean;
+  isTimeIntervalCorrect: boolean;
 
   hosting: any = 1
 
   url: string = '';
   currentRoute: string = '';
+
+  formattedAddress = '';
+
+  // options = {
+  //   componentRestrictions: {
+  //     country: ['GH']
+  //   }
+  // }
 
   constructor(
     private router: Router,
@@ -36,7 +51,14 @@ export class CreateBasicInfoComponent implements OnInit {
     this.saved = false;
     this.categoriesData = [];
     this.subCategoriesData = [];
+    this.tagsString = '';
+    this.tagsList = [];
     this.recurringStore = '0';
+
+    this.isDateCorrect = true;
+    this.isDateIntervalCorrect = true;
+    this.isTimeCorrect = true;
+    this.isTimeIntervalCorrect = true;
   }
 
   ngOnInit(): void {
@@ -54,7 +76,7 @@ export class CreateBasicInfoComponent implements OnInit {
   initForm(): void {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required],
+      description: ['', [Validators.required, Validators.maxLength(250)]],
       venue: [''],
       gps: [''],
       start_date: ['', Validators.required],
@@ -70,11 +92,54 @@ export class CreateBasicInfoComponent implements OnInit {
       venue_tobe_announced: [0],
       hosting: [this.hosting]
     });
+
+    this.setHostingValidators();
+  }  
+
+  dateValidation(){
+    let date = new Date();
+    date.setHours(0,0,0,0);
+    let today = date.valueOf();
+    let sd = Date.parse(this.f.start_date.value);
+    let ed = Date.parse(this.f.end_date.value);    
+    let now = new Date().getTime();
+    let st = new Date(this.f.start_time.value).getTime();
+    let et = new Date(this.f.end_time.value).getTime();
+
+    console.log(Date.parse(this.f.start_date.value));
+    console.log(Date.parse(this.f.end_date.value));
+    console.log(today);
+
+    // check if event date is greater than today's date
+    // TODO: this check aint working
+    if (sd >= today) this.isDateCorrect = true;
+    else this.isDateCorrect = false;
+      
+    // check if end date is greater start date
+    if (ed >= sd) this.isDateIntervalCorrect = true;
+    else this.isDateIntervalCorrect = false;
+
+    // if date is same check time
+    if (ed == sd){
+      // check if event time is greater than current time
+      if (st > now) this.isTimeCorrect = true;
+      else this.isTimeCorrect = false;
+
+      // check if end date is greater start date
+      if (et > st) this.isTimeIntervalCorrect = true;
+      else this.isTimeIntervalCorrect = false;
+    }
   }
 
   create(): void {
     this.saved = true;
-    if (this.form.valid) {
+    this.dateValidation();
+    console.log(this.isDateCorrect);
+    console.log(this.isDateIntervalCorrect);
+
+    // TODO: add date time validation variables to if statement
+
+    if (this.form.valid && this.isDateCorrect && this.isDateIntervalCorrect && this.isTimeCorrect && this.isTimeIntervalCorrect) {
       this.isLoading = true;
       const data = this.getFormData();
       console.log(data);
@@ -110,6 +175,10 @@ export class CreateBasicInfoComponent implements OnInit {
         }
       );
     }
+    else{
+      console.log('scrolling to top');
+      window.scrollTo(0,0);
+    }
   }
 
   getFormData(): any {
@@ -124,7 +193,7 @@ export class CreateBasicInfoComponent implements OnInit {
       type: this.f.type.value,
       category_id: this.f.category_id.value,
       subcategory_id: this.f.subcategory_id.value,
-      tags: this.f.tags.value,
+      tags: this.tagsString,
       venue_tobe_announced: this.recurringStore,
       hosting: this.hosting,
       ticketing: this.f.ticketing.value
@@ -143,6 +212,26 @@ export class CreateBasicInfoComponent implements OnInit {
     this.hosting =  this.form.controls['hosting'].value
     console.log(value)
 
+    console.log(value);
+    this.f.hosting.setValue(value);
+    this.setHostingValidators();
+  }
+
+  setHostingValidators() {
+    if (this.f.hosting.value == '1') {
+      console.log('...adding physical event validators');
+      this.f.venue.setValidators(Validators.required);
+      // this.f.gps.setValidators(Validators.required);
+      this.f.venue.updateValueAndValidity();
+      // this.f.gps.updateValueAndValidity();
+    }
+    else if (this.f.hosting.value == '0') {
+      console.log('...removing physical event validators');
+      this.f.venue.clearValidators();
+      // this.f.gps.clearValidators();
+      this.f.venue.updateValueAndValidity();
+      // this.f.gps.updateValueAndValidity();
+    }
   }
 
   toggleVenueView(): void {
@@ -209,6 +298,41 @@ export class CreateBasicInfoComponent implements OnInit {
         }
       );
     });
+  }
+
+  addChip(){
+    this.tagsList.unshift(this.f.tags.value);
+
+    let input = this.f.tags.value + ',';
+    this.tagsString = this.tagsString + input;
+    console.log(this.tagsString);
+
+    this.f.tags.setValue('');
+  }
+
+  deleteChip(index: any){
+    console.log(index);
+    this.tagsList.splice(index, 1);
+    let delArray = this.tagsString.split(',')
+    let delString = delArray[index - 1];
+    delString = delString + ',';
+    this.tagsString = this.tagsString.replace(delString, '');
+    console.log(this.tagsString);
+  }
+
+  scrollToTop() {
+    let scrollToTop = window.setInterval(() => {
+        let pos = window.pageYOffset;
+        if (pos > 0) {
+            window.scrollTo(0, pos - 200); // how far to scroll on each step
+        } else {
+            window.clearInterval(scrollToTop);
+        }
+    }, 16);
+  }
+
+  public handleAddressChange(address: any) {
+    this.formattedAddress = address.formatted_address;
   }
 
 }

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, Output, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs'
+import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  userAuthenticated: boolean = false;
+  userAuthenticated: boolean = false;  
+  searchQuery: string = '';
 
-  constructor() { }
+  @Output() searchEvent = new EventEmitter<string>();
+
+  constructor(private http: HttpClient, private router: Router, private endpoint: EndpointService) { }
 
   ngOnInit(): void {
-    this.checkIfUserAuthenticated()
+    this.checkIfUserAuthenticated();
+
+    let sessionQuery = sessionStorage.getItem('search_query');
+    sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
   }
 
   showSearchBar() {
@@ -80,7 +90,6 @@ export class NavbarComponent implements OnInit {
 
     this.userAuthenticated = ((data != null)? true : false)
     console.log('user authenticated: ', this.userAuthenticated)
-   
   }
 
   // logIn() {
@@ -90,5 +99,25 @@ export class NavbarComponent implements OnInit {
   // signUp() {
 
   // }
+
+  logout(e: any){
+    e.preventDefault();
+    const apiUrl = 'http://events369.logitall.biz/api/v1/';
+    this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
+      res =>  {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  doSearch(){
+    console.log('lets search for ' + this.searchQuery);
+    sessionStorage.setItem('search_query', this.searchQuery);
+    this.searchEvent.emit(this.searchQuery);
+    this.router.navigateByUrl('/search_results');
+  }
 
 }

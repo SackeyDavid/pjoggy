@@ -69,13 +69,16 @@
             <!-- description -->
             <div class="form-group">
               <div class="form-floating">
-                <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description"
+                <textarea class="form-control" id="floatingDesc" maxlength="250" style="height: 100px" aria-describedby="descHelp" placeholder="Event description"
                 [ngClass]="{'is-invalid': saved && f.description.errors, 'is-valid': !f.description.errors}" formControlName="description"></textarea>
                 <label for="floatingDesc">Event Description</label>
                 <small *ngIf="saved && f.description.errors" id="titleHelp" class="form-text invalid-feedback">
                   Description is required.
                 </small>
               </div>
+              <small class="form-text text-muted">
+                {{250 - f.description.value.length}} characters
+              </small>
             </div>
             <!-- /.description-->
 
@@ -146,10 +149,23 @@
 
             <!-- tags -->
             <div class="form-group">
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
+              <div class="form-floating mb-2">
+                <input (keyup.enter)="addChip()" type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
                 <label for="floatingTags">Tags</label>
+              </div>              
+            </div>
+            <div class="form-group tags-view">
+              <div *ngFor="let tag of tagsList; let i = index" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary pr-2">#{{tag}}</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="deleteChip(i)">
+                    <i class="bi-trash"></i>
+                  </button>
+                </div>
               </div>
+            </div>
+            <div class="form-description">
+              <p class="lead">Press 'Enter' after every tag</p>
             </div>
             <!-- /.tags -->
 
@@ -245,6 +261,9 @@
                       <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
                         Start date is required.
                       </small>
+                      <small *ngIf="saved && !isDateCorrect" class="text-danger">
+                        Start date must be greater than current date.
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -260,10 +279,13 @@
                       <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
                         End date is required.
                       </small>
+                      <small *ngIf="saved && !isDateIntervalCorrect" id="titleHelp" class="text-danger">
+                        End date must be greater than start date.
+                      </small>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>              
             </div>
             <!-- /.end -->
 
@@ -280,6 +302,9 @@
                           <label for="floatingStartTime">Start Time</label>
                           <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
                             Start time is required.
+                          </small>
+                          <small *ngIf="saved && !isTimeCorrect" class="text-danger">
+                            Start time must be greater than current time.
                           </small>
                         </div>
                       </div>
@@ -306,6 +331,9 @@
                           <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
                             End time is required.
                           </small>
+                          <small *ngIf="saved && !isTimeIntervalCorrect" id="titleHelp" class="text-danger">
+                            End time must be greater than start time.
+                          </small>
                         </div>
                       </div>
                       <!-- <div class="form-floating">
@@ -319,7 +347,7 @@
                         </div>
                       </div> -->
                     </div>
-                  </div>
+                  </div>                                    
                 </div>
                 <!-- /.end -->                
               </div>
@@ -376,15 +404,21 @@
                   <div class="form-check my-2 py-2">
                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" formControlName="venue_tobe_announced">
                     <label class="form-check-label" for="flexCheckDefault">
-                      Venue Yet to be announced
+                      Venue yet to be announced
                     </label>
                   </div>
 
                   <div class="form-group">
                     <div class="form-floating">
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingVenue" aria-describedby="titleHelp" placeholder="Venue" formControlName="venue">
+                        <!-- <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
+                        <input type="text" class="form-control" id="floatingVenue" aria-describedby="titleHelp" placeholder="Venue" 
+                          formControlName="venue" [ngClass]="{'is-invalid': saved && f.venue.errors, 'is-valid': !f.venue.errors && f.venue.value != ''}"
+                          ngx-google-places-autocomplete  #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
                         <label for="floatingVenue">Venue</label>
+                        <small *ngIf="saved && f.venue.errors" id="titleHelp" class="form-text invalid-feedback">
+                          Venue is required for physical events.
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -392,8 +426,12 @@
                   <div class="form-group">
                     <div class="form-floating">
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingGps" aria-describedby="titleHelp" placeholder="GPS cordinates" formControlName="gps">
+                        <input type="text" class="form-control" id="floatingGps" aria-describedby="titleHelp" placeholder="GPS cordinates" 
+                          formControlName="gps" [ngClass]="{'is-invalid': saved && f.gps.errors, 'is-valid': !f.gps.errors && f.gps.value != ''}">
                         <label for="floatingGps">GPS Cordinates</label>
+                        <small *ngIf="saved && f.gps.errors" id="titleHelp" class="form-text invalid-feedback">
+                          Cordinates is required for physical events.
+                        </small>
                       </div>
                     </div>
                   </div>

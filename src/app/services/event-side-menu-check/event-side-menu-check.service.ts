@@ -24,7 +24,7 @@ export class EventSideMenuCheckService {
   eventHasMoreDetailsData() {
     this.data = sessionStorage.getItem('created_event')
     this.data = JSON.parse(this.data)
-    if(this.data.images.length > 0) {
+    if(this.data.event[0].banner_image != null) {
       return true
     }
     else {

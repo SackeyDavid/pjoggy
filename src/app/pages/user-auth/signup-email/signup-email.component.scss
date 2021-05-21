@@ -1,0 +1,171 @@
+@font-face { font-family: Inter; src: url('/src/assets/fonts/Inter/Inter-Regular.ttf') format("truetype"); } 
+    
+// * {
+//   font-family: 'Inter' !important;
+// }
+
+// .card .p-5 {
+//   margin: 10% 20% !important;
+// }
+.form-card {
+  width: 500px;
+}
+
+select option {
+  width:  80px !important;
+}
+
+.form-btn {
+  width: 100%;
+}
+
+.form-element {
+  border-radius: 24px;
+  height: 48px;
+}
+
+.register-button {
+  // width: 140px;
+  // height: 45px;
+  font-family: 'Roboto', sans-serif;
+  // font-size: 11px;
+  // text-transform: uppercase;
+  // letter-spacing: 2.5px;
+  // font-weight: 500;
+  // color: #000;
+  // background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+.register-button:hover {
+  // background-color: #2EE59D;
+  background-color: #f05537 !important;
+  border-color: #f05537 !important;
+  box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.register-button:hover {
+  // background-color: #2EE59D;
+  background-color: #f05537 !important;
+  border-color: #f05537 !important;
+  box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.socialite-buttons {
+  margin-bottom: 2vh !important;
+  // font-size: 1px !important;
+}
+
+
+.socialite-buttons:hover {
+  // background-color: #2EE59D;
+  // background-color: #f05537 !important;
+  // border: 1px solid #0d6efd !important;
+  // border-width: 2px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  // color: #fff;
+  // transform: translateY(-7px);
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .5em;
+}
+
+.socialite-icon-and-text {
+  margin-top: -.7vh;
+}
+
+.form-floating > label {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-floating > .form-control {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-floating > .form-select {
+  padding-top: .5rem !important;
+  padding: .3rem 1.2rem !important;
+}
+
+.custom-select {
+  padding: .3rem 1.2rem !important;
+}
+
+.social-logo {
+  height: 20px;
+  width: 20px;
+  margin-top: -.5vh;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  // font-family: sans-serif;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  // background: linear-gradient(45deg, #8614ce, #ff0057);
+  background: #f7fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: #fff;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.contents {
+  position: relative;
+  max-width: 900px;
+  // text-align: center;
+}
+
+.contents .container-fluid .h-100 {
+  margin: 0;
+  padding: 0;
+}
+
+small {
+  margin-left: 1.5rem;
+}
+
+// remove blue textarea border

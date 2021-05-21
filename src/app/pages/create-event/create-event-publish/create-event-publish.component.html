@@ -56,21 +56,23 @@
             <!-- title -->
             <div class="form-group">
               <div class="card mb-3">
-                <img class="card-img-top" src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fmarketing%20space%2Fbanner--202102-outdoor-v2.webp?alt=media&token=cd0f4476-54ca-453f-a858-dc51fd86cfc3" alt="banner">
+                <img *ngIf="eventBanner != null" class="card-img-top banner-img" src="http://events369.logitall.biz/storage/banner/{{eventBanner}}" height="300" alt="banner">
+                <img *ngIf="eventBanner == null" class="card-img-top banner-img" src="../../../../assets/images/placeholder.png" height="300" alt="banner">
+                              
                 <div class="card-body">
                       <h5 class="card-title">{{eventTitle}}</h5>
+                      <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
+                      <br>
                       <p class="card-text">
                         {{eventDescription}}
                       </p>
                       <p *ngFor="let ticket of eventTickets" class="card-text" style="font-weight: bold">
                         <small><i class="bi-cash-stack"></i> {{ticket.currency}}{{ticket.price}} &nbsp; - &nbsp; <i class="bi-person"></i> {{ticket.max_quantity}}</small>
                       </p>
-                      <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
-
                       <p class="card-text" style="font-size: 12px;">
-                        <!-- By: Ralph Marvin Addo <br> -->
-                        {{eventContactPhone}} <br>
-                        {{eventContactEmail}}
+                        <span>By: {{eventOrganizer}}</span> <br>
+                        <span *ngIf="eventContactPhone != null">Phone No.: {{eventContactPhone}}</span><br *ngIf="eventContactPhone != null">
+                        <span *ngIf="eventContactEmail != null">Email: {{eventContactEmail}}</span>
                       </p>
                     </div>
               </div>

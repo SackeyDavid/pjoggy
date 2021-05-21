@@ -1,7 +1,7 @@
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     border-radius: 30px !important;
-    border: 1px solid var(--blue) !important;
-    background-color: var(--blue) !important;
+    border: 1px solid var(--ev-brandname-orange) !important;
+    background-color: var(--ev-brandname-orange) !important;
     color: var(--white) !important;
     // border-bottom: 2px solid var(--blue) !important;
   }
@@ -20,6 +20,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    line-height: 35px;
   }
 
   .card-text{
@@ -29,3 +30,60 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+
+  // hr {
+  //   margin-top: 2%;
+  //   margin-bottom: 2%;
+  // }
+  #more {display: none;}
+
+.btn-dark {
+    background-color: #1e0a3c !important;
+    border: none !important;
+}
+
+.btn-outline-primary {
+  color: #1e0a3c !important;
+  border: 2px solid #1e0a3c !important; 
+  i {
+    font-weight: bolder !important;
+    font-size: xx-large !important;
+  }
+}
+
+.btn-outline-primary:hover {
+  background-color: #1e0a3c !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-outline-primary:focus {
+  background-color: #1e0a3c !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.spinner-border {
+    margin-bottom: .5vh;
+}
+
+span.see-more-or-less {
+  cursor: pointer;
+  font-weight: 600 !important;
+  color: var(--ev-brandname-darkblue) !important;
+  // background: linear-gradient(to right, #f05537,#1e0a3c);
+  // -webkit-text-fill-color: transparent;
+  // -webkit-background-clip: text;
+}
+
+.text-center {
+  margin-top: 2vh !important;
+}
+
+img {
+  height: 250px !important;
+}
+
+.btn {
+  width: 45% !important;
+}

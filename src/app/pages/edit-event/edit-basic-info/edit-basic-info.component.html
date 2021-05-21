@@ -25,7 +25,7 @@
         </div>
 
         <div class="navigation">
-          <div class="nav-buttons">
+          <div class="nav-buttons"> 
             <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="create()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
@@ -69,13 +69,16 @@
             <!-- description -->
             <div class="form-group">
               <div class="form-floating">
-                <textarea [(ngModel)]="event.description" class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp"
+                <textarea class="form-control" id="floatingDesc" maxlength="250" style="height: 100px" aria-describedby="descHelp"
                 [ngClass]="{'is-invalid': saved && f.description.errors, 'is-valid': !f.description.errors}" placeholder="Event description" formControlName="description"></textarea>
                 <label for="floatingDesc">Event Description</label>
                 <small *ngIf="saved && f.description.errors" id="titleHelp" class="form-text invalid-feedback">
                   Description is required.
                 </small>
               </div>
+              <small class="form-text text-muted">
+                {{250 - f.description.value?.length}} characters
+              </small>
             </div>
             <!-- /.description-->
 
@@ -91,10 +94,10 @@
                       <option value="2">Donations</option>
                     </select>
                     <label for="floatingType">Ticketing</label>
-                  </div>
-                  <small *ngIf="saved && f.ticketing.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Ticketing is required.
-                  </small>
+                    <small *ngIf="saved && f.ticketing.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Ticketing is required.
+                    </small>
+                  </div>                  
                 </div>
                 <div class="col">
                   <div class="form-floating">
@@ -104,10 +107,10 @@
                       <option value="0">Private</option>
                     </select>
                     <label for="floatingType">Event Type</label>
-                  </div>
-                  <small *ngIf="saved && f.type.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Event type is required.
-                  </small>
+                    <small *ngIf="saved && f.type.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Event type is required.
+                    </small>
+                  </div>                  
                 </div>
               </div>
             </div>
@@ -118,15 +121,15 @@
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" (change)="getSubcategories()"
                       formControlName="category_id" [ngClass]="{'is-invalid': saved && f.category_id.errors, 'is-valid': !f.category_id.errors}">
                       <option *ngFor="let x of categoriesData" value={{x.id}}>{{x.temp_name}}</option>
                     </select>
                     <label for="floatingSelect">Event Category</label>
-                  </div>
-                  <small *ngIf="saved && f.category_id.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Event category is required.
-                  </small>
+                    <small *ngIf="saved && f.category_id.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Event category is required.
+                    </small>
+                  </div>                  
                 </div>
                 <div class="col">
                   <div class="form-floating">
@@ -135,10 +138,10 @@
                       <option *ngFor="let x of subCategoriesData" value={{x.id}}>{{x.name}}</option>
                     </select>
                     <label for="floatingSelect">Event sub-category</label>
-                  </div>
-                  <small *ngIf="saved && f.subcategory_id.errors" id="titleHelp" class="form-text invalid-feedback">
-                    Event sub-category type is required.
-                  </small>
+                    <small *ngIf="saved && f.subcategory_id.errors" id="titleHelp" class="form-text invalid-feedback">
+                      Event sub-category type is required.
+                    </small>
+                  </div>                  
                 </div>
               </div>
             </div>
@@ -146,10 +149,23 @@
 
             <!-- tags -->
             <div class="form-group">
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
+              <div class="form-floating mb-2">
+                <input (keyup.enter)="addChip()" type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
                 <label for="floatingTags">Tags</label>
+              </div>              
+            </div>
+            <div class="form-group tags-view">
+              <div *ngFor="let tag of tagsList; let i = index" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary pr-2">#{{tag}}</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="deleteChip(i)">
+                    <i class="bi-trash"></i>
+                  </button>
+                </div>
               </div>
+            </div>
+            <div class="form-description">
+              <p class="lead">Press 'Enter' after every tag</p>
             </div>
             <!-- /.tags -->
 
@@ -329,12 +345,12 @@
             <div class="form-group">
               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation" (click)="setHosting('1')">
-                  <a class="nav-link" [class.active] = "event.hosting == 0" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+                  <a class="nav-link" [class.active] = "event.hosting == 1" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
                     Location
                   </a>
                 </li>
                 <li class="nav-item" role="presentation" (click)="setHosting('0')">
-                  <a class="nav-link" [class.active] = "event.hosting == 1" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                  <a class="nav-link" [class.active] = "event.hosting == 0" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
                     Online Event
                   </a>
                 </li>                
@@ -351,8 +367,12 @@
                   <div class="form-group">
                     <div class="form-floating">
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingVenue" aria-describedby="titleHelp" placeholder="Venue" formControlName="venue">
+                        <input type="text" class="form-control" id="floatingVenue" aria-describedby="titleHelp" placeholder="Venue" 
+                          formControlName="venue" [ngClass]="{'is-invalid': saved && f.venue.errors, 'is-valid': !f.venue.errors && f.venue.value != ''}">
                         <label for="floatingVenue">Venue</label>
+                        <small *ngIf="saved && f.venue.errors" id="titleHelp" class="form-text invalid-feedback">
+                          Venue is required for physical events.
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -360,8 +380,12 @@
                   <div class="form-group">
                     <div class="form-floating">
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingGps" aria-describedby="titleHelp" placeholder="GPS cordinates" formControlName="gps">
+                        <input type="text" class="form-control" id="floatingGps" aria-describedby="titleHelp" placeholder="GPS cordinates" 
+                          formControlName="gps" [ngClass]="{'is-invalid': saved && f.gps.errors, 'is-valid': !f.gps.errors && f.gps.value != ''}">
                         <label for="floatingGps">GPS Cordinates</label>
+                        <small *ngIf="saved && f.gps.errors" id="titleHelp" class="form-text invalid-feedback">
+                          Cordinates is required for physical events.
+                        </small>
                       </div>
                     </div>
                   </div>

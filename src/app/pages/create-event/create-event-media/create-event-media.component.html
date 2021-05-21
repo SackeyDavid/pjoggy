@@ -1,1 +1,164 @@
-<p>create-event-media works!</p>
+<app-create-event-navbar></app-create-event-navbar>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-4 col-lg-4">
+            <app-create-event-side-menu [currentPage]="'media'"></app-create-event-side-menu>
+            <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle>
+            <!-- <app-side-menu-toggle></app-side-menu-toggle> -->
+        </div>
+    
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <form class="form" [formGroup]="form">
+              <div class="divider mb-1 mt-5"></div>
+              <div class="form-item">
+                <div class="form-header">
+                  <div class="form-title">
+                    <h2>Add Image</h2>
+                  </div>                                 
+                </div>
+              </div>
+
+              <div class="form-item">                   
+                <div class="form-body">
+                  <!-- image -->
+                  <div class="form-group">
+                    <input type="file" accept="image/*" class="file-input" formControlName="event_image" (change)="onImageSelected($event)" #imageUpload>
+                    <!-- <input type="file" class="file-input" formControlName="event_image" #imageUpload> -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">                                
+                                <div (click)="imageUpload.click()" class="card-image-upload text-center">
+                                  <div *ngIf="!isImageSet" class="p-2">
+                                    <!-- <div class="p-2"> -->
+                                    <i class="bi bi-image" style="font-size: 4em; color: #ddd;"></i>
+                                    <div class="mt-3">
+                                        <h4 class="text-muted">Click to add event image</h4>
+                                        <p class="lead text-muted">JPG, JPEG or PNG, no larger than 10MB</p>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="isImageSet">
+                                    <img class="card-img-bottom" [src]="createdImgSrc" width="400" height="250">
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <small id="descHelp" class="form-text text-muted">
+                      JPG, JPEG or PNG, no larger than 10MB.
+                    </small> -->
+                  </div>
+                  <!-- /.image -->
+
+                  <div class="row form-group">
+                    <div class="col submit-button">
+                      <button *ngIf="!isImageSaving" type="submit" class="btn btn-lg btn-primary" (click)="createImage()">Save Image</button>
+                      <app-loading-button *ngIf="isImageSaving"></app-loading-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </form>
+
+            <div class="divider mb-1 mt-5"></div>
+            <div class="form-item">
+                <div class="form-header">
+                    <div class="form-title">
+                    <h2>My Images</h2>
+                    </div>                  
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div *ngFor="let image of imgSrcList" class="card m-3 list-image-card">                 
+                  <img class="card-img-bottom" [src]="image" width="200" height="150">
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- ----------------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- videos -->
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <form class="form" [formGroup]="form">
+              <div class="divider mb-1 mt-5"></div>
+              <div class="form-item">
+                <div class="form-header">
+                  <div class="form-title">
+                    <h2>Add Video</h2>
+                  </div>                         
+                </div>
+              </div>              
+
+              <div class="form-item">                   
+                <div class="form-body">
+                  <!-- video -->
+                  <div class="form-group">
+                    <input type="file" accept="video/*" class="file-input" formControlName="event_video" (change)="onVideoSelected($event)" #videoUpload>
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="card">
+                          <div (click)="videoUpload.click()" class="card-image-upload text-center">
+                            <div *ngIf="!isVideoSet" class="p-2">
+                            <!-- <div class="p-2"> -->
+                            <i class="bi bi-play-circle" style="font-size: 4em; color: #ddd;"></i>
+                            <div class="mt-3">
+                                <h4 class="text-muted">Click to add event video</h4>
+                                <p class="lead text-muted">MP4 or OGG, not longer than 3 minutes</p>
+                            </div>
+                            </div>
+                            <div *ngIf="isVideoSet">
+                              <video class="video-preview card-img-bottom" controls>
+                                <source src="{{createdVideoSrc}}" type="video/mp4">
+                                <source src="{{createdVideoSrc}}" type="video/ogg">
+                                <source src="{{createdVideoSrc}}" type="video/mkv">
+                                Your browser does not support the video tag.
+                              </video> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col submit-button">
+                        <button *ngIf="!isVideoSaving" type="submit" class="btn btn-lg btn-primary" (click)="createVideo()">Save Video</button>
+                        <app-loading-button *ngIf="isVideoSaving"></app-loading-button>
+                      </div>
+                    </div>              
+                  </div>
+                </div>
+              </div>              
+              
+            </form>
+
+            <div class="divider mb-1 mt-5"></div>
+            <div class="form-item">
+                <div class="form-header">
+                    <div class="form-title">
+                    <h2>My Videos</h2>
+                    </div>                  
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div *ngFor="let video of videoSrcList" class="card m-3 list-image-card">                 
+                  <video class="video-preview card-img-bottom" controls width="300" height="200">
+                    <source src="{{video}}" type="video/mp4">
+                    <source src="{{video}}" type="video/ogg">
+                    <source src="{{video}}" type="video/mkv">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>

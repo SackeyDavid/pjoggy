@@ -99,7 +99,7 @@
                     </div>
                   </div>
                   <div *ngIf="isBannerSet">
-                    <img class="card-img-bottom" [src]="imgSrc" width="400" height="250">
+                    <img class="card-img-bottom banner-img" [src]="imgSrc" width="400" height="250">
                   </div>
                 </div>
               </div>
@@ -185,7 +185,8 @@
               <h2>External Hosting</h2>
             </div>
             <div class="form-description">
-              <p class="text-muted lead">Ralph will add more detail texts here.</p>
+              <!-- <p class="text-muted lead">Ralph will add more detail texts here.</p> -->
+              <p class="text-muted lead">Add webinars, livestreams and meetings to your online event page.</p>
             </div>
           </div>
 
@@ -214,85 +215,112 @@
 
           <div class="row" *ngIf="facebookVisibility==true">
             <div class="col">
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-facebook"></i></span>
-                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="facebook_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Facebook</label>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <div class="form-floating">
+                    <div class="form-floating input-group">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-facebook"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="facebook_hosting"
+                        [ngClass]="{'is-invalid': saved && f.facebook_hosting.errors, 'is-valid': f.facebook_hosting.value!='' && !f.facebook_hosting.errors}">
+                      <label class="hosting-icon" for="floatingTitle">Facebook</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="row" *ngIf="zoomVisibility==true">
             <div class="col">
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
-                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Zoom link</label>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <div class="form-floating">
+                    <div class="form-floating input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting"
+                        [ngClass]="{'is-invalid': saved && f.zoom_hosting.errors, 'is-valid': f.zoom_hosting.value!='' && !f.zoom_hosting.errors}">
+                      <label class="hosting-icon" for="floatingTitle">Zoom web link</label>
+                    </div>
+                  </div>
+                  <div class="form-floating">
+                    <div class="form-floating input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting_id">
+                      <label class="hosting-icon" for="floatingTitle">Meeting ID</label>
+                    </div>
+                  </div>
+                  <div class="form-floating">
+                    <div class="form-floating input-group">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting_password">
+                      <label class="hosting-icon" for="floatingTitle">Password</label>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
-                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting_id">
-                  <label class="hosting-icon" for="floatingTitle">Zoom Meeting ID</label>
-                </div>
-              </div>
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
-                  <input type="password" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting_password">
-                  <label class="hosting-icon" for="floatingTitle">Zoom Passcode</label>
-                </div>
-              </div>
-            </div>
-              
-            <br>
+            </div>          
           </div>
+
           <div class="row" *ngIf="youtubeVisibility==true">
             <div class="col">
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-youtube"></i></span>
-                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="youtube_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Youtube</label>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <div class="form-floating">
+                    <div class="form-floating input-group">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-youtube"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="youtube_hosting"
+                        [ngClass]="{'is-invalid': saved && f.youtube_hosting.errors, 'is-valid': f.youtube_hosting.value!='' && !f.youtube_hosting.errors}">
+                      <label class="hosting-icon" for="floatingTitle">Youtube</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="row" *ngIf="meetVisibility==true">
             <div class="col">
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
-                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Google Meet</label>
-                </div>
-              </div>
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
-                  <input type="password" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting_password">
-                  <label class="hosting-icon" for="floatingTitle">Google Meet Password</label>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <div class="form-floating">
+                    <div class="form-floating input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting"
+                        [ngClass]="{'is-invalid': saved && f.meet_hosting.errors, 'is-valid': f.meet_hosting.value!='' && !f.meet_hosting.errors}">
+                      <label class="hosting-icon" for="floatingTitle">Google Meet</label>
+                    </div>
+                  </div>
+                  <div class="form-floating">
+                    <div class="form-floating input-group">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting_password">
+                      <label class="hosting-icon" for="floatingTitle">Google Meet Password</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="row" *ngIf="teamsVisibility==true">
             <div class="col">
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
-                  <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting">
-                  <label class="hosting-icon" for="floatingTitle">Microsoft Teams</label>
-                </div>
-              </div>
-              <div class="form-floating">
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
-                  <input type="password" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting_password">
-                  <label class="hosting-icon" for="floatingTitle">Microsoft Teams Password</label>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <div class="form-floating">
+                    <div class="form-floating input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting"
+                        [ngClass]="{'is-invalid': saved && f.teams_hosting.errors, 'is-valid': f.teams_hosting.value!='' && !f.teams_hosting.errors}">
+                      <label class="hosting-icon" for="floatingTitle">Microsoft Teams</label>
+                    </div>
+                  </div>
+                  <div class="form-floating">
+                    <div class="form-floating input-group">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting_password">
+                      <label class="hosting-icon" for="floatingTitle">Microsoft Teams Password</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,0 +1,42 @@
+<app-navbar (searchEvent)="searchEvent()"></app-navbar>
+
+<div class="container mt-5">
+    <ng-container *ngIf="!searchData">
+        <div class="d-flex justify-content-center mb-5">
+            <!-- <div class="spinner-grow" role="status">  -->
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>            
+            <!-- </div> -->
+        </div>
+    </ng-container>
+    <div class="row" *ngIf="searchData.length == 0">
+        <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+          <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+            <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+            <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">No results found</span>
+            <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+              Search does not exist
+          </p>
+        </div>
+    </div>
+    <div *ngFor="let x of searchData" class="row mb-4 search-row" (click)="gotoPreview(x.id)">
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-bottom" src="http://events369.logitall.biz/storage/banner/{{x.banner_image}}" alt="">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <p class="card-text">
+                <span class="bold card-title">{{x.title}}</span><br>
+                <span class="lead text-muted">By: {{x.created_by}}</span><br>
+                <span class="lead">{{x.start_date_time | date:'mediumDate'}} to {{x.end_date_time | date:'mediumDate'}}, {{x.venue}}</span>
+            </p>
+            <p class="description-text">
+                {{x.description}}
+            </p>
+        </div>
+    </div>
+</div>
+
+

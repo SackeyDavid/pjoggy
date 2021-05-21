@@ -52,7 +52,6 @@ export class CreateEventDetailsComponent implements OnInit {
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
     this.eventID = data.event[0].id
-    
   }
 
   previous() {
@@ -71,17 +70,23 @@ export class CreateEventDetailsComponent implements OnInit {
   }
 
   initForm(): void {
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+
     this.form = this.formBuilder.group({
       email: ['', Validators.email],
-      phone: ['', [Validators.minLength(13), Validators.maxLength(13)]],      
+      phone: ['', [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]],      
       hosted_on: [''],
       banner_image: [''],
       organizer: ['', Validators.required],
-      facebook_hosting: [''],
-      zoom_hosting: [''],
-      youtube_hosting: [''],
-      meet_hosting: [''],
-      teams_hosting: [''],
+      facebook_hosting: ['', Validators.pattern(urlRegex)],
+      zoom_hosting: ['', Validators.pattern(urlRegex)],
+      zoom_hosting_id: [''],
+      zoom_hosting_password: [''],
+      youtube_hosting: ['', Validators.pattern(urlRegex)],
+      meet_hosting: ['', Validators.pattern(urlRegex)],
+      meet_hosting_password: [''],
+      teams_hosting: ['', Validators.pattern(urlRegex)],
+      teams_hosting_password: [''],
       facebook_checkbox: [''],
       zoom_checkbox: [''],
       youtube_checkbox: [''],
@@ -106,7 +111,12 @@ export class CreateEventDetailsComponent implements OnInit {
           if (res) {
             this.isLoading = false;
             this.getCreatedEvent(this.eventID);
-            this.router.navigateByUrl('/create_event/ticketing');
+            
+            this.saveCreatedEvent(this.eventID).then(
+              ok => {
+                if (ok) this.router.navigateByUrl('/create_event/ticketing');
+              }                               
+            );
           }
           else {
             this.isLoading = false;
@@ -119,15 +129,15 @@ export class CreateEventDetailsComponent implements OnInit {
         }
       );
     }
+    else{
+      window.scrollTo(0,0);
+    }
   }
 
   onFileSelected(e: any){
     const file:File = e.target.files[0];
     if (file) {
       this.isBannerSet = true;
-
-      // const formData = new FormData();
-      // formData.append('thumbnail', file);
 
       this.f.banner_image.value = file;
 
@@ -142,10 +152,10 @@ export class CreateEventDetailsComponent implements OnInit {
   getFormData(): any {
     let hostedObject = [
       { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Facebook', 'link': this.f.facebook_hosting.value },
-      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Zoom', 'link': this.f.zoom_hosting.value },
+      { 'id': 0, 'password': this.f.zoom_hosting_password.value, 'meeting_id': this.f.zoom_hosting_id.value, 'platform': 'Zoom', 'link': this.f.zoom_hosting.value },
       { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Youtube', 'link': this.f.youtube_hosting.value },
-      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Meet', 'link': this.f.meet_hosting.value },
-      { 'id': 0, 'password': '', 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
+      { 'id': 0, 'password': this.f.meet_hosting_password.value, 'meeting_id': '', 'platform': 'Meet', 'link': this.f.meet_hosting.value },
+      { 'id': 0, 'password': this.f.teams_hosting_password.value, 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
     ]
 
     const data = {
@@ -187,6 +197,23 @@ export class CreateEventDetailsComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  saveCreatedEvent(eventId: any): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.basicInfoService.getCreatedEvent(eventId).then(
+        res => {
+          console.log(res);
+          sessionStorage.removeItem('created_event');
+          sessionStorage.setItem('created_event', JSON.stringify(res));
+          resolve(true);
+        },
+        err => {
+          console.log(err);
+          reject(err);
+        }
+      );
+    });
   }
 
 }

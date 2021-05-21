@@ -1,0 +1,39 @@
+<div class="gallery-div">
+    <div class="container">
+       <div class="row gallery-section">
+          <div class="col-lg-8 mx-auto">
+             <h2 class="section-title text-center">
+                <span>Take a look at the</span>
+                Gallery
+             </h2>
+          </div>
+       </div>
+
+       <div class="row">
+            <owl-carousel [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="images">
+                <div *ngFor="let image of images; index as i" class="col">
+                    <a (click)="setImage($event, i)" href="#"  data-toggle="modal" data-target="#imageModal">
+                        <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{image.url}}" alt="">
+                    </a>                    
+                </div>
+            </owl-carousel>
+
+            <div class="modal fade container" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog w-100 mx-auto" role="document" style="max-width: 100%;">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{viewImage}}" alt="">
+                    </div>
+                  </div>
+                </div>
+            </div>
+       </div>
+    </div>
+</div>
+

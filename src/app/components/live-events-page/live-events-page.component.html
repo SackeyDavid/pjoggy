@@ -1,0 +1,270 @@
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="happening_now_text">
+          <div class="happening_now_text_core">
+              <div class="happening_now_text_container">
+                  <h2 class="happening_now_text_header display-6 mb-4 ev-display-only-non-mobile">
+                    <i class="bi-camera-reels"></i> &nbsp; &nbsp; Happening Now
+                  </h2>
+                  <h2 class="happening_now_text_header display-6 mb-4 ev-display-only-mobile">
+                    <i class="bi-camera-reels"></i> &nbsp; &nbsp; Live
+                  </h2>
+              </div>
+          </div>
+      </div>
+      
+    <ng-containrer *ngIf="!eventsNow">
+        <div class="d-flex justify-content-center">
+              <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+             
+          </div>
+    </ng-containrer>
+    <div class="slider">
+      <div class="slider_items" *ngFor="let event of eventsNow; let i = index">
+                    <!-- <div class="_ruj4s90" *ngIf="i < loadIndex"> -->
+                      <div class="live_event_slide_item" *ngIf="i < loadIndex">
+                        <div class="live_event_core">
+                            <div>
+                                <div>
+                                    <div itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                        <meta content="{{event.title}}" itemprop="name" /><meta content="2" itemprop="position" /><meta content="{{event.event_url}}" itemprop="url" />
+                                        <div class="live_event_presentation_div" id="live_event_presentation_div_2" role="presentation">
+                                            <div>
+                                                <a
+                                                    class="live_event_link"
+                                                    data-check-info-section="true"
+                                                    href="{{event.event_url}}"
+                                                    rel="noopener noreferrer"
+                                                    target="_blank"
+                                                ></a>
+                                                <div class="live_event_image_video_div_container">
+                                                    <div class="live_event_image_video_div_container_core">
+                                                        <div class="live_event_position_element_relative">
+                                                            <div class="live_event_image_video_div_container_minor" style="--dls-liteimage-aspect-ratio: 100 / 133.33; --dls-liteimage-padding-top: 133.3333%;">
+                                                                <div class="live_event_image_video_div">
+                                                                    <img
+                                                                        class="live_event_image"
+                                                                        style="object-fit: cover;"
+                                                                        aria-hidden="true"
+                                                                        alt=""
+                                                                        decoding="async"
+                                                                        loading="lazy"
+                                                                        src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}"
+                                                                    />
+
+                                                                    <!-- *ngIf="event.video" -->
+                                                                    <video class="live_videos" id="video-{{event.id}}" style="border-radius: 6px;display: none;" width="600" height="800" loop="loop" poster="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" preload="true">
+                                                                        <!-- <source [src]="event.video_src" type="video/mp4" /> -->
+                                                                        <source src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fvideo%2Fpexels-rodnae-productions-6193112.mp4?alt=media&token=49f3ece0-2867-471c-82f4-75c430a7fdde" type="video/mp4" />
+                                                                    </video>
+                                                                    <div
+                                                                        class="live_event_background_image"
+                                                                        style="
+                                                                            background-image: url(http://events369.logitall.biz/storage/banner/{{event.banner_image}});
+                                                                            background-size: cover;
+                                                                        "
+                                                                    ></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="live_event_bottom_linear_gradient_div"></div>
+                                                        <div class="live_event_image_card_footer">
+                                                            <div class="save_live_event_div_container" style="padding: 8px;">
+                                                                <div></div>
+                                                                <div class="save_live_event_div" style="visibility: hidden !important;">
+                                                                    <button aria-label="Save this Event" type="button" class="save_live_event_button">
+                                                                        <svg
+                                                                            viewBox="0 0 32 32"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            style="display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                                                            aria-hidden="true"
+                                                                            role="presentation"
+                                                                            focusable="false"
+                                                                        >
+                                                                            <path
+                                                                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                                                            ></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                    
+                                                                    
+                                                                </div>
+                                                            </div>
+
+                                                        
+
+                                                            <!-- if event card not hovered  -->
+                                                            <div class="video_controls_div">
+                                                                <button id="video-pause-{{event.id}}" aria-label="Pause" (click)="pauseVideo(event.id)" type="button" class="video_control_buttons">
+                                                                    <span class="live_event_position_element_relative">
+                                                                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="display: block; height: 14px; width: 14px; fill: #ffffff;" aria-hidden="true" role="presentation" focusable="false">
+                                                                            <path d="M13 1v14H9V1zM7 1v14H3V1z"></path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                                <button id="video-play-{{event.id}}" style="display: none;" aria-label="Play" (click)="playVideo(event.id)" type="button" class="video_control_buttons">
+                                                                        <span class="live_event_position_element_relative">
+                                                                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display: block; height: 14px; width: 14px; fill: rgb(255, 255, 255);" aria-hidden="true" role="presentation" focusable="false">
+                                                                                <path d="M27.024 14.273L6.008 2.013c-.461-.268-1-.342-1.517-.206A2 2 0 0 0 3 3.741V28.26a2.002 2.002 0 0 0 3.008 1.728l21.015-12.26a2.003 2.003 0 0 0 .001-3.454z"></path>
+                                                                            </svg>
+                                                                        </span>
+                                                                </button>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="live_event_minor_text_description">
+                                                    <span class="live_event_time_information" aria-label="Rating 4.95 out of 5; 107 reviews" role="img">
+                                                        <span class="clock_icon_span">
+                                                            <i class="bi bi-clock" style="font-size: 18px;color: orangered;"></i>
+                                                            <!-- <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 12px; width: 12px; fill: currentColor;">
+                                                                <path
+                                                                    d="M972 380c9 28 2 50-20 67L725 619l87 280c11 39-18 75-54 75-12 0-23-4-33-12L499 790 273 962a58 58 0 0 1-78-12 50 50 0 0 1-8-51l86-278L46 447c-21-17-28-39-19-67 8-24 29-40 52-40h280l87-279c7-23 28-39 52-39 25 0 47 17 54 41l87 277h280c24 0 45 16 53 40z"
+                                                                ></path>
+                                                            </svg> -->
+                                                        </span>
+                                                        <span class="time_ago_span" aria-hidden="true">3s ago</span>
+                                                        <!-- <span class="_a7a5sx" aria-hidden="true">&nbsp;(107)</span> -->
+                                                    </span>
+                                                    <div class="html_dot" aria-hidden="true">·</div>
+                                                    <div class="live_event_location_div" style="min-width: 80px; max-width: 80px;text-overflow: ellipsis;overflow: hidden;">
+                                                      <ng-container *ngIf="event.venue">
+                                                        {{event.venue}}
+                                                      </ng-container>
+                                                      <ng-container *ngIf="event.hosting == '0'">
+                                                        Online Event
+                                                      </ng-container>
+                                                      <ng-container *ngIf="event.venue_tobe_announced">
+                                                        TBA
+                                                      </ng-container>
+                                                    </div>
+                                                </div>
+                                                <div class="live_event_title" style="min-width: 200px; max-width: 200px;text-align: left; line-height: 20px; max-height: 40px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-top: 7px;">
+                                                   {{event.title}}
+                                                    
+                                                </div>
+                                                <div class="live_event_number_participating_div" style="margin-top: 6px;">
+                                                    <span style="color: gray;">
+                                                        <span class="live_event_number_participating_span" style="font-weight: 300;font-size: 13px;color: gray;">
+                                                            <!-- From -->
+                                                             <span class="live_event_number_participating_span" style="font-weight: 600 !important;font-size: 13px;color: gray;"><span class="live_event_participating_text">Joined:</span>{{event.watching}} </span>
+                                                        </span>
+                                                       232 joined
+                                                        <!-- / person -->
+                                                        <br>
+                                                        <span style="color: #fff;">$$$$$$$$$</span>
+                                                    </span>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+    </div>
+  
+    <br><br><br>
+    <div class="d-flex justify-content-center">
+        <button  *ngIf="loadIndex < eventsNow.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Load more
+          </button>
+
+          <a href="/" *ngIf="loadIndex >= eventsNow.length" class="btn btn-dark btn-lg">Show all events</a>
+      </div>
+    
+    </div>
+    </div>
+  
+  <br>
+    <!-- <owl-carousel [options]="thumbsSliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+      <div class="items">
+        <div class="row">
+          <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="card mb-2">
+              <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">
+                  <span class="title">4 secs ago - Accra Spintex</span>
+                  <br>
+                  <span class="bold">Emy's Techpreneur SDG Conference</span>
+                  <br>
+                  <span class="lead">290 Participants</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="card mb-2">
+              <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">
+                  <span class="title">4 secs ago - Accra Spintex</span>
+                  <br>
+                  <span class="bold">Emy's Techpreneur SDG Conference</span>
+                  <br>
+                  <span class="lead">290 Participants</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="card mb-2">
+              <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">
+                  <span class="title">4 secs ago - Accra Spintex</span>
+                  <br>
+                  <span class="bold">Emy's Techpreneur SDG Conference</span>
+                  <br>
+                  <span class="lead">290 Participants</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="card mb-2">
+              <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">
+                  <span class="title">4 secs ago - Accra Spintex</span>
+                  <br>
+                  <span class="bold">Emy's Techpreneur SDG Conference</span>
+                  <br>
+                  <span class="lead">290 Participants</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="items">...</div>
+      <div class="items">...</div>
+    
+    </owl-carousel> -->
+  
+    <!-- <div class="row">
+      <div class="container">
+        <div class="d-flex flex-row justify-content-end p-1">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi-arrow-left"></i>
+            </button>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  

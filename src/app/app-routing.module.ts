@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { EventPageComponent } from './pages/event-page/event-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
+import { HappeningNowComponent } from './pages/happening-now/happening-now.component';
 import { LoginPageComponent } from './pages/user-auth/login-page/login-page.component';
 import { SignupPageComponent } from './pages/user-auth/signup-page/signup-page.component';
+import { UpcomingEventsPageComponent } from "./pages/upcoming-events-page/upcoming-events-page.component";
+import { PopularEventsPageComponent } from "./pages/popular-events-page/popular-events-page.component";
+import { NewEventsPageComponent } from "./pages/new-events-page/new-events-page.component";
+import { HelpPageComponent } from "./pages/help-page/help-page.component";
 
 import { CreateBasicInfoComponent } from './pages/create-event/create-basic-info/create-basic-info.component';
 import { CreateEventSchedulesComponent } from './pages/create-event/create-event-schedules/create-event-schedules.component';
@@ -26,12 +31,25 @@ import { CreateEventOrganizersComponent } from './pages/create-event/create-even
 import { CreateEventSpeakersComponent } from './pages/create-event/create-event-speakers/create-event-speakers.component';
 import { CreateEventMediaComponent } from './pages/create-event/create-event-media/create-event-media.component';
 import { CreateEventSponsorsComponent } from './pages/create-event/create-event-sponsors/create-event-sponsors.component';
+import { SignupEmailComponent } from './pages/user-auth/signup-email/signup-email.component';
+import { SignupMoreInfoComponent } from './pages/user-auth/signup-more-info/signup-more-info.component';
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { PreviewEventPageComponent } from './pages/preview-event-page/preview-event-page.component';
+import { RecoveryInvalidComponent } from './pages/user-auth/recovery-invalid/recovery-invalid.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: HomePageComponent
+  },
+  {
+    path: 'search_results',
+    component: SearchResultsComponent
+  },
+  {
+    path: 'help',
+    component: HelpPageComponent
   },
   {
     path: 'user_events',
@@ -41,9 +59,17 @@ const routes: Routes = [
     path: 'login',
     component: LoginPageComponent
   },
+  // {
+  //   path: 'register',
+  //   component: SignupPageComponent
+  // },
   {
     path: 'register',
-    component: SignupPageComponent
+    component: SignupEmailComponent
+  },
+  {
+    path: 'signup_more_info',
+    component: SignupMoreInfoComponent
   },
   {
     path: 'email_confirmed',
@@ -53,13 +79,17 @@ const routes: Routes = [
     path: 'email_invalid',
     component: EmailInvalidComponent
   },
-  {
-    path: 'phone_authentication',
-    component: PhoneAuthenticationComponent
-  },
+  // {
+  //   path: 'phone_authentication',
+  //   component: PhoneAuthenticationComponent
+  // },
   {
     path: 'recovery_email',
     component: RecoveryEmailComponent
+  },
+  {
+    path: 'recovery_invalid',
+    component: RecoveryInvalidComponent
   },
   {
     path: 'password_reset',
@@ -67,7 +97,7 @@ const routes: Routes = [
   },
   {
     path: 'event_details',
-    component: EventPageComponent
+    component: PreviewEventPageComponent
   },
   {
     path: 'account',
@@ -153,6 +183,31 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path: 'events',
+    children: [
+      {
+        path: 'learn-more',
+        component: LearnMoreComponent
+      },
+      {
+        path: 'live',
+        component: HappeningNowComponent
+      },
+      {
+        path: 'upcoming',
+        component: UpcomingEventsPageComponent
+      },
+      {
+        path: 'popular',
+        component: PopularEventsPageComponent
+      },
+      {
+        path: 'new',
+        component: NewEventsPageComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

@@ -10,6 +10,7 @@ export class FormHeaderComponent implements OnInit {
   constructor() { }
 
   @Input() formTitle?: String;
+  @Input() subText?: String;
 
   ngOnInit(): void {
   }

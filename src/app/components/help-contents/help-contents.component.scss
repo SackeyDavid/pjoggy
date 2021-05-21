@@ -1,0 +1,107 @@
+.help-banner {
+    background: url(../../../assets/images/help-page-banner.webp) 0 0/100% 100% no-repeat;
+    margin-top: 0;
+    min-height: 300px;
+}
+
+
+
+// .ev-nav-searchbar-input {
+//     background-color: var(--ev-searchbar-background) !important;
+//     border-color: var(--ev-searchbar-border) !important;
+//   }
+
+.card-img-top {
+    height: 64px;
+    width: 64px;
+    margin: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    padding: 5%;
+}
+
+tr td {
+    color: var(--ev-brandname-darkblue);
+    margin: 2%;
+}
+
+.only-mobile {
+    display: none;
+}
+
+
+@media (max-width: 576px) {
+ .help-banner {
+     background:  inherit !important;
+    // max-height: 100px !important;
+ }
+ .help-banner-text {
+     color: var(--ev-brandname-darkblue) !important;
+     font-size: 20px !important;
+     margin-left: 5%;
+     margin-right: 5%;
+ }
+ .help-banner-text-minor {
+     font-size: 14px !important;
+     color: grey !important;
+ }
+ .search-form {
+     left: 5% !important;
+     top: 42% !important;
+     width: 90% !important;
+ }
+ .help-search-bar {
+    height: 6vh !important;
+    font-size: 15px !important;
+    background-color: #f8f7fb !important;
+ }
+ .help-searchbar-icon {
+    top: 15% !important; 
+    left: 4%;
+ }
+ .only-mobile {
+    display: block;
+ }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 1500px) {
+    .search-form {
+       top: 25% !important; 
+    }
+    .help-search-bar {
+        height: 6vh !important;
+    }
+    .help-banner-text {
+        padding-top: 4vh !important;
+    }
+    .help-banner {
+        background: url(../../../assets/images/help-banner-lg.webp) 0 0/100% 100% no-repeat !important; 
+    }
+    .help-banner-text-minor {
+        color: #bfbebe !important;
+    }
+}
+
+.question-image {
+    height: 104px !important;
+    width: 104px !important;
+}

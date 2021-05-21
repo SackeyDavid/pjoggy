@@ -1,0 +1,56 @@
+<div class="container-fluid h-100">
+    <div class="row align-items-center h-100">
+      <div class="offset-lg-3 col-lg-6 mx-auto">
+  
+        <div class="card">
+          <div class="card-body">
+  
+            <div class="row">
+              <div class="col-lg-6 stuffs-side">
+                
+                <!-- comopnent -->
+  
+                <app-form-side-pane 
+                  [primaryText]="'Welcome back,'"
+                  [secondaryText]="'One account for all of our amazing products.'">
+                </app-form-side-pane>
+  
+              </div>
+  
+              <div class="col-lg-6 form-side">
+                
+                <!-- component -->
+  
+                <app-form-header [formTitle]="'Email invalid link'"></app-form-header>
+  
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="card my-5">
+                            <div class="card-header text-center">
+                                <p class="p-3">
+                                  Invalid Confirmation Link. <br>
+                                  Your confirmatioon link has either expired or doesnt exist anymore. <br>
+                                  Please try signing up again. Do not spend more than 5mins to verify your email address.
+                                </p>
+                                <a href="#" class="form-link mb-3" routerLink="/recovery_email">Resend email</a>                                
+                            </div>
+                        </div>
+  
+                        <!-- <button class="btn btn-lg float-right git-color" routerLink="/recovery_email">Resend</button> -->
+                    </div>
+                </div>
+  
+                <!-- component -->
+  
+                <app-form-footer></app-form-footer>
+                
+              </div>
+  
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+</div>

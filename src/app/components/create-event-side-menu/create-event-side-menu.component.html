@@ -19,7 +19,7 @@
     </a>
 
     <a *ngIf="event.hasScheduleData" routerLink="/edit_event/schedule" [class.active]="currentPage === 'schedule'">
-      <span class="ev-checkmark">2</span>
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span> 
       Schedule
     </a>
 
@@ -29,15 +29,15 @@
     </a>
 
     <a *ngIf="event.hasMoreDetailsData" routerLink="/edit_event/more_details" [class.active]="currentPage === 'details'">
-      <span class="ev-checkmark">3</span> More Details
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  More Details
     </a>
 
     <a *ngIf="!event.hasMoreDetailsData" routerLink="/create_event/more_details" [class.active]="currentPage === 'details'">
       <span class="ev-checkmark">3</span> More Details
     </a>
 
-    <a *ngIf="event.hasTicketingData" routerLink="/edit_event/ticketing" [class.active]="currentPage === 'ticketing'">
-      <span class="ev-checkmark">4</span> Ticketing
+    <a *ngIf="event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'">
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Ticketing
     </a>
 
     <a *ngIf="!event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'">
@@ -45,7 +45,7 @@
     </a>
 
     <a *ngIf="event.hasPublishingData" routerLink="/edit_event/publishing" [class.active]="currentPage === 'publishing'">
-      <span class="ev-checkmark">5</span> Publishing
+      <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Publishing
     </a>
     
     <a *ngIf="!event.hasPublishingData" routerLink="/create_event/publishing" [class.active]="currentPage === 'publishing'">
@@ -56,20 +56,20 @@
   <ng-container *ngIf="event.recurring === '0'">
     <a routerLink="/edit_event/basic_info" [class.active]="currentPage === 'basic_info'">
       <span class="ev-checkmark"><i class="bi bi-check2"></i></span> Basic Info</a>
-      <a *ngIf="event.hasMoreDetailsData" routerLink="/edit_event/more_details" [class.active]="currentPage === 'details'"><span
-        class="ev-checkmark">2</span> More Details</a>
+      <a *ngIf="event.hasMoreDetailsData" routerLink="/edit_event/more_details" [class.active]="currentPage === 'details'">
+        <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  More Details</a>
 
       <a *ngIf="!event.hasMoreDetailsData" routerLink="/create_event/more_details" [class.active]="currentPage === 'details'"><span
         class="ev-checkmark">2</span> More Details</a>
 
-      <a *ngIf="event.hasTicketingData" routerLink="/edit_event/ticketing" [class.active]="currentPage === 'ticketing'"><span
-          class="ev-checkmark">3</span> Ticketing</a>
+      <a *ngIf="event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'">
+        <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Ticketing</a>
 
       <a *ngIf="!event.hasTicketingData" routerLink="/create_event/ticketing" [class.active]="currentPage === 'ticketing'"><span
           class="ev-checkmark">3</span> Ticketing</a>
 
-      <a *ngIf="event.hasPublishingData" routerLink="/edit_event/publishing" [class.active]="currentPage === 'publishing'"><span
-          class="ev-checkmark">4</span> Publishing</a>
+      <a *ngIf="event.hasPublishingData" routerLink="/edit_event/publishing" [class.active]="currentPage === 'publishing'">
+        <span class="ev-checkmark"><i class="bi bi-check2"></i></span>  Publishing</a>
       
       <a *ngIf="!event.hasPublishingData" routerLink="/create_event/publishing" [class.active]="currentPage === 'publishing'"><span
         class="ev-checkmark">4</span> Publishing</a>
@@ -85,10 +85,10 @@
         
       </a>
       <div class="dropdown-container">
-        <a href="#">Organizers</a>
-        <a href="#">Speakers</a>
-        <a href="#">Media</a>
-        <a href="#">Sponsors</a>
+        <a routerLink="/create_advanced/organizers">Organizers</a>
+        <a routerLink="/create_advanced/speakers">Speakers</a>
+        <a routerLink="/create_advanced/media">Media</a>
+        <a routerLink="/create_advanced/sponsors">Sponsors</a>
       </div>
       <a href="/account/user" style="border-bottom: none;border-top: none;"
         class="list-group-item list-group-item-action list-group-link">Account Settings</a>

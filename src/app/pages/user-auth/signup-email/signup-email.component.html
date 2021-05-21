@@ -1,0 +1,137 @@
+<section>
+  <div class="contents" style="padding-top: 70vh;">
+
+    
+<div class="container-fluid h-100">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-5 mx-auto my-auto form-card">
+  
+        <div class="card p-5" style="margin-top: 20%;margin-bottom: 20%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
+          <div class="card-body">
+            <div class="row">
+  
+              <!-- ---------------------------------------------------------------------------- -->
+  
+              <div class="col">
+  
+                <!-- component -->
+  
+                <app-form-header 
+                  [formTitle]="'Join us'" 
+                  [subText]="'Sign up to enjoy our suite of products'">
+                </app-form-header>
+  
+                <!-- signup form -->
+                <form *ngIf="!showPrompt" [formGroup]="registerForm" (ngSubmit)="onSubmit()">                
+  
+                  <div class="row">
+                    <div class="col">
+                      <small class="text-danger">{{errorMsgs.message}}</small>
+                    </div>
+                  </div>
+                                         
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mt-3">
+                              <input type="email" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="email" required>
+                              <label for="floatingFname">Email</label>
+                            </div>
+                            <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                        </div>
+                    </div>  
+                    
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <select class="custom-select  form-element" id="floatingSelect" style="height: 48px;" aria-label="Floating" formControlName="type" required>
+                            <option value="30">Individual</option>
+                            <option value="32">Organization</option>
+                          </select>
+                          <!-- <label for="floatingSelect">User Type</label> -->
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.usertype" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+    
+                    <div class="row mt-4">
+                        <div class="col mb-1">
+                          <button type="submit" class="register-button float-right btn btn-lg btn-primary form-element form-btn">
+                            <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Register
+                          </button>
+                        </div>
+                      </div>    
+            
+                </form>
+                <!-- /.signup form -->
+                <div *ngIf="showPrompt" class="row align-items-center">
+                  <div class="col">
+                      <!-- <div class="my-5"> -->
+                          <div class="alert alert-primary text-center ">
+                              <p class="p-1">Please confirm your email</p>
+                          </div>
+                      <!-- </div> -->
+                  </div>
+              </div>  
+  
+                <span class="text-center mx-5">
+                  <p>
+                    <div class="separator">or sign up with</div>
+                  <p></p>
+                </span>
+
+                <div class="row">
+                  <div class="col mb-2">
+                    <button type="button" class="socialite-buttons float-right btn btn-lg border form-element form-btn">
+                      <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                     <div class="socialite-icon-and-text">
+                      <span class="ml-3">
+                        <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
+                      </span>
+                      <span style="font-size: 18px;"> Google </span>
+                     </div>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col mb-1">
+                    <button type="button" class="socialite-buttons float-right btn btn-lg border form-element form-btn">
+                      <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                      <div class="socialite-icon-and-text">
+                      <span class="ml-3">
+                        <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
+                      </span>
+                       <span style="font-size: 18px;"> Facebook </span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <span class="mx-5 text-center"><p>Already have an account? <a href="#" routerLink="/login" style="text-decoration: none;">Sign in</a></p></span>
+
+                <!-- <div *ngIf="showPrompt" class="row align-items-center">
+                    <div class="col">
+                        <div class="card my-5">
+                            <div class="card-header text-center">
+                                <p class="p-3">Please confirm your email</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>                             -->
+
+               
+                
+              </div>
+  
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>

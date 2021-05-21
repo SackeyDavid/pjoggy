@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { ClipboardModule } from '@angular/cdk/clipboard'
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,21 +26,10 @@ import { SignupPageComponent } from './pages/user-auth/signup-page/signup-page.c
 import { DiscoverPageComponent } from './pages/discover-page/discover-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
-import { EventPageComponent } from './pages/event-page/event-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LocationComponent } from './components/event-details/location/location.component';
-import { HeaderComponent } from './components/event-details/header/header.component';
-import { OrganizersComponent } from './components/event-details/organizers/organizers.component';
-import { PricingComponent } from './components/event-details/pricing/pricing.component';
-import { ScheduleComponent } from './components/event-details/schedule/schedule.component';
-import { SpeakersComponent } from './components/event-details/speakers/speakers.component';
-import { SponsorsComponent } from './components/event-details/sponsors/sponsors.component';
 import { LoadingButtonComponent } from './components/loading-button/loading-button.component';
 
-import { BasicInfoComponent } from './components/event-details/basic-info/basic-info.component';
-import { BannerComponent } from './components/event-details/banner/banner.component';
-import { EventFooterComponent } from './components/event-details/event-footer/event-footer.component';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { AdBannerComponent } from './components/ad-banner/ad-banner.component';
 import { LiveEventsComponent } from './components/live-events/live-events.component';
@@ -78,6 +68,34 @@ import { EditEventSponsorsComponent } from './pages/edit-event/edit-event-sponso
 import { EditEventTicketingComponent } from './pages/edit-event/edit-event-ticketing/edit-event-ticketing.component';
 import { EventsListPageComponent } from './pages/events-list-page/events-list-page.component';
 import { UserEventsComponent } from './pages/user-events/user-events.component';
+import { SignupEmailComponent } from './pages/user-auth/signup-email/signup-email.component';
+import { SignupMoreInfoComponent } from './pages/user-auth/signup-more-info/signup-more-info.component';
+import { HappeningNowComponent } from './pages/happening-now/happening-now.component';
+import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
+import { LiveEventsPageComponent } from './components/live-events-page/live-events-page.component';
+import { UpcomingEventsComponent } from './components/upcoming-events/upcoming-events.component';
+import { UpcomingEventsPageComponent } from './pages/upcoming-events-page/upcoming-events-page.component';
+import { PopularEventsPageComponent } from './pages/popular-events-page/popular-events-page.component';
+import { NewEventsPageComponent } from './pages/new-events-page/new-events-page.component';
+import { NewEventsComponent } from './components/new-events/new-events.component';
+import { PopularEventsComponent } from './components/popular-events/popular-events.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { HelpContentsComponent } from './components/help-contents/help-contents.component';
+import { HelpPageComponent } from './pages/help-page/help-page.component';
+import { HelpNavbarComponent } from './components/help-navbar/help-navbar.component';
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { PreviewEventPageComponent } from './pages/preview-event-page/preview-event-page.component';
+import { PreviewHeaderComponent } from './components/preview-event/preview-header/preview-header.component';
+import { PreviewDetailsComponent } from './components/preview-event/preview-details/preview-details.component';
+import { PreviewScheduleComponent } from './components/preview-event/preview-schedule/preview-schedule.component';
+import { PreviewPricingComponent } from './components/preview-event/preview-pricing/preview-pricing.component';
+import { PreviewSpeakersComponent } from './components/preview-event/preview-speakers/preview-speakers.component';
+import { PreviewOrganizersComponent } from './components/preview-event/preview-organizers/preview-organizers.component';
+import { PreviewGalleryComponent } from './components/preview-event/preview-gallery/preview-gallery.component';
+import { PreviewSponsorsComponent } from './components/preview-event/preview-sponsors/preview-sponsors.component';
+import { PreviewLocationComponent } from './components/preview-event/preview-location/preview-location.component';
+import { PreviewBannerComponent } from './components/preview-event/preview-banner/preview-banner.component';
+import { RecoveryInvalidComponent } from './pages/user-auth/recovery-invalid/recovery-invalid.component';
 
 
 @NgModule({
@@ -89,19 +107,8 @@ import { UserEventsComponent } from './pages/user-events/user-events.component';
     DiscoverPageComponent,
     SettingsPageComponent,
     AccountPageComponent,
-    EventPageComponent,
     NavbarComponent,
     FooterComponent,
-    LocationComponent,
-    HeaderComponent,
-    OrganizersComponent,
-    PricingComponent,
-    ScheduleComponent,
-    SpeakersComponent,
-    SponsorsComponent,
-    BasicInfoComponent,
-    BannerComponent,
-    EventFooterComponent,
     AdBannerComponent,
     LiveEventsComponent,
     EventCategoriesComponent,
@@ -140,12 +147,40 @@ import { UserEventsComponent } from './pages/user-events/user-events.component';
     EditEventTicketingComponent,
     EventsListPageComponent,
     UserEventsComponent,
+    SignupEmailComponent,
+    SignupMoreInfoComponent,
+    HappeningNowComponent,
+    LearnMoreComponent,
+    LiveEventsPageComponent,
+    UpcomingEventsComponent,
+    UpcomingEventsPageComponent,
+    PopularEventsPageComponent,
+    NewEventsPageComponent,
+    NewEventsComponent,
+    PopularEventsComponent,
+    HelpContentsComponent,
+    HelpPageComponent,
+    HelpNavbarComponent,
+    SearchResultsComponent,
+    PreviewEventPageComponent,
+    PreviewHeaderComponent,
+    PreviewDetailsComponent,
+    PreviewScheduleComponent,
+    PreviewPricingComponent,
+    PreviewSpeakersComponent,
+    PreviewOrganizersComponent,
+    PreviewGalleryComponent,
+    PreviewSponsorsComponent,
+    PreviewLocationComponent,
+    PreviewBannerComponent,
+    RecoveryInvalidComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ClipboardModule,
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -160,6 +195,7 @@ import { UserEventsComponent } from './pages/user-events/user-events.component';
     NgbModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    GooglePlaceModule
   ],
   providers: [],
   bootstrap: [AppComponent],

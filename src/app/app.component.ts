@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'events369-ui';
+
+  onActivate(e: any) {
+    window.scrollTo(0,0);
+  }
+  
 }

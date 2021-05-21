@@ -3,9 +3,9 @@
     <div class="row">
 
         <div class="col-md-4 col-lg-4">
-            <app-create-event-side-menu [currentPage]="'ticketing'"></app-create-event-side-menu>
-            <!-- <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle> -->
-            <app-side-menu-toggle></app-side-menu-toggle>
+            <app-create-event-side-menu [currentPage]="'organizers'"></app-create-event-side-menu>
+            <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle>
+            <!-- <app-side-menu-toggle></app-side-menu-toggle> -->
         </div>
 
         <div class="col-md-4 col-lg-4 col-sm-12">
@@ -22,14 +22,14 @@
                   <!-- title & quantity -->
                   <div class="form-group">                   
                     <div class="form-floating">
-                        <div class="form-floating mb-3">
+                      <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Organizer name"
-                            formControlName="organizer" [ngClass]="{'is-invalid': saved && f.organizer.errors, 'is-valid': !f.organizer.errors}">
+                            formControlName="name" [ngClass]="{'is-invalid': saved && f.name.errors, 'is-valid': !f.name.errors}">
                         <label for="floatingTitle">Organizer Name</label>
-                        <small *ngIf="saved && f.organizer.errors" id="titleHelp" class="form-text invalid-feedback">
+                        <small *ngIf="saved && f.name.errors" id="titleHelp" class="form-text invalid-feedback">
                             Organizer name is required.
                         </small>
-                        </div>
+                      </div>
                     </div>                     
                   </div>
                   <!-- /.end -->
@@ -37,66 +37,105 @@
                   <div class="form-group">
                     <div class="form-floating">
                       <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="bio"></textarea>
-                      <label for="floatingDesc">Organizer Bio</label>
+                      <label for="floatingDesc">Organizer Bio</label>                      
                     </div>
                   </div>
 
+                  <div class="row">
+                    <div class="col">
+                      <input type="file" accept="image/*" class="file-input" formControlName="profile_image" (change)="onFileSelected($event)" #fileUpload>
+                      <div class="card card-image-upload">
+                        <div (click)="fileUpload.click()" class="text-center">
+                          <div *ngIf="!isImageSet" class="p-2 mt-5">
+                            <i class="bi bi-image" style="font-size: 4em; color: #ddd;"></i>
+                            <div class="mt-3">
+                              <h4 class="text-muted">Click to add a profile photo</h4>
+                              <p class="lead text-muted">JPG, JPEG or PNG, no larger than 10MB</p>
+                            </div>
+                          </div>
+                          <div *ngIf="isImageSet">
+                            <img class="card-img-bottom" [src]="createdImgSrc" height="400">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="divider mb-1 mt-5"></div>
+                <div class="form-item">
+                  <div class="form-header">
+                    <div class="form-title">
+                      <h2>Social Media Accounts</h2>
+                    </div>                  
+                  </div>
                   <!-- sm -->
                     <div class="form-group">
-                        <div class="row">
-                        <div class="col">
-                            <div class="form-floating">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date">
-                                <label for="floatingTitle">Facebook</label>                                
-                            </div>
-                            </div>
+                      <div class="form-floating">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="facebook"
+                              [ngClass]="{'is-invalid': saved && f.facebook.errors, 'is-valid': f.facebook.value!='' && !f.facebook.errors}">
+                            <label for="floatingTitle">Facebook</label>     
+                            <small *ngIf="saved && f.facebook.errors" id="titleHelp" class="form-text invalid-feedback">
+                              You must enter a valid url.
+                            </small>                             
                         </div>
-        
-                        <div class="col">
-                            <div class="form-floating">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date">
-                                <label for="floatingTitle">Twitter</label>                                
-                            </div>
-                            </div>
-                        </div>
-                        </div>
+                      </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
-                        <div class="col">
-                            <div class="form-floating">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Start date">
-                                <label for="floatingTitle">Linked-In</label>                                
-                            </div>
-                            </div>
+                      <div class="form-floating">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="twitter"
+                              [ngClass]="{'is-invalid': saved && f.twitter.errors, 'is-valid': f.twitter.value!='' && !f.twitter.errors}">
+                            <label for="floatingTitle">Twitter</label>
+                            <small *ngIf="saved && f.twitter.errors" id="titleHelp" class="form-text invalid-feedback">
+                              You must enter a valid url.
+                            </small>                                  
                         </div>
-        
-                        <div class="col">
-                            <div class="form-floating">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="End date">
-                                <label for="floatingTitle">Instagram</label>                                
-                            </div>
-                            </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-floating">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="linkedin"
+                              [ngClass]="{'is-invalid': saved && f.linkedin.errors, 'is-valid': f.linkedin.value!='' && !f.linkedin.errors}">
+                            <label for="floatingTitle">Linked-In</label>
+                            <small *ngIf="saved && f.linkedin.errors" id="titleHelp" class="form-text invalid-feedback">
+                              You must enter a valid url.
+                            </small>                                  
                         </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-floating">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="instagram"
+                              [ngClass]="{'is-invalid': saved && f.instagram.errors, 'is-valid': f.instagram.value!='' && !f.instagram.errors}">
+                            <label for="floatingTitle">Instagram</label>
+                            <small *ngIf="saved && f.instagram.errors" id="titleHelp" class="form-text invalid-feedback">
+                              You must enter a valid url.
+                            </small>                                  
                         </div>
+                      </div>
                     </div>
                     <!-- /.end -->
 
                   <!-- buttons -->
                 <div class="form-group">
                     <div *ngIf="!isEditMode" class="submit-button">
-                    <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Save Organizer</button>
-                    <app-loading-button *ngIf="isSaving"></app-loading-button>
+                      <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Save Organizer</button>
+                      <app-loading-button *ngIf="isSaving"></app-loading-button>
                     </div>
     
                     <div *ngIf="isEditMode" class="submit-button">
-                    <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary">Update Organizer</button>
-                    <app-loading-button *ngIf="isSaving"></app-loading-button>
+                      <button *ngIf="!isSaving" type="submit" class="btn btn-lg btn-primary ml-2">Update Organizer</button>
+                      <app-loading-button *ngIf="isSaving"></app-loading-button>
+                    </div>
+                    <div *ngIf="isEditMode" class="submit-button">
+                      <button type="button" class="btn btn-lg btn-primary ml-2" (click)="resetForm()">Reset Form</button>
                     </div>
                 </div>
                 
@@ -105,5 +144,85 @@
             </form>
         </div>
     
+        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+          <div class="divider mb-1 mt-5"></div>
+    
+            <!--
+              Tickets List Section
+            -->
+            <div class="form-item">
+              <div class="form-header">
+                <div class="form-title">
+                  <h2>Added Organizers</h2>
+                </div>
+              </div>
+    
+              <div *ngIf="isLoadingOrganizers" class="pt-3 pb-3 text-center">
+                <span class="spinner-border spinner-border-sm" style="width: 2em; height: 2em" role="status" aria-hidden="true"></span>
+              </div>
+    
+              <div class="form-body">
+                <!-- start & end date -->
+                <div class="form-group">
+                  <ul class="list-unstyled">
+                    <li *ngFor="let organizer of createdOrganizerList; let i=index">
+                      <div class="card mb-3">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-lg-5">
+                              <div class="profile-image-div text-center">
+                                <img [src]="imgSrcList[i]" alt="" class="rounded-circle" width="120" height="120">
+                              </div>
+                            </div>
+                            <div class="col-lg-7">
+                              <h5 class="card-title">{{organizer.name}}</h5>
+                              <p class="card-text bio-text">
+                                {{organizer.bio}}
+                              </p>
+                              <p class="card-text">
+                                <small>
+                                  Facebook: <a class="link-text" href="{{organizer.facebook}}" target="_blank">{{organizer.facebook}}</a><br>
+                                  Twitter: <a class="link-text" href="{{organizer.twitter}}" target="_blank">{{organizer.twitter}}</a><br>
+                                  Linked-In: <a class="link-text" href="{{organizer.linkedin}}" target="_blank">{{organizer.linkedin}}</a><br>
+                                  Instagram: <a class="link-text" href="{{organizer.instagram}}" target="_blank">{{organizer.instagram}}</a><br>
+                                </small>
+                              </p>
+                            </div>
+                          </div>  
+                          <div class="row mt-3">
+                            <div class="col text-center">
+                              <button class="btn btn-sm btn-secondary mx-1" type="button" (click)="edit(organizer, i)">
+                                <i class="bi-pencil"></i>
+                              </button>
+                              <button class="btn btn-sm btn-secondary mx-1" type="button" (click)="delete(organizer.id, i)">
+                                <i class="bi-trash"></i>
+                              </button>
+                            </div>
+                          </div>                      
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /.end -->
+              </div>
+            </div>
+            <!--
+              /. End Tickets List
+            -->
+    
+        </div>
+
+        <div class="col-12">
+
+          <div class="navigation">
+            <div class="nav-buttons">
+              <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+              <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="save()">Continue</button>
+              <app-loading-button *ngIf="isLoading"></app-loading-button>
+            </div>
+          </div>
+        </div>
+        
     </div>
 </div>

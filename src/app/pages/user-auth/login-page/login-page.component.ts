@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
@@ -35,10 +35,11 @@ export class LoginPageComponent implements OnInit {
         res => {
           console.log(res);
 
-          sessionStorage.setItem('user_id', res.id);
-          sessionStorage.setItem('user_phone', res.phone);
+          sessionStorage.setItem('user_id', res.user.id);
+          sessionStorage.setItem('x_auth_token', res.token);
 
-          if (res.id) this.router.navigateByUrl('/phone_authentication');
+          if (res.user.id) this.router.navigateByUrl('/');
+          this.isSending = false;
         },
         err => {
           console.log(err);

@@ -34,6 +34,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "ng-pick-datetime": "^7.0.0",
+    "ngx-google-places-autocomplete": "^2.0.5",
     "ngx-owl-carousel": "^2.0.7",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",

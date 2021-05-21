@@ -1,0 +1,70 @@
+<div class="organizers-div">
+    <div class="container">
+       <div class="row organizers-section">
+          <div class="col-lg-8 mx-auto">
+             <h2 class="section-title text-center">
+                <span>Meet the</span>
+                Event Organizers
+             </h2>
+          </div>
+       </div>
+ 
+       <div class="row">
+         <div  *ngFor="let x of organizers" class="col mb-4 organizer">
+            <div class="organizer-img text-center">
+               <img *ngIf="x.image != null" class="img-fluid" src="http://events369.logitall.biz/storage/organizer/{{x.image}}" alt="">
+               <img *ngIf="x.image == null" class="img-fluid" src="../../../../assets/images/avatar-placeholder.png" alt="">
+               <a (click)="$event.preventDefault()" href="#" class="view-organizer ts-image-popup" data-effect="mfp-zoom-in" data-toggle="modal" data-target="#exampleModal">
+                  <i class="bi bi-plus"></i>
+               </a>
+            </div>
+            <div class="ts-organizer-info text-center">
+               <h3 class="ts-title">
+                  <a (click)="$event.preventDefault()" href="#"  data-toggle="modal" data-target="#exampleModal">{{x.name}}</a>
+               </h3>          
+            </div>
+
+            <div class="modal fade container-fluid" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog w-100 mx-auto" role="document" style="max-width: 100%;">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                   <div class="modal-body">
+                     <div class="row gx-4">
+                        <div class="col-lg-6 p-4">
+                           <div class="ts-organizer-popup-img text-center p-4">
+                              <!-- <img src="../../../../assets/images/avatar-placeholder.png" alt=""> -->
+                              <img *ngIf="x.image != null" class="rounded-circle" src="http://events369.logitall.biz/storage/host/{{x.image}}" alt="">
+                              <img *ngIf="x.image == null" class="rounded-circle" src="../../../../assets/images/avatar-placeholder.png" alt="">
+                           </div>
+                        </div>
+                        <div class="col-lg-6 my-auto">
+                           <div class="ts-organizer-popup-content">
+                              <h3 class="ts-title">{{x.name}}</h3>
+                              <br>
+                              <p>{{x.bio}}</p>
+                              <br>
+                              <div class="ts-organizers-social">
+                                 <i class="bi bi-facebook"></i> Facebook : <a href="x.facebook">{{x.facebook}}</a><br>
+                                 <i class="bi bi-twitter"></i> Twitter : <a href="x.twitter">{{x.twitter}}</a><br>
+                                 <i class="bi bi-instagram"></i> Instagram: <a href="x.instagram">{{x.instagram}}</a><br>
+                                 <i class="bi bi-linkedin"></i> Linked-In: <a href="x.linkedin">{{x.linkedin}}</a><br>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                   </div>      
+                 </div>
+               </div>
+             </div>
+         </div>
+       </div>
+    </div>
+ </div>
+ 
+  
+  
