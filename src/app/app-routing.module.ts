@@ -36,6 +36,10 @@ import { SignupMoreInfoComponent } from './pages/user-auth/signup-more-info/sign
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { PreviewEventPageComponent } from './pages/preview-event-page/preview-event-page.component';
 import { RecoveryInvalidComponent } from './pages/user-auth/recovery-invalid/recovery-invalid.component';
+import { GoogleMagiclinkComponent } from './pages/user-auth/google-magiclink/google-magiclink.component';
+import { FacebookMagiclinkComponent } from './pages/user-auth/facebook-magiclink/facebook-magiclink.component';
+import { MagiclinkSuccessComponent } from './pages/user-auth/magiclink-success/magiclink-success.component';
+import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/magiclink-invalid.component';
 
 
 const routes: Routes = [
@@ -79,10 +83,10 @@ const routes: Routes = [
     path: 'email_invalid',
     component: EmailInvalidComponent
   },
-  // {
-  //   path: 'phone_authentication',
-  //   component: PhoneAuthenticationComponent
-  // },
+  {
+    path: 'phone_authentication',
+    component: PhoneAuthenticationComponent
+  },
   {
     path: 'recovery_email',
     component: RecoveryEmailComponent
@@ -94,6 +98,26 @@ const routes: Routes = [
   {
     path: 'password_reset',
     component: PasswordResetComponent
+  },
+  {
+    path: 'google_magiclink',
+    component: GoogleMagiclinkComponent,
+  },
+  {
+    path: 'facebook_magiclink',
+    component: FacebookMagiclinkComponent,
+  },
+  {
+    path: 'magiclink_success',
+    component: MagiclinkSuccessComponent,
+  },
+  {
+    path: 'magiclink_success',
+    component: MagiclinkSuccessComponent,
+  },
+  {
+    path: 'magiclink_invalid',
+    component: MagiclinkInvalidComponent,
   },
   {
     path: 'event_details',

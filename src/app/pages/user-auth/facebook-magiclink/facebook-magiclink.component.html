@@ -1,0 +1,89 @@
+<div class="container-fluid h-100">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-5 mx-auto my-auto form-card">
+  
+        <div class="card p-5">
+          <div class="card-body">
+            <div class="row">
+    
+              <div class="col">
+  
+
+                <app-form-header 
+                    [formTitle]="'Link Accounts'">
+                </app-form-header>
+
+                
+
+                <div class="info-div">
+                    <p class="p-3"><small>This email address is already registered with a GiT account. We'll send you a migic link to connect your accounts</small></p>
+                </div>
+  
+                <div class="row mt-4">
+                    <div class="col mb-1">
+                        <button type="submit" class="float-right btn form-element git-color">
+                        <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Send magic link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="separator my-3"><span class="border rounded">OR</span></div>
+
+                <p><small><b>Use email and password</b></small></p>
+
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">                
+    
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="text" class="form-control form-element" id="floatingInput" style="height: 48px;" formControlName="email" required>
+                          <label for="floatingInput">Email</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+    
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-floating mt-3">
+                          <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="password" formControlName="password" required>
+                          <label for="floatingInput">Password</label>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>
+    
+                    <div class="row my-1">
+                      <div class="col-lg-12">
+                        <!-- <span class="float-left">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Remember me</label>
+                          </div>
+                        </span> -->
+                        <span class="float-right">
+                          <a routerLink="/recovery_email" class="form-link"><small>Forgot your password?</small></a>
+                        </span>
+                      </div>
+                    </div>
+    
+                    <div class="row mt-4">
+                      <div class="col">
+                        <button class="float-right btn btn-primary form-element form-btn">
+                          <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
+                          Log in
+                        </button>
+                      </div>
+                    </div>                
+    
+                  </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>

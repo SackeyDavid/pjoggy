@@ -96,6 +96,10 @@ import { PreviewSponsorsComponent } from './components/preview-event/preview-spo
 import { PreviewLocationComponent } from './components/preview-event/preview-location/preview-location.component';
 import { PreviewBannerComponent } from './components/preview-event/preview-banner/preview-banner.component';
 import { RecoveryInvalidComponent } from './pages/user-auth/recovery-invalid/recovery-invalid.component';
+import { GoogleMagiclinkComponent } from './pages/user-auth/google-magiclink/google-magiclink.component';
+import { FacebookMagiclinkComponent } from './pages/user-auth/facebook-magiclink/facebook-magiclink.component';
+import { MagiclinkSuccessComponent } from './pages/user-auth/magiclink-success/magiclink-success.component';
+import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/magiclink-invalid.component';
 
 
 @NgModule({
@@ -174,6 +178,10 @@ import { RecoveryInvalidComponent } from './pages/user-auth/recovery-invalid/rec
     PreviewLocationComponent,
     PreviewBannerComponent,
     RecoveryInvalidComponent,
+    GoogleMagiclinkComponent,
+    FacebookMagiclinkComponent,
+    MagiclinkSuccessComponent,
+    MagiclinkInvalidComponent,
   ],
   imports: [
     BrowserModule,

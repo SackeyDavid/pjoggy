@@ -1,0 +1,46 @@
+.form-card {
+    width: 500px;
+}
+
+.form-btn {
+    width: 100%;
+}
+
+.form-element {
+    border-radius: 24px;
+    height: 48px;
+}
+
+div.info-div {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    border-left: 5px solid #456fa975 !important;
+}
+
+button.git-color{
+    width: 100%;
+    background-color: #456ea9;
+    color: white;
+    box-shadow: none;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #F4F4F4;
+}
+
+.separator:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .5em;
+}

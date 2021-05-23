@@ -1,27 +1,19 @@
 <div class="container-fluid h-100">
   <div class="row align-items-center h-100">
-    <div class="offset-lg-3 col-lg-6 mx-auto">
+    <div class="col-lg-5 mx-auto my-auto form-card">
 
-      <div class="card">
+      <div class="card p-5">
         <div class="card-body">
-
           <div class="row">
-            <div class="col-lg-6 stuffs-side">
-              
-              <!-- comopnent -->
 
-              <app-form-side-pane 
-                [primaryText]="'Welcome back,'"
-                [secondaryText]="'One account for all of our amazing products.'">
-              </app-form-side-pane>
-
-            </div>
-
-            <div class="col-lg-6 form-side">
+            <div class="col">
               
               <!-- component -->
 
-              <app-form-header [formTitle]="'Log in'"></app-form-header>
+              <app-form-header 
+                [formTitle]="'Log in'"
+                [subText]="'Sign to enjoy our suite of products'">
+              </app-form-header>
 
               <!-- lofin form -->
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">                
@@ -35,7 +27,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="form-floating mt-3">
-                      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email" required>
+                      <input type="text" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="name@example.com" formControlName="email" required>
                       <label for="floatingInput">Email Address</label>
                     </div>
                     <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
@@ -45,50 +37,68 @@
                 <div class="row">
                   <div class="col">
                     <div class="form-floating mt-3">
-                      <input type="password" class="form-control" id="floatingInput" placeholder="password" formControlName="password" required>
+                      <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="password" formControlName="password" required>
                       <label for="floatingInput">Password</label>
                     </div>
                     <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
                   </div>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row my-4">
                   <div class="col-lg-12">
-                    <!-- <span class="float-left">
+                    <span class="float-left">
                       <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Remember me</label>
                       </div>
-                    </span> -->
-                    <span class="text-center">
-                      <a routerLink="/recovery_email" class="form-link"><small>Forgot my password</small></a>
+                    </span>
+                    <span class="float-right">
+                      <a routerLink="/recovery_email" class="form-link"><small>Forgot your password?</small></a>
                     </span>
                   </div>
                 </div>
 
                 <div class="row mt-4">
                   <div class="col">
-                    <button class="float-right btn btn-lg git-color">
+                    <button class="float-right btn btn-primary form-element form-btn">
                       <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                       Log in
                     </button>
                   </div>
-                </div>
-
-                <div class="row text-center mt-2 mb-5">
-                  <div class="col-lg-12">
-                    <p>
-                      <small><a routerLink="/register" class="form-link">Don't have an account? Register</a></small>
-                    </p>
-                  </div>
-                </div>
+                </div>                
 
               </form>
               <!-- /.login form -->
 
-              <!-- component -->
+              <span class="text-center mx-5"><p>or sign in with</p></span>
 
-              <app-form-footer></app-form-footer>
+              <div class="row">
+                <div class="col mb-2">
+                  <button type="button" class="float-right btn btn-lg border form-element form-btn">
+                    <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                    <span class="ml-3">
+                      <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
+                    </span>
+                    Google
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-1">
+                  <button type="button" class="float-right btn btn-lg border form-element form-btn">
+                    <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                    <span class="ml-3">
+                      <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
+                    </span>
+                    Facebook
+                  </button>
+                </div>
+              </div>
+
+
+              <span class="mx-5 text-center"><p>Already have an account? <a href="#" routerLink="/register">Sign up</a></p></span>
+
               
             </div>
 

@@ -1,29 +1,20 @@
 <div class="container-fluid h-100">
     <div class="row align-items-center h-100">
-      <div class="offset-lg-3 col-lg-6 mx-auto">
+      <div class="col-lg-5 mx-auto my-auto form-card">
   
-        <div class="card">
+        <div class="card p-5">
           <div class="card-body">
             <div class="row">
-              <div class="col-lg-6 stuffs-side">
-                
-                <!-- comopnent -->
-  
-                <app-form-side-pane 
-                  [primaryText]="'Welcome back,'"
-                  [secondaryText]="'One account for all of our amazing products.'">
-                </app-form-side-pane>
-  
-              </div>
-  
-              <!-- ---------------------------------------------------------------------------- -->
-  
-              <div class="col-lg-6 form-side">
+              
+              <div class="col">
   
                 <!-- component -->
   
-                <app-form-header [formTitle]="'Complete your registration'"></app-form-header>
-  
+                <app-form-header 
+                  [formTitle]="'Complete your regsitration'" 
+                  [subText]="'Sign to enjoy our suite of products'">
+                </app-form-header>
+
                 <!-- signup form -->
                 <form *ngIf="!showPrompt" [formGroup]="registerForm" (ngSubmit)="onSubmit()">                
   
@@ -32,22 +23,21 @@
                       <small class="text-danger">{{errorMsgs.message}}</small>
                     </div>
                   </div>
-                  
-  
-                    <!-- -------------------------------------------------------------------------------------------------- -->
-
-
+              
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="text" class="form-control" id="floatingFname" placeholder="Fname" formControlName="firstname" required>
+                                <input type="text" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="Fname" formControlName="firstname" required>
                                 <label for="floatingFname">First Name</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="text" class="form-control" id="floatingLname" placeholder="Lname" formControlName="lastname" required>
+                                <input type="text" class="form-control form-element" id="floatingLname" style="height: 48px;" placeholder="Lname" formControlName="lastname" required>
                                 <label for="floatingLname">Last Name</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
@@ -57,39 +47,31 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="password" class="form-control" id="floatingFname" placeholder="Fname" formControlName="password" required>
+                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="Fname" formControlName="password" required>
                                 <label for="floatingFname">Password</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="password" class="form-control" id="floatingFname" placeholder="Fname" formControlName="password_confirmation" required>
+                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="Fname" formControlName="password_confirmation" required>
                                 <label for="floatingFname">Confirm Password</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.password_confirmation" class="text-danger">{{x}}</span></small>
                         </div>
                     </div>
 
-                    <div class="row mt-4">
-                        <div class="col mb-1">
-                            <button type="submit" class="float-right btn btn-lg git-color ml-2">
-                                <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-                                Register
-                            </button>
-                        </div>
+                    <div class="row mt-5">
+                      <div class="col mb-1">
+                        <button type="submit" class="float-right btn btn-primary form-element form-btn">
+                          <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          Register
+                        </button>
+                      </div>
                     </div>
-
-                    <!-- --------------------------------------------------------------------------------------------------------------------------------- -->
-  
-  
-                  <div class="row mt-2 mb-5">
-                    <div class="col-lg-12">
-                      <p class="text-center">
-                        <small><a routerLink="/login" class="form-link">Already registered? Log in</a></small>
-                      </p>
-                    </div>
-                  </div>
   
                 </form>
                 <!-- /.signup form -->
@@ -104,11 +86,7 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- component -->
-  
-                <app-form-footer></app-form-footer>
-  
+                              
               </div>
   
             </div>
