@@ -1,8 +1,12 @@
+<section>
+  <div class="contents" style="padding-top: 70vh;">
+
+  
 <div class="container-fluid h-100">
     <div class="row align-items-center h-100">
       <div class="col-lg-5 mx-auto my-auto form-card">
   
-        <div class="card p-5">
+        <div class="card p-5" style="margin-top: 20%;margin-bottom: 20%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
           <div class="card-body">
             <div class="row">
               
@@ -27,7 +31,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="text" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="Fname" formControlName="firstname" required>
+                                <input type="text" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="firstname" required>
                                 <label for="floatingFname">First Name</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small>
@@ -37,7 +41,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="text" class="form-control form-element" id="floatingLname" style="height: 48px;" placeholder="Lname" formControlName="lastname" required>
+                                <input type="text" class="form-control form-element" id="floatingLname" style="height: 48px;" placeholder="" formControlName="lastname" required>
                                 <label for="floatingLname">Last Name</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
@@ -47,7 +51,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="Fname" formControlName="password" required>
+                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="password" required>
                                 <label for="floatingFname">Password</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
@@ -57,7 +61,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mt-3">
-                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="Fname" formControlName="password_confirmation" required>
+                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="password_confirmation" required>
                                 <label for="floatingFname">Confirm Password</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.password_confirmation" class="text-danger">{{x}}</span></small>
@@ -66,9 +70,9 @@
 
                     <div class="row mt-5">
                       <div class="col mb-1">
-                        <button type="submit" class="float-right btn btn-primary form-element form-btn">
+                        <button type="submit" class="register-button float-right btn btn-primary form-element form-btn">
                           <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          Register
+                          Complete
                         </button>
                       </div>
                     </div>
@@ -77,14 +81,20 @@
                 <!-- /.signup form -->
   
                 <div *ngIf="showPrompt" class="row align-items-center">
-                    <div class="col">
-                        <div class="card my-5">
-                            <div class="card-header text-center">
-                                <p class="p-3">You have successfully completed your registeration</p>
-                                <button routerLink="/login" type="button" class="btn btn-lg git-color ml-2">Log in</button>
+                    <div class="col" style="margin-bottom: 10vh;">
+                        <!-- <div class="card my-5"> -->
+                            <div class="alert alert-success text-center">
+                                <p class="p-1">You have successfully completed your registeration</p>
                             </div>
-                        </div>
+                            
+                        <!-- </div> -->
                     </div>
+                    <br>
+                    <button type="button" routerLink="/login" class="register-button float-right btn btn-primary form-element form-btn">
+                      <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                      Login
+                    </button>
+                    <!-- <button routerLink="/login" type="button" class="btn btn-lg login-button git-color ml-2 text-center">Click here to Log in</button> -->
                 </div>
                               
               </div>
@@ -97,3 +107,7 @@
       </div>
     </div>
   </div>
+
+  
+</div>
+</section>

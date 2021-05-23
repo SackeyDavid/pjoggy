@@ -1,8 +1,11 @@
-<div class="container-fluid h-100">
+<section>
+  <div class="contents" style="padding-top: 70vh;">
+
+    <div class="container-fluid h-100">
   <div class="row align-items-center h-100">
     <div class="col-lg-5 mx-auto my-auto form-card">
 
-      <div class="card p-5">
+      <div class="card p-5" style="margin-top: 20%;margin-bottom: 20%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
         <div class="card-body">
           <div class="row">
 
@@ -37,7 +40,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="form-floating mt-3">
-                      <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="password" formControlName="password" required>
+                      <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="miwer9423" formControlName="password" required>
                       <label for="floatingInput">Password</label>
                     </div>
                     <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
@@ -60,7 +63,7 @@
 
                 <div class="row mt-4">
                   <div class="col">
-                    <button class="float-right btn btn-primary form-element form-btn">
+                    <button class="float-right register-button btn btn-primary form-element form-btn">
                       <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                       Log in
                     </button>
@@ -70,34 +73,42 @@
               </form>
               <!-- /.login form -->
 
-              <span class="text-center mx-5"><p>or sign in with</p></span>
+              <span class="text-center mx-5">
+                <p>
+                  <div class="separator">or sign up with</div>
+                <p></p>
+              </span>
 
               <div class="row">
                 <div class="col mb-2">
-                  <button type="button" class="float-right btn btn-lg border form-element form-btn">
+                  <button type="button" class="float-right socialite-buttons btn btn-lg border form-element form-btn">
                     <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
-                    <span class="ml-3">
-                      <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
-                    </span>
-                    Google
+                    <div class="socialite-icon-and-text" style="display: block ruby;">
+                      <span class="ml-3">
+                        <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
+                      </span>
+                      <span style="font-size: 18px;"> Google </span>
+                     </div>
                   </button>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col mb-1">
-                  <button type="button" class="float-right btn btn-lg border form-element form-btn">
+                  <button type="button" class="float-right socialite-buttons btn btn-lg border form-element form-btn">
                     <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
-                    <span class="ml-3">
-                      <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
-                    </span>
-                    Facebook
+                    <div class="socialite-icon-and-text" style="display: block ruby;">
+                      <span class="ml-3">
+                        <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
+                      </span>
+                       <span style="font-size: 18px;"> Facebook </span>
+                      </div>
                   </button>
                 </div>
               </div>
 
 
-              <span class="mx-5 text-center"><p>Already have an account? <a href="#" routerLink="/register">Sign up</a></p></span>
+              <span class="mx-5 text-center"><p>Already have an account? <a href="#" style="text-decoration: none;" routerLink="/register">Sign up</a></p></span>
 
               
             </div>
@@ -110,3 +121,6 @@
     </div>
   </div>
 </div>
+
+</div>
+</section>
