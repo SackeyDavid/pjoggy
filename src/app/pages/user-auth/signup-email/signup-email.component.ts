@@ -44,4 +44,14 @@ export class SignupEmailComponent implements OnInit {
     );
   }
 
+  facebookSignUp() {
+    console.log('daad');
+    this.auth.signUpWithFacebook();
+  }
+  
+  googleSignUp() {
+    console.log('daad');
+    this.auth.signUpWithGoogle();
+  }
+
 }
