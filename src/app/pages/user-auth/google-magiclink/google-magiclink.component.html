@@ -1,8 +1,11 @@
-<div class="container-fluid h-100">
+<section>
+  <div class="contents" style="padding-top: 60vh;">
+
+    <div class="container-fluid h-100">
     <div class="row align-items-center h-100">
       <div class="col-lg-5 mx-auto my-auto form-card">
   
-        <div class="card p-5">
+        <div class="card p-5" style="margin-top: 20%;margin-bottom: 20%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
           <div class="card-body">
             <div class="row">
     
@@ -16,19 +19,23 @@
                 
 
                 <div class="info-div">
-                    <p class="p-3"><small>This email address is already registered with a GiT account. We'll send you a migic link to connect your accounts</small></p>
+                    <p class="p-3"><small style="margin-left: 0 !important;">This email address is already registered with a GiT account. We'll send you a magic link to connect your accounts</small></p>
                 </div>
   
                 <div class="row mt-4">
                     <div class="col mb-1">
-                        <button type="submit" class="float-right btn form-element git-color">
+                        <button type="submit" class="register-button float-right btn form-element git-color">
                         <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Send magic link
                         </button>
                     </div>
                 </div>
 
-                <div class="separator my-3"><span class="border rounded">OR</span></div>
+                <div class="separator my-3">
+                  <!-- <span class="border rounded"> -->
+                    OR
+                  <!-- </span> -->
+                </div>
 
                 <p><small><b>Use email and password</b></small></p>
 
@@ -70,7 +77,7 @@
     
                     <div class="row mt-4">
                       <div class="col">
-                        <button class="float-right btn btn-primary form-element form-btn">
+                        <button class="register-button float-right btn btn-primary form-element form-btn">
                           <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                           Log in
                         </button>
@@ -87,3 +94,6 @@
       </div>
     </div>
 </div>
+
+</div>
+</section>

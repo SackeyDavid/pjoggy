@@ -100,7 +100,7 @@ const routes: Routes = [
     component: PasswordResetComponent
   },
   {
-    path: 'google_magiclink',
+    path: 'magiclink',
     component: GoogleMagiclinkComponent,
   },
   {
