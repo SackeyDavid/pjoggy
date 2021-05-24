@@ -49,5 +49,13 @@ export class LoginPageComponent implements OnInit {
       );
   }
 
+  facebookSignUp() {
+    window.location.href = this.auth.facebookAuthUrl;
+  }
+  
+  googleSignUp() {
+    window.location.href = this.auth.googleAuthUrl;
+  }
+
 
 }

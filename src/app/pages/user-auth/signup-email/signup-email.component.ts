@@ -45,13 +45,11 @@ export class SignupEmailComponent implements OnInit {
   }
 
   facebookSignUp() {
-    console.log('daad');
-    this.auth.signUpWithFacebook();
+    window.location.href = this.auth.facebookAuthUrl;
   }
   
   googleSignUp() {
-    console.log('daad');
-    this.auth.signUpWithGoogle();
+    window.location.href = this.auth.googleAuthUrl;
   }
 
 }

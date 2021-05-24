@@ -10,8 +10,8 @@ export class UserAuthService {
 
   private headers: HttpHeaders;  
   private baseUrl = 'http://events369.logitall.biz/api/';
-  private facebookAuthUrl = 'http://events369.logitall.biz/api/auth/facebook';
-  private googleAuthUrl = 'http://events369.logitall.biz/api/auth/google';
+  public facebookAuthUrl = 'http://events369.logitall.biz/api/auth/facebook';
+  public googleAuthUrl = 'http://events369.logitall.biz/api/auth/google';
   private sendMagicUrl = 'http://events369.logitall.biz/api/sendmagiclink';
 
   constructor(
