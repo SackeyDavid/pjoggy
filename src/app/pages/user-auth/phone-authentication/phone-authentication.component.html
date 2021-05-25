@@ -1,76 +1,62 @@
-<div class="container-fluid h-100">
-  <div class="row align-items-center h-100">
-    <div class="offset-lg-3 col-lg-6 mx-auto">
+<section>
+  <div class="contents" style="padding-top: 10vh;">
 
-      <div class="card">
-        <div class="card-body">
+    <div class="container-fluid h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-lg-5 mx-auto my-auto form-card">
 
-          <div class="row">
-            <div class="col-lg-6 stuffs-side">
+          <div class="card p-5" style="margin-top: 20%;margin-bottom: 20%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
+            <div class="card-body">
+              <div class="row">
               
-              <!-- comopnent -->
+                <div class="col">
+                  
+                  <!-- component -->
 
-              <app-form-side-pane 
-                [primaryText]="'Two Factor Authentication'"
-                [secondaryText]="'Your security is also our priority.'">
-              </app-form-side-pane>
+                  <app-form-header 
+                    [formTitle]="'2 Way Authentication'">
+                  </app-form-header>
 
-            </div>
-
-            <div class="col-lg-6 form-side">
-              
-              <!-- component -->
-
-              <app-form-header [formTitle]="'Authentication'"></app-form-header>
-
-              <!-- lofin form -->
-              <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
-                
-                <div class="row">
-                  <div class="col">
-                    <p class="text-center"><small class="text-danger">{{errorMsgs.message}}</small></p>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <div class="form-floating mt-3">
-                      <input type="text" class="form-control" id="floatingInput" placeholder="000000" formControlName="confirmationCode" required>
-                      <label for="floatingInput">Confirmation Code</label>
+                  <!-- lofin form -->
+                  <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+                    
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-center"><small class="text-danger">{{errorMsgs.message}}</small></p>
+                      </div>
                     </div>
-                    <small><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
-                  </div>
-                </div>   
-                
-                <div class="row mt-4">
-                  <div class="col">
-                    <small class="txt-muted">A confirmation code has been sent to your phone</small>
-                  </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="mt-3">
+                          <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Confirmation Code</label>
+                          <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" placeholder="0000" formControlName="confirmationCode" required autofocus>
+                        </div>
+                        <small><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                      </div>
+                    </div>   
+                    
+                    <div class="row mt-4">
+                      <div class="col">
+                        <button type="submit" class="float-right register-button btn btn-primary form-element form-btn">
+                          <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+      
+                  </form>
+                  <!-- /.authentication form -->
                 </div>
 
-                <div class="row mt-4">
-                  <div class="col">
-                    <button class="float-right btn btn-lg git-color">
-                      <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-                      Submit
-                    </button>
-                  </div>
-                </div>
-  
-              </form>
-              <!-- /.authentication form -->
+              </div>
 
-              <!-- component -->
-
-              <app-form-footer></app-form-footer>
-              
             </div>
-
           </div>
 
         </div>
       </div>
-
     </div>
+
   </div>
-</div>
+</section>

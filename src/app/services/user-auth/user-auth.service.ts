@@ -37,6 +37,7 @@ export class UserAuthService {
   }
 
   accountRecovery(user: any): Observable<any> {
+    console.log(user);
     return this.http.post<any>(this.baseUrl + 'forgotPassword', user);      
   }
 
@@ -50,6 +51,14 @@ export class UserAuthService {
 
   singupMoreInfo(body: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'complete_registration/' + sessionStorage.getItem('registration_id'), body);      
+  }
+
+  resendActivationLink(ecncryption: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'resend_verification_link/' + ecncryption, {});      
+  }
+
+  resendRecoveryLink(ecncryption: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'resend_pass_reset_link/' + ecncryption, {});      
   }
 
   // signUpWithFacebook(): Observable<any> {

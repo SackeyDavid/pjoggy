@@ -7,8 +7,12 @@
 }
 
 .form-element {
-  border-radius: 24px;
-  height: 48px;
+  border-radius: 21px;
+  height: 42px;
+}
+
+.form-label {
+  margin-left: 24px !important;
 }
 
 .form-floating > label {

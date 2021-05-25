@@ -1,5 +1,5 @@
 <section>
-  <div class="contents" style="padding-top: 50vh;">
+  <div class="contents">
 
   
 <div class="container-fluid h-100">
@@ -15,8 +15,7 @@
                 <!-- component -->
   
                 <app-form-header 
-                  [formTitle]="'Complete your regsitration'" 
-                  [subText]="'Sign to enjoy our suite of products'">
+                  [formTitle]="'Complete your regsitration'">
                 </app-form-header>
 
                 <!-- signup form -->
@@ -30,9 +29,9 @@
               
                     <div class="row">
                         <div class="col">
-                            <div class="form-floating mt-3">
-                                <input type="text" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="firstname" required>
-                                <label for="floatingFname">First Name</label>
+                            <div class="mt-3">
+                                <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Last Name</label>
+                                <input type="text" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="" formControlName="firstname" required>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small>
                         </div>
@@ -40,9 +39,9 @@
 
                     <div class="row">
                         <div class="col">
-                            <div class="form-floating mt-3">
-                                <input type="text" class="form-control form-element" id="floatingLname" style="height: 48px;" placeholder="" formControlName="lastname" required>
-                                <label for="floatingLname">Last Name</label>
+                            <div class="mt-1">
+                                <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Last Name</label>
+                                <input type="text" class="form-control form-element" id="floatingLname" style="height: 42px;" placeholder="" formControlName="lastname" required>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
                         </div>
@@ -50,19 +49,20 @@
 
                     <div class="row">
                         <div class="col">
-                            <div class="form-floating mt-3">
-                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="password" required>
-                                <label for="floatingFname">Password</label>
+                            <div class="mt-1">
+                                <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Password</label>
+                                <input type="password" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="" formControlName="password" required>
                             </div>
+                            <small><span class="text-muted">Password must be more than 80 characters</span></small>
                             <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <div class="form-floating mt-3">
+                            <div class="mt-1">
+                                <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Confirm Password</label>
                                 <input type="password" class="form-control form-element" id="floatingFname" style="height: 48px;" placeholder="" formControlName="password_confirmation" required>
-                                <label for="floatingFname">Confirm Password</label>
                             </div>
                             <small><span *ngFor="let x of errorMsgs?.errors?.password_confirmation" class="text-danger">{{x}}</span></small>
                         </div>

@@ -20,8 +20,8 @@ select option {
 }
 
 .form-element {
-  border-radius: 24px;
-  height: 48px;
+  border-radius: 21px;
+  height: 42px;
 }
 
 .register-button {
@@ -102,6 +102,10 @@ select option {
   margin-top: -.7vh;
 }
 
+.form-label {
+  margin-left: 24px !important;
+}
+
 .form-floating > label {
   padding: .7rem 1.50rem !important;
 }
@@ -120,8 +124,8 @@ select option {
 }
 
 .social-logo {
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
   margin-top: -.5vh;
 }
 

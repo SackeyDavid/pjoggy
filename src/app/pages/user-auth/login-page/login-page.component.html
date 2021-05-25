@@ -1,5 +1,5 @@
 <section>
-  <div class="contents" style="padding-top: 70vh;">
+  <div class="contents">
 
     <div class="container-fluid h-100">
   <div class="row align-items-center h-100">
@@ -14,8 +14,7 @@
               <!-- component -->
 
               <app-form-header 
-                [formTitle]="'Log in'"
-                [subText]="'Sign in to enjoy our suite of products'">
+                [formTitle]="'Log in'">
               </app-form-header>
 
               <!-- lofin form -->
@@ -29,9 +28,9 @@
 
                 <div class="row">
                   <div class="col">
-                    <div class="form-floating mt-3">
-                      <input type="text" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="name@example.com" formControlName="email" required>
-                      <label for="floatingInput">Email Address</label>
+                    <div class="mt-3">
+                      <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Email</label>
+                      <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" placeholder="name@example.com" formControlName="email" required>
                     </div>
                     <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
                   </div>
@@ -39,9 +38,9 @@
 
                 <div class="row">
                   <div class="col">
-                    <div class="form-floating mt-3">
-                      <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="miwer9423" formControlName="password" required>
-                      <label for="floatingInput">Password</label>
+                    <div class="mt-1">
+                      <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Password</label>
+                      <input type="password" class="form-control form-element" id="floatingInput" style="height: 42px;" placeholder="miwer9423" formControlName="password" required>
                     </div>
                     <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
                   </div>
@@ -49,12 +48,12 @@
 
                 <div class="row my-4">
                   <div class="col-lg-12">
-                    <span class="float-left">
+                    <!-- <span class="float-left">
                       <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Remember me</label>
                       </div>
-                    </span>
+                    </span> -->
                     <span class="float-right">
                       <a routerLink="/recovery_email" class="form-link"><small>Forgot your password?</small></a>
                     </span>
@@ -79,10 +78,10 @@
                 <p></p>
               </span>
 
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col mb-2">
                   <button type="button" class="float-right socialite-buttons btn btn-lg border form-element form-btn" (click)="googleSignUp()">
-                    <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                    <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <div class="socialite-icon-and-text" style="display: block ruby;">
                       <span class="ml-3">
                         <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
@@ -91,12 +90,12 @@
                      </div>
                   </button>
                 </div>
-              </div>
+              </div>              
 
               <div class="row">
                 <div class="col mb-1">
                   <button type="button" class="float-right socialite-buttons btn btn-lg border form-element form-btn" (click)="facebookSignUp()">
-                    <!-- <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                    <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <div class="socialite-icon-and-text" style="display: block ruby;">
                       <span class="ml-3">
                         <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
@@ -105,8 +104,18 @@
                       </div>
                   </button>
                 </div>
-              </div>
+              </div> -->
 
+              <div class="row">
+                <div class="d-flex justify-content-center">
+                  <button class="btn m-1 social-btn" (click)="googleSignUp()"><span>
+                    <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="40" height="40">
+                  </span></button>
+                  <button class="btn m-1 social-btn" (click)="facebookSignUp()"><span>
+                    <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="40" height="40">
+                  </span></button>
+                </div>
+              </div>
 
               <span class="mx-5 text-center"><p>Already have an account? <a href="#" style="text-decoration: none;" routerLink="/register">Sign up</a></p></span>
 

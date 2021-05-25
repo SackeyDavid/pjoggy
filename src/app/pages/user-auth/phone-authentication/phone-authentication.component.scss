@@ -1,77 +1,179 @@
-@import url(https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css);
+@font-face { font-family: Inter; src: url('/src/assets/fonts/Inter/Inter-Regular.ttf') format("truetype"); } 
+    
+// * {
+//   font-family: 'Inter' !important;
+// }
 
-.card-body{
-  padding: 0;
+// .card .p-5 {
+//   margin: 10% 20% !important;
+// }
+.form-card {
+  width: 500px;
 }
 
-.stuffs-side{
-  background-color: #456ea9;
-  color: white;
-  padding: 50px;
+select option {
+  width:  80px !important;
 }
 
-.form-side{
-  padding: 35px;
-}
-
-i {
-  font-size: 65px;
-}
-
-.lead {
-  font-size: 15px;
-}
-
-.form-footer{
-  position: absolute;
-  bottom: 25px;
-  right: 22px;
-}
-
-
-a.form-link{
-  color: #888;
-}
-
-a.form-link:hover{
-  color: #222;
-}
-
-.form-full-width {
+.form-btn {
   width: 100%;
 }
 
-button.form-full-width{
-  height: 45px;
+.form-element {
+  border-radius: 21px;
+  height: 42px;
 }
 
-button.git-color{
-  background-color: #456ea9;
-  color: white;
-  box-shadow: none;
+.register-button {
+  // width: 140px;
+  // height: 45px;
+  font-family: 'Roboto', sans-serif;
+  // font-size: 11px;
+  // text-transform: uppercase;
+  // letter-spacing: 2.5px;
+  // font-weight: 500;
+  // color: #000;
+  // background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+.register-button:hover {
+  // background-color: #2EE59D;
+  background-color: #f05537 !important;
+  border-color: #f05537 !important;
+  box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
 }
 
-.mat-step-header{
-  width: 10px;
+.register-button:hover {
+  // background-color: #2EE59D;
+  background-color: #f05537 !important;
+  border-color: #f05537 !important;
+  box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
 }
 
-.register-stepper .mat-horizontal-content-container {
+.socialite-buttons {
+  margin-bottom: 2vh !important;
+  // font-size: 1px !important;
+}
+
+
+.socialite-buttons:hover {
+  // background-color: #2EE59D;
+  // background-color: #f05537 !important;
+  // border: 1px solid #0d6efd !important;
+  // border-width: 2px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  // color: #fff;
+  // transform: translateY(-7px);
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .5em;
+}
+
+.socialite-icon-and-text {
+  margin-top: -.7vh;
+}
+
+.form-label {
+  margin-left: 24px !important;
+}
+
+.form-floating > label {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-floating > label {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-floating > .form-control {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-floating > .form-select {
+  padding-top: .5rem !important;
+  padding: .3rem 1.2rem !important;
+}
+
+.custom-select {
+  padding: .3rem 1.2rem !important;
+}
+
+.social-logo {
+  height: 20px;
+  width: 20px;
+  margin-top: -.5vh;
+}
+
+body {
+  margin: 0 !important;
   padding: 0 !important;
+  // font-family: sans-serif;
 }
 
-input.form-control, .form-floating>.form-select {
-  box-shadow: none;
+section {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  // background: linear-gradient(45deg, #8614ce, #ff0057);
+  background: #f7fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.btn-lg {
-  padding: .5rem 2rem;
-  font-size: 1rem;
+section:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: #fff;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
 }
 
-input.ng-invalid.ng-dirty{
-  border-left: 5px solid rgba(255, 0, 0, 0.5);
+.contents {
+  position: relative;
+  max-width: 900px;
+  // text-align: center;
 }
 
-input.ng-valid.ng-dirty{
-  border-left: 5px solid rgba(0, 128, 0, 0.5);
+.contents .container-fluid .h-100 {
+  margin: 0;
+  padding: 0;
 }
+
+small {
+  margin-left: 1.5rem;
+}
+
+// remove blue textarea border

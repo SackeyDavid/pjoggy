@@ -1,56 +1,49 @@
-<div class="container-fluid h-100">
-    <div class="row align-items-center h-100">
-      <div class="offset-lg-3 col-lg-6 mx-auto">
-  
-        <div class="card">
-          <div class="card-body">
-  
-            <div class="row">
-              <div class="col-lg-6 stuffs-side">
+<section>
+  <div class="contents">
+
+    <div class="container-fluid h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-lg-5 mx-auto my-auto form-card">
+
+          <div class="card p-5" style="margin-top: 20%;margin-bottom: 20%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col text-center my-5">
+                  <div class="mb-3">
+                    <img src="../../../../assets/images/link expired icon.png" alt="" width="100" height="100">
+                  </div>
+                  <h3>Password Reset link expired</h3>
+                  <p>Links expire after an hour. You can request for another link, click the button below</p>
+                </div>                
                 
-                <!-- comopnent -->
-  
-                <app-form-side-pane 
-                  [primaryText]="'Welcome back,'"
-                  [secondaryText]="'One account for all of our amazing products.'">
-                </app-form-side-pane>
-  
               </div>
-  
-              <div class="col-lg-6 form-side">
-                
-                <!-- component -->
-  
-                <app-form-header [formTitle]="'Email invalid link'"></app-form-header>
-  
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="card my-5">
-                            <div class="card-header text-center">
-                                <p class="p-3">
-                                  Invalid Confirmation Link. <br>
-                                  Your confirmatioon link has either expired or doesnt exist anymore. <br>
-                                  Please try signing up again. Do not spend more than 5mins to verify your email address.
-                                </p>
-                                <a href="#" class="form-link mb-3" routerLink="/recovery_email">Resend email</a>                                
-                            </div>
-                        </div>
-  
-                        <!-- <button class="btn btn-lg float-right git-color" routerLink="/recovery_email">Resend</button> -->
-                    </div>
+
+              <div *ngIf="!showPrompt" class="row mt-4">
+                <div class="col">
+                  <button class="float-right register-button btn btn-primary form-element form-btn">
+                    <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" (click)="onResend()"></span>
+                    Resend Link
+                  </button>
                 </div>
-  
-                <!-- component -->
-  
-                <app-form-footer></app-form-footer>
-                
               </div>
-  
+
+              <div *ngIf="showPrompt" class="row align-items-center">
+                <div class="col">
+                    <!-- <div class="card my-5"> -->
+                        <div class="alert alert-primary text-center">
+                            <p class="p-3">A new activation link has been sent to ur account. Please check your email</p>
+                            <a href="#" routerLink="/login" class="form-link">Login</a>
+                        </div>
+                    <!-- </div> -->
+                </div>
+              </div>
             </div>
-  
           </div>
+
         </div>
-  
       </div>
     </div>
-</div>
+
+  </div>
+</section>
