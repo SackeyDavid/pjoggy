@@ -173,3 +173,9 @@ small {
 }
 
 // remove blue textarea border
+
+@media (max-width: 1500px) {
+  .contents {
+    padding-top: 50vh;
+  }
+}
