@@ -17,7 +17,11 @@ export class PasswordResetComponent implements OnInit {
   showPrompt: Boolean = false;
   
   url: string = '';
-  encryptionString = '';
+  encryptionString = '';  
+  
+  images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
+  image = this.images[this.getRandomInt(0, 4)]
+
 
   resetForm: FormGroup = new FormGroup({});
 
@@ -25,6 +29,8 @@ export class PasswordResetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById('image-bg')?.setAttribute('src', this.image)
+
     this.resetForm = new FormGroup({
       new_password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       new_password_confirmation: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -53,4 +59,10 @@ export class PasswordResetComponent implements OnInit {
       );
   }
 
+  
+  getRandomInt(min: any, max: any) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 }

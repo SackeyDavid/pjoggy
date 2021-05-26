@@ -19,11 +19,18 @@ export class SignupMoreInfoComponent implements OnInit {
   token_from_url: string = '';
   token: string = '';
 
+
+  images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
+  image = this.images[this.getRandomInt(0, 5)]
+
+
   public registerForm: FormGroup = new FormGroup({});
 
   constructor(private auth: UserAuthService, private router: Router) { }
 
   ngOnInit(): void {
+    document.getElementById('image-bg')?.setAttribute('src', this.image);
+
     this.token_from_url = this.router.url
     var ind1 = this.token_from_url.indexOf('/');
     var ind2 = this.token_from_url.indexOf('=', ind1 + 1);
@@ -47,6 +54,16 @@ export class SignupMoreInfoComponent implements OnInit {
       res => {
         console.log(res);        
         if(res.message == 'Ok') this.showPrompt = true;
+        
+        if (res.token) {
+          sessionStorage.setItem('x_auth_token', res.token);
+          sessionStorage.setItem('events_user_id', res.user.id);
+          sessionStorage.setItem('events_user_name', res.user.name);
+          sessionStorage.setItem('events_user_email', res.user.email);
+
+          this.router.navigateByUrl('/');
+        }
+        
       },
       err => {
         console.log(err)
@@ -55,4 +72,13 @@ export class SignupMoreInfoComponent implements OnInit {
       }
     );
   }
+
+  
+  getRandomInt(min: any, max: any) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+
 }

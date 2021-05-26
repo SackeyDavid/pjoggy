@@ -61,48 +61,10 @@ export class UserAuthService {
     return this.http.post<any>(this.baseUrl + 'resend_pass_reset_link/' + ecncryption, {});      
   }
 
-  // signUpWithFacebook(): Observable<any> {
-  //   return this.http.get<any>(this.facebookAuthUrl);      
-  // }
+  sendMagicLink(body: any): Observable<any> {
+    return this.http.post<any>(this.sendMagicUrl, body);  
 
-  signUpWithGoogle(): Observable<any> {
-    return this.http.get<any>(this.googleAuthUrl);      
   }
 
-  signUpWithFacebook(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const url = this.facebookAuthUrl;
-      this.http.get<any>(url, { headers: this.headers}).subscribe(
-        res => {
-          console.log('facebook_auth_ok: ', res);
-          // events = res;
-          resolve(true);
-        },
-        err => {
-          console.log('facebook_auth_error: ', err);
-          reject(err);
-        }
-      );
-    });
-  }
-
-  // signUpWithGoogle(): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     // let events: any[] = [];
-  //     // var userId = sessionStorage.getItem('events_user_id');
-  //     const url = this.googleAuthUrl;
-  //     this.http.get<any>(url, { headers: this.headers}).subscribe(
-  //       res => {
-  //         console.log('facebook_auth_ok: ', res);
-  //         // events = res;
-  //         resolve(true);
-  //       },
-  //       err => {
-  //         console.log('facebook_auth_error: ', err);
-  //         reject(err);
-  //       }
-  //     );
-  //   });
-  // }
 
 }

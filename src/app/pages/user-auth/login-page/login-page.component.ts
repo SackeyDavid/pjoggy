@@ -16,10 +16,14 @@ export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup = new FormGroup({});
 
+  images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
+  image = this.images[this.getRandomInt(0, 4)]
+
   constructor(private auth: UserAuthService, private router: Router) {
   }
 
   ngOnInit(): void {
+    document.getElementById('image-bg')?.setAttribute('src', this.image)
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -61,6 +65,13 @@ export class LoginPageComponent implements OnInit {
   googleSignUp() {
     window.location.href = this.auth.googleAuthUrl;
   }
+
+  getRandomInt(min: any, max: any) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
 
 
 }
