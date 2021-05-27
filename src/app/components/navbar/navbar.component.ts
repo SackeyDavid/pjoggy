@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
 import { Router } from '@angular/router';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-navbar',
@@ -106,6 +107,12 @@ export class NavbarComponent implements OnInit {
     this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
       res =>  {
         console.log(res);
+        if (_.toLower(res.message) == 'ok') {
+          sessionStorage.removeItem('x_auth_token');
+
+          // this.router.navigateByUrl('/');
+          window.location.href = '/'
+        }
       },
       err => {
         console.log(err);
