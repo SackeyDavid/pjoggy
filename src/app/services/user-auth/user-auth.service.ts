@@ -61,6 +61,13 @@ export class UserAuthService {
     return this.http.post<any>(this.baseUrl + 'resend_pass_reset_link/' + ecncryption, {});      
   }
 
+  editProfileLink(profile: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'v1/editProfile', profile);      
+  }
+
+  // signUpWithFacebook(): Observable<any> {
+  //   return this.http.get<any>(this.facebookAuthUrl);      
+  // }
   sendMagicLink(body: any): Observable<any> {
     return this.http.post<any>(this.sendMagicUrl, body);  
 

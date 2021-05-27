@@ -29,7 +29,7 @@ export class SignupEmailComponent implements OnInit {
     document.getElementById('image-bg')?.setAttribute('src', this.image)
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      type: new FormControl('30', Validators.required)
+      // type: new FormControl('30', Validators.required)
     });
   }  
 

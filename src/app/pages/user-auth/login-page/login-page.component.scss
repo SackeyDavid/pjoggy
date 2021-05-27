@@ -173,8 +173,13 @@ body {
   // font-family: sans-serif;
 }
 
+section {
+  height: 100% !important;
+}
+
 .contents {
   background: black;
+  height: inherit;
 }
 
 img.bg {

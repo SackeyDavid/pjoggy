@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
-<div class="sidenav" style="background-color: var(--ev-background);color: var(--primary-color);">
-  <a routerLink="/create_event/basic_info">Basic Info</a>
-  <a href="#">Package</a>
+<div class="sidenav border-right" style="background-color: var(--ev-background);color: var(--primary-color);">
+  <a routerLink="/account/profile">Basic Info</a>
+  <!-- <a href="#">Package</a>
   <a href="#">Payments</a>
   <a href="#">Charges & Credits</a>
-  <a href="#">Notifications</a>
+  <a href="#">Notifications</a> -->
 
-  <div class="bottom">
+  <!-- <div class="bottom">
     <div class="list-group">
       <a style="background-color: var(--ev-item-background);color: var(--ev-menu-item);" href="#" class="list-group-item list-group-item-action">Account Settings</a>
     </div>
@@ -14,9 +14,9 @@
     <div class="custom-control custom-switch ml-4 mt-3">
       <input (click)="switchTheme()" type="checkbox" class="custom-control-input" id="customSwitch1">
       <label class="custom-control-label" for="customSwitch1" style="color: var(--ev-menu-item) !important;">
-       <!-- <ng-container *ngIf="dark_theme">Light Mode</ng-container> -->
+       <ng-container *ngIf="dark_theme">Light Mode</ng-container>
        Dark Mode
       </label>
     </div>
-  </div>
+  </div> -->
 </div>
