@@ -65,7 +65,7 @@
                     <div class="row">
                       <div class="col">
                         <div class="form-floating mt-3">
-                          <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" placeholder="password" formControlName="password" required>
+                          <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" formControlName="password" required>
                           <label for="floatingInput">Password</label>
                         </div>
                         <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>

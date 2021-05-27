@@ -23,6 +23,7 @@ export class GoogleMagiclinkComponent implements OnInit {
   name: string = '';
   platform: string = '';
   platform_id: string = '';
+  user_token: any = '';
   
 
   public loginForm: FormGroup = new FormGroup({});
@@ -33,38 +34,69 @@ export class GoogleMagiclinkComponent implements OnInit {
   ngOnInit(): void {
     document.getElementById('image-bg')?.setAttribute('src', this.image)
 
-    this.string_from_url = this.router.url
+    this.string_from_url = decodeURI(this.router.url);
+
     var ind1 = this.string_from_url.indexOf('=');
     var ind2 = this.string_from_url.indexOf('&', ind1 + 1);
-    var ind3 = this.string_from_url.indexOf('=', ind2);
-    var ind4 = this.string_from_url.indexOf('&', ind3 + 1);
-
-    console.log(ind1)
+    
 
     this.id = this.string_from_url.substring(ind1+1, ind2);
     console.log(this.id)
 
+    
+    // check if the url has a token which means user's email isn't associated with any events369 account
+    if (this.string_from_url.includes('token')) {
+      
+      var token = this.string_from_url.match(new RegExp('token=' + "(.*)" + '&message'));
 
-    this.name = this.string_from_url.substring(ind3+1 + ind4);
-    console.log(this.name)
+      if (token) this.user_token = token[1];
 
-    this.platform = this.string_from_url.substring(ind2 + 1);
-    this.platform_id = this.string_from_url.substring(ind2 + 1);
+      console.log(this.user_token)
 
+      sessionStorage.setItem('user_id', this.id);
+      sessionStorage.setItem('x_auth_token', this.user_token);
+      
+      if (this.user_token != null) this.router.navigateByUrl('/');
+
+
+    }
 
     
+    // check if the url has a platform_id which means user's email is associated with an events369 account
+    if (this.string_from_url.includes('platform_id')) {
 
-    this.magicLinkData = new FormGroup({
-      id: new FormControl(this.id, [Validators.required]),
-      name: new FormControl('David Sackey', [Validators.required]),
-      platform: new FormControl('Google', [Validators.required]),
-      platform_id: new FormControl('105557316449241298007', [Validators.required]),
-    });
+      var name = this.string_from_url.match(new RegExp('&name=' + "(.*)" + '&platform_id'));
+      if (name) {
+        this.name = name[1];
+      }
+      sessionStorage.setItem('events_user_name', this.name);
+
+      var platform_id = this.string_from_url.match(new RegExp('&platform_id=' + "(.*)" + '&platform='));
+      if (platform_id) this.platform_id = platform_id[1];
+
+      var platform = this.string_from_url.match(new RegExp('&platform=' + "(.*)" + '&message'));
+      if (platform) this.platform = platform[1];
+
+      sessionStorage.setItem('user_id', this.id);
+
+      this.magicLinkData = new FormGroup({
+        id: new FormControl(this.id, [Validators.required]),
+        name: new FormControl(this.name, [Validators.required]),
+        platform: new FormControl(this.platform, [Validators.required]),
+        platform_id: new FormControl(this.platform_id, [Validators.required]),
+      });
+
+
+    }  
+
+    
 
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
+
+
   }
 
   onSubmit() {
