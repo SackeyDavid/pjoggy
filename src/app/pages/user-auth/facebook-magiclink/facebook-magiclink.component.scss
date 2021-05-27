@@ -1,46 +1,286 @@
 .form-card {
     width: 500px;
-}
-
-.form-btn {
+  }
+  
+  .form-btn {
     width: 100%;
-}
-
-.form-element {
-    border-radius: 24px;
-    height: 48px;
-}
-
-div.info-div {
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    border-left: 5px solid #456fa975 !important;
-}
-
-button.git-color{
-    width: 100%;
-    background-color: #456ea9;
-    color: white;
-    box-shadow: none;
-}
-
-.separator {
+  }
+  
+  .form-element {
+    // border-radius: 21px;
+    border-radius: 8px;
+    height: 42px;
+  }
+  
+  .register-button {
+    // width: 140px;
+    // height: 45px;
+    font-family: 'Roboto', sans-serif;
+    // font-size: 11px;
+    // text-transform: uppercase;
+    // letter-spacing: 2.5px;
+    // font-weight: 500;
+    // color: #000;
+    // background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    }
+  
+  .register-button:hover {
+    // background-color: #2EE59D;
+    background-color: #f05537 !important;
+    border-color: #f05537 !important;
+    box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  .register-button:hover {
+    // background-color: #2EE59D;
+    background-color: #f05537 !important;
+    border-color: #f05537 !important;
+    box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  .zoom {
+    // padding: 50px;
+    // background-color: green;
+    transition: transform .2s; /* Animation */
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+  }
+  
+  .zoom:hover {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.07);
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+  
+  .socialite-buttons {
+    margin-bottom: 2vh !important;
+    // font-size: 1px !important;
+  }
+  
+  
+  .socialite-buttons:hover {
+    // background-color: #2EE59D;
+    // background-color: #f05537 !important;
+    // border: 1px solid #0d6efd !important;
+    // border-width: 2px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+    // color: #fff;
+    // transform: translateY(-7px);
+  }
+  
+  .separator {
     display: flex;
     align-items: center;
     text-align: center;
-}
-
-.separator::before,
-.separator::after {
+    font-size: .8rem;
+  }
+  
+  p {
+    font-size: .8rem !important;
+  }
+  
+  .separator::before,
+  .separator::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid #F4F4F4;
-}
-
-.separator:not(:empty)::before {
+    border-bottom: 1px solid #f4f4f4;
+  }
+  
+  .separator:not(:empty)::before {
     margin-right: .5em;
-}
-
-.separator:not(:empty)::after {
+  }
+  
+  .separator:not(:empty)::after {
     margin-left: .5em;
-}
+  }
+  
+  .socialite-icon-and-text {
+    margin-top: -.7vh;
+  }
+  
+  .form-label {
+    margin-left: 24px !important;
+  }
+  
+  .form-floating > label {
+    padding: .7rem 1.50rem !important;
+  }
+  
+  .form-floating > .form-control {
+    padding: .7rem 1.50rem !important;
+  }
+  
+  .form-control {
+    padding: .9rem .9rem !important;
+    font-size: .8rem;
+    line-height: 1.6;
+    padding-top: .5rem !important;
+  }
+  
+  .form-floating > .form-select {
+    padding-top: .5rem !important;
+    padding: .3rem 1.2rem !important;
+  }
+  
+  .mb-2 {
+    margin-bottom: -1rem !important;
+  }
+  
+  .card {
+    border-radius: 1.25rem !important;
+  }
+  
+  small {
+    font-size: .8rem !important;
+  }
+  
+  .custom-select {
+    padding: .3rem 1.2rem !important;
+  }
+  
+  .social-logo {
+    height: 26px;
+    width: 26px;
+    // margin-top: -4vh;
+  }
+  .text-muted {
+    font-size: .8rem;
+  }
+  
+  .card-links:hover {
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  
+  .social-div {
+    margin-top: -3vh;
+  }
+  
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    // font-family: sans-serif;
+  }
+  
+  section {
+    height: 100%;
+  }
+  
+  .contents {
+    background: black;
+    height: inherit;
+  }
+  
+  .height {
+    height: inherit;
+  }
+  
+  img.bg {
+    /* Set rules to fill background */
+    min-height: 100%;
+    min-width: 1024px;
+      
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+      
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+  
+  @media screen and (max-width: 1024px) { /* Specific to this particular image */
+    img.bg {
+      left: 50%;
+      margin-left: -512px;   /* 50% */
+    }
+  }
+  // section {
+  //   background: url(../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.png) 0 0/100% 100% no-repeat;
+  
+  // }
+  // section {
+  //   position: relative;
+  //   width: 100%;
+  //   height: 90vh;
+  //   // background: linear-gradient(45deg, #1379D2, #DC2424);
+  //   background: url(../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.png) 0 0/100% 100% no-repeat;
+  //   // background: #f7fafc;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
+  
+  // section:before {
+  //   content: '';
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 200px;
+  //   background: #fff;
+  //   clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  // }
+  
+  // .contents {
+  //   position: relative;
+  //   max-width: 900px;
+  //   // text-align: center;
+  // }
+  
+  .contents .container-fluid .h-100 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  small {
+    margin-left: 1.5rem;
+  }
+  
+  
+  // @media (max-width: 1500px) {
+  //   .contents {
+  //     // padding-top: 50vh;
+  //   }
+  // }
+  
+  .alert-danger {
+    margin: .7rem !important;
+  }
+  
+  .alert {
+    padding: .5rem .5rem !important;
+    border-radius: 8px !important;
+  }
+  
+  @media (max-width: 567px) {
+    .hide-on-mobile {
+      display: none;
+    }
+    .show-on-mobile {
+      display: block;
+    }
+  }
+  
+  @media (min-width: 567px) {
+    .hide-on-mobile {
+      display: block;
+    }
+    .show-on-mobile {
+      display: none !important;
+    }
+  }
