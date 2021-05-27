@@ -17,9 +17,15 @@ export class RecoveryInvalidComponent implements OnInit {
   encryptionString = '';
   showPrompt: Boolean = false;
 
+  images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
+  image = this.images[this.getRandomInt(0, 5)]
+
+
   constructor(private auth: UserAuthService, private router: Router) { }
 
   ngOnInit(): void {
+    document.getElementById('image-bg')?.setAttribute('src', this.image);
+    
     this.url = this.router.url
     this.encryptionString = this.url.split('id=').pop()!;
     console.log(this.url.split('id=').pop());
@@ -38,6 +44,13 @@ export class RecoveryInvalidComponent implements OnInit {
         this.isSending = false;
       }
     );
+  }
+
+  
+  getRandomInt(min: any, max: any) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
 }

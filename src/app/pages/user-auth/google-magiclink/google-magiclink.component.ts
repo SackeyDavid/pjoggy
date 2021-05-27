@@ -32,7 +32,7 @@ export class GoogleMagiclinkComponent implements OnInit {
   constructor(private auth: UserAuthService, private router: Router) { }
 
   ngOnInit(): void {
-    document.getElementById('image-bg')?.setAttribute('src', this.image)
+    document.getElementById('image-bg')?.setAttribute('src', this.image);
 
     this.string_from_url = decodeURI(this.router.url);
 
