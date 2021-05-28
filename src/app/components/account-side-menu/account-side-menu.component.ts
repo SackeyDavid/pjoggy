@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ThemeSwitcherService } from 'src/app/services/theme-switcher/theme-switcher.service';
 
 @Component({
@@ -9,12 +10,16 @@ import { ThemeSwitcherService } from 'src/app/services/theme-switcher/theme-swit
 export class AccountSideMenuComponent implements OnInit {
 
   dark_theme: boolean = false
+  current_route: string = '';
 
   constructor(
-    private themeSwitcher: ThemeSwitcherService 
+    private router: Router 
   ) { }
 
   ngOnInit(): void {
+    this.current_route = this.router.url
+    this.current_route = this.current_route.split('account/')[1]
+    console.log(this.current_route)
   }
 
   

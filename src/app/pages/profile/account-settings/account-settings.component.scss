@@ -2,30 +2,6 @@
     margin-left: 250px !important; /* Same as the width of the sidebar */
     padding: 0px 40px;
 }
-  
-.photo-input {
-    display: none;
-}
-
-.photo-image {
-    cursor: pointer;
-}
-
-.account-button {
-    width: 150px;
-}
-
-@media only screen and (max-width: 600px) {
-    .main {
-        margin-left: 60px !important; /* Same as the width of the sidebar */
-        padding: 0px 10px;
-    }
-}
-
-.main {
-    margin-left: 250px !important; /* Same as the width of the sidebar */
-    padding: 0px 40px;
-}
 
 .account-button {
     width: 150px;
@@ -311,13 +287,10 @@
   
   @media (max-width: 567px) {
     .hide-on-mobile {
-     display: none;
+      display: none;
     }
     .show-on-mobile {
-     display: block;
-    }
-    .profile-summary {
-     text-align: center;
+      display: block;
     }
   }
   
@@ -338,21 +311,4 @@
     font-weight: 500;
     font-size: .8rem !important;
     letter-spacing: .5px;
-  }
-
-  .avatar-edit {
-    background-color: var(--bs-primary);
-    color: #fff;
-    position: absolute;
-    height: 30px;
-    width: 30px;
-    right: 30%;
-    bottom: 0;
-    border-radius: 50%;
-    padding: 2px;
-
-  }
-
-  .profile-summary {
-    font-weight: 500;
   }

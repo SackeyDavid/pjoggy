@@ -25,4 +25,16 @@ export class DatetimeFormatterService {
     return f_date + ' ' + f_time;
   }
 
+  /**
+   * formats date from ngx bootstrap picker
+   * @param _date date object vlaue
+   * @param _time time object value
+   * @returns combined datetime
+   */
+   formatDate(_date: any): string {
+    let f_date = moment(_date).format('YYYY-MM-DD');
+
+    return f_date;
+  }
+
 }

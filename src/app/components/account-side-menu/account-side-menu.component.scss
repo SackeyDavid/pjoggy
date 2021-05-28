@@ -23,9 +23,9 @@
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 15px 8px 15px 35px;
+  padding: 10px 3px 10px 30px;
   text-decoration: none;
-  font-size: 16px;
+  font-size: .8rem;
   color: var(--ev-menu-item);
   font-weight: 500;
   display: block;
@@ -34,12 +34,64 @@
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
   color: #222;
-  font-size: 16px;
+  font-size: .8rem;
   background-color: #eee;
+}
+
+.bi {
+  font-size: x-large;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.active {
+  border-right: 2px solid rgb(34, 34, 34);
+}
+
+@media only screen and (max-width: 600px) {
+  .sidenav {
+    width: 60px;
+    text-align: center;
+  }
+
+  .sidenav a:not(i) {
+    padding: 5px 2px;
+    text-decoration: none;
+    font-size: 10px;
+    color: var(--ev-menu-item);
+    font-weight: 500;
+    display: block;
+  }
+
+  .sidenav i {
+    padding: 5px auto;
+    text-decoration: none;
+    font-size: 26px;
+    color: var(--ev-menu-item);
+    font-weight: 500;
+    display: block;
+  }
+
+}
+
+@media (max-width: 567px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  .show-on-mobile {
+    display: block;
+  }
+}
+
+@media (min-width: 567px) {
+  .hide-on-mobile {
+    display: block;
+  }
+  .show-on-mobile {
+    display: none !important;
+  }
 }

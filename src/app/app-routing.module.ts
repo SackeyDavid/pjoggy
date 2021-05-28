@@ -42,6 +42,7 @@ import { MagiclinkSuccessComponent } from './pages/user-auth/magiclink-success/m
 import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/magiclink-invalid.component';
 import { MoreProfileComponent } from './pages/user-auth/more-profile/more-profile.component';
 import { AccountProfileComponent } from './pages/profile/account-profile/account-profile.component';
+import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
 
 
 const routes: Routes = [
@@ -143,7 +144,11 @@ const routes: Routes = [
       {
         path: 'profile',
         component: AccountProfileComponent
-      }
+      },
+      {
+        path: 'settings',
+        component: AccountSettingsComponent
+      },
     ]
   },
   {

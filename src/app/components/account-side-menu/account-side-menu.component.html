@@ -1,6 +1,38 @@
 <app-navbar></app-navbar>
 <div class="sidenav border-right" style="background-color: var(--ev-background);color: var(--primary-color);">
-  <a routerLink="/account/profile">Basic Info</a>
+  <!-- <div class="text-center"><p><b>User Account</b></p></div> -->
+  <a routerLink="/account/profile" [class.active] = "current_route == 'profile'">
+    <table class="hide-on-mobile">
+      <tbody>
+        <tr>
+          <td>
+            <i class="bi bi-person-circle"></i>
+          </td>
+          <td style="padding-left: 25%;">
+            Profile
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <i class="bi bi-person-circle show-on-mobile"></i>
+    <span class="show-on-mobile">Profile</span>
+   </a>
+  <a routerLink="/account/settings" [class.active] = "current_route == 'settings'">
+    <table class="hide-on-mobile">
+      <tbody>
+        <tr>
+          <td>
+            <i class="bi bi-gear"></i>
+          </td>
+          <td style="padding-left: 25%;">
+            Settings
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <i class="bi bi-gear show-on-mobile"></i>
+    <span class="show-on-mobile">Settings</span>
+  </a>
   <!-- <a href="#">Package</a>
   <a href="#">Payments</a>
   <a href="#">Charges & Credits</a>

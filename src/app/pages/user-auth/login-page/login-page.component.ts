@@ -39,19 +39,18 @@ export class LoginPageComponent implements OnInit {
         res => {
           console.log(res);
 
-          sessionStorage.setItem('user_id', res.user.id);
-          sessionStorage.setItem('x_auth_token', res.token);
-          
-          sessionStorage.setItem('events_user_id', res.user.id);
-          sessionStorage.setItem('events_user_name', res.user.name);
-          sessionStorage.setItem('events_user_email', res.user.email);
-          // sessionStorage.setItem('user_id', res.id);
-          sessionStorage.setItem('user_phone', res.user.phone);
-
-          // TODO: reroute according 2fa 
-
-          if (res.user.id) this.router.navigateByUrl('/');
-          this.isSending = false;
+          if (res.phone) {
+            sessionStorage.setItem('user_id', res.id);
+            sessionStorage.setItem('user_phone', res.phone);
+            this.router.navigateByUrl('/phone_authentication');
+          } else if (res.token) {
+            sessionStorage.setItem('user_id', res.user.id);
+            sessionStorage.setItem('x_auth_token', res.token);
+            sessionStorage.setItem('events_user_id', res.user.id);
+            sessionStorage.setItem('events_user_name', res.user.name);
+            sessionStorage.setItem('events_user_email', res.user.email);
+            this.router.navigateByUrl('/');
+          }
         },
         err => {
           console.log(err);
