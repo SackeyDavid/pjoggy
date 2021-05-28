@@ -182,20 +182,20 @@ It is a long established fact that a reader will be distracted by the readable c
                           <div class="_1qpzr2d">
                               <div class="_fvp3r0u">
                                   <div class="_1sn7185i">
-                                      <div class="_1h6n1zu" style="display: inline-block; vertical-align: bottom; height: 100%; width: 100%; min-height: 1px;" role="img" aria-busy="false" aria-label="David User Profile">
+                                      <div class="_1h6n1zu" style="display: inline-block; vertical-align: bottom; height: 100%; width: 100%; min-height: 1px;" role="img" aria-busy="false" aria-label="User Profile">
                                           <img
                                               class="_9ofhsl"
                                               style="object-fit: cover; vertical-align: bottom;"
                                               aria-hidden="true"
-                                              alt="David User Profile"
-                                              src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fuser%20avatars%2F1596863197908.jpg?alt=media&token=a9ce07c3-b3d8-4cf1-898a-7d0740a7ecf5"
-                                              data-original-uri="https://a0.muscache.com/im/pictures/user/235ebc5c-fabd-4f8e-83e9-128e07240459.jpg?aki_policy=profile_large"
+                                              alt="{{currentUser.firstname}} User Profile"
+                                              [src]="imgSrc"
+                                              data-original-uri=""
                                           />
-                                          <div class="_15p4g025" style="background-image: url('https://a0.muscache.com/im/pictures/user/235ebc5c-fabd-4f8e-83e9-128e07240459.jpg?aki_policy=profile_large'); background-size: cover;"></div>
+                                          <div class="_15p4g025" style="background-image: url('{{imgSrc}}'); background-size: cover;"></div>
                                       </div>
                                   </div>
                               </div>
-                              <div class="_pdgm0p"><a href="/users/edit-photo" class="_gzog035">Update photo</a></div>
+                              <div class="_pdgm0p"><a href="/account/profile" class="_gzog035">Update photo</a></div>
                           </div>
                           <div class="_p03egf">
                               <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display: block; height: 24px; width: 24px; fill: currentcolor;" aria-hidden="true" role="presentation" focusable="false">
@@ -210,7 +210,7 @@ It is a long established fact that a reader will be distracted by the readable c
                           <div class="_16f6zsb"><div class="_1k2miji"></div></div>
                           <div class="_149ig5a">
                               <section>
-                                  <div class="_1i6o9hv">David confirmed</div>
+                                  <div class="_1i6o9hv" *ngIf="currentUser.firstname">{{currentUser.firstname}} confirmed</div>
                                   <div class="_p03egf">
                                       <div class="_dj903s">
                                           <div class="_l0bkzy6">
@@ -239,26 +239,26 @@ It is a long established fact that a reader will be distracted by the readable c
                                   <div class="_15vo2nls">
                                       <div class="_fvp3r0u">
                                           <div class="_1sn7185i">
-                                              <div class="_1h6n1zu" style="display: inline-block; vertical-align: bottom; height: 100%; width: 100%; min-height: 1px;" role="img" aria-busy="false" aria-label="David User Profile">
+                                              <div class="_1h6n1zu" style="display: inline-block; vertical-align: bottom; height: 100%; width: 100%; min-height: 1px;" role="img" aria-busy="false">
                                                   <img
                                                       class="_9ofhsl"
                                                       style="object-fit: cover; vertical-align: bottom;"
                                                       aria-hidden="true"
-                                                      alt="David User Profile"
-                                                      src="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fuser%20avatars%2F1596863197908.jpg?alt=media&token=a9ce07c3-b3d8-4cf1-898a-7d0740a7ecf5"
-                                                      data-original-uri="https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fuser%20avatars%2F1596863197908.jpg?alt=media&token=a9ce07c3-b3d8-4cf1-898a-7d0740a7ecf5"
+                                                      alt="{{currentUser.firstname}} User Profile"
+                                                      [src]="imgSrc"
+                                                      data-original-uri=""
                                                   />
-                                                  <div class="_15p4g025" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/semagh-987db.appspot.com/o/Work%2FEvents369%2Fcustomer%20App%2Fuser%20avatars%2F1596863197908.jpg?alt=media&token=a9ce07c3-b3d8-4cf1-898a-7d0740a7ecf5'); background-size: cover;"></div>
+                                                  <div class="_15p4g025" style="background-image: url('{{imgSrc}}'); background-size: cover;"></div>
                                               </div>
                                           </div>
                                       </div>
                                   </div>
                                   <div class="_1fopc40">
-                                      <div class="_a0kct9"><h1 tabindex="-1" class="_14i3z6h">Hi, I’m David</h1></div>
-                                      <div class="_u5okn1">Joined in 2021</div>
+                                      <div class="_a0kct9"><h1 tabindex="-1" class="_14i3z6h">Hi, I’m {{currentUser.firstname}}</h1></div>
+                                      <div class="_u5okn1">Joined in {{getYearJoined(currentUser.created_at)}}</div>
                                   </div>
                                   <div class="_14h4uoc">
-                                      <button type="button" class="_ejra3kg" data-veloute="user_profile_edit_button">Edit profile</button><span class="_nx67f0"><a href="/users/edit-photo" class="_gzog035">Update photo</a></span>
+                                      <button type="button" class="_ejra3kg" data-veloute="user_profile_edit_button">Edit profile</button><span class="_nx67f0"><a href="/account/profile" class="_gzog035">Update photo</a></span>
                                   </div>
                               </div>
                               <div class="_nx67f0">
@@ -288,7 +288,7 @@ It is a long established fact that a reader will be distracted by the readable c
                                                       ></path>
                                                   </svg>
                                               </span>
-                                              <span class="_1ax9t0a">Lives in Accra, Ghana</span>
+                                              <span class="_1ax9t0a">Lives in {{getCountry(currentUser.country)}}</span>
                                           </div>
                                       </div>
                                   </section>
@@ -297,7 +297,7 @@ It is a long established fact that a reader will be distracted by the readable c
                               <div class="_nx67f0">
                                   <div class="_149ig5a">
                                       <section>
-                                          <div class="_1i6o9hv">David confirmed</div>
+                                          <div class="_1i6o9hv">{{currentUser.firstname}} confirmed</div>
                                           <div class="_p03egf">
                                               <div class="_dj903s">
                                                   <div class="_l0bkzy6">
