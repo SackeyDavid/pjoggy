@@ -13,7 +13,7 @@
                                 <input type="file" class="photo-input" formControlName="photo" (change)="onFileSelected($event)" #photoUpload>
                                 <img [src]="imgSrc" alt="{{currentUser.name}}'s photo" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                              
                                 <!-- <img src="../../../../assets/images/avatar-placeholder.png" alt="" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                        -->
-                                <div class="avatar-edit"><i class="bi bi-pencil-fill"></i></div>
+                                <div class="avatar-edit" (click)="photoUpload.click()"><i class="bi bi-pencil-fill"></i></div>
                             </div>
                            
                         </div>

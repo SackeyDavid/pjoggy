@@ -188,7 +188,7 @@ section {
   }
 }
 
-@media (min-height: 700px) {
+@media (min-height: 768px) and (min-width: 1024px) {
   .contents {
     height: inherit !important;
   }
