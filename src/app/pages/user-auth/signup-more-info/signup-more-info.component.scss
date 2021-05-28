@@ -189,6 +189,12 @@ section {
   }
 }
 
+@media (min-height: 700px) {
+  .contents {
+    height: inherit !important;
+  }
+}
+
 .height {
   height: inherit;
 }

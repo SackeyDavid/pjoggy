@@ -188,6 +188,12 @@ section {
   }
 }
 
+@media (min-height: 700px) {
+  .contents {
+    height: inherit !important;
+  }
+}
+
 
 img.bg {
   /* Set rules to fill background */
