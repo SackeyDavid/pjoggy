@@ -14,6 +14,7 @@ export class UserAccountService {
   editProfileUrl: string;
   getUserUrl: string;
   enableTwoFaUrl: string;
+  disableTwoFaUrl: string;
   changePasswordUrl: string;
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
@@ -22,6 +23,7 @@ export class UserAccountService {
     this.editProfileUrl = this.endpoint.apiHost + '/v1/editProfile'; 
     this.getUserUrl = this.endpoint.apiHost + '/user'; 
     this.enableTwoFaUrl = this.endpoint.apiHost + '/v1/enableTwoWayAuth'; 
+    this.disableTwoFaUrl = this.endpoint.apiHost + '/v1/disableTwoWayAuth'; 
     this.changePasswordUrl = this.endpoint.apiHost + '/v1/changePassword/'; 
   }
 
@@ -42,12 +44,6 @@ export class UserAccountService {
         res => {
           console.log('edit_profile_ok: ', res);
           resolve(res);
-          // if (_.toLower(res.message) == 'ok') {
-          //   resolve(res.message); 
-          // }
-          // else {
-          //   resolve(0);
-          // }
         },
         err => {
           console.error('edit_profile_error: ', err);
@@ -81,15 +77,25 @@ export class UserAccountService {
         res => {
           console.log('edit_event_ok: ', res);
           resolve(res);
-          // if (_.toLower(res.message) == 'ok') {
-          //   resolve(true);            
-          // }
-          // else {
-          //   resolve(false);
-          // }
         },
         err => {
           console.error('edit_event_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  disableTwoFa(): Promise<any> {
+    console.log(this.disableTwoFaUrl);
+    return new Promise((resolve, reject) => {     
+      this.http.post<any>(this.disableTwoFaUrl, {}, { headers: this.headers}).subscribe(
+        res => {
+          console.log('disable_twofa_ok: ', res);
+          resolve(res);
+        },
+        err => {
+          console.error('disable_twofa_error: ', err);
           reject(err);
         }
       );

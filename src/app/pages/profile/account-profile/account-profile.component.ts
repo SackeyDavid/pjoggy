@@ -9,7 +9,7 @@ import { UserAccountService } from 'src/app/services/user-account/user-account.s
   styleUrls: ['./account-profile.component.scss']
 })
 export class AccountProfileComponent implements OnInit {
-
+ 
   isLoading: boolean;
   isSending: boolean;
   isPhotoSet: boolean;

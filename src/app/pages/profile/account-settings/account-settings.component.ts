@@ -69,6 +69,8 @@ export class AccountSettingsComponent implements OnInit {
     else {
       this.twoFaForm.controls.country_code.disable();
       this.twoFaForm.controls.phone.disable();
+
+      this.disableTwoFa();
     }
   }
 
@@ -90,6 +92,18 @@ export class AccountSettingsComponent implements OnInit {
           console.log(err)
           this.isSendingTwoFA = false;
           this.twoFaErrorMsgs = err.error;
+        }
+      );
+  }
+
+  disableTwoFa() {
+    this.userAccountService.disableTwoFa()
+      .then(
+        res => {
+          console.log(res);          
+        },
+        err => {
+          console.log(err)
         }
       );
   }
