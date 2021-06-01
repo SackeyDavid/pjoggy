@@ -54,7 +54,7 @@
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Password</label>
                                 <input type="password" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="" formControlName="password" required>
                             </div>
-                            <small style="margin-left: 0.3rem !important;"><span class="text-muted">Password must be at least 8 characters</span></small><br>
+                            <small style="margin-left: 0.3rem !important;"><span class="text-muted">Password must be at least 3 characters</span></small><br>
                             <small style="margin-left: 0.3rem !important;"><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
                         </div>
                     </div>

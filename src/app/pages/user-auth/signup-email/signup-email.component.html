@@ -66,15 +66,26 @@
                 </form>
                 <!-- /.signup form -->
                 
-                <div *ngIf="showPrompt" class="row text-center">
-                  <div class="col alert alert-primary" style="margin-bottom: 0rem; margin-top: 1rem;">
-                    <small class="text-primary">Please confirm your email</small>
+                <div *ngIf="showPrompt" class="row text-center mt-3">
+                  <div class="col-lg-12">
+                    <!-- <div class="card my-5"> -->
+                        <div class="alert alert-primary text-center">
+                            <p style="margin-bottom: 0rem !important;">Please check your email</p>
+                            <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p>
+                        </div>
+                      <!-- </div> -->
+                  </div>
+                  <div class="col-lg-12 my-3">
+                    <button type="submit" class="register-button float-right btn btn-primary form-element form-btn" (click)="resend()">
+                      <span *ngIf="isResending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Resend
+                    </button>
                   </div>
                 </div>
   
                 <span class="text-center mx-5">
                   <p>
-                    <div class="separator">or sign up with</div>
+                    <div class="separator">or sign in with</div>
                   <p></p>
                 </span>
 

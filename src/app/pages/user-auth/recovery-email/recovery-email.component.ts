@@ -13,12 +13,12 @@ import { UserAuthService } from '../../../services/user-auth/user-auth.service'
 export class RecoveryEmailComponent implements OnInit {
 
   isSending: boolean = false;
-  errorMsgs: any = {};
+  errorMsgs: any;
   showPrompt: Boolean = false;
+  isResending: boolean = false;
 
   images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
   image = this.images[this.getRandomInt(0, 5)]
-
 
   recoveryForm: FormGroup = new FormGroup({});
 
@@ -51,6 +51,22 @@ export class RecoveryEmailComponent implements OnInit {
       );
   }
 
+  resend(){
+    this.isResending = true;
+
+    this.auth.resendRecovery().subscribe(
+      res => {
+        console.log(res);
+        sessionStorage.setItem('registration_id', res.id);        
+        this.isResending = false;
+      },
+      err => {
+        console.log(err)
+        this.isResending = false;
+        this.errorMsgs = err.error;
+      }
+    );
+  }
   
   getRandomInt(min: any, max: any) {
     min = Math.ceil(min);

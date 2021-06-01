@@ -37,7 +37,7 @@ export class RecoveryInvalidComponent implements OnInit {
     this.auth.resendRecoveryLink(this.encryptionString).subscribe(
       res => {
         console.log(res);     
-        if (res.message == "Ok") this.showPrompt = true; 
+        if (res.message == "Ok") this.showPrompt = false; 
       },
       err => {
         console.log(err)

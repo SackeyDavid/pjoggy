@@ -559,7 +559,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="mt-3">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Account Type</label>
                                 <select type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="usertype" required>
@@ -567,7 +567,14 @@
                                     <option value="31">Organization</option>
                                 </select>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small> -->
+                            <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
+                        </div> -->
+                        <div class="col-lg-6">
+                            <div class="mt-3">
+                                <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Email</label>
+                                <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="email">
+                            </div>
+                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small> -->
                         </div>
                     </div>
 

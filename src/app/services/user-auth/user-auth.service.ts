@@ -22,8 +22,6 @@ export class UserAuthService {
     
     }
 
-
-
   regsiterUser(user: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'register', user);      
   }
@@ -53,8 +51,12 @@ export class UserAuthService {
     return this.http.post<any>(this.baseUrl + 'complete_registration/' + sessionStorage.getItem('registration_id'), body);      
   }
 
-  resendActivationLink(ecncryption: any): Observable<any> {
+  resendActivationLink(ecncryption: string): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'resend_verification_link/' + ecncryption, {});      
+  }
+
+  resendActivation(): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'resend_verification_link/' + sessionStorage.getItem('registration_id') , {});      
   }
 
   resendRecoveryLink(ecncryption: any): Observable<any> {
@@ -70,8 +72,10 @@ export class UserAuthService {
   // }
   sendMagicLink(body: any): Observable<any> {
     return this.http.post<any>(this.sendMagicUrl, body);  
-
   }
 
+  resendRecovery() {
+    return this.http.post<any>(this.baseUrl + this.resendRecoveryLink, {});
+  }
 
 }

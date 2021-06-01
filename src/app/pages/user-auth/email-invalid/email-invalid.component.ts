@@ -36,7 +36,7 @@ export class EmailInvalidComponent implements OnInit {
     this.auth.resendActivationLink(this.encryptionString).subscribe(
       res => {
         console.log(res);     
-        if (res.message == "Ok") this.showPrompt = true; 
+        if (res.message == "Ok") this.showPrompt = false; 
       },
       err => {
         console.log(err)

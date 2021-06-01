@@ -51,9 +51,10 @@ export class AccountProfileComponent implements OnInit {
       country_code: new FormControl(code),            
       phone: new FormControl(number, [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]),            
       dob: new FormControl(this.currentUser?.dob),            
-      usertype: new FormControl(this.currentUser?.usertype),            
+      // usertype: new FormControl(this.currentUser?.usertype),            
       country: new FormControl(this.currentUser?.country),            
       gender: new FormControl(this.currentUser?.gender),      
+      email: new FormControl({value: this.currentUser?.email, disabled: true}),      
       photo: new FormControl(''),      
     })
 
@@ -70,7 +71,7 @@ export class AccountProfileComponent implements OnInit {
       lastname: this.f.lastname.value,
       country: this.f.country.value,
       phone: this.formatPhoneNo(),
-      usertype: this.f.usertype.value,
+      // usertype: this.f.usertype.value,
       dob: this.dtService.formatDate(this.f.dob.value),
       gender: this.f.gender.value,
     };
