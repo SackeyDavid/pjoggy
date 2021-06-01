@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatetimeFormatterService } from 'src/app/services/datetime-formatter/datetime-formatter.service';
 import { UserAccountService } from 'src/app/services/user-account/user-account.service';
 
@@ -19,7 +20,11 @@ export class AccountProfileComponent implements OnInit {
   formBuilder: any;
   currentUser: any;
 
-  constructor(private userAccountsService: UserAccountService, private dtService: DatetimeFormatterService) {
+  constructor(
+    private userAccountsService: UserAccountService, 
+    private dtService: DatetimeFormatterService,
+    private _snackBar: MatSnackBar
+  ) {
     this.isLoading = false;
     this.isSending = false;
     this.isPhotoSet = false;
@@ -86,7 +91,8 @@ export class AccountProfileComponent implements OnInit {
       .then(
         res => {
           console.log(res);
-          this.isSending = false
+          this.isSending = false;
+          this.openSnackBar();
         },
         err => {
           console.log(err)
@@ -143,9 +149,15 @@ export class AccountProfileComponent implements OnInit {
     );
   }
 
+  openSnackBar() {
+    this._snackBar.open('Profile edit success', 'x', {
+      duration: 3000
+    });
+  }
+
   getCountry(country: string) {
     return 'Accra, Ghana'
-  }
+  } 
 
 }
 

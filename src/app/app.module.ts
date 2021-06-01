@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { OwlModule } from 'ngx-owl-carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -202,6 +203,7 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
     MatSelectModule,
     MatNativeDateModule,
     MatStepperModule,
+    MatSnackBarModule,
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,

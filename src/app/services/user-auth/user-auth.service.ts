@@ -34,6 +34,10 @@ export class UserAuthService {
     return this.http.post<any>(this.baseUrl + 'twoWayAuthenticationVerification/' + sessionStorage.getItem('user_id') + '/' + code + '/' + sessionStorage.getItem('user_phone'), {});      
   }
 
+  resendPhoneCode(): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'sendTwoWayAuthenticationCode/' + sessionStorage.getItem('user_id') + '/' + sessionStorage.getItem('user_phone'), {});      
+  }
+
   accountRecovery(user: any): Observable<any> {
     console.log(user);
     return this.http.post<any>(this.baseUrl + 'forgotPassword', user);      

@@ -57,21 +57,17 @@ export class PhoneAuthenticationComponent implements OnInit {
       );
   }
 
-  resend(){
-    this.isResending = true;
+  resend(e: any){
+    e.preventDefault();
 
-    // this.auth.resendPhoneAuth().subscribe(
-    //   res => {
-    //     console.log(res);
-    //     sessionStorage.setItem('registration_id', res.id);        
-    //     this.isResending = false;
-    //   },
-    //   err => {
-    //     console.log(err)
-    //     this.isResending = false;
-    //     this.errorMsgs = err.error;
-    //   }
-    // );
+    this.auth.resendPhoneCode().subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err)
+      }
+    );
   }
   
   getRandomInt(min: any, max: any) {

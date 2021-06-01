@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserAccountService } from 'src/app/services/user-account/user-account.service';
 
@@ -29,7 +30,8 @@ export class AccountSettingsComponent implements OnInit {
 
   constructor(
     private userAccountService: UserAccountService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
     ) { 
     this.isLoading = false;
     this.isSendingPassword = false;
@@ -87,6 +89,7 @@ export class AccountSettingsComponent implements OnInit {
           console.log(res);
           this.twoFaErrorMsgs = [];
           this.isSendingTwoFA = false;
+          this.openSnackBar('2fa enabled');
         },
         err => {
           console.log(err)
@@ -100,7 +103,8 @@ export class AccountSettingsComponent implements OnInit {
     this.userAccountService.disableTwoFa()
       .then(
         res => {
-          console.log(res);          
+          console.log(res);
+          this.openSnackBar('2fa disabled');
         },
         err => {
           console.log(err)
@@ -123,8 +127,8 @@ export class AccountSettingsComponent implements OnInit {
           console.log(res);
           this.isSendingPassword = false;
           this.passwordErrorMsgs = [];
-          this.passwordMsg = res.message;
-          
+          this.passwordMsg = res.message;          
+          this.openSnackBar('Password reset success');
         },
         err => {
           console.log(err)
@@ -183,5 +187,11 @@ export class AccountSettingsComponent implements OnInit {
     }
     else return phone;
   }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'x', {
+      duration: 3000
+    });
+  }  
 
 }
