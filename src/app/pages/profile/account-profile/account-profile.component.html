@@ -26,24 +26,30 @@
 
                     <div class="row">
                         <div class="col">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">First Name</label>
                                 <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="firstname" required>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small> -->
+                            <small *ngIf="errorMsgs?.errors.firstname"><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small>
+                            <small *ngIf="saved && f.firstname.errors" id="titleHelp" class="text-danger">
+                                First name is required.
+                            </small>
                         </div>
                         <div class="col">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Last Name</label>
                                 <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="lastname" required>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small> -->
+                            <small *ngIf="errorMsgs?.errors.lastname"><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
+                            <small *ngIf="saved && f.lastname.errors" id="titleHelp" class="text-danger">
+                                Last name is required.
+                            </small>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Country</label>
                                 <select class="form-control form-element" id="floatingSelect1" style="height: 42px;" formControlName="country" required>
                                     <option value="AF">Afghanistan</option>
@@ -300,12 +306,12 @@
                                     <option value="ZW">Zimbabwe</option>
                                 </select>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.country" class="text-danger">{{x}}</span></small> -->
+                            <small *ngIf="errorMsgs?.errors.country"><span *ngFor="let x of errorMsgs?.errors?.country" class="text-danger">{{x}}</span></small>
                         </div>
                         <div class="col">
                             <div class="row gx-1">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                                    <div class="mt-3">
+                                    <div class="mt-2">
                                         <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Country Code</label>
                                         <select class="form-control form-element" id="floatingSelect1" style="height: 42px;" formControlName="country_code" required>
                                             <option data-countryCode="DZ" value="213">Algeria (+213)</option>
@@ -526,41 +532,44 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <div class="mt-3">
+                                    <div class="mt-2">
                                         <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Phone No.</label>
                                         <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="phone" required>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small> -->
+                            <small *ngIf="errorMsgs?.errors.phone"><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                            <small *ngIf="saved && f.phone.errors" id="titleHelp" class="text-danger">
+                                Phone no. format is not correct.
+                            </small>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Date of Birth</label>
                                 <input type="text" class="form-control form-element" id="floatingStartDate" aria-describedby="titleHelp"
                                     formControlName="dob" [owlDateTime]="sd" [owlDateTimeTrigger]="sd">
                                 <owl-date-time #sd pickerType="calendar"></owl-date-time>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small> -->
+                            <small *ngIf="errorMsgs?.errors.dob"><span *ngFor="let x of errorMsgs?.errors?.dob" class="text-danger">{{x}}</span></small>
                         </div>
                         <div class="col">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Gender</label>
                                 <select type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="gender" required>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small> -->
+                            <small *ngIf="errorMsgs?.errors.gender"><span *ngFor="let x of errorMsgs?.errors?.gender" class="text-danger">{{x}}</span></small>
                         </div>
                     </div>
 
                     <div class="row">
                         <!-- <div class="col-lg-6">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Account Type</label>
                                 <select type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="usertype" required>
                                     <option value="30">Individual</option>
@@ -570,11 +579,10 @@
                             <small><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
                         </div> -->
                         <div class="col-lg-6">
-                            <div class="mt-3">
+                            <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Email</label>
                                 <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="email">
                             </div>
-                            <!-- <small><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small> -->
                         </div>
                     </div>
 

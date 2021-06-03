@@ -36,7 +36,10 @@
                               <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Email</label>
                               <input type="email" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="name@example.com" formControlName="email" required>
                             </div>
-                            <small style="margin-left: 0.3rem !important;"><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                            <small *ngFor="let x of errorMsgs?.errors?.email"><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                            <small *ngIf="saved && registerForm.controls.email.errors" class="text-danger">
+                              Email format is incorrect.
+                            </small>
                         </div>
                     </div>  
                     
@@ -54,7 +57,7 @@
                       </div>
                     </div> -->
     
-                    <div class="row mt-4">
+                    <div class="row mt-5">
                         <div class="col mb-1">
                           <button type="submit" class="register-button float-right btn btn-primary form-element form-btn">
                             <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -85,7 +88,7 @@
   
                 <span class="text-center mx-5">
                   <p>
-                    <div class="separator">or sign in with</div>
+                    <div class="separator">or sign up with</div>
                   <p></p>
                 </span>
 

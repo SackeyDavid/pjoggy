@@ -13,6 +13,7 @@ import { UserAuthService } from '../../../services/user-auth/user-auth.service'
 export class PasswordResetComponent implements OnInit {
 
   isSending: boolean = false;
+  saved: boolean = false;
   errorMsgs: any = {};
   showPrompt: Boolean = false;
   
@@ -32,8 +33,8 @@ export class PasswordResetComponent implements OnInit {
     document.getElementById('image-bg')?.setAttribute('src', this.image)
 
     this.resetForm = new FormGroup({
-      new_password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      new_password_confirmation: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      new_password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      new_password_confirmation: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
     this.url = this.router.url
@@ -43,20 +44,23 @@ export class PasswordResetComponent implements OnInit {
 
   onSubmit(){
     console.log(this.resetForm.value);
-    this.isSending = true;
-    
-    this.auth.resetPassword(this.resetForm.value, this.encryptionString)
-      .subscribe(
-        res => {
-          console.log(res);
-          if (res.message == "Ok") this.showPrompt = true;
-        },
-        err => {
-          console.log(err);
-          this.isSending = false;
-          this.errorMsgs = err.error;
-        }
-      );
+    this.saved = true;
+
+    if (this.resetForm.valid) {
+      this.isSending = true;    
+      this.auth.resetPassword(this.resetForm.value, this.encryptionString)
+        .subscribe(
+          res => {
+            console.log(res);
+            if (res.message == "Ok") this.showPrompt = true;
+          },
+          err => {
+            console.log(err);
+            this.isSending = false;
+            this.errorMsgs = err.error;
+          }
+        );
+    }
   }
 
   

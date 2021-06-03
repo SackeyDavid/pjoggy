@@ -13,6 +13,7 @@ import { UserAuthService } from 'src/app/services/user-auth/user-auth.service';
 export class SignupEmailComponent implements OnInit {
 
   isSending: boolean = false;
+  saved: boolean = false;
   errorMsgs: any = {};
   showPrompt: Boolean = false;
   isResending: boolean = false;
@@ -27,27 +28,32 @@ export class SignupEmailComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('image-bg')?.setAttribute('src', this.image)
+
+    const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.registerForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
       // type: new FormControl('30', Validators.required)
     });
   }  
 
   onSubmit(){
-    this.isSending = true;
+    this.saved = true;
 
-    this.auth.singupEmail(this.registerForm.value).subscribe(
-      res => {
-        console.log(res);
-        sessionStorage.setItem('registration_id', res.id);        
-        if(res.message == 'Ok') this.showPrompt = true;
-      },
-      err => {
-        console.log(err)
-        this.isSending = false;
-        this.errorMsgs = err.error;
-      }
-    );
+    if (this.registerForm.valid) {
+      this.isSending = true;
+      this.auth.singupEmail(this.registerForm.value).subscribe(
+        res => {
+          console.log(res);
+          sessionStorage.setItem('registration_id', res.id);        
+          if(res.message == 'Ok') this.showPrompt = true;
+        },
+        err => {
+          console.log(err)
+          this.isSending = false;
+          this.errorMsgs = err.error;
+        }
+      );
+    }
   }
 
   resend(){

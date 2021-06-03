@@ -15,6 +15,7 @@ export class AccountProfileComponent implements OnInit {
   isSending: boolean;
   isPhotoSet: boolean;
   saved: boolean;
+  errorMsgs: any;
   form: FormGroup = new FormGroup({});
   imgSrc: string;
   formBuilder: any;
@@ -51,10 +52,10 @@ export class AccountProfileComponent implements OnInit {
     }
 
     this.form = new FormGroup({
-      firstname: new FormControl(this.currentUser?.firstname),            
-      lastname: new FormControl(this.currentUser?.lastname),            
+      firstname: new FormControl(this.currentUser?.firstname, Validators.required),            
+      lastname: new FormControl(this.currentUser?.lastname, Validators.required),            
       country_code: new FormControl(code),            
-      phone: new FormControl(number, [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]),            
+      phone: new FormControl(number, [Validators.minLength(9), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),            
       dob: new FormControl(this.currentUser?.dob),            
       // usertype: new FormControl(this.currentUser?.usertype),            
       country: new FormControl(this.currentUser?.country),            
@@ -84,22 +85,25 @@ export class AccountProfileComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.getFormData());
-    this.isSending = true;
+    console.log(this.getFormData());    
+    this.saved = true;
 
-    this.userAccountsService.editProfile(this.getFormData(), this.f.photo.value)
-      .then(
-        res => {
-          console.log(res);
-          this.isSending = false;
-          this.openSnackBar();
-        },
-        err => {
-          console.log(err)
-          this.isSending = false;
-          // this.errorMsgs = err.error;
-        }
-      );
+    if (this.form.valid) {
+      this.isSending = true;
+      this.userAccountsService.editProfile(this.getFormData(), this.f.photo.value)
+        .then(
+          res => {
+            console.log(res);
+            this.isSending = false;
+            this.openSnackBar();
+          },
+          err => {
+            console.log(err)
+            this.isSending = false;
+            this.errorMsgs = err.error;
+          }
+        );
+    }
   }
 
   formatPhoneNo(){

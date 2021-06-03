@@ -13,6 +13,7 @@ import { UserAuthService } from '../../../services/user-auth/user-auth.service'
 export class RecoveryEmailComponent implements OnInit {
 
   isSending: boolean = false;
+  saved: boolean = false;
   errorMsgs: any;
   showPrompt: Boolean = false;
   isResending: boolean = false;
@@ -28,27 +29,32 @@ export class RecoveryEmailComponent implements OnInit {
   ngOnInit(): void {
     document.getElementById('image-bg')?.setAttribute('src', this.image);
     
+    const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.recoveryForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
     });
   }
 
   onSubmit(){
     console.log(this.recoveryForm.value);
-    this.isSending = true;
-    
-    this.auth.accountRecovery(this.recoveryForm.value)
-      .subscribe(
-        res => {
-          console.log(res);
-          if (res.message == "OK") this.showPrompt = true;
-        },
-        err => {
-          console.log(err);
-          this.isSending = false;
-          this.errorMsgs = err.error;
-        }
-      );
+    this.saved = true;
+
+    if (this.recoveryForm.valid) {
+      this.isSending = true;    
+      this.auth.accountRecovery(this.recoveryForm.value)
+        .subscribe(
+          res => {
+            console.log(res);
+            sessionStorage.setItem('registration_id', res.id);
+            if (res.message == "OK") this.showPrompt = true;
+          },
+          err => {
+            console.log(err);
+            this.isSending = false;
+            this.errorMsgs = err.error;
+          }
+        );
+    }
   }
 
   resend(){

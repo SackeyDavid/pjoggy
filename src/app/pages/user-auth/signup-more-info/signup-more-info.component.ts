@@ -13,6 +13,7 @@ import { UserAuthService } from 'src/app/services/user-auth/user-auth.service';
 export class SignupMoreInfoComponent implements OnInit {
 
   isSending: boolean = false;
+  saved: boolean = false;
   errorMsgs: any = {};
   showPrompt: Boolean = false;
 
@@ -48,29 +49,32 @@ export class SignupMoreInfoComponent implements OnInit {
 
   onSubmit(){
     console.log(this.registerForm.value);
-    this.isSending = true;
+    this.saved = true;
 
-    this.auth.singupMoreInfo(this.registerForm.value).subscribe(
-      res => {
-        console.log(res);        
-        if(res.message == 'Ok') this.showPrompt = true;
-        
-        if (res.token) {
-          sessionStorage.setItem('x_auth_token', res.token);
-          sessionStorage.setItem('events_user_id', res.user.id);
-          sessionStorage.setItem('events_user_name', res.user.name);
-          sessionStorage.setItem('events_user_email', res.user.email);
+    if (this.registerForm.valid) {
+      this.isSending = true;
+      this.auth.singupMoreInfo(this.registerForm.value).subscribe(
+        res => {
+          console.log(res);        
+          if(res.message == 'Ok') this.showPrompt = true;
+          
+          if (res.token) {
+            sessionStorage.setItem('x_auth_token', res.token);
+            sessionStorage.setItem('events_user_id', res.user.id);
+            sessionStorage.setItem('events_user_name', res.user.name);
+            sessionStorage.setItem('events_user_email', res.user.email);
 
-          this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/');
+          }
+          
+        },
+        err => {
+          console.log(err)
+          this.isSending = false;
+          this.errorMsgs = err.error;
         }
-        
-      },
-      err => {
-        console.log(err)
-        this.isSending = false;
-        this.errorMsgs = err.error;
-      }
-    );
+      );
+    }
   }
 
   

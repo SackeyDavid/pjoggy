@@ -253,8 +253,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <small><span *ngFor="let x of twoFaErrorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
-                                    <div class="row mt-1">
+                                    <small *ngIf="twoFaErrorMsgs?.errors.phone"><span *ngFor="let x of twoFaErrorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="twoFaSaved && twoFaForm.controls.phone.errors" id="titleHelp" class="text-danger">
+                                        Phone no. format is not correct.
+                                    </small>
+                                    
+                                    <div class="row mt-4">
                                         <div class="col">
                                             <button class="account-button btn btn-primary form-element form-btn" [disabled]="!twoFA">
                                                 <span *ngIf="isSendingTwoFA" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
@@ -276,13 +280,22 @@
                         <hr>
 
                         <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                            <div *ngIf="passwordMsg" class="row text-center">
+                                <div class="col-lg-6 alert alert-danger">
+                                  <small>{{passwordMsg}}</small>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mt-1">
                                         <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Current Password</label>
                                         <input type="password" class="form-control form-element" id="currentPassword" style="height: 42px;" formControlName="current_password" required>
                                     </div>
-                                    <small *ngIf="passwordErrorMsgs?.errors.current_password"><span *ngFor="let x of passwordErrorMsgs?.errors?.current_password" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="passwordErrorMsgs?.errors?.current_password"><span *ngFor="let x of passwordErrorMsgs?.errors?.current_password" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="passwordSaved && passwordForm.controls.current_password.errors" id="titleHelp" class="text-danger">
+                                        Current password is required.
+                                    </small>
                                 </div>
                             </div>
                             <div class="row">
@@ -291,7 +304,10 @@
                                         <label class="form-label" for="floatingFname" style="margin-bottom: 0;">New Password</label>
                                         <input type="password" class="form-control form-element" id="newPassword" style="height: 42px;" formControlName="new_password" required>
                                     </div>
-                                    <small *ngIf="passwordErrorMsgs?.errors.new_password"><span *ngFor="let x of passwordErrorMsgs?.errors?.new_password" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="passwordErrorMsgs?.errors?.new_password"><span *ngFor="let x of passwordErrorMsgs?.errors?.new_password" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="passwordSaved && passwordForm.controls.new_password.errors" id="titleHelp" class="text-danger">
+                                        Password length is incorrect.
+                                    </small>
                                 </div>
                             </div>
                             <div class="row">
@@ -300,10 +316,13 @@
                                         <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Confirm New Password</label>
                                         <input type="password" class="form-control form-element" id="confirmPassword" style="height: 42px;" formControlName="new_password_confirmation" required>
                                     </div>
-                                    <small *ngIf="passwordErrorMsgs?.errors.new_password_confirmation"><span *ngFor="let x of passwordErrorMsgs?.errors?.new_password_confirmation" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="passwordErrorMsgs?.errors?.new_password_confirmation"><span *ngFor="let x of passwordErrorMsgs?.errors?.new_password_confirmation" class="text-danger">{{x}}</span></small>
+                                    <small *ngIf="passwordSaved && passwordForm.controls.new_password_confirmation.errors" id="titleHelp" class="text-danger">
+                                        Password length is incorrect.
+                                    </small>
                                 </div>
                             </div>
-                            <div class="row mt-2">
+                            <!-- <div class="row mt-2">
                                 <div class="col-lg-6">
                                     <div class="my-2">
                                         <div *ngIf="passwordMsg != ''" class="alert alert-danger">
@@ -311,8 +330,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
+                            </div> -->
+                            <div class="row mt-4">
                                 <div class="col">
                                     <button class="account-button btn btn-primary form-element form-btn">
                                         <span *ngIf="isSendingPassword" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>

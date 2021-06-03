@@ -21,7 +21,8 @@ export class AccountSettingsComponent implements OnInit {
   passwordMsg: string;
   passwordErrorMsgs: any;
   twoFaErrorMsgs: any;
-  saved: boolean;
+  passwordSaved: boolean;
+  twoFaSaved: boolean;
   twoFaForm: FormGroup = new FormGroup({});
   passwordForm: FormGroup = new FormGroup({});
   formBuilder: any;
@@ -37,7 +38,8 @@ export class AccountSettingsComponent implements OnInit {
     this.isSendingPassword = false;
     this.isSendingTwoFA = false;
     this.passwordMsg = '';
-    this.saved = false;
+    this.passwordSaved = false;
+    this.twoFaSaved = false;
   }
 
   ngOnInit(): void {
@@ -49,15 +51,15 @@ export class AccountSettingsComponent implements OnInit {
   initTwoFaForm(): void {    
     this.twoFaForm = new FormGroup({
       country_code: new FormControl(),            
-      phone: new FormControl(),            
+      phone: new FormControl('', [Validators.minLength(9), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]), 
     })
   }
 
   initPasswordForm(): void {
     this.passwordForm = new FormGroup({
-      current_password: new FormControl(''),            
-      new_password: new FormControl('', Validators.minLength(8)),            
-      new_password_confirmation: new FormControl('', Validators.minLength(8)),            
+      current_password: new FormControl('', Validators.required),            
+      new_password: new FormControl('', [Validators.minLength(8), Validators.required]),            
+      new_password_confirmation: new FormControl('', [Validators.minLength(8), Validators.required]),            
     })
   }
 
@@ -78,25 +80,27 @@ export class AccountSettingsComponent implements OnInit {
 
   onTwoFaSubmit() {
     let formatedPhone = this.formatPhoneNo(this.twoFaForm.controls.country_code.value, this.twoFaForm.controls.phone.value);
-    console.log(formatedPhone);
-    this.isSendingTwoFA = true;
-
+    console.log(formatedPhone);    
     let phoneData = { phone: formatedPhone };
 
-    this.userAccountService.enableTwoFA(phoneData)
-      .then(
-        res => {
-          console.log(res);
-          this.twoFaErrorMsgs = [];
-          this.isSendingTwoFA = false;
-          this.openSnackBar('2fa enabled');
-        },
-        err => {
-          console.log(err)
-          this.isSendingTwoFA = false;
-          this.twoFaErrorMsgs = err.error;
-        }
-      );
+    this.twoFaSaved = true;
+    if (this.twoFaForm.valid) {
+      this.isSendingTwoFA = true;
+      this.userAccountService.enableTwoFA(phoneData)
+        .then(
+          res => {
+            console.log(res);
+            this.twoFaErrorMsgs = [];
+            this.isSendingTwoFA = false;
+            this.openSnackBar('2fa enabled');
+          },
+          err => {
+            console.log(err)
+            this.isSendingTwoFA = false;
+            this.twoFaErrorMsgs = err.error;
+          }
+        );
+    }
   }
 
   disableTwoFa() {
@@ -112,30 +116,39 @@ export class AccountSettingsComponent implements OnInit {
       );
   }
 
-  onPasswordSubmit(){
-    this.isSendingPassword = true;
-
+  onPasswordSubmit(){ 
+    this.passwordSaved = true;   
     let passwordData = {
       new_password: this.passwordForm.controls.new_password.value,
       new_password_confirmation: this.passwordForm.controls.new_password_confirmation.value,
       current_password: this.passwordForm.controls.current_password.value,
     }
 
-    this.userAccountService.changePassword(passwordData, this.userId)
-      .then(
-        res => {
-          console.log(res);
-          this.isSendingPassword = false;
-          this.passwordErrorMsgs = [];
-          this.passwordMsg = res.message;          
-          this.openSnackBar('Password reset success');
-        },
-        err => {
-          console.log(err)
-          this.isSendingPassword = false;
-          this.passwordErrorMsgs = err.error;
-        }
-      );
+    if (this.passwordForm.valid) {
+      this.isSendingPassword = true;
+      this.userAccountService.changePassword(passwordData, this.userId)
+        .then(
+          res => {
+            console.log(res);
+            this.isSendingPassword = false;
+            this.passwordErrorMsgs = [];
+
+            if (res.message == "OK") {
+              this.openSnackBar('Password reset success');
+              this.passwordMsg = '';
+            }
+            else {
+              this.passwordMsg = res.message;
+              console.log(res.message);
+            }            
+          },
+          err => {
+            console.log(err)
+            this.isSendingPassword = false;
+            this.passwordErrorMsgs = err.error;
+          }
+        );
+    }
   }
  
   getUser(): void {

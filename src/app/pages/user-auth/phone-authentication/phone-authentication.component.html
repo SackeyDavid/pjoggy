@@ -32,13 +32,16 @@
                       <div class="col">
                         <div class="mt-3">
                           <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Conifirmation Code</label>
-                          <input type="email" class="form-control form-element" id="floatingFname" placeholder="0000" formControlName="confirmationCode" style="height: 42px;" required>
+                          <input type="email" class="form-control form-element" id="floatingFname" placeholder="0000" formControlName="confirmationCode" style="height: 42px;" maxlength="4" required>
                         </div>
-                        <small><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                        <small *ngFor="let x of errorMsgs?.errors?.confirmationCode"><span *ngFor="let x of errorMsgs?.errors?.confirmationCode" class="text-danger">{{x}}</span></small>
+                        <small *ngIf="saved && authenticationForm.controls.confirmationCode.errors" class="text-danger">
+                          Code should be 4 digits.
+                        </small>
                       </div>
                     </div>                                        
                     
-                    <div class="row mt-4">
+                    <div class="row mt-5">
                       <div class="col">
                         <button type="submit" class="float-right register-button btn btn-primary form-element form-btn">
                           <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

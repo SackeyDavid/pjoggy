@@ -13,6 +13,7 @@ import { UserAuthService } from '../../../services/user-auth/user-auth.service'
 export class PhoneAuthenticationComponent implements OnInit {
 
   isSending: boolean = false;
+  saved: boolean = false;
   errorMsgs: any;
   isResending: boolean = false;
 
@@ -34,27 +35,30 @@ export class PhoneAuthenticationComponent implements OnInit {
 
   onSubmit(){
     console.log(this.authenticationForm.value);
-    this.isSending = true;
-    
-    this.auth.authenticatePhone(this.authenticationForm.value.confirmationCode)
-      .subscribe(
-        res => {
-          console.log(res);
-          if (res.token) {
-            sessionStorage.setItem('x_auth_token', res.token);
-            sessionStorage.setItem('events_user_id', res.user.id);
-            sessionStorage.setItem('events_user_name', res.user.name);
-            sessionStorage.setItem('events_user_email', res.user.email);
+    this.saved = true;
 
-            this.router.navigateByUrl('/');
+    if (this.authenticationForm.valid) {      
+      this.isSending = true;    
+      this.auth.authenticatePhone(this.authenticationForm.value.confirmationCode)
+        .subscribe(
+          res => {
+            console.log(res);
+            if (res.token) {
+              sessionStorage.setItem('x_auth_token', res.token);
+              sessionStorage.setItem('events_user_id', res.user.id);
+              sessionStorage.setItem('events_user_name', res.user.name);
+              sessionStorage.setItem('events_user_email', res.user.email);
+
+              this.router.navigateByUrl('/');
+            }
+          },
+          err => {
+            console.log(err);
+            this.isSending = false;
+            this.errorMsgs = err.error;
           }
-        },
-        err => {
-          console.log(err);
-          this.isSending = false;
-          this.errorMsgs = err.error;
-        }
-      );
+        );
+    }
   }
 
   resend(e: any){

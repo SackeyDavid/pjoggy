@@ -20,7 +20,7 @@
               <!-- lofin form -->
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">                
 
-                <div *ngIf="errorMsgs.message" class="row text-center">
+                <div *ngIf="errorMsgs?.message" class="row text-center">
                   <div class="col alert alert-danger">
                     <small class="text-danger">{{errorMsgs.message}}</small>
                   </div>
@@ -32,35 +32,41 @@
                       <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Email</label>
                       <input type="text" class="form-control form-element" id="floatingInput" style="height: 40px;" placeholder="name@example.com" formControlName="email" required>
                     </div>
-                    <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                    <small *ngFor="let x of errorMsgs?.errors?.email"><span class="text-danger">{{x}}</span></small>
+                    <small *ngIf="saved && loginForm.controls.email.errors" class="text-danger">
+                      Email format is incorrect.
+                    </small>
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col">
-                    <div class="mt-1">
+                    <div class="mt-3">
                       <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Password</label>
                       <input type="password" class="form-control form-element" id="floatingInput" style="height: 40px;" placeholder="miwer9423" formControlName="password" required>
                     </div>
-                    <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
+                    <small *ngFor="let x of errorMsgs?.errors?.password"><span class="text-danger">{{x}}</span></small>
+                    <small *ngIf="saved && loginForm.controls.password.errors" id="titleHelp" class="text-danger">
+                      Password length is incorrect.
+                    </small>
                   </div>
                 </div>
 
-                <div class="row my-4">
+                <!-- <div class="row my-4">
                   <div class="col-lg-12">
-                    <!-- <span class="float-left">
+                    <span class="float-left">
                       <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Remember me</label>
                       </div>
-                    </span> -->
+                    </span>
                     <span class="float-right">
                       <a routerLink="/recovery_email" class="form-link"><small>Forgot your password?</small></a>
                     </span>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="row mt-4">
+                <div class="row mt-5">
                   <div class="col">
                     <button class="float-right register-button btn btn-primary form-element form-btn">
                       <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
@@ -72,9 +78,17 @@
               </form>
               <!-- /.login form -->
 
+              <div class="row mt-3">
+                <div class="col text-center">                
+                  <span>
+                    <a routerLink="/recovery_email" class="form-link"><small>Forgot your password?</small></a>
+                  </span>
+                </div>
+              </div>
+
               <span class="text-center mx-5">
                 <p>
-                  <div class="separator">or sign up with</div>
+                  <div class="separator">or sign in with</div>
                 <p></p>
               </span>
 

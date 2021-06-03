@@ -67,6 +67,10 @@ export class UserAuthService {
     return this.http.post<any>(this.baseUrl + 'resend_pass_reset_link/' + ecncryption, {});      
   }
 
+  resendRecovery() {
+    return this.http.post<any>(this.baseUrl + 'resend_pass_reset_link/' + sessionStorage.getItem('registration_id'), {});
+  }
+  
   editProfileLink(profile: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'v1/editProfile', profile);      
   }
@@ -76,10 +80,6 @@ export class UserAuthService {
   // }
   sendMagicLink(body: any): Observable<any> {
     return this.http.post<any>(this.sendMagicUrl, body);  
-  }
-
-  resendRecovery() {
-    return this.http.post<any>(this.baseUrl + this.resendRecoveryLink, {});
-  }
+  }  
 
 }

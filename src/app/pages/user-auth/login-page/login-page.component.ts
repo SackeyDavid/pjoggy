@@ -12,7 +12,8 @@ import { UserAuthService } from '../../../services/user-auth/user-auth.service'
 export class LoginPageComponent implements OnInit {
 
   isSending: boolean = false;
-  errorMsgs: any = {};
+  saved: boolean = false;
+  errorMsgs: any;
 
   loginForm: FormGroup = new FormGroup({});
 
@@ -23,41 +24,46 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    document.getElementById('image-bg')?.setAttribute('src', this.image)
+    document.getElementById('image-bg')?.setAttribute('src', this.image);
+
+    const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
   }
 
   onSubmit(){
-    console.log(this.loginForm.value);
-    this.isSending = true;
+    console.log(this.loginForm.value);    
+    this.saved = true;
 
-    this.auth.loginUser(this.loginForm.value)
-      .subscribe(
-        res => {
-          console.log(res);
+    if (this.loginForm.valid) {
+      this.isSending = true;
+      this.auth.loginUser(this.loginForm.value)
+        .subscribe(
+          res => {
+            console.log(res);
 
-          if (res.phone) {
-            sessionStorage.setItem('user_id', res.id);
-            sessionStorage.setItem('user_phone', res.phone);
-            this.router.navigateByUrl('/phone_authentication');
-          } else if (res.token) {
-            sessionStorage.setItem('user_id', res.user.id);
-            sessionStorage.setItem('x_auth_token', res.token);
-            sessionStorage.setItem('events_user_id', res.user.id);
-            sessionStorage.setItem('events_user_name', res.user.name);
-            sessionStorage.setItem('events_user_email', res.user.email);
-            this.router.navigateByUrl('/');
+            if (res.phone) {
+              sessionStorage.setItem('user_id', res.id);
+              sessionStorage.setItem('user_phone', res.phone);
+              this.router.navigateByUrl('/phone_authentication');
+            } else if (res.token) {
+              sessionStorage.setItem('user_id', res.user.id);
+              sessionStorage.setItem('x_auth_token', res.token);
+              sessionStorage.setItem('events_user_id', res.user.id);
+              sessionStorage.setItem('events_user_name', res.user.name);
+              sessionStorage.setItem('events_user_email', res.user.email);
+              this.router.navigateByUrl('/');
+            }
+          },
+          err => {
+            console.log(err);
+            this.isSending = false;
+            this.errorMsgs = err.error;
           }
-        },
-        err => {
-          console.log(err);
-          this.isSending = false;
-          this.errorMsgs = err.error;
-        }
-      );
+        );
+    }
   }
 
   facebookSignUp() {
