@@ -72,16 +72,23 @@
                 <div *ngIf="showPrompt" class="row text-center mt-3">
                   <div class="col-lg-12">
                     <!-- <div class="card my-5"> -->
-                        <div class="alert alert-primary text-center">
-                            <p style="margin-bottom: 0rem !important;">Please check your email</p>
-                            <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p>
+                        <div *ngIf="!resent" class="alert alert-primary text-center">
+                            <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p>
+                            <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p> -->
+                            <p style="margin-bottom: 0rem !important;">We have sent a link to your email, {{registerForm.controls.email.value}}.</p>
+                            <p style="margin-bottom: 0rem !important;">Didn't receive the link, click on the Resend Link button below:</p>
+                        </div>
+                        <div *ngIf="resent" class="alert alert-primary text-center">
+                          <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p>
+                          <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p> -->
+                          <p style="margin-bottom: 0rem !important;">Didn’t receive link, click on the resend button again.</p>
                         </div>
                       <!-- </div> -->
                   </div>
                   <div class="col-lg-12 my-3">
                     <button type="submit" class="register-button float-right btn btn-primary form-element form-btn" (click)="resend()">
                       <span *ngIf="isResending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Resend
+                      Resend Link
                     </button>
                   </div>
                 </div>

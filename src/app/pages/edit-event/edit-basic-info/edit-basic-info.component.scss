@@ -158,6 +158,13 @@
   font-size: xx-large !important;
 }
 
+@media (min-width: 1400px) {
+  .display-non-lg {
+    visibility: hidden;
+    display: none;
+  }
+}
+
 // @media (min-width: 768px) and (orientation : landscape) {
 //   .col-md-7 {
 //     width: revert;

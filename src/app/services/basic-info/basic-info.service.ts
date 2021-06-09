@@ -44,7 +44,8 @@ export class BasicInfoService {
         'category_id': event.category_id,        
         'subcategory_id': event.subcategory_id,        
         'tags': event.tags,        
-        'venue_tobe_announced': event.venue_tobe_announced,        
+        // 'venue_tobe_announced': event.venue_tobe_announced,        
+        'venue_tobe_announced': "0",        
         'hosting': event.hosting,
         'ticketing': event.ticketing     
       };
@@ -91,7 +92,8 @@ export class BasicInfoService {
         'category_id': event.category_id,        
         'subcategory_id': event.subcategory_id,        
         'tags': event.tags,        
-        'venue_tobe_announced': event.venue_tobe_announced,        
+        'venue_tobe_announced': "0",        
+        // 'venue_tobe_announced': event.venue_tobe_announced,        
         'hosting': event.hosting,
         'ticketing': event.ticketing     
       };

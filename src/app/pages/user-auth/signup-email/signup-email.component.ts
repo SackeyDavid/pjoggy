@@ -15,7 +15,8 @@ export class SignupEmailComponent implements OnInit {
   isSending: boolean = false;
   saved: boolean = false;
   errorMsgs: any = {};
-  showPrompt: Boolean = false;
+  showPrompt: boolean = false;
+  resent: boolean = false;
   isResending: boolean = false;
   
   images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
@@ -63,6 +64,7 @@ export class SignupEmailComponent implements OnInit {
       res => {
         console.log(res);
         this.isResending = false;
+        this.resent = true;
       },
       err => {
         console.log(err)

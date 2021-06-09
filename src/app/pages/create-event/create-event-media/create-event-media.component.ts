@@ -18,8 +18,11 @@ export class CreateEventMediaComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   isLoading: boolean;
   isImageSet: boolean;
+  isImageMultiple: boolean;
+  imageCount: number;
   imgSrcList: any[];
-  createdImgSrc: string;
+  createdImgSrc: any[];
+  selectedImagesList: any;
   isVideoSet: boolean;
   videoSrcList: any[];
   createdVideoSrc: string;
@@ -37,8 +40,11 @@ export class CreateEventMediaComponent implements OnInit {
     this.isImageSaving = false;
     this.isVideoSaving = false;
     this.isImageSet = false;
+    this.isImageMultiple = false;
+    this.imageCount = 0;
     this.imgSrcList = [];
-    this.createdImgSrc = '';
+    this.selectedImagesList = [];
+    this.createdImgSrc = [];
     this.isVideoSet = false;
     this.videoSrcList = [];
     this.createdVideoSrc = '';
@@ -75,27 +81,30 @@ export class CreateEventMediaComponent implements OnInit {
   }
 
   createImage(): void {
-    if (this.createdImgSrc != ''){
-      this.isImageSaving = true;  
-      this.mediaService.storeImage(this.f.event_image.value, this.eventId).then(
-        res => {
-          if (res) {
+    if (this.createdImgSrc.length > 0){      
+      for (let i = 0; i < this.selectedImagesList.length; i++) {
+        console.log('sending ' + i + ' image');
+        this.isImageSaving = true;
+        this.mediaService.storeImage(this.selectedImagesList[i], this.eventId).then(
+          res => {
+            if (res) {
+              this.isLoading = false;
+              this.imgSrcList.unshift(this.createdImgSrc[i])
+              this.isImageSet = false;
+              this.isImageSaving = false;
+              this.createdImgSrc = [];
+            }
+            else {
+              this.isLoading = false;
+              alert('oops, didn\'t create');
+            }
+          },
+          err => {
+            console.log(err);
             this.isLoading = false;
-            this.imgSrcList.unshift(this.createdImgSrc)
-            this.isImageSet = false;
-            this.isImageSaving = false;
-            this.createdImgSrc = '';
           }
-          else {
-            this.isLoading = false;
-            alert('oops, didn\'t create');
-          }
-        },
-        err => {
-          console.log(err);
-          this.isLoading = false;
-        }
-      );  
+        );  
+      }
     }
   }
 
@@ -111,18 +120,31 @@ export class CreateEventMediaComponent implements OnInit {
   }
 
   onImageSelected(e: any){
-    const file:File = e.target.files[0];
-    if (file) {
-      this.isImageSet = true;
+    this.createdImgSrc = [];
+    this.isImageMultiple = false;
+    this.imageCount = 0;
 
-      this.f.event_image.value = file;
+    if (e.target.files.length > 1) {
+      console.log('u selected ' + e.target.files.length + ' images');
+      this.isImageMultiple = true;
+      this.imageCount = e.target.files.length;
+    }
 
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e: any) => {
-        this.createdImgSrc = e.target.result;
+    for (let i = 0; i < e.target.files.length; i++) {
+      let file: File = e.target.files[i];      
+      if (file) {
+        this.isImageSet = true;
+        this.selectedImagesList.push(file)        
+
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e: any) => {
+          this.createdImgSrc.push(e.target.result);
+        }
       }
     }
+
+    console.log(this.createdImgSrc);
   }
 
   // -------------------------------------------------------------------------------------------
@@ -151,9 +173,9 @@ export class CreateEventMediaComponent implements OnInit {
   getExistingVideos(): any {
     this.mediaService.getVideos(this.eventId).then(
       videos => {
-        _.forEach(videos, (image, i) => {
-          this.imgSrcList[i] = 'http://events369.logitall.biz/storage/event_videos/' + videos[i].url;
-          console.log(this.imgSrcList[i]);
+        _.forEach(videos, (video, i) => {
+          this.videoSrcList[i] = 'http://events369.logitall.biz/storage/event_videos/' + videos[i].url;
+          console.log(this.videoSrcList[i]);
         });
       }
     );
@@ -173,6 +195,14 @@ export class CreateEventMediaComponent implements OnInit {
         // console.log(e.target.result);
       }
     }
+  }
+
+  previous(): void {
+    this.router.navigateByUrl('/create_advanced/speakers');
+  }
+
+  save(): void {
+    this.router.navigateByUrl('/create_advanced/sponsors');
   }
 
 }

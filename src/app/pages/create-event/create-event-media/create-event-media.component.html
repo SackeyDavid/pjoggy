@@ -23,11 +23,11 @@
                 <div class="form-body">
                   <!-- image -->
                   <div class="form-group">
-                    <input type="file" accept="image/*" class="file-input" formControlName="event_image" (change)="onImageSelected($event)" #imageUpload>
+                    <input #imageUpload type="file" accept="image/*" class="file-input" formControlName="event_image" (change)="onImageSelected($event)" multiple>
                     <!-- <input type="file" class="file-input" formControlName="event_image" #imageUpload> -->
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class="card">                                
+                            <div class="card" style="width: 300px;">                                
                                 <div (click)="imageUpload.click()" class="card-image-upload text-center">
                                   <div *ngIf="!isImageSet" class="p-2">
                                     <!-- <div class="p-2"> -->
@@ -37,8 +37,14 @@
                                         <p class="lead text-muted">JPG, JPEG or PNG, no larger than 10MB</p>
                                     </div>
                                   </div>
-                                  <div *ngIf="isImageSet">
-                                    <img class="card-img-bottom" [src]="createdImgSrc" width="400" height="250">
+                                  <div *ngIf="isImageSet" class="multi-image-container">
+                                    <div *ngIf="!isImageMultiple">
+                                      <img class="card-img-bottom media-select" [src]="createdImgSrc[0]">
+                                    </div>
+                                    <div *ngIf="isImageMultiple" class="multi-image-container">
+                                      <img class="card-img-bottom media-select" [src]="createdImgSrc[0]">
+                                      <span *ngIf="isImageMultiple" class="multi-image-text">+{{imageCount - 1}}</span>
+                                    </div>
                                   </div>
                                 </div>
                             </div>
@@ -100,7 +106,7 @@
                     <input type="file" accept="video/*" class="file-input" formControlName="event_video" (change)="onVideoSelected($event)" #videoUpload>
                     <div class="row">
                       <div class="col-lg-8">
-                        <div class="card">
+                        <div class="card" style="width: 300px;">
                           <div (click)="videoUpload.click()" class="card-image-upload text-center">
                             <div *ngIf="!isVideoSet" class="p-2">
                             <!-- <div class="p-2"> -->
@@ -111,7 +117,7 @@
                             </div>
                             </div>
                             <div *ngIf="isVideoSet">
-                              <video class="video-preview card-img-bottom" controls>
+                              <video class="media-select card-img-bottom" controls>
                                 <source src="{{createdVideoSrc}}" type="video/mp4">
                                 <source src="{{createdVideoSrc}}" type="video/ogg">
                                 <source src="{{createdVideoSrc}}" type="video/mkv">
@@ -158,6 +164,17 @@
                 </div>
               </div>
             </div>
+        </div>
+
+        <div class="col-12">
+
+          <div class="navigation">
+            <div class="nav-buttons">
+              <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+              <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="save()">Continue</button>
+              <app-loading-button *ngIf="isLoading"></app-loading-button>
+            </div>
+          </div>
         </div>
 
     </div>

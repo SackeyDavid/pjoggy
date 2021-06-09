@@ -134,7 +134,7 @@ export class AccountSettingsComponent implements OnInit {
             this.passwordErrorMsgs = [];
 
             if (res.message == "OK") {
-              this.openSnackBar('Password reset success');
+              this.openSnackBar('Password reset successessful');
               this.passwordMsg = '';
             }
             else {

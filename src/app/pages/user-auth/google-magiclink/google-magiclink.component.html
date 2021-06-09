@@ -36,7 +36,7 @@
                 <div class="row mt-4">
                     <div class="col mb-1">
                         <button type="submit" class="register-button float-right btn form-element git-color" (click)="sendMagicLink()">
-                        <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span *ngIf="isMagicSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Send magic link
                         </button>
                     </div>
@@ -50,7 +50,7 @@
 
                 <p><small><b>Use email and password</b></small></p>
 
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">                
+                <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">                
     
                     <div class="row">
                       <div class="col">
@@ -58,7 +58,10 @@
                           <input type="text" class="form-control form-element" id="floatingInput" style="height: 48px;" formControlName="email" required>
                           <label for="floatingInput">Email</label>
                         </div>
-                        <small><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                        <small *ngFor="let x of errorMsgs?.errors?.email"><span class="text-danger">{{x}}</span></small>
+                        <small *ngIf="saved && loginForm.controls.email.errors" class="text-danger">
+                          Email format is incorrect.
+                        </small>
                       </div>
                     </div>
     
@@ -68,7 +71,10 @@
                           <input type="password" class="form-control form-element" id="floatingInput" style="height: 48px;" formControlName="password" required>
                           <label for="floatingInput">Password</label>
                         </div>
-                        <small><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
+                        <small *ngFor="let x of errorMsgs?.errors?.password"><span class="text-danger">{{x}}</span></small>
+                        <small *ngIf="saved && loginForm.controls.password.errors" id="titleHelp" class="text-danger">
+                          Password length is incorrect.
+                        </small>
                       </div>
                     </div>
     
@@ -88,7 +94,7 @@
     
                     <div class="row mt-4">
                       <div class="col">
-                        <button class="register-button float-right btn btn-primary form-element form-btn" (click)="login()">
+                        <button class="register-button float-right btn btn-primary form-element form-btn">
                           <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                           Log in
                         </button>

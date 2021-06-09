@@ -10,8 +10,10 @@ import { UserAuthService } from 'src/app/services/user-auth/user-auth.service';
 })
 export class GoogleMagiclinkComponent implements OnInit {
 
+  isMagicSending: boolean = false;
   isSending: boolean = false;
-  errorMsgs: any = {};
+  saved: boolean = false;
+  errorMsgs: any;
   showPrompt: Boolean = false;
 
   images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
@@ -86,43 +88,44 @@ export class GoogleMagiclinkComponent implements OnInit {
         platform_id: new FormControl(this.platform_id, [Validators.required]),
       });
 
-
     }  
-
     
-
+    const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.loginForm = new FormGroup({
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
 
   }
 
-  onSubmit() {
+  onLoginSubmit() {
+    this.saved = true;
 
-    this.auth.loginUser(this.loginForm.value)
-      .subscribe(
-        res => {
-          console.log(res);
+    if (this.loginForm.valid) {
+      this.auth.loginUser(this.loginForm.value)
+        .subscribe(
+          res => {
+            console.log(res);
 
-          sessionStorage.setItem('user_id', res.user.id);
-          sessionStorage.setItem('x_auth_token', res.token);
+            sessionStorage.setItem('user_id', res.user.id);
+            sessionStorage.setItem('x_auth_token', res.token);
 
-          sessionStorage.setItem('user_id', res.id);
-          sessionStorage.setItem('user_phone', res.phone);
+            sessionStorage.setItem('user_id', res.id);
+            sessionStorage.setItem('user_phone', res.phone);
 
-          // TODO: reroute according 2fa 
+            // TODO: reroute according 2fa 
 
-          if (res.user.id) this.router.navigateByUrl('/');
-          this.isSending = false;
-        },
-        err => {
-          console.log(err);
-          this.isSending = false;
-          this.errorMsgs = err.error;
-        }
-      );
+            if (res.user.id) this.router.navigateByUrl('/');
+            this.isSending = false;
+          },
+          err => {
+            console.log(err);
+            this.isSending = false;
+            this.errorMsgs = err.error;
+          }
+        );
+    }
     
   }
 
@@ -135,26 +138,22 @@ export class GoogleMagiclinkComponent implements OnInit {
 
   sendMagicLink() {
     console.log(this.magicLinkData.value);
-    this.isSending = true;
+    this.isMagicSending = true;
 
     this.auth.sendMagicLink(this.magicLinkData.value).subscribe(
       res => {
         console.log(res);        
         if(res.message == 'Ok') this.showPrompt = true;
         
-        this.isSending = false;
+        this.isMagicSending = false;
         
       },
       err => {
         console.log(err)
-        this.isSending = false;
+        this.isMagicSending = false;
         this.errorMsgs = err.error;
       }
     );
-  }
-
-  login() {
-    
   }
 
 }

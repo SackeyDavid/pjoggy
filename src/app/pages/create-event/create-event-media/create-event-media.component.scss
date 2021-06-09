@@ -125,8 +125,9 @@
     font-weight: 500;
   }
   
-  .card-image-upload {
-    height: 250px;
+  .card {
+    height: 200px;
+    width: 300;
   }
   
   page-info .description .card .card-title {
@@ -210,9 +211,27 @@
     display: none;
   }
   
-  .video-preview {
-    height: 100%;
-    width: 100%;
+  .media-select {
+    height: 200px;
+    width: 300px;
+  }
+
+  .multi-image-container {
+    position: relative;
+    text-align: center;
+    color: white;    
+  }
+
+  .multi-image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 75px 128px;
+    font-size: 35px;
+    font-weight: bold;
   }
 
   @media (max-width: 780px) {

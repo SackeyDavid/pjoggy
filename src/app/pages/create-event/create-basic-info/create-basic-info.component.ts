@@ -63,7 +63,7 @@ export class CreateBasicInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.toggleVenueView();
+    // this.toggleVenueView();
     this.getCategories();
     this.disableSubcategory();
   }
@@ -89,7 +89,7 @@ export class CreateBasicInfoComponent implements OnInit {
       category_id: ['', Validators.required],
       subcategory_id: ['', Validators.required],
       tags: [''],
-      venue_tobe_announced: [0],
+      // venue_tobe_announced: [0],
       hosting: [this.hosting]
     });
 
@@ -194,7 +194,7 @@ export class CreateBasicInfoComponent implements OnInit {
       category_id: this.f.category_id.value,
       subcategory_id: this.f.subcategory_id.value,
       tags: this.tagsString,
-      venue_tobe_announced: this.recurringStore,
+      // venue_tobe_announced: this.recurringStore,
       hosting: this.hosting,
       ticketing: this.f.ticketing.value
     };
@@ -203,6 +203,7 @@ export class CreateBasicInfoComponent implements OnInit {
 
   setRecurring(value: any): void {
     this.f.recurring.setValue(value);
+    console.log(this.f.recurring.value);
   }
 
   setHosting(value: any): void {
@@ -234,21 +235,21 @@ export class CreateBasicInfoComponent implements OnInit {
     }
   }
 
-  toggleVenueView(): void {
-    this.f.venue_tobe_announced.valueChanges.subscribe((change: any) => {
-      console.log(change);
-      if (change == true) {
-        this.form.controls['venue'].disable();
-        this.form.controls['gps'].disable();
-        this.recurringStore = '1'
-      }
-      else if (change == false) {
-        this.form.controls['venue'].enable();
-        this.form.controls['gps'].enable();
-        this.recurringStore = '0'
-      }
-    });
-  }
+  // toggleVenueView(): void {
+  //   this.f.venue_tobe_announced.valueChanges.subscribe((change: any) => {
+  //     console.log(change);
+  //     if (change == true) {
+  //       this.form.controls['venue'].disable();
+  //       this.form.controls['gps'].disable();
+  //       this.recurringStore = '1'
+  //     }
+  //     else if (change == false) {
+  //       this.form.controls['venue'].enable();
+  //       this.form.controls['gps'].enable();
+  //       this.recurringStore = '0'
+  //     }
+  //   });
+  // }
 
   disableSubcategory(): void {
     this.f.subcategory_id.disable();

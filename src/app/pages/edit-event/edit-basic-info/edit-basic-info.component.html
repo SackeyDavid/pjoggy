@@ -36,9 +36,9 @@
       <app-create-event-side-menu [currentPage]="'basic_info'"></app-create-event-side-menu>
     </div>
 
-    <div class="col-1 only-non-mobile"></div>
+    <div class="col-1 display-non-lg"></div>
 
-    <div class="col-md-7 col-lg-5 col-xs-12 col-sm-12">
+    <div class="col-lg-5 col-md-8 col-sm-12">
       <app-side-menu-toggle [eventTitle]= eventTitle [eventDate]= eventDate></app-side-menu-toggle>
       <form class="form" [formGroup]="form" (ngSubmit)="edit()">
         <div class="divider mb-1 mt-5"></div>

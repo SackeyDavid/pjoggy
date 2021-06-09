@@ -109,4 +109,8 @@ export class CreateEventSponsorsComponent implements OnInit {
     }
   }
 
+  previous(): void {
+    this.router.navigateByUrl('/create_advanced/media');
+  }
+
 }
