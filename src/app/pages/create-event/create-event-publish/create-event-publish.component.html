@@ -84,6 +84,73 @@
         <div class="divider"></div>
 
         <!--
+          RSVP
+        -->
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>RSVP</h2>
+            </div>
+            <div class="form-description">
+              <p class="text-muted lead">What data do you want users to submit during registration?</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-body mb-5">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 50%;">Field</th>
+                <th scope="col" style="width: 25%;">Include</th>
+                <th scope="col" style="width: 25%;">Require</th>
+              </tr>
+            </thead>
+            <tbody class="rsvp-table">
+              <tr>
+                <td>Prefix</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includePrefix"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requirePrefix"></td>
+              </tr>
+              <tr>
+                <td>First Name</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeFirstName" [disabled]="true"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireFirstName"></td>
+              </tr>
+              <tr>
+                <td>Last Name</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeLastName" [disabled]="true"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireLastName"></td>
+              </tr>
+              <tr>
+                <td>Gender</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeGender"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireGender"></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeEmail" [disabled]="true"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireEmail"></td>
+              </tr>
+              <tr>
+                <td>Phone No.</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includePhone"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requirePhone"></td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeAddress"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireAddress"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        
+
+        <div class="divider"></div>
+
+        <!--
           Date Time Section
         -->
         <div class="form-item">
@@ -96,9 +163,29 @@
             </div>
           </div>
 
-          <div class="form-body">
-            <!-- start & end time -->
-            <!-- <div class="form-group">
+          <div class="row">
+              <div class="col">
+                  <span class="float-left ml-2">
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="allowCancel">
+                          <label class="form-check-label ml-2" for="flexSwitchCheckDefault"><b>Allow cancelation</b></label>
+                      </div>
+                  </span>
+              </div>
+          </div>
+
+          <div *ngIf="allowCancel" class="row">          
+              <div class="col">
+                  <div class="mt-2 ml-2">
+                      <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Cancel Rules (Hours)</label>
+                      <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="cancelRules" [(ngModel)]="cancelRules">
+                      <small class="text-muted" style="margin-left: 0.3rem;">RSVP cannot be cancelled for specified hours to the event.</small>
+                  </div>
+              </div>
+          </div>
+
+          <!-- <div class="form-body">
+            <div class="form-group">
               <div class="row">
                 <div class="col">
                   <div class="form-floating">
@@ -125,15 +212,17 @@
                   </div>
                 </div>
               </div>
-            </div> -->
-            <!-- /.end -->
-            
-          </div>
+            </div>            
+          </div> -->
         </div>
         <!--
           /. End Date time Section
         -->
 
+        <div *ngIf="publishErrors.length != 0" class="alert alert-danger">
+            <p style="margin-bottom: 0rem !important;">{{publishErrors}}</p>
+        </div>
+      
         <div class="navigation">
           <div class="nav-buttons">
             <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>

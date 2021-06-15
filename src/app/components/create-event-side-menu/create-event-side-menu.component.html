@@ -85,10 +85,10 @@
         
       </a>
       <div class="dropdown-container">
-        <a routerLink="/create_advanced/organizers">Organizers</a>
-        <a routerLink="/create_advanced/speakers">Speakers</a>
-        <a routerLink="/create_advanced/media">Media</a>
-        <a routerLink="/create_advanced/sponsors">Sponsors</a>
+        <a routerLink="/create_advanced/organizers" [class.advanced-active]="currentPage =='organizers'">Organizers</a>
+        <a routerLink="/create_advanced/speakers" [class.advanced-active]="currentPage =='speakers'">Speakers</a>
+        <a routerLink="/create_advanced/media" [class.advanced-active]="currentPage =='media'">Media</a>
+        <a routerLink="/create_advanced/sponsors" [class.advanced-active]="currentPage =='sponsors'">Sponsors</a>
       </div>
       <a href="/account/user" style="border-bottom: none;border-top: none;"
         class="list-group-item list-group-item-action list-group-link">Account Settings</a>

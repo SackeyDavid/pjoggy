@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PublishingService } from 'src/app/services/publishing/publishing.service';
 import { TicketsService } from 'src/app/services/tickets/tickets.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
+import { PrefixNot } from '@angular/compiler';
 
 @Component({
   selector: 'app-create-event-publish',
@@ -12,6 +13,13 @@ import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service
 export class CreateEventPublishComponent implements OnInit {
 
   isLoading: boolean;
+  allowCancel: number = 0;
+  cancelRules: number = 0;
+  publishErrors: any[] = [];
+
+  rsvpForm: any[] = [];
+  existingRsvpId: any = 0;
+  existingRsvpForm: any;
 
   eventTitle: string = ''
   eventDate: string = ''
@@ -26,6 +34,21 @@ export class CreateEventPublishComponent implements OnInit {
   eventContactPhone: string = '';
 
   eventTickets: any;
+
+  includePrefix: boolean = false;
+  requirePrefix: boolean = false;
+  includeFirstName: boolean = true;
+  requireFirstName: boolean = true;
+  includeLastName: boolean = true;
+  requireLastName: boolean = true;
+  includeGender: boolean = false;
+  requireGender: boolean = false;
+  includeEmail: boolean = true;
+  requireEmail: boolean = true;
+  includePhone: boolean = false;
+  requirePhone: boolean = false;
+  includeAddress: boolean = false;
+  requireAddress: boolean = false;
 
   constructor(
     private router: Router, 
@@ -52,36 +75,88 @@ export class CreateEventPublishComponent implements OnInit {
     this.eventContactPhone = data.event[0].contact_phone;
     
     this.getTickets();
+    this.getRsvp();
   }
 
   previous() {
     this.router.navigateByUrl('/create_event/ticketing');
   }
 
-  publish(): void {    
-      this.isLoading = true;
-      // this.router.navigateByUrl('/create_event/more_details');
-      this.publishingService.publishEvent(this.eventId).then(
-        res => {
-          if (res) {
-            console.log(res);
-            this.isLoading = false;
-            if(res.message == 'OK') {
+  publish(): void {   
+    this.isLoading = true;
+    // publish
+    let body = {
+      allow_cancel: this.allowCancel.toString(),
+      cancel_rules: this.cancelRules.toString()
+    } 
+    this.publishingService.publishEvent(this.eventId, body).then(
+      res => {
+        if (res) {
+          console.log(res);
+          this.isLoading = false;
+          if(res.message == 'OK') {            
+            this.createRsvpForm();
+          }
+          this.publishErrors = [];
+        }
+      },
+      err => {
+        console.log(err);
+        this.isLoading = false;
+        this.publishErrors = err.error.message;
+      }
+    );    
+  }
 
-              this.saveCreatedEvent(this.eventId).then(
+  createRsvpForm() {
+    this.isLoading = true;
+    this.fillRsvpForm();
+    console.log(this.rsvpForm);
+
+    this.publishingService.createRsvpForm(this.eventId, this.rsvpForm, this.existingRsvpId).then(
+      res => {
+        if (res) {
+          console.log(res);
+          this.isLoading = false;
+          if(res.message == 'Ok') {
+            this.saveCreatedEvent(this.eventId).then(
               ok => {
                 if (ok) this.router.navigateByUrl('/user_events');;
               }                               
             );
-              
-            }
           }
-        },
-        err => {
-          console.log(err);
-          this.isLoading = false;
         }
-      );
+      },
+      err => {
+        console.log(err);
+        this.isLoading = false;
+        this.rsvpForm = [];
+      }
+    );
+  }
+
+  fillRsvpForm() {
+    if(this.includePrefix == true) {
+      this.rsvpForm.push({ field_name: "Prefix", required: this.requirePrefix });
+    }
+    if(this.includeFirstName == true) {
+      this.rsvpForm.push({ field_name: "First Name", required: this.requireFirstName });
+    }
+    if(this.includeLastName == true) {
+      this.rsvpForm.push({ field_name: "Last Name", required: this.requireLastName });
+    }
+    if(this.includeGender == true) {
+      this.rsvpForm.push({ field_name: "Gender", required: this.requireGender });
+    }
+    if(this.includeEmail == true) {
+      this.rsvpForm.push({ field_name: "Email", required: this.requireEmail });
+    }
+    if(this.includePhone == true) {
+      this.rsvpForm.push({ field_name: "Phone No.", required: this.requirePhone });
+    }
+    if(this.includeAddress == true) {
+      this.rsvpForm.push({ field_name: "Address", required: this.requireAddress });
+    }
   }
 
   getTickets(): any {
@@ -114,4 +189,72 @@ export class CreateEventPublishComponent implements OnInit {
     });
   }
 
+  getRsvp(): any {
+    this.publishingService.getRsvp(this.eventId).then(
+      rsvp => {
+        console.log(rsvp);
+        this.existingRsvpId = rsvp[0].id;
+        this.existingRsvpForm = rsvp[0].form_fields;
+        
+        if (rsvp[0].id) {
+          this.populateRsvpForm(rsvp[0].form_fields);
+        }
+      }
+    );
+  }
+  
+  populateRsvpForm(form: any) {
+    console.log(form)
+    if(form.find((key: { field_name: string; }) => key.field_name === 'Prefix')){
+      this.includePrefix = true;
+      let index = form.findIndex((key: { field_name: string; }) => key.field_name == "Prefix");
+      console.log(index);
+      if(form[index].required == true) {
+        this.requirePrefix = true;
+      }
+    }
+    if(form.find((key: { field_name: string; }) => key.field_name === 'First Name')){
+      this.includeFirstName = true;
+      let index = form.findIndex((key: { field_name: string; }) => key.field_name == "First Name");
+      console.log(index);
+      if(form[index].required == true) {
+        this.requireFirstName = true;
+      }
+    }
+    if(form.find((key: { field_name: string; }) => key.field_name === 'Last Name')){
+      this.includeLastName = true;
+      let index = form.findIndex((key: { field_name: string; }) => key.field_name == "Last Name");
+      console.log(index);
+      if(form[index].required == true) {
+        this.requireLastName = true;
+      }
+    }
+    if(form.find((key: { field_name: string; }) => key.field_name === 'Gender')){
+      this.includeGender = true;
+      let index = form.findIndex((key: { field_name: string; }) => key.field_name == "Gender");
+      console.log(index);
+      if(form[index].required == true) {
+        this.requireGender = true;
+      }
+    }
+    if(form.find((key: { field_name: string; }) => key.field_name === 'Email')){
+      this.includeEmail = true;
+      let index = form.findIndex((key: { field_name: string; }) => key.field_name == "Email");
+      console.log(index);
+      if(form[index].required == true) {
+        this.requireEmail = true;
+      }
+    }
+    if(form.find((key: { field_name: string; }) => key.field_name === 'Phone No.')){
+      this.includePhone = true;
+      let index = form.findIndex((key: { field_name: string; }) => key.field_name == "Phone No.");
+      console.log(index);
+      if(form[index].required == true) {
+        this.requirePhone = true;
+      }
+    }
+  }
+
 }
+
+

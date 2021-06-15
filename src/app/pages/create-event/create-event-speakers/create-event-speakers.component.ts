@@ -241,7 +241,8 @@ export class CreateEventSpeakersComponent implements OnInit {
           editedSpeaker.twitter = speaker.twitter,
           editedSpeaker.instagram = speaker.instagram;
           this.imgSrcList[index] = this.createdImgSrc;
-
+          
+          this.saved = false;
           this.isSaving = false;
           this.isEditMode = false;
           this.form.reset();

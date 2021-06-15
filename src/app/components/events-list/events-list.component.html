@@ -17,7 +17,7 @@
           <!-- All Events -->
           
 
-          <div class="row mb-4">
+          <div class="row mb-4"  *ngIf="events_in_six_hrs.length > 0">
             <div class="col-12 ev-padlr-0">
               
               <h3 class="display-6 ev-head-padl ev-display-only-non-mobile">
@@ -78,7 +78,7 @@
           
           
           <ng-container *ngIf="!events_in_six_hrs.length">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" *ngIf="events_in_six_hrs.length > 0">
               <!-- <div class="spinner-grow" role="status">  -->
                 <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
                 <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
@@ -162,7 +162,7 @@
           <!-- </div> -->
             
           <!-- Popular Events -->
-          <div class="row mb-4 ev-martop-5 ev-padlr-0">
+          <div class="row mb-4 ev-martop-5 ev-padlr-0" *ngIf="popularEvents.length > 0">
             <div class="col-12  ev-padlr-0">
               <h3 class="display-6 ev-head-padl">
                 <i class="bi-graph-up"></i> &nbsp; Popular
@@ -227,7 +227,7 @@
           <div class="row">
             
           <ng-container *ngIf="!popularEvents.length">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" *ngIf="popularEvents.length > 0">
               <!-- <div class="spinner-grow" role="status">  -->
                 <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
                 <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
@@ -312,7 +312,7 @@
           <!-- /.Popular end -->
 
           <!-- New Events -->
-          <div class="row mb-4 ev-martop-5 ev-padlr-0">
+          <div class="row mb-4 ev-martop-5 ev-padlr-0" *ngIf="newEvents.length > 0">
             <div class="col-12  ev-padlr-0">
               <h3 class="display-6 ev-head-padl">
                 <i class="bi-megaphone"></i> &nbsp; New
@@ -377,7 +377,7 @@
           <div class="row">
             
           <ng-container *ngIf="!newEvents.length">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" *ngIf="newEvents.length > 0">
               <!-- <div class="spinner-grow" role="status">  -->
                 <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
                 <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>

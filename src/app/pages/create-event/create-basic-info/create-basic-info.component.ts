@@ -28,12 +28,13 @@ export class CreateBasicInfoComponent implements OnInit {
   isTimeCorrect: boolean;
   isTimeIntervalCorrect: boolean;
 
-  hosting: any = 1
+  hosting: any = 1;
 
   url: string = '';
   currentRoute: string = '';
 
   formattedAddress = '';
+  addressCoordinates = '';
 
   // options = {
   //   componentRestrictions: {
@@ -66,6 +67,7 @@ export class CreateBasicInfoComponent implements OnInit {
     // this.toggleVenueView();
     this.getCategories();
     this.disableSubcategory();
+    this.setHosting(1);
   }
 
   public get f(): any {
@@ -121,9 +123,12 @@ export class CreateBasicInfoComponent implements OnInit {
 
     // if date is same check time
     if (ed == sd){
+      // check if event date is today and
       // check if event time is greater than current time
-      if (st > now) this.isTimeCorrect = true;
-      else this.isTimeCorrect = false;
+      if (sd == today) {
+        if (st > now) this.isTimeCorrect = true;
+        else this.isTimeCorrect = false;
+      }
 
       // check if end date is greater start date
       if (et > st) this.isTimeIntervalCorrect = true;
@@ -132,6 +137,7 @@ export class CreateBasicInfoComponent implements OnInit {
   }
 
   create(): void {
+    console.log(this.getFormData());
     this.saved = true;
     this.dateValidation();
     console.log(this.isDateCorrect);
@@ -152,16 +158,25 @@ export class CreateBasicInfoComponent implements OnInit {
               ok => {
                 if (ok) {
                   this.isLoading = false;
-                  data.recurring == '1'
-                    ? this.router.navigateByUrl('/create_event/schedule')
-                    : this.router.navigateByUrl('/create_event/more_details');
+                  if(data.recurring == '1') {
+                    window.location.href = '/create_event/schedule';
+                  }
+                  else {
+                    window.location.href = '/create_event/more_details';
+                  }
+                    // ? this.router.navigateByUrl('/create_event/schedule')
+                  //  window.location.href = '/create_event/more_details';
+                    // : this.router.navigateByUrl('/create_event/more_details');
                 }
               },
               err => {
                 // we still navigate but will get the data from the side menu.
-                data.recurring == '1'
-                  ? this.router.navigateByUrl('/create_event/schedule')
-                  : this.router.navigateByUrl('/create_event/more_details');
+                if(data.recurring == '1') {
+                  window.location.href = '/create_event/schedule';
+                }
+                else {
+                  window.location.href = '/create_event/more_details';
+                }
               }
             );
           }
@@ -185,8 +200,8 @@ export class CreateBasicInfoComponent implements OnInit {
     const data = {
       title: this.f.title.value,
       description: this.f.description.value,
-      venue: this.f.venue.value,
-      gps: this.f.gps.value,
+      venue: this.formattedAddress,
+      gps: this.addressCoordinates,
       start_date: this.dtService.formatDateTime(this.f.start_date.value, this.f.start_time.value),
       end_date: this.dtService.formatDateTime(this.f.end_date.value, this.f.end_time.value),
       recurring: this.f.recurring.value,
@@ -334,6 +349,9 @@ export class CreateBasicInfoComponent implements OnInit {
 
   public handleAddressChange(address: any) {
     this.formattedAddress = address.formatted_address;
+    this.addressCoordinates = address.geometry.viewport.Eb.g + ', ' + address.geometry.viewport.lc.g;
+    this.f.gps.setValue(this.addressCoordinates);
+    console.log(address);
   }
 
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { UserAuthService } from 'src/app/services/user-auth/user-auth.service';
 
+declare var $: any;
 
 @Component({
   selector: 'app-signup-email',
@@ -25,20 +26,43 @@ export class SignupEmailComponent implements OnInit {
 
   public registerForm: FormGroup = new FormGroup({});
 
-  constructor(private auth: UserAuthService, private router: Router) { }
+  constructor(
+    private auth: UserAuthService, 
+    private router: Router
+    ) 
+    {
+      $("#email").on("mouseout", function(this: HTMLInputElement) {
+          
+        // alert('Here')
+        $(this).value = $(this).val().trim();
+        console.log('hI')
+       
+      
+      });
+
+            //  $(document).ready(function(){
+           
+            //   $('input[type=email]').keypress(
+            //     function () {
+                  
+            //   });
+            // });
+   }
 
   ngOnInit(): void {
     document.getElementById('image-bg')?.setAttribute('src', this.image)
 
     const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.registerForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      // email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
       // type: new FormControl('30', Validators.required)
     });
   }  
 
   onSubmit(){
     this.saved = true;
+    console.log(this.registerForm.value)
 
     if (this.registerForm.valid) {
       this.isSending = true;

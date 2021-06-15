@@ -34,7 +34,7 @@
                         <div class="col">
                             <div class="mt-3">
                               <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Email</label>
-                              <input type="email" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="name@example.com" formControlName="email" required>
+                              <input id="email" type="email" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="name@example.com" formControlName="email" required>
                             </div>
                             <small *ngFor="let x of errorMsgs?.errors?.email"><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
                             <small *ngIf="saved && registerForm.controls.email.errors" class="text-danger">

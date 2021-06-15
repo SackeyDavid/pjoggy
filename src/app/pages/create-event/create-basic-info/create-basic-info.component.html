@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-4 col-lg-3">
       <div class="page-info">
         <div class="title ev-margin-top-bottom">
           <h1 class="ev-font-size-xxlarge">Let's start you off easy!</h1>
@@ -36,9 +36,9 @@
       <!-- <app-create-event-side-menu [currentPage]="'edit_basic_info'" *ngIf="currentRoute === 'edit_basic_info'"></app-create-event-side-menu> -->
     </div>
 
-    <div class="col-1 only-non-mobile"></div>
+    <div class="col-1 display-non-lg"></div>
 
-    <div class="col-md-7 col-lg-5 col-xs-12 col-sm-12">
+    <div class="col-lg-5 col-md-8 col-sm-12">
       <!-- <app-side-menu-toggle [eventTitle]="'A Chat With Rashida Jones'" [eventDate]="'Sat, May 8, 2021 7:00 PM'" *ngIf="currentRoute === 'edit_basic_info'"></app-side-menu-toggle> -->
       <form class="form" [formGroup]="form" (ngSubmit)="create()">
         <div class="divider mb-1 mt-5"></div>
@@ -150,7 +150,7 @@
             <!-- tags -->
             <div class="form-group">
               <div class="form-floating mb-2">
-                <input (keyup.enter)="addChip()" type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
+                <input (keyup.space)="addChip()" type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
                 <label for="floatingTags">Tags</label>
               </div>              
             </div>
@@ -165,7 +165,7 @@
               </div>
             </div>
             <div class="form-description">
-              <p class="lead">Press 'Enter' after every tag</p>
+              <p class="lead">Press 'Space' after every tag</p>
             </div>
             <!-- /.tags -->
 
@@ -304,7 +304,7 @@
                             Start time is required.
                           </small>
                           <small *ngIf="saved && !isTimeCorrect" class="text-danger">
-                            Start time must be greater than current time.
+                            Start time must be greater than current time for today's event.
                           </small>
                         </div>
                       </div>

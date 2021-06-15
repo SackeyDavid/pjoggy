@@ -156,6 +156,31 @@
   height: 300px;
 }
 
+.form-label {
+  margin-left: .3rem !important;
+  font-size: .8rem !important;
+}
+
+.form-floating > label {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-floating > .form-control {
+  padding: .7rem 1.50rem !important;
+}
+
+.form-control {
+  padding: .9rem .9rem !important;
+  padding-bottom: .4rem !important;
+  font-size: .8rem;
+  line-height: 1.6;
+  padding-top: .35rem !important;
+}
+
+.rsvp-table .form-check-input {
+  margin-left: 0 !important;
+}
+
 @media (max-width: 780px) {
   .only-non-mobile {
     // display: none;

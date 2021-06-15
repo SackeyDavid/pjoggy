@@ -150,7 +150,7 @@
             <!-- tags -->
             <div class="form-group">
               <div class="form-floating mb-2">
-                <input (keyup.enter)="addChip()" type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
+                <input (keyup.space)="addChip()" type="text" class="form-control" id="floatingTags" aria-describedby="titleHelp" placeholder="Add keywords to help people easily find your event" formControlName="tags">
                 <label for="floatingTags">Tags</label>
               </div>              
             </div>
@@ -165,7 +165,7 @@
               </div>
             </div>
             <div class="form-description">
-              <p class="lead">Press 'Enter' after every tag</p>
+              <p class="lead">Press 'Space' after every tag</p>
             </div>
             <!-- /.tags -->
 
@@ -262,6 +262,9 @@
                         <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
                           Start date is required.
                         </small>
+                        <small *ngIf="saved && !isDateCorrect" class="text-danger">
+                          Start date must be greater than current date.
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -276,6 +279,9 @@
                         <label for="floatingEndDate">End Date</label>
                         <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
                           End date is required.
+                        </small>
+                        <small *ngIf="saved && !isDateIntervalCorrect" id="titleHelp" class="text-danger">
+                          End date must be greater than start date.
                         </small>
                       </div>
                     </div>
@@ -298,6 +304,9 @@
                         <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
                           Start time is required.
                         </small>
+                        <small *ngIf="saved && !isTimeCorrect" class="text-danger">
+                          Start time must be greater than current time for today's event.
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -312,6 +321,9 @@
                         <label for="floatingEndTime">End Time</label>
                         <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
                           End time is required.
+                        </small>
+                        <small *ngIf="saved && !isTimeIntervalCorrect" id="titleHelp" class="text-danger">
+                          End time must be greater than start time.
                         </small>
                       </div>
                     </div>
@@ -357,18 +369,19 @@
               </ul>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                  <div class="form-check my-2 py-2">
+                  <!-- <div class="form-check my-2 py-2">
                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" formControlName="venue_tobe_announced">
                     <label class="form-check-label" for="flexCheckDefault">
                       Venue Yet to be announced
                     </label>
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
                     <div class="form-floating">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingVenue" aria-describedby="titleHelp" placeholder="Venue" 
-                          formControlName="venue" [ngClass]="{'is-invalid': saved && f.venue.errors, 'is-valid': !f.venue.errors && f.venue.value != ''}">
+                          formControlName="venue" [ngClass]="{'is-invalid': saved && f.venue.errors, 'is-valid': !f.venue.errors && f.venue.value != ''}"
+                          ngx-google-places-autocomplete  #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
                         <label for="floatingVenue">Venue</label>
                         <small *ngIf="saved && f.venue.errors" id="titleHelp" class="form-text invalid-feedback">
                           Venue is required for physical events.
