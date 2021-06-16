@@ -8,7 +8,7 @@
                     <div class="col">
                         <h5>2-Factor Authentication</h5>
                         <hr>
-                        <p><small style="margin-left: 0rem !important;">Incase your password is compromised, you will feel secured knowing that only you can sign into your account</small></p>
+                        <p><small style="margin-left: 0rem !important;">Incase your password is compromised, you will feel secured knowing that only you can sign into your account.</small></p>
                         
                         <div class="row">
                             <div class="col">
@@ -253,9 +253,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <small *ngIf="twoFaErrorMsgs?.errors.phone"><span *ngFor="let x of twoFaErrorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
-                                    <small *ngIf="twoFaSaved && twoFaForm.controls.phone.errors" id="titleHelp" class="text-danger">
-                                        Phone no. format is not correct.
+                                    <small *ngIf="twoFaErrorMsgs?.errors?.phone"><span *ngFor="let x of twoFaErrorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small>
+                                    <small style="margin-left: 0rem;" *ngIf="twoFaSaved && twoFaForm.controls.phone.errors" id="titleHelp" class="text-danger">
+                                        Please enter a valid phone number eg 0501889354
                                     </small>
                                     
                                     <div class="row mt-4">
@@ -280,11 +280,18 @@
                         <hr>
 
                         <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
-                            <div *ngIf="passwordMsg" class="row text-center">
-                                <div class="col-lg-6 alert alert-danger">
-                                  <small>{{passwordMsg}}</small>
+                           <div class="row">
+                            <div *ngIf="passwordMsg" class="row col-lg-6 text-center">
+                                <div *ngIf="passwordMsg != 'Ok'" class="col-lg-12 alert alert-danger">
+                                    <small>{{passwordMsg}}</small>
+                                </div>
+                                <div *ngIf="passwordMsg == 'Ok'" class="ml-3 col-lg-12 alert alert-primary">
+                                    <small>Password reset successful</small>
                                 </div>
                             </div>
+
+                           </div>
+                                
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -294,7 +301,7 @@
                                     </div>
                                     <small *ngIf="passwordErrorMsgs?.errors?.current_password"><span *ngFor="let x of passwordErrorMsgs?.errors?.current_password" class="text-danger">{{x}}</span></small>
                                     <small *ngIf="passwordSaved && passwordForm.controls.current_password.errors" id="titleHelp" class="text-danger">
-                                        Current password is required.
+                                        Current password is required
                                     </small>
                                 </div>
                             </div>
@@ -306,7 +313,7 @@
                                     </div>
                                     <small *ngIf="passwordErrorMsgs?.errors?.new_password"><span *ngFor="let x of passwordErrorMsgs?.errors?.new_password" class="text-danger">{{x}}</span></small>
                                     <small *ngIf="passwordSaved && passwordForm.controls.new_password.errors" id="titleHelp" class="text-danger">
-                                        Password length is incorrect.
+                                        New password must be at least 8 characters
                                     </small>
                                 </div>
                             </div>
@@ -318,7 +325,7 @@
                                     </div>
                                     <small *ngIf="passwordErrorMsgs?.errors?.new_password_confirmation"><span *ngFor="let x of passwordErrorMsgs?.errors?.new_password_confirmation" class="text-danger">{{x}}</span></small>
                                     <small *ngIf="passwordSaved && passwordForm.controls.new_password_confirmation.errors" id="titleHelp" class="text-danger">
-                                        Password length is incorrect.
+                                        Confirm password must be at least 8 characters
                                     </small>
                                 </div>
                             </div>

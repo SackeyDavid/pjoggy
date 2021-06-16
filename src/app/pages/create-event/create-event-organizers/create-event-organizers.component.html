@@ -74,7 +74,7 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="facebook"
-                              [ngClass]="{'is-invalid': saved && f.facebook.errors, 'is-valid': f.facebook.value!='' && !f.facebook.errors}">
+                              [ngClass]="{'is-invalid': saved && f.facebook.errors, 'is-valid': saved && f.facebook.value!='' && !f.facebook.errors}">
                             <label for="floatingTitle">Facebook</label>     
                             <small *ngIf="saved && f.facebook.errors" id="titleHelp" class="form-text invalid-feedback">
                               You must enter a valid url.
@@ -87,7 +87,7 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="twitter"
-                              [ngClass]="{'is-invalid': saved && f.twitter.errors, 'is-valid': f.twitter.value!='' && !f.twitter.errors}">
+                              [ngClass]="{'is-invalid': saved && f.twitter.errors, 'is-valid': saved && f.twitter.value!='' && !f.twitter.errors}">
                             <label for="floatingTitle">Twitter</label>
                             <small *ngIf="saved && f.twitter.errors" id="titleHelp" class="form-text invalid-feedback">
                               You must enter a valid url.
@@ -100,7 +100,7 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="linkedin"
-                              [ngClass]="{'is-invalid': saved && f.linkedin.errors, 'is-valid': f.linkedin.value!='' && !f.linkedin.errors}">
+                              [ngClass]="{'is-invalid': saved && f.linkedin.errors, 'is-valid': saved && f.linkedin.value!='' && !f.linkedin.errors}">
                             <label for="floatingTitle">Linked-In</label>
                             <small *ngIf="saved && f.linkedin.errors" id="titleHelp" class="form-text invalid-feedback">
                               You must enter a valid url.
@@ -113,7 +113,7 @@
                       <div class="form-floating">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="instagram"
-                              [ngClass]="{'is-invalid': saved && f.instagram.errors, 'is-valid': f.instagram.value!='' && !f.instagram.errors}">
+                              [ngClass]="{'is-invalid': saved && f.instagram.errors, 'is-valid': saved && f.instagram.value!='' && !f.instagram.errors}">
                             <label for="floatingTitle">Instagram</label>
                             <small *ngIf="saved && f.instagram.errors" id="titleHelp" class="form-text invalid-feedback">
                               You must enter a valid url.
@@ -181,10 +181,10 @@
                               </p>
                               <p class="card-text">
                                 <small>
-                                  Facebook: <a class="link-text" href="{{organizer.facebook}}" target="_blank">{{organizer.facebook}}</a><br>
-                                  Twitter: <a class="link-text" href="{{organizer.twitter}}" target="_blank">{{organizer.twitter}}</a><br>
-                                  Linked-In: <a class="link-text" href="{{organizer.linkedin}}" target="_blank">{{organizer.linkedin}}</a><br>
-                                  Instagram: <a class="link-text" href="{{organizer.instagram}}" target="_blank">{{organizer.instagram}}</a><br>
+                                  Facebook : <a class="link-text" href="{{organizer.facebook}}" target="_blank">{{organizer.facebook}}</a><br>
+                                  Twitter : <a class="link-text" href="{{organizer.twitter}}" target="_blank">{{organizer.twitter}}</a><br>
+                                  Linked-In : <a class="link-text" href="{{organizer.linkedin}}" target="_blank">{{organizer.linkedin}}</a><br>
+                                  Instagram : <a class="link-text" href="{{organizer.instagram}}" target="_blank">{{organizer.instagram}}</a><br>
                                 </small>
                               </p>
                             </div>

@@ -169,6 +169,13 @@
   left: 40px;
 }
 
+@media (min-width: 1400px) {
+  .display-non-lg {
+    visibility: hidden;
+    display: none;
+  }
+}
+
 @media (max-width: 780px) {
   .only-non-mobile {
     // display: none;

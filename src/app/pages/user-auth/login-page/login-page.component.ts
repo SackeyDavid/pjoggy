@@ -48,6 +48,7 @@ export class LoginPageComponent implements OnInit {
   onSubmit(){
     this.loginForm.value.email = this.loginForm.value.email.replace(/\s/g,'')
     console.log(this.loginForm.value);
+    console.log(this.loginForm.controls)
     this.saved = true;
 
     if (this.loginForm.valid) {
@@ -61,7 +62,8 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('user_id', res.id);
               sessionStorage.setItem('user_phone', res.phone);
               this.router.navigateByUrl('/phone_authentication');
-            } else if (res.token) {
+            } 
+            else if (res.token) {
               sessionStorage.setItem('user_id', res.user.id);
               sessionStorage.setItem('x_auth_token', res.token);
               sessionStorage.setItem('events_user_id', res.user.id);

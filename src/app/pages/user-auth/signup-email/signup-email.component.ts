@@ -54,7 +54,7 @@ export class SignupEmailComponent implements OnInit {
 
     const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.registerForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(emailRegEx)]),
       // email: new FormControl('', [Validators.required, Validators.pattern(emailRegEx)]),
       // type: new FormControl('30', Validators.required)
     });

@@ -118,7 +118,7 @@ export class CreateEventPublishComponent implements OnInit {
         if (res) {
           console.log(res);
           this.isLoading = false;
-          if(res.message == 'Ok') {
+          if(res.message == 'OK') {
             this.saveCreatedEvent(this.eventId).then(
               ok => {
                 if (ok) this.router.navigateByUrl('/user_events');;

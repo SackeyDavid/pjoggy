@@ -72,6 +72,7 @@ export class OrganizersService {
    */ 
   editOrganizer(organizerId: string, organizer: any, image: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
+      console.log(organizer);
       const url = this.editOrganizerUrl + organizerId;
       const formData = new FormData();
       formData.append('image', image);

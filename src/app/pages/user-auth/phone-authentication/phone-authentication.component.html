@@ -16,27 +16,34 @@
                   <!-- component -->
 
                   <app-form-header 
-                    [formTitle]="'2 Way Authentication'">
+                    [formTitle]="'2 Factor Authentication'">
                   </app-form-header>
+                  <p>Enter code sent to {{users_phone}}</p>
 
                   <!-- lofin form -->
                   <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
                     
                     <div class="row">
                       <div class="col">
-                        <p *ngIf="errorMsgs?.message" class="text-center"><small class="text-danger">{{errorMsgs?.message}}</small></p>
+                        <p *ngIf="errorMsgs?.message" class="text-center">
+                          <small class="text-danger">
+                          <div class="alert alert-danger">
+                            {{errorMsgs?.message}}
+                          </div>
+                          </small>
+                        </p>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col">
                         <div class="mt-3">
-                          <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Conifirmation Code</label>
+                          <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Confirmation Code</label>
                           <input type="email" class="form-control form-element" id="floatingFname" placeholder="0000" formControlName="confirmationCode" style="height: 42px;" maxlength="4" required>
                         </div>
                         <small *ngFor="let x of errorMsgs?.errors?.confirmationCode"><span *ngFor="let x of errorMsgs?.errors?.confirmationCode" class="text-danger">{{x}}</span></small>
                         <small *ngIf="saved && authenticationForm.controls.confirmationCode.errors" class="text-danger">
-                          Code should be 4 digits.
+                          Code must be 4 digits.
                         </small>
                       </div>
                     </div>                                        

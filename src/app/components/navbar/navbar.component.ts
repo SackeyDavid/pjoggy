@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
 import { Router } from '@angular/router';
 import _ from 'lodash';
+import { UserAccountService } from 'src/app/services/user-account/user-account.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,13 +15,21 @@ export class NavbarComponent implements OnInit {
 
   userAuthenticated: boolean = false;  
   searchQuery: string = '';
+  imgSrc: string = '';
+  currentUser: any;
 
   @Output() searchEvent = new EventEmitter<string>();
 
-  constructor(private http: HttpClient, private router: Router, private endpoint: EndpointService) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router, 
+    private endpoint: EndpointService,
+    private userAccountsService: UserAccountService
+    ) { }
 
   ngOnInit(): void {
     this.checkIfUserAuthenticated();
+    this.getUser();
 
     let sessionQuery = sessionStorage.getItem('search_query');
     sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
@@ -125,6 +134,22 @@ export class NavbarComponent implements OnInit {
     sessionStorage.setItem('search_query', this.searchQuery);
     this.searchEvent.emit(this.searchQuery);
     this.router.navigateByUrl('/search_results');
+  }
+
+  getUser(): void {
+    this.userAccountsService.getCurrentUser().then(
+      res => {
+        console.log(res);
+        this.currentUser = res;
+
+        if (res.profile) {
+          this.imgSrc =  res.profile
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

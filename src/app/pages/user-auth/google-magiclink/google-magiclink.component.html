@@ -23,7 +23,7 @@
                   <div class="col">
                       <!-- <div class="card my-5"> -->
                           <div class="alert alert-primary text-center">
-                              <p style="margin-bottom: 0rem !important;">Please check your email</p>
+                              <p style="margin-bottom: 0rem !important;">Magic link resent. Please check your email.</p>
                           </div>
                       <!-- </div> -->
                   </div>
@@ -60,7 +60,7 @@
                         </div>
                         <small *ngFor="let x of errorMsgs?.errors?.email"><span class="text-danger">{{x}}</span></small>
                         <small *ngIf="saved && loginForm.controls.email.errors" class="text-danger">
-                          Email format is incorrect.
+                          Please enter a valid email address
                         </small>
                       </div>
                     </div>
@@ -73,7 +73,7 @@
                         </div>
                         <small *ngFor="let x of errorMsgs?.errors?.password"><span class="text-danger">{{x}}</span></small>
                         <small *ngIf="saved && loginForm.controls.password.errors" id="titleHelp" class="text-danger">
-                          Password length is incorrect.
+                          Password must be at least 8 characters
                         </small>
                       </div>
                     </div>

@@ -36,7 +36,7 @@
                             </div>
                             <small *ngFor="let x of errorMsgs?.errors?.firstname"><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small>
                             <small *ngIf="saved && registerForm.controls.firstname.errors" id="titleHelp" class="text-danger">
-                              First name is required.
+                              First name is required
                             </small>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                             </div>
                             <small *ngFor="let x of errorMsgs?.errors?.lastname"><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small>
                             <small *ngIf="saved && registerForm.controls.lastname.errors" id="titleHelp" class="text-danger">
-                              Last name is required.
+                              Last name is required
                             </small>
                         </div>
                     </div>
@@ -61,9 +61,11 @@
                                 <input type="password" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="" formControlName="password" required>
                             </div>
                             <small><span class="text-muted">Password must be at least 8 characters</span></small><br>
-                            <small *ngFor="let x of errorMsgs?.errors?.password"><span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span></small>
+                            <small style="display: flex;" *ngFor="let x of errorMsgs?.errors?.password">
+                              <span *ngFor="let x of errorMsgs?.errors?.password" class="text-danger">{{x}}</span>
+                            </small>
                             <small *ngIf="saved && registerForm.controls.password.errors" id="titleHelp" class="text-danger">
-                              Password length is incorrect.
+                              Password must be at least 8 characters
                             </small>
                         </div>
                     </div>
@@ -76,7 +78,7 @@
                             </div>
                             <small *ngFor="let x of errorMsgs?.errors?.password_confirmation"><span *ngFor="let x of errorMsgs?.errors?.password_confirmation" class="text-danger">{{x}}</span></small>
                             <small *ngIf="saved && registerForm.controls.password_confirmation.errors" id="titleHelp" class="text-danger">
-                              Password confirmation length is incorrect.
+                              Confirmation password must be at least 8 characters
                             </small>
                         </div>
                     </div>

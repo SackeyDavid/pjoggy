@@ -38,7 +38,7 @@
                             </div>
                             <small *ngFor="let x of errorMsgs?.errors?.email"><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
                             <small *ngIf="saved && registerForm.controls.email.errors" class="text-danger">
-                              Email format is incorrect.
+                              Please provide a valid email address
                             </small>
                         </div>
                     </div>  
@@ -76,12 +76,12 @@
                             <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p>
                             <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p> -->
                             <p style="margin-bottom: 0rem !important;">We have sent a link to your email, {{registerForm.controls.email.value}}.</p>
-                            <p style="margin-bottom: 0rem !important;">Didn't receive the link, click on the Resend Link button below:</p>
+                            <p style="margin-bottom: 0rem !important;">Didn't receive the link? Click on the resend button again.</p>
                         </div>
                         <div *ngIf="resent" class="alert alert-primary text-center">
-                          <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p>
-                          <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p> -->
-                          <p style="margin-bottom: 0rem !important;">Didn’t receive link, click on the resend button again.</p>
+                          <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p> -->
+                          <p style="margin-bottom: 0rem !important;">Activation link has been resent. </p>
+                          <p style="margin-bottom: 0rem !important;">Didn’t receive link? Click on the resend button again.</p>
                         </div>
                       <!-- </div> -->
                   </div>

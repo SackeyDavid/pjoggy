@@ -206,6 +206,14 @@ page-info .description .card .card-title {
   display: none;
 }
 
+.card-title{
+  text-overflow: ellipsis; 
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .bio-text{
   text-overflow: ellipsis; 
   overflow: hidden;

@@ -17,6 +17,7 @@ export class RecoveryEmailComponent implements OnInit {
   errorMsgs: any;
   showPrompt: Boolean = false;
   isResending: boolean = false;
+  resent: boolean = false;
 
   images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
   image = this.images[this.getRandomInt(0, 5)]
@@ -65,6 +66,7 @@ export class RecoveryEmailComponent implements OnInit {
         console.log(res);
         sessionStorage.setItem('registration_id', res.id);        
         this.isResending = false;
+        this.resent = true;
       },
       err => {
         console.log(err)

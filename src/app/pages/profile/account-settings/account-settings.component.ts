@@ -136,6 +136,7 @@ export class AccountSettingsComponent implements OnInit {
             if (res.message == "OK") {
               this.openSnackBar('Password reset successessful');
               this.passwordMsg = '';
+              this.router.navigateByUrl('/login');
             }
             else {
               this.passwordMsg = res.message;

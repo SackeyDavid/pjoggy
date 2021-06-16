@@ -20,6 +20,7 @@ export class EditEventDetailsComponent implements OnInit {
   saved: boolean;
   form: FormGroup = new FormGroup({});
   imgSrc: string;
+  imgStore: any;
 
   facebookVisibility: boolean;
   zoomVisibility: boolean;
@@ -95,7 +96,7 @@ export class EditEventDetailsComponent implements OnInit {
       email: [this.details.email, Validators.email],
       phone: [this.details.phone, [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]],
       hosted_on: [this.details.hosted_on],
-      banner_image: [this.details.banner_image],
+      banner_image: [''],
       organizer: [this.details.organizer, Validators.required],
       facebook_hosting: [this.details.hosted_on[0].link, Validators.pattern(urlRegex)],
       zoom_hosting: [this.details.hosted_on[1].link, Validators.pattern(urlRegex)],
@@ -106,11 +107,11 @@ export class EditEventDetailsComponent implements OnInit {
       meet_hosting_password: [this.details.hosted_on[3].password],
       teams_hosting: [this.details.hosted_on[4].link, Validators.pattern(urlRegex)],
       teams_hosting_password: [this.details.hosted_on[4].password],
-      facebook_checkbox: [],
-      zoom_checkbox: [],
-      youtube_checkbox: [],
-      meet_checkbox: [],
-      teams_checkbox: [],
+      facebook_checkbox: [''],
+      zoom_checkbox: [''],
+      youtube_checkbox: [''],
+      meet_checkbox: [''],
+      teams_checkbox: [''],
     });
   }
 
@@ -119,9 +120,10 @@ export class EditEventDetailsComponent implements OnInit {
     if (this.form.valid) {
       console.log('form is valid');
       console.log(this.getFormData());
-      console.log( this.f.banner_image.value)
+      console.log( this.imgStore);
+      // console.log( this.f.banner_image.value)
       this.isLoading = true;      
-      this.eventDetailsService.editEventDetails(this.getFormData(), this.f.banner_image.value, this.eventID).then(
+      this.eventDetailsService.editEventDetails(this.getFormData(), this.imgStore, this.eventID).then(
         res => {
           if (res) {
             this.isLoading = false;
@@ -153,7 +155,8 @@ export class EditEventDetailsComponent implements OnInit {
     if (file) {
       this.isBannerSet = true;
 
-      this.f.banner_image.value = file;
+      // this.f.banner_image.value = file;
+      this.imgStore = file;
 
       var reader = new FileReader();
       reader.readAsDataURL(file);
