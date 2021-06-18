@@ -20,7 +20,7 @@
                         <div *ngIf="currentUser" class="col-lg-4 col-md-6 my-auto profile-summary">
                             {{currentUser.name}} <br>
                             <!-- Event Organizer, GiT <br> -->
-                            {{getCountry(currentUser.country)}}
+                            {{currentUser.country}}
                         </div>
                     </div>
 
@@ -587,7 +587,7 @@
                     </div>
 
                     <div class="row mt-4">
-                        <div class="col">
+                        <div class="col mb-4">
                             <button class="account-button btn btn-primary form-element form-btn">
                                 <span *ngIf="isSending" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
                                 Save changes

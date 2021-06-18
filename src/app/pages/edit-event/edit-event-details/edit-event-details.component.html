@@ -381,7 +381,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col submit-button">
-                        <button *ngIf="!isVideoSaving" type="button" class="video-save-button btn btn-lg btn-primary" (click)="createVideo()">Save Video</button>
+                        <button *ngIf="!isVideoSaving" type="button" style="border: 1px solid #fff;" class="video-save-button btn btn-lg btn-primary" (click)="createVideo()">Save Video</button>
                         <app-loading-button *ngIf="isVideoSaving"></app-loading-button>
                       </div>
                     </div>              
@@ -421,7 +421,7 @@
           <div class="nav-buttons only-non-mobile">
             <button type="button" class="btn mb-2 btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
             <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-lg btn-secondary" (click)="openUsersEvents()">Save & Exit</button>
-            <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-lg btn-primary" (click)="edit()">Save & Exit</button>
+            <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-lg btn-primary" (click)="edit()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
           <div class="nav-buttons only-mobile">

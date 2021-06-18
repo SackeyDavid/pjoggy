@@ -133,7 +133,6 @@ export class EditEventDetailsComponent implements OnInit {
   }
 
   edit(): void {
-    if(this.isVideoSet) { 
     this.saved = true;
     if (this.form.valid) {
       console.log('form is valid');
@@ -166,9 +165,6 @@ export class EditEventDetailsComponent implements OnInit {
     } else {
       console.log('form data invalid');
       console.log(this.getFormData());
-    }
-    } else {
-      this.videoError = true;
     }
   }
 
