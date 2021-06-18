@@ -152,6 +152,7 @@ export class CreateEventSpeakersComponent implements OnInit {
     this.isLoadingSpeakers = true;
     this.speakerService.getSpeakers(this.eventId).then(
       speakers => {
+        console.log(speakers);
         this.isLoadingSpeakers = false;
         _.forEach(speakers, (speaker, i) => {
           this.createdSpeakerList.push(speaker);

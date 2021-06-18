@@ -22,6 +22,7 @@ export class CreateEventSponsorsComponent implements OnInit {
   createdImgSrc: string;
   eventId: string;
   isSaving: boolean;
+  imageError: boolean;
 
   constructor(
     private router: Router,
@@ -34,6 +35,7 @@ export class CreateEventSponsorsComponent implements OnInit {
     this.isSponsorSet = false;
     this.imgSrcList = [];
     this.createdImgSrc = '';
+    this.imageError = false;
 
     this.getEventDetails();
     this.getExistingSponsors();
@@ -59,27 +61,32 @@ export class CreateEventSponsorsComponent implements OnInit {
     console.log(this.eventId);
   }
 
-  create(): void {  
-    this.isLoading = false;
-    this.imgSrcList.unshift(this.createdImgSrc)
-    this.isSponsorSet = false;
-    this.sponsorsService.createSponsor(this.f.event_sponsor.value, this.eventId).then(
-      res => {
-        if (res) {
-          this.isLoading = false;
-          this.imgSrcList.unshift(this.createdImgSrc)
-          this.isSponsorSet = false;
+  create(): void {
+    if (this.isSponsorSet) {  
+      this.isSaving = true;
+      this.sponsorsService.createSponsor(this.f.event_sponsor.value, this.eventId).then(
+        res => {
+          if (res) {
+            this.isSaving = false;
+            this.imgSrcList.unshift(this.createdImgSrc)
+            this.isSponsorSet = false;
+            this.imageError = false;
+          }
+          else {
+            this.isSaving = false;
+            alert('oops, didn\'t create');
+          }
+        },
+        err => {
+          console.log(err);
+          this.isSaving = false;
         }
-        else {
-          this.isLoading = false;
-          alert('oops, didn\'t create');
-        }
-      },
-      err => {
-        console.log(err);
-        this.isLoading = false;
-      }
-    );  
+      );  
+    }
+    else {
+      console.log('set the damn sponsor');
+      this.imageError = true;
+    }
   }
 
   getExistingSponsors(): any {

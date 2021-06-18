@@ -115,12 +115,12 @@
               <tr>
                 <td>First Name</td>
                 <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeFirstName" [disabled]="true"></td>
-                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireFirstName"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireFirstName" [disabled]="true"></td>
               </tr>
               <tr>
                 <td>Last Name</td>
                 <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeLastName" [disabled]="true"></td>
-                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireLastName"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireLastName" [disabled]="true"></td>
               </tr>
               <tr>
                 <td>Gender</td>
@@ -130,7 +130,7 @@
               <tr>
                 <td>Email</td>
                 <td><input class="form-check-input" type="checkbox" id="includePrefix" [(ngModel)]="includeEmail" [disabled]="true"></td>
-                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireEmail"></td>
+                <td><input class="form-check-input" type="checkbox" id="requirePrefix" [(ngModel)]="requireEmail" [disabled]="true"></td>
               </tr>
               <tr>
                 <td>Phone No.</td>
@@ -178,7 +178,7 @@
               <div class="col">
                   <div class="mt-2 ml-2">
                       <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Cancel Rules (Hours)</label>
-                      <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="cancelRules" [(ngModel)]="cancelRules">
+                      <input type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" [(ngModel)]="cancelRules">
                       <small class="text-muted" style="margin-left: 0.3rem;">RSVP cannot be cancelled for specified hours to the event.</small>
                   </div>
               </div>
@@ -227,7 +227,7 @@
           <div class="nav-buttons">
             <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
             <!-- <button type="button" class="btn btn-lg btn-primary" (click)="publish()">Publish</button> -->
-            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="publish()">Publish</button>
+            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="createRsvpForm()">Publish</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
         </div>

@@ -20,7 +20,7 @@ export class DatetimeFormatterService {
 
     // return f_date + ' ' + f_time;
     let f_date = moment(_date).format('YYYY-MM-DD');
-    let f_time = moment(_time).format('hh:mm:ss');
+    let f_time = moment(_time).format('HH:mm:ss');
 
     return f_date + ' ' + f_time;
   }

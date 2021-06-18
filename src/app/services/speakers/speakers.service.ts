@@ -77,7 +77,7 @@ export class SpeakersService {
       const url = this.editSpeakerUrl + speakerId;
       const formData = new FormData();
       formData.append('image', image);
-      formData.append('speaker', speaker.name);
+      formData.append('name', speaker.name);
       formData.append('bio', speaker.bio);
       formData.append('facebook', speaker.facebook);      
       formData.append('twitter', speaker.twitter);      

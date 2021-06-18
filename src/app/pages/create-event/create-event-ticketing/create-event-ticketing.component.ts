@@ -65,8 +65,8 @@ export class CreateEventTicketingComponent implements OnInit {
   initForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      quantity: ['', Validators.pattern("^[0-9]*$")],
-      price: ['', Validators.pattern("^[0-9]*$")],
+      quantity: ['1', Validators.pattern("^[0-9]*$")],
+      price: ['0', Validators.pattern("^[0-9]*$")],
       currency: ['GHS'],
       salesEndDate: [''],
       salesStartDate: ['']
@@ -139,7 +139,7 @@ export class CreateEventTicketingComponent implements OnInit {
       eventId: this.eventId
     };
 
-    console.log('hdhdhd ', data);
+    console.log(data);
 
     return data;
   }
@@ -258,9 +258,9 @@ export class CreateEventTicketingComponent implements OnInit {
 
   resetForm() : void {
     this.f.name.setValue('');
-    this.f.price.setValue('');
+    this.f.price.setValue('0');
     this.f.currency.setValue('');
-    this.f.quantity.setValue('');
+    this.f.quantity.setValue('1');
     this.f.salesEndDate.setValue('');
     this.f.salesStartDate.setValue('');
   }

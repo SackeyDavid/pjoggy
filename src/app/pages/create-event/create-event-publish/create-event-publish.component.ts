@@ -84,18 +84,20 @@ export class CreateEventPublishComponent implements OnInit {
 
   publish(): void {   
     this.isLoading = true;
-    // publish
+
+    let allow_cancel = (this.allowCancel == 1)? "1" : "0";
     let body = {
-      allow_cancel: this.allowCancel.toString(),
+      allow_cancel: allow_cancel,
       cancel_rules: this.cancelRules.toString()
     } 
+    console.log(body);
     this.publishingService.publishEvent(this.eventId, body).then(
       res => {
         if (res) {
           console.log(res);
           this.isLoading = false;
-          if(res.message == 'OK') {            
-            this.createRsvpForm();
+          if(res.message == 'OK') {
+            this.router.navigateByUrl('/event_details');                        
           }
           this.publishErrors = [];
         }
@@ -118,12 +120,8 @@ export class CreateEventPublishComponent implements OnInit {
         if (res) {
           console.log(res);
           this.isLoading = false;
-          if(res.message == 'OK') {
-            this.saveCreatedEvent(this.eventId).then(
-              ok => {
-                if (ok) this.router.navigateByUrl('/user_events');;
-              }                               
-            );
+          if(res.message == 'Ok') {            
+            this.publish();       
           }
         }
       },
@@ -192,11 +190,11 @@ export class CreateEventPublishComponent implements OnInit {
   getRsvp(): any {
     this.publishingService.getRsvp(this.eventId).then(
       rsvp => {
-        console.log(rsvp);
-        this.existingRsvpId = rsvp[0].id;
-        this.existingRsvpForm = rsvp[0].form_fields;
-        
-        if (rsvp[0].id) {
+        console.log(rsvp);        
+        if (rsvp[0]?.id) {
+          this.existingRsvpId = rsvp[0].id;
+          this.existingRsvpForm = rsvp[0].form_fields;
+
           this.populateRsvpForm(rsvp[0].form_fields);
         }
       }

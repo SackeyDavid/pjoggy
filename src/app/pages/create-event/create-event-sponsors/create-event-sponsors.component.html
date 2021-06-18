@@ -41,9 +41,12 @@
                                     <img class="card-img-bottom" [src]="createdImgSrc" width="250" height="250">
                                   </div>
                               </div>
-                          </div>
+                          </div>                          
                       </div>
                   </div>
+                  <small *ngIf="imageError" id="titleHelp" class="text-danger">
+                    PLease select an image
+                  </small>
                   <!-- <small id="descHelp" class="form-text text-muted">
                     JPG, JPEG or PNG, no larger than 10MB.
                   </small> -->

@@ -139,6 +139,9 @@ export class EditBasicInfoComponent implements OnInit {
       hosting: [this.event.hosting]
     });
 
+    this.formattedAddress = this.event.venue;
+    this.addressCoordinates = this.event.gps;
+    
     this.setHostingValidators();
     this.setTagsChips();
   }
@@ -182,10 +185,11 @@ export class EditBasicInfoComponent implements OnInit {
   }
 
   edit(): void {
+    console.log(this.formattedAddress)
     this.saved = true;
     this.dateValidation();
     if (this.form.valid && this.isDateCorrect && this.isDateIntervalCorrect && this.isTimeCorrect && this.isTimeIntervalCorrect) {
-      console.log('form is valid');
+      console.log(this.getFormData());
       this.isLoading = true;
       this.basicInfoService.editBasicEvent(this.eventID, this.getFormData()).then(
         res => {
@@ -193,7 +197,7 @@ export class EditBasicInfoComponent implements OnInit {
             console.log(res);
             this.isLoading = false;
             this.getCreatedEvent(this.eventID);
-            console.log(this.getFormData().recurring)
+            // console.log(this.getFormData());
 
             if (this.getFormData().recurring == '1') {
               if (this.checkSessionData.eventHasScheduleData()) {
@@ -226,6 +230,7 @@ export class EditBasicInfoComponent implements OnInit {
   }
 
   getFormData(): any {
+    console.log(this.formattedAddress)
     const data = {
       title: this.f.title.value,
       description: this.f.description.value,

@@ -119,10 +119,10 @@
         <div class="form-item">
           <div class="form-header">
             <div class="form-title">
-              <h2>Contact Info</h2>
+              <h2>Organizer's Info</h2>
             </div>
             <div class="form-description">
-              <p class="text-muted lead">This is optional, skip if you dont want to make your contact info public. Attendees of the event will see the contact info you provide.</p>
+              <p class="text-muted lead">This is optional, skip if you don't want to make your contact info public. Attendees of the event will see the contact info you provide.</p>
             </div>
           </div>
 
@@ -131,11 +131,11 @@
             <!-- organizer -->
             <div class="form-group">
               <div class="form-floating">
-                <input class="form-control" id="floatingDesc"  aria-describedby="descHelp" placeholder="Main Event Organizer" required
+                <input class="form-control" id="floatingDesc"  aria-describedby="descHelp" placeholder="Kojo Asamoah" required
                   formControlName="organizer" [ngClass]="{'is-invalid': saved && f.organizer.errors, 'is-valid': !f.organizer.errors}">
-                <label for="floatingDesc">Organizer Full name</label>
+                <label for="floatingDesc">Full name</label>
                 <small *ngIf="saved && f.organizer.errors" id="titleHelp" class="form-text invalid-feedback">
-                  Organizer is required.
+                  Organizer's name is required.
                 </small>
               </div>
             </div>
@@ -146,11 +146,11 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event organizer's phone number"
-                        formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': (f.phone.value!='' || f.phone.value!=null) && !f.phone.errors}">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="233504442323"
+                        formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': saved && (f.phone.value!='' || f.phone.value!=null) && !f.phone.errors}">
                       <label for="floatingTitle">Phone Number</label>
                       <small *ngIf="saved && f.phone.errors" id="titleHelp" class="form-text invalid-feedback">
-                        Must begin with country code
+                        Please enter a valid phone number. Start with country code
                       </small>
                     </div>
                   </div>
@@ -159,11 +159,11 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Event organizer's email address"
-                        formControlName="email" [ngClass]="{'is-invalid': saved && f.email.errors, 'is-valid': (f.email.value!='' || f.email.value!=null) && !f.email.errors}">
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="name@example.com"
+                        formControlName="email" [ngClass]="{'is-invalid': saved && f.email.errors, 'is-valid': saved && (f.email.value!='' || f.email.value!=null) && !f.email.errors}">
                       <label for="floatingTitle">Email Address</label>
                       <small *ngIf="saved && f.email.errors" id="titleHelp" class="form-text invalid-feedback">
-                        Must provide a valid email address
+                        Please enter a valid email address
                       </small>
                     </div>
                   </div>
@@ -221,7 +221,7 @@
                     <div class="form-floating input-group">
                       <span class="input-group-text" id="basic-addon1"><i class="bi bi-facebook"></i></span>
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="facebook_hosting"
-                        [ngClass]="{'is-invalid': saved && f.facebook_hosting.errors, 'is-valid': f.facebook_hosting.value!='' && !f.facebook_hosting.errors}">
+                        [ngClass]="{'is-invalid': saved && f.facebook_hosting.errors, 'is-valid': saved && f.facebook_hosting.value!='' && !f.facebook_hosting.errors}">
                       <label class="hosting-icon" for="floatingTitle">Facebook</label>
                     </div>
                   </div>
@@ -238,7 +238,7 @@
                     <div class="form-floating input-group mb-3">
                       <span class="input-group-text" id="basic-addon1"><i class="bi bi-camera-video-fill"></i></span>
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="zoom_hosting"
-                        [ngClass]="{'is-invalid': saved && f.zoom_hosting.errors, 'is-valid': f.zoom_hosting.value!='' && !f.zoom_hosting.errors}">
+                        [ngClass]="{'is-invalid': saved && f.zoom_hosting.errors, 'is-valid': saved && f.zoom_hosting.value!='' && !f.zoom_hosting.errors}">
                       <label class="hosting-icon" for="floatingTitle">Zoom web link</label>
                     </div>
                   </div>
@@ -269,7 +269,7 @@
                     <div class="form-floating input-group">
                       <span class="input-group-text" id="basic-addon1"><i class="bi bi-youtube"></i></span>
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="youtube_hosting"
-                        [ngClass]="{'is-invalid': saved && f.youtube_hosting.errors, 'is-valid': f.youtube_hosting.value!='' && !f.youtube_hosting.errors}">
+                        [ngClass]="{'is-invalid': saved && f.youtube_hosting.errors, 'is-valid': saved && f.youtube_hosting.value!='' && !f.youtube_hosting.errors}">
                       <label class="hosting-icon" for="floatingTitle">Youtube</label>
                     </div>
                   </div>
@@ -286,7 +286,7 @@
                     <div class="form-floating input-group mb-3">
                       <span class="input-group-text" id="basic-addon1"><i class="bi bi-google"></i></span>
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="meet_hosting"
-                        [ngClass]="{'is-invalid': saved && f.meet_hosting.errors, 'is-valid': f.meet_hosting.value!='' && !f.meet_hosting.errors}">
+                        [ngClass]="{'is-invalid': saved && f.meet_hosting.errors, 'is-valid': saved && f.meet_hosting.value!='' && !f.meet_hosting.errors}">
                       <label class="hosting-icon" for="floatingTitle">Google Meet</label>
                     </div>
                   </div>
@@ -310,7 +310,7 @@
                     <div class="form-floating input-group mb-3">
                       <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="teams_hosting"
-                        [ngClass]="{'is-invalid': saved && f.teams_hosting.errors, 'is-valid': f.teams_hosting.value!='' && !f.teams_hosting.errors}">
+                        [ngClass]="{'is-invalid': saved && f.teams_hosting.errors, 'is-valid': saved && f.teams_hosting.value!='' && !f.teams_hosting.errors}">
                       <label class="hosting-icon" for="floatingTitle">Microsoft Teams</label>
                     </div>
                   </div>
@@ -326,6 +326,8 @@
             </div>
           </div>
         </div>
+
+        
         
         <div class="navigation">
           <div class="nav-buttons only-non-mobile">

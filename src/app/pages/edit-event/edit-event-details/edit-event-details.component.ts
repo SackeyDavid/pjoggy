@@ -146,7 +146,8 @@ export class EditEventDetailsComponent implements OnInit {
         }
       );
     } else {
-      console.log('form data invalid')
+      console.log('form data invalid');
+      console.log(this.getFormData());
     }
   }
 
@@ -168,11 +169,11 @@ export class EditEventDetailsComponent implements OnInit {
 
   getFormData(): any {
     let hostedObject = [
-      { 'id': this.details.hosted_on[0].platform, 'password': '', 'meeting_id': '', 'platform': 'Facebook', 'link': this.f.facebook_hosting.value },
-      { 'id': this.details.hosted_on[1].platform, 'password': this.f.zoom_hosting_password.value, 'meeting_id': this.f.zoom_hosting_id.value, 'platform': 'Zoom', 'link': this.f.zoom_hosting.value },
-      { 'id': this.details.hosted_on[2].platform, 'password': '', 'meeting_id': '', 'platform': 'Youtube', 'link': this.f.youtube_hosting.value },
-      { 'id': this.details.hosted_on[3].platform, 'password': this.f.meet_hosting_password.value, 'meeting_id': '', 'platform': 'Meet', 'link': this.f.meet_hosting.value },
-      { 'id': this.details.hosted_on[4].platform, 'password': this.f.teams_hosting_password.value, 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
+      { 'id': this.details.hosted_on[0].id, 'password': '', 'meeting_id': '', 'platform': 'Facebook', 'link': this.f.facebook_hosting.value },
+      { 'id': this.details.hosted_on[1].id, 'password': this.f.zoom_hosting_password.value, 'meeting_id': this.f.zoom_hosting_id.value, 'platform': 'Zoom', 'link': this.f.zoom_hosting.value },
+      { 'id': this.details.hosted_on[2].id, 'password': '', 'meeting_id': '', 'platform': 'Youtube', 'link': this.f.youtube_hosting.value },
+      { 'id': this.details.hosted_on[3].id, 'password': this.f.meet_hosting_password.value, 'meeting_id': '', 'platform': 'Meet', 'link': this.f.meet_hosting.value },
+      { 'id': this.details.hosted_on[4].id, 'password': this.f.teams_hosting_password.value, 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
     ]
 
     const data = {

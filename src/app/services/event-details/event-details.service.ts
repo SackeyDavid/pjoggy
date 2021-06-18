@@ -11,13 +11,19 @@ export class EventDetailsService {
   private headers: HttpHeaders;
   private formHeaders: HttpHeaders;
   editDetailsUrl: string;
-  getEventUrl: string
+  getEventUrl: string;
+  private getLiveVideosUrl: string;
+  private storeLiveVideosUrl: string;
+  private deleteLiveVideoUrl: string;
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
     this.formHeaders = this.endpoint.headers(true);
     this.editDetailsUrl = this.endpoint.apiHost + '/v1/edit_more_event_info/'; 
     this.getEventUrl = this.endpoint.apiHost + '/get_event_data/';
+    this.storeLiveVideosUrl = this.endpoint.apiHost + '/v1/store_live_video/';
+    this.getLiveVideosUrl = this.endpoint.apiHost + '/get_live_video/';
+    this.deleteLiveVideoUrl = this.endpoint.apiHost + '/v1/delete_live_video/';
   }
 
   editEventDetails(event: any, banner: File, eventId: any): Promise<any> {
@@ -67,5 +73,69 @@ export class EventDetailsService {
       );
     });
   }
+
+  
+  storeVideo(video: File, eventId: any): Promise<any> {
+    console.log(this.storeLiveVideosUrl);
+    console.log(eventId);
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('video', video);
+      formData.append('video_id', '0');
+
+      this.http.post<any>(this.storeLiveVideosUrl + eventId, formData, { headers: this.formHeaders }).subscribe(
+        res => {
+          console.log('store_video_ok: ', res);
+          resolve(res.message);
+        },
+        err => {
+          console.error('store_video_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteVideo(video: File, eventId: any): Promise<any> {
+    console.log(this.deleteLiveVideoUrl);
+    console.log(eventId);
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('video', video);
+      formData.append('event_id', eventId);
+
+      this.http.post<any>(this.deleteLiveVideoUrl + eventId, formData, { headers: this.formHeaders }).subscribe(
+        res => {
+          console.log('store_video_ok: ', res);
+          resolve(res.message);
+        },
+        err => {
+          console.error('store_video_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getVideos(eventId: string): Promise<Array<any>> {
+    return new Promise((resolve, reject) => {
+      let images: any[] = [];
+      const url = this.getLiveVideosUrl + eventId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_live_videos_ok: ', res);
+          images = res;
+          resolve(images);
+        },
+        err => {
+          console.log('get_live_videos_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+
+
 
 }

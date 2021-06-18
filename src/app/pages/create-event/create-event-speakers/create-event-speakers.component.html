@@ -36,9 +36,12 @@
 
                   <div class="form-group">
                     <div class="form-floating">
-                      <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="bio"></textarea>
+                      <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="bio" maxlength="250"></textarea>
                       <label for="floatingDesc">Speaker Bio</label>                      
                     </div>
+                    <small class="form-text text-muted">
+                      {{250 - f.bio?.value?.length}} characters
+                    </small>
                   </div>
 
                   <div class="row">
@@ -77,7 +80,7 @@
                               [ngClass]="{'is-invalid': saved && f.facebook.errors, 'is-valid': saved && f.facebook.value!='' && !f.facebook.errors}">
                             <label for="floatingTitle">Facebook</label>         
                             <small *ngIf="saved && f.facebook.errors" id="titleHelp" class="form-text invalid-feedback">
-                              You must enter a valid url.
+                              Please provide a valid url
                             </small>                       
                         </div>
                       </div>
@@ -90,7 +93,7 @@
                             [ngClass]="{'is-invalid': saved && f.twitter.errors, 'is-valid': saved && f.twitter.value!='' && !f.twitter.errors}">
                             <label for="floatingTitle">Twitter</label>           
                             <small *ngIf="saved && f.twitter.errors" id="titleHelp" class="form-text invalid-feedback">
-                              You must enter a valid url.
+                              Please provide a valid url
                             </small>                       
                         </div>
                       </div>
@@ -103,7 +106,7 @@
                               [ngClass]="{'is-invalid': saved && f.linkedin.errors, 'is-valid': saved && f.linkedin.value!='' && !f.linkedin.errors}">
                             <label for="floatingTitle">Linked-In</label> 
                             <small *ngIf="saved && f.linkedin.errors" id="titleHelp" class="form-text invalid-feedback">
-                              You must enter a valid url.
+                              Please provide a valid url
                             </small>                                 
                         </div>
                       </div>
@@ -116,7 +119,7 @@
                               [ngClass]="{'is-invalid': saved && f.instagram.errors, 'is-valid': saved && f.instagram.value!='' && !f.instagram.errors}">
                             <label for="floatingTitle">Instagram</label>     
                             <small *ngIf="saved && f.instagram.errors" id="titleHelp" class="form-text invalid-feedback">
-                              You must enter a valid url.
+                              Please provide a valid url
                             </small>                             
                         </div>
                       </div>

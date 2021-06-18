@@ -67,7 +67,7 @@ export class CreateBasicInfoComponent implements OnInit {
     // this.toggleVenueView();
     this.getCategories();
     this.disableSubcategory();
-    this.setHosting(1);
+    this.setHosting('1');
   }
 
   public get f(): any {
