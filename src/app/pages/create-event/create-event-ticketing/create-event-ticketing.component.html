@@ -249,7 +249,7 @@
                             {{ ticket.currency }} {{ ticket.price }}
                           </p>
                           <p class="card-text">
-                            <small class="text-muted">
+                            <small *ngIf="ticket.salesStartDate" class="text-muted">
                               {{ ticket.sales_startdate_time || ticket.salesStartDate | date }} -
                               {{ ticket.sales_enddate_time  || ticket.salesEndDate | date }}
                             </small>

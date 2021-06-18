@@ -122,11 +122,11 @@ export class CreateEventTicketingComponent implements OnInit {
 
   getFormData(): any {
     const endDate = this.f.salesEndDate.value == '' || this.f.salesEndDate.value == null
-      ? moment().format('YYYY-MM-DD hh:mm:ss')
+      ? null
       : moment(this.f.salesEndDate.value).format('YYYY-MM-DD');
 
     const startDate = this.f.salesStartDate.value == '' || this.f.salesStartDate.value == null
-      ? moment().format('YYYY-MM-DD hh:mm:ss')
+      ? null
       : moment(this.f.salesStartDate.value).format('YYYY-MM-DD');
 
     const data = {

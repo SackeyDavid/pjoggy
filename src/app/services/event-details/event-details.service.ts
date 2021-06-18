@@ -22,7 +22,7 @@ export class EventDetailsService {
     this.editDetailsUrl = this.endpoint.apiHost + '/v1/edit_more_event_info/'; 
     this.getEventUrl = this.endpoint.apiHost + '/get_event_data/';
     this.storeLiveVideosUrl = this.endpoint.apiHost + '/v1/store_live_video/';
-    this.getLiveVideosUrl = this.endpoint.apiHost + '/get_live_video/';
+    this.getLiveVideosUrl = this.endpoint.apiHost + '/get_live_video';
     this.deleteLiveVideoUrl = this.endpoint.apiHost + '/v1/delete_live_video/';
   }
 
@@ -120,7 +120,7 @@ export class EventDetailsService {
   getVideos(eventId: string): Promise<Array<any>> {
     return new Promise((resolve, reject) => {
       let images: any[] = [];
-      const url = this.getLiveVideosUrl + eventId;
+      const url = this.getLiveVideosUrl;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('get_live_videos_ok: ', res);

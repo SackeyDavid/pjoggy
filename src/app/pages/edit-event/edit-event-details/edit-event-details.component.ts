@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-edit-event-details',
@@ -28,6 +29,13 @@ export class EditEventDetailsComponent implements OnInit {
   meetVisibility: boolean;
   teamsVisibility: boolean;
 
+  video: any;
+  isVideoSet: boolean;
+  videoSrcList: any[];
+  createdVideoSrc: string;
+  isVideoSaving: boolean;
+  videoError: boolean;
+
   details: any = {
     banner_image: '',
     organizer: '',
@@ -46,6 +54,12 @@ export class EditEventDetailsComponent implements OnInit {
     this.isBannerSet = true;
     this.saved = false;
     this.imgSrc = '../../../../assets/images/placeholder.png';
+
+    this.isVideoSet = false;
+    this.videoSrcList = [];
+    this.createdVideoSrc = '';
+    this.isVideoSaving = false;
+    this.videoError = false;
 
     this.facebookVisibility = false;
     this.zoomVisibility = false;
@@ -67,6 +81,8 @@ export class EditEventDetailsComponent implements OnInit {
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
     this.eventID = data.event[0].id
+
+    this.getExistingVideos();
   }
 
   ngAfterContentInit(): void {
@@ -112,10 +128,12 @@ export class EditEventDetailsComponent implements OnInit {
       youtube_checkbox: [''],
       meet_checkbox: [''],
       teams_checkbox: [''],
+      // video: ['', Validators.required]
     });
   }
 
   edit(): void {
+    if(this.isVideoSet) { 
     this.saved = true;
     if (this.form.valid) {
       console.log('form is valid');
@@ -148,6 +166,9 @@ export class EditEventDetailsComponent implements OnInit {
     } else {
       console.log('form data invalid');
       console.log(this.getFormData());
+    }
+    } else {
+      this.videoError = true;
     }
   }
 
@@ -273,7 +294,102 @@ export class EditEventDetailsComponent implements OnInit {
       this.f.teams_checkbox.value = true;
     }
   }
+
+  // ----------------------------------------------------------------------------------------------------
+  // live videos
   
+  createVideo(): void { 
+    if(this.isVideoSet) { 
+      this.isVideoSaving = true; 
+      console.log(this.video)
+      this.eventDetailsService.storeVideo(this.video, this.eventID).then(
+        res => {
+          if (res) {
+            this.isLoading = false;
+            this.videoSrcList.unshift(this.createdVideoSrc)
+            this.isVideoSet = false;
+            this.isVideoSaving = false;
+          }
+          else {
+            this.isLoading = false;
+            alert('oops, didn\'t create');
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+          this.isVideoSaving = false;
+        }
+      );  
+    }
+    else {
+      this.videoError = true;
+    }
+  }
+
+  getExistingVideos(): any {
+    this.eventDetailsService.getVideos(this.eventID).then(
+      videos => {
+        _.forEach(videos, (video, i) => {
+          this.videoSrcList[i] = 'http://events369.logitall.biz/storage/live_videos/' + videos[i].url;
+          console.log(this.videoSrcList[i]);
+        });
+      }
+    );
+  }
+
+  onVideoSelected(e: any){
+    const file:File = e.target.files[0];
+    if (file) {
+      this.isVideoSet = true;
+
+      this.video = file;
+
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e: any) => {
+        this.createdVideoSrc = e.target.result;
+        // console.log(e.target.result);
+      }
+    }
+  }
+
+  openUsersEvents() {
+    this.saved = true;
+    if (this.form.valid) {
+      console.log('form is valid');
+      console.log(this.getFormData());
+      console.log( this.imgStore);
+      // console.log( this.f.banner_image.value)
+      this.isLoading = true;      
+      this.eventDetailsService.editEventDetails(this.getFormData(), this.imgStore, this.eventID).then(
+        res => {
+          if (res) {
+            this.isLoading = false;
+            this.getCreatedEvent(this.eventID);
+            
+            this.saveCreatedEvent(this.eventID).then(
+              ok => {
+                if (ok) this.router.navigateByUrl('/user_events');
+              }                               
+            );
+          }
+          else {
+            this.isLoading = false;
+            alert('oops, didn\'t create');
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      );
+    } else {
+      console.log('form data invalid');
+      console.log(this.getFormData());
+    }
+  }
+
 }
 
 

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-create-event-details',
@@ -21,6 +22,14 @@ export class CreateEventDetailsComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   imgSrc: string;
 
+  
+  video: any;
+  isVideoSet: boolean;
+  videoSrcList: any[];
+  createdVideoSrc: string;
+  isVideoSaving: boolean;
+  videoError: boolean;
+
   facebookVisibility: boolean;
   zoomVisibility: boolean;
   youtubeVisibility: boolean;
@@ -37,6 +46,13 @@ export class CreateEventDetailsComponent implements OnInit {
     this.isBannerSet = false;
     this.saved = false;
     this.imgSrc = '../../../../assets/images/placeholder.png';
+
+    
+    this.isVideoSet = false;
+    this.videoSrcList = [];
+    this.createdVideoSrc = '';
+    this.isVideoSaving = false;
+    this.videoError = false;
 
     this.facebookVisibility = false;
     this.zoomVisibility = false;
@@ -214,6 +230,102 @@ export class CreateEventDetailsComponent implements OnInit {
         }
       );
     });
+  }
+
+  
+  // ----------------------------------------------------------------------------------------------------
+  // live videos
+  
+  createVideo(): void { 
+    if(this.isVideoSet) { 
+      this.isVideoSaving = true; 
+      console.log(this.video)
+      this.eventDetailsService.storeVideo(this.video, this.eventID).then(
+        res => {
+          if (res) {
+            this.isLoading = false;
+            this.videoSrcList.unshift(this.createdVideoSrc)
+            this.isVideoSet = false;
+            this.isVideoSaving = false;
+          }
+          else {
+            this.isLoading = false;
+            alert('oops, didn\'t create');
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+          this.isVideoSaving = false;
+        }
+      );  
+    }
+    else {
+      this.videoError = true;
+    }
+  }
+
+  getExistingVideos(): any {
+    this.eventDetailsService.getVideos(this.eventID).then(
+      videos => {
+        _.forEach(videos, (video, i) => {
+          this.videoSrcList[i] = 'http://events369.logitall.biz/storage/live_videos/' + videos[i].url;
+          console.log(this.videoSrcList[i]);
+        });
+      }
+    );
+  }
+
+  onVideoSelected(e: any){
+    const file:File = e.target.files[0];
+    if (file) {
+      this.isVideoSet = true;
+
+      this.video = file;
+
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e: any) => {
+        this.createdVideoSrc = e.target.result;
+        // console.log(e.target.result);
+      }
+    }
+  }
+
+  openUsersEvents() {
+    console.log(this.f.email);
+    this.saved = true;
+    if (this.form.valid) {
+      console.log('form is valid');
+      console.log(this.getFormData());
+      console.log( this.f.banner_image.value)
+      this.isLoading = true;
+      this.eventDetailsService.editEventDetails(this.getFormData(), this.f.banner_image.value, this.eventID).then(
+        res => {
+          if (res) {
+            this.isLoading = false;
+            this.getCreatedEvent(this.eventID);
+            
+            this.saveCreatedEvent(this.eventID).then(
+              ok => {
+                if (ok) this.router.navigateByUrl('/user_events');
+              }                               
+            );
+          }
+          else {
+            this.isLoading = false;
+            alert('oops, didn\'t create');
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      );
+    }
+    else{
+      window.scrollTo(0,0);
+    }
   }
 
 }

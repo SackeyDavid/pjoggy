@@ -327,17 +327,107 @@
           </div>
         </div>
 
+        <div class="divider"></div>
+
+        <div class="form-item">
+          <div class="form-header">
+            <div class="form-title">
+              <h2>Add Live Videos</h2>
+            </div>
+            <div class="form-description">
+              <!-- <p class="text-muted lead">Ralph will add more detail texts here.</p> -->
+              <p class="text-muted lead">These videos will be displayed when your event goes live. Please use a portrait video.</p>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <!-- <form class="form" [formGroup]="videoForm"> -->
+  
+              <div class="form-item" style="padding-top: 10px !important;">                   
+                <div style="padding-left: 0px;" class="form-body">
+                  <!-- video -->
+                  <div class="form-group">
+                    <input type="file" accept="video/*" class="file-input" [(ngModel)]="video" [ngModelOptions]="{standalone: true}" (change)="onVideoSelected($event)" #videoUpload>
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="card" style="width: 300px;">
+                          <div (click)="videoUpload.click()" class="card-image-upload text-center">
+                            <div *ngIf="!isVideoSet" class="p-2">
+                            <!-- <div class="p-2"> -->
+                            <i class="bi bi-play-circle" style="font-size: 4em; color: #ddd;"></i>
+                            <div class="mt-3">
+                                <h4 class="text-muted">Click to add event video</h4>
+                                <p class="lead text-muted">MP4 or OGG, not longer than 1 minute</p>
+                            </div>
+                            </div>
+                            <div *ngIf="isVideoSet">
+                              <video class="media-select card-img-bottom" controls>
+                                <source src="{{createdVideoSrc}}" type="video/mp4">
+                                <source src="{{createdVideoSrc}}" type="video/ogg">
+                                <source src="{{createdVideoSrc}}" type="video/mkv">
+                                Your browser does not support the video tag.
+                              </video> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <small *ngIf="videoError" id="titleHelp" class="text-danger">
+                      Video is required
+                    </small>
+                  </div>
+
+                  
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col submit-button">
+                        <button *ngIf="!isVideoSaving" type="button" class="video-save-button btn btn-lg btn-primary" (click)="createVideo()">Save Video</button>
+                        <app-loading-button *ngIf="isVideoSaving"></app-loading-button>
+                      </div>
+                    </div>              
+                  </div>
+                  
+                  <div class="form-item">
+                    <div class="form-header">
+                        <div class="form-title">
+                        <h2>My Live Videos</h2>
+                        </div>                  
+                    </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col">
+                    <div *ngFor="let video of videoSrcList" class="card m-3 list-image-card">                 
+                      <video class="video-preview card-img-bottom" controls width="300" height="200">
+                        <source src="{{video}}" type="video/mp4">
+                        <source src="{{video}}" type="video/ogg">
+                        <source src="{{video}}" type="video/mkv">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+    
+                </div>
+              </div>              
+              
+            <!-- </form> -->
+          </div>
+        </div>
         
-        
+        <div class="divider"></div>
+
         <div class="navigation">
           <div class="nav-buttons only-non-mobile">
-            <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
-            <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="edit()">Save & Continue</button>
+            <button type="button" class="btn mb-2 btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+            <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-lg btn-secondary" (click)="openUsersEvents()">Save & Exit</button>
+            <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-lg btn-primary" (click)="edit()">Save & Exit</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
           <div class="nav-buttons only-mobile">
-            <button type="button" class="btn btn-md btn-warning mr-3" (click)="previous()">Previous</button>
-            <button *ngIf="!isLoading" type="button" class="btn btn-md btn-primary" (click)="edit()">Save & Continue</button>
+            <button type="button" class="btn mb-2 btn-md btn-warning mr-3" (click)="previous()">Previous</button>
+            <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-md btn-secondary" (click)="openUsersEvents()">Save & Exit</button>
+            <button *ngIf="!isLoading" type="button" class="btn mb-2 btn-md btn-primary" (click)="edit()">Save & Continue</button>
             <app-loading-button *ngIf="isLoading"></app-loading-button>
           </div>
         </div>
