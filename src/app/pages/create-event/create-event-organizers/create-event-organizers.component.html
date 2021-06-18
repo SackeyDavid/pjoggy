@@ -25,9 +25,9 @@
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Organizer name"
                             formControlName="name" [ngClass]="{'is-invalid': saved && f.name.errors, 'is-valid': !f.name.errors}">
-                        <label for="floatingTitle">Organizer Name</label>
+                        <label for="floatingTitle">Organizer's Name</label>
                         <small *ngIf="saved && f.name.errors" id="titleHelp" class="form-text invalid-feedback">
-                            Organizer name is required.
+                            Organizer's name is required.
                         </small>
                       </div>
                     </div>                     
