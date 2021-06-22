@@ -354,4 +354,73 @@ export class CreateBasicInfoComponent implements OnInit {
     console.log(address);
   }
 
+  openUsersEvents() {
+    console.log(this.getFormData());
+    this.saved = true;
+    this.dateValidation();
+    console.log(this.isDateCorrect);
+    console.log(this.isDateIntervalCorrect);
+
+    // TODO: add date time validation variables to if statement
+
+    if (this.form.valid && this.isDateCorrect && this.isDateIntervalCorrect && this.isTimeCorrect && this.isTimeIntervalCorrect) {
+      this.isLoading = true;
+      const data = this.getFormData();
+      console.log(data);
+      this.basicInfoService.createBasicEvent(data).then(
+        res => {
+          if (res) {
+            console.log(res);
+            console.log(data.recurring);
+            this.saveCreatedEvent(res).then(
+              ok => {
+                if (ok) {
+                  this.isLoading = false;
+                  if(data.recurring == '1') {
+                    // window.location.href = '/create_event/schedule';
+                    window.location.href = '/user_events';
+
+                  }
+                  else {
+                    // window.location.href = '/create_event/more_details';
+                    window.location.href = '/user_events';
+
+                  }
+                    // ? this.router.navigateByUrl('/create_event/schedule')
+                  //  window.location.href = '/create_event/more_details';
+                    // : this.router.navigateByUrl('/create_event/more_details');
+                }
+              },
+              err => {
+                // we still navigate but will get the data from the side menu.
+                if(data.recurring == '1') {
+                  // window.location.href = '/create_event/schedule';
+                  window.location.href = '/user_events';
+
+                }
+                else {
+                  // window.location.href = '/create_event/more_details';
+                  window.location.href = '/user_events';
+
+                }
+              }
+            );
+          }
+          else {
+            this.isLoading = false;
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      );
+    }
+    else{
+      console.log('scrolling to top');
+      window.scrollTo(0,0);
+    }
+  }
+
+
 }

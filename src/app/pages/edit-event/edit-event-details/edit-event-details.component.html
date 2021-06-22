@@ -76,6 +76,14 @@
       <form class="form" [formGroup]="form" (ngSubmit)="edit()">
         <div class="divider mb-1 mt-5"></div>
         <div class="form-item">
+          <div *ngIf="saved && f.organizer.errors" class="alert alert-danger alert-dismissable">
+            <p style="margin-bottom: 0rem !important;">Please provide a valid data for the organizer
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </p>            
+          </div>
+
           <div class="form-header">
             <div class="form-title">
               <h2>Event Image</h2>
@@ -122,7 +130,7 @@
               <h2>Organizer's Info</h2>
             </div>
             <div class="form-description">
-              <p class="text-muted lead">This is optional, skip if you don't want to make your contact info public. Attendees of the event will see the contact info you provide.</p>
+              <p class="text-muted lead">This part is optional, but the organizer's name is required. Skip if you don't want to make your contact info public. Attendees of the event will see the contact info you provide.</p>
             </div>
           </div>
 
@@ -186,7 +194,7 @@
             </div>
             <div class="form-description">
               <!-- <p class="text-muted lead">Ralph will add more detail texts here.</p> -->
-              <p class="text-muted lead">Add webinars, livestreams and meetings to your online event page. Select the settings icon () to restrict who can join your event, and when.</p>
+              <p class="text-muted lead">Add links to third party apps that attendees can used to join your online event.</p>
             </div>
           </div>
 
@@ -332,11 +340,11 @@
         <div class="form-item">
           <div class="form-header">
             <div class="form-title">
-              <h2>Add Live Videos</h2>
+              <h2>Add A Prerecorded Video</h2>
             </div>
             <div class="form-description">
               <!-- <p class="text-muted lead">Ralph will add more detail texts here.</p> -->
-              <p class="text-muted lead">These videos will be displayed when your event goes live. Please use a portrait video.</p>
+              <p class="text-muted lead">This video will be displayed when your event goes live. Please use a portrait video.</p>
             </div>
           </div>
 

@@ -42,7 +42,54 @@
     <div class="col-lg-5 col-md-8 col-sm-12">
       <div class="form">
         <div class="divider mb-1 mt-5"></div>
+        
         <div class="form-item">
+          <ng-container *ngIf="event.recurring === '1'">
+            <div *ngIf="!event.hasScheduleData" class="alert alert-danger alert-dismissable">
+              <p style="margin-bottom: 0rem !important;">Please create a schedule in the 2nd step
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </p>            
+            </div>
+  
+            <div *ngIf="!event.hasMoreDetailsData" class="alert alert-danger alert-dismissable">
+              <p style="margin-bottom: 0rem !important;">Please add event details in the 3rd step
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </p>            
+            </div>
+  
+            <div *ngIf="!event.hasTicketingData" class="alert alert-danger alert-dismissable">
+              <p style="margin-bottom: 0rem !important;">Please create a ticket in the previous step
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </p>            
+            </div>
+  
+          </ng-container>
+          
+          <ng-container *ngIf="event.recurring === '0'">
+            <div *ngIf="!event.hasMoreDetailsData" class="alert alert-danger alert-dismissable">
+              <p style="margin-bottom: 0rem !important;">Please add event details in the 2nd step
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </p>            
+            </div>
+  
+            <div *ngIf="!event.hasTicketingData" class="alert alert-danger alert-dismissable">
+              <p style="margin-bottom: 0rem !important;">Please create a ticket in the previous step
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </p>            
+            </div>
+  
+          </ng-container>
+          
           <div class="form-header">
             <div class="form-title">
               <h2>Preview Event</h2>
@@ -56,8 +103,8 @@
             <!-- title -->
             <div class="form-group">
               <div class="card mb-3">
-                <img *ngIf="eventBanner != null" class="card-img-top banner-img" src="http://events369.logitall.biz/storage/banner/{{eventBanner}}" height="300" alt="banner">
-                <img *ngIf="eventBanner == null" class="card-img-top banner-img" src="../../../../assets/images/placeholder.png" height="300" alt="banner">
+                <img *ngIf="eventBanner != null" class="card-img-top banner-img" src="http://events369.logitall.biz/storage/banner/{{eventBanner}}" height="250" alt="banner">
+                <img *ngIf="eventBanner == null" class="card-img-top banner-img" src="../../../../assets/images/placeholder.png" height="250" alt="banner">
                               
                 <div class="card-body">
                       <h5 class="card-title">{{eventTitle}}</h5>

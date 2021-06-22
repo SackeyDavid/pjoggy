@@ -57,7 +57,92 @@
 
     
     <div class="tab-content pt-3" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+      <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
+
+        <div class="row" *ngIf="!createdEvents || createdEvents.length == 0">
+            <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+              <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Drafts empty</span>
+                <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                  You have no created event yet
+
+              </p>
+            </div>
+
+          </div>
+
+        <div class="row">
+            <div *ngFor="let event of createdEvents; let i = index" class="col-lg-4 mb-4">
+                <div class="card" *ngIf="i < draft_loadIndex" (click)="showHideMoreDraft(event.id)">
+                    <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
+                    <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" class="card-img-top" height="250" alt="{{event.title}}">
+                    
+                    <div class="card-body">                          
+                        <div class="col">
+                            <h4 class="card-title">{{event.title}}</h4>
+                            
+                            <span id="draft-dots-{{event.id}}" style="color: #fff;">...</span>
+                            <span id="draft-more-{{event.id}}" style="display: none;">
+
+                            <hr>
+                            <p class="card-text" *ngIf="event.description">{{event.description}}</p>
+                            <p>
+                                <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                <small class="text-muted">Category : {{event.Category}}</small><br>
+                            </p>
+                            <hr>
+                            <div class="text-center">
+                                <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
+                                <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
+                                <!-- <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1"> Cancel</button> -->
+                                <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
+                            </div>
+
+                            </span>
+
+                            <span id="draft-myBtn-{{event.id}}" class="see-more-or-less">See More</span>
+                            
+                        </div>
+                    </div>                       
+                </div>
+            </div>  
+            
+            
+            <!-- <br><br><br> -->
+            <div class="row">
+                <div class="col-12">
+                  <div class="d-flex flex-row justify-content-end p-1">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
+                        <i class="bi-arrow-up"></i>
+                      </button> -->
+                      <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
+                        <i class="bi-arrow-down"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <br><br><br>
+              </div>
+            
+            <!-- <br><br><br>
+            <div class="d-flex justify-content-center">
+                <button  *ngIf="draft_loadIndex < createdEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreDrafts()" type="button">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Show more
+                </button>
+
+                <button  *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessDrafts()" type="button">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Show less
+                </button>
+            <br><br><br>
+            </div> -->
+
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
             <div class="row">  
                 
                 
@@ -226,91 +311,7 @@
 
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
-
-            <div class="row" *ngIf="!createdEvents || createdEvents.length == 0">
-                <div style="height: 50%;width: 100%;padding-bottom: 10%;">
-                  <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
-                    <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
-                    <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Drafts empty</span>
-                    <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
-                      You have no created event yet
-  
-                  </p>
-                </div>
-  
-              </div>
-
-            <div class="row">
-                <div *ngFor="let event of createdEvents; let i = index" class="col-lg-4 mb-4">
-                    <div class="card" *ngIf="i < draft_loadIndex" (click)="showHideMoreDraft(event.id)">
-                        <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
-                        <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" class="card-img-top" height="250" alt="{{event.title}}">
-                        
-                        <div class="card-body">                          
-                            <div class="col">
-                                <h4 class="card-title">{{event.title}}</h4>
-                                
-                                <span id="draft-dots-{{event.id}}" style="color: #fff;">...</span>
-                                <span id="draft-more-{{event.id}}" style="display: none;">
-
-                                <hr>
-                                <p class="card-text" *ngIf="event.description">{{event.description}}</p>
-                                <p>
-                                    <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
-                                    <small class="text-muted">Category : {{event.Category}}</small><br>
-                                </p>
-                                <hr>
-                                <div class="text-center">
-                                    <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
-                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
-                                    <!-- <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1"> Cancel</button> -->
-                                    <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
-                                </div>
-
-                                </span>
-
-                                <span id="draft-myBtn-{{event.id}}" class="see-more-or-less">See More</span>
-                                
-                            </div>
-                        </div>                       
-                    </div>
-                </div>  
-                
-                
-                <!-- <br><br><br> -->
-                <div class="row">
-                    <div class="col-12">
-                      <div class="d-flex flex-row justify-content-end p-1">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                          <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
-                            <i class="bi-arrow-up"></i>
-                          </button> -->
-                          <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
-                            <i class="bi-arrow-down"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <br><br><br>
-                  </div>
-                
-                <!-- <br><br><br>
-                <div class="d-flex justify-content-center">
-                    <button  *ngIf="draft_loadIndex < createdEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreDrafts()" type="button">
-                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Show more
-                    </button>
-
-                    <button  *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessDrafts()" type="button">
-                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Show less
-                    </button>
-                <br><br><br>
-                </div> -->
-
-            </div>
-        </div>
+        
         <div class="tab-pane fade" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
 
           <div class="row" *ngIf="!cancelledEvents || cancelledEvents.length == 0">

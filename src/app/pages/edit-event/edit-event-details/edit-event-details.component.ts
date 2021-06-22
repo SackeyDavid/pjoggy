@@ -113,7 +113,7 @@ export class EditEventDetailsComponent implements OnInit {
       phone: [this.details.phone, [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]],
       hosted_on: [this.details.hosted_on],
       banner_image: [''],
-      organizer: [this.details.organizer, Validators.required],
+      organizer: [this.details.organizer],
       facebook_hosting: [this.details.hosted_on[0].link, Validators.pattern(urlRegex)],
       zoom_hosting: [this.details.hosted_on[1].link, Validators.pattern(urlRegex)],
       zoom_hosting_id: [this.details.hosted_on[1].meeting_id],

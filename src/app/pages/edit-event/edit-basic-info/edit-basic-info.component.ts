@@ -440,4 +440,49 @@ export class EditBasicInfoComponent implements OnInit {
     this.f.gps.setValue(this.addressCoordinates);
   }
 
+  openUsersEvents() {
+    console.log(this.formattedAddress)
+    this.saved = true;
+    this.dateValidation();
+    if (this.form.valid && this.isDateCorrect && this.isDateIntervalCorrect && this.isTimeCorrect && this.isTimeIntervalCorrect) {
+      console.log(this.getFormData());
+      this.isLoading = true;
+      this.basicInfoService.editBasicEvent(this.eventID, this.getFormData()).then(
+        res => {
+          if (res) {
+            console.log(res);
+            this.isLoading = false;
+            this.getCreatedEvent(this.eventID);
+            // console.log(this.getFormData());
+
+            if (this.getFormData().recurring == '1') {
+              if (this.checkSessionData.eventHasScheduleData()) {
+                this.router.navigateByUrl('/user_events');
+              }
+              else {
+                this.router.navigateByUrl('/user_events');
+              }
+            }
+            else {
+              if (this.checkSessionData.eventHasMoreDetailsData()) {
+                this.router.navigateByUrl('/user_events');
+              }
+              else {
+                this.router.navigateByUrl('/user_events');
+              }
+            }
+          }
+          else {
+            this.isLoading = false;
+            alert('didnt create');
+          }
+        },
+        err => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      );
+    }
+  }
+
 }

@@ -13,8 +13,9 @@ import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service
 })
 export class CreateEventTicketingComponent implements OnInit {
 
-  eventTitle: string = ''
-  eventDate: string = ''
+  eventTitle: string = '';
+  eventDate: string = '';
+  eventTicketing: string = '';
 
   isLoading: boolean;
   saved: boolean;
@@ -50,10 +51,12 @@ export class CreateEventTicketingComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
-    var data: any =  sessionStorage.getItem('created_event')
-    data = JSON.parse(data)
+    var data: any =  sessionStorage.getItem('created_event');
+    data = JSON.parse(data);
     this.eventTitle = data.event[0].title;
-    this.eventDate = data.event[0].start_date_time
+    this.eventDate = data.event[0].start_date_time;
+    this.eventTicketing = data.event[0].ticketing;
+    if(this.eventTicketing == '0') this.f.price.disable();
   }
 
   
@@ -79,6 +82,7 @@ export class CreateEventTicketingComponent implements OnInit {
     const rawData = sessionStorage.getItem('created_event');
     const eventData = rawData != null ? JSON.parse(rawData) : {};
     this.eventId = eventData.event[0].id;
+
     console.log(this.eventId);
   }
 
@@ -280,6 +284,11 @@ export class CreateEventTicketingComponent implements OnInit {
         }
       );
     });
+  }
+
+  openUsersEvents() {
+    this.router.navigateByUrl('/user_events');
+    
   }
 
 }

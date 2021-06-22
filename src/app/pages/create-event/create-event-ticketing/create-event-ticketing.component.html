@@ -58,7 +58,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="ticket name"
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="ticket name eg. Premium"
                         formControlName="name" [ngClass]="{'is-invalid': saved && f.name.errors, 'is-valid': !f.name.errors}">
                       <label for="floatingTitle">Name</label>
                       <small *ngIf="saved && f.name.errors" id="titleHelp" class="form-text invalid-feedback">
@@ -103,7 +103,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="price"
+                      <input type="text" [disabled]= "eventTicketing == '0'" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="price"
                       formControlName="price" [ngClass]="{'is-invalid': saved && f.price.errors, 'is-valid': !f.price.errors && f.price.value != ''}">
                       <label for="floatingTitle">Price</label>
                       <div class="form-description">
@@ -283,6 +283,7 @@
       <div class="navigation">
         <div class="nav-buttons">
           <button type="button" class="btn btn-lg btn-warning mr-3" (click)="previous()">Previous</button>
+          <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-secondary mr-3" (click)="openUsersEvents()">Save & Exit</button>
           <button *ngIf="!isLoading" type="button" class="btn btn-lg btn-primary" (click)="save()">Save & Continue</button>
           <app-loading-button *ngIf="isLoading"></app-loading-button>
         </div>

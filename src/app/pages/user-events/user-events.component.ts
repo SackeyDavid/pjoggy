@@ -34,9 +34,9 @@ export class UserEventsComponent implements OnInit {
     private basicInfoService: BasicInfoService
   ) { }
 
-  ngOnInit() {    
-    this.getAllUserEvents();
+  ngOnInit() {  
     this.getUserEvents(0);
+    this.getAllUserEvents();
     this.getUserEvents(2);
     this.getUserEvents(4);
     this.getUserEvents(3);

@@ -4,6 +4,7 @@ import { PublishingService } from 'src/app/services/publishing/publishing.servic
 import { TicketsService } from 'src/app/services/tickets/tickets.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import { PrefixNot } from '@angular/compiler';
+import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-check/event-side-menu-check.service';
 
 @Component({
   selector: 'app-create-event-publish',
@@ -12,6 +13,7 @@ import { PrefixNot } from '@angular/compiler';
 })
 export class CreateEventPublishComponent implements OnInit {
 
+  event: any;
   isLoading: boolean;
   allowCancel: number = 0;
   cancelRules: number = 0;
@@ -54,16 +56,32 @@ export class CreateEventPublishComponent implements OnInit {
     private router: Router, 
     private publishingService: PublishingService,
     private ticketService: TicketsService,
-    private basicInfoService: BasicInfoService
+    private basicInfoService: BasicInfoService,
+    private checkSessionEventData: EventSideMenuCheckService
   ) {
     this.isLoading = false;
+    this.event = {
+      title: '',
+      recurring: '',
+      start_date_time: '',
+      hasScheduleData: false,
+      hasMoreDetailsData: false,
+      hasTicketingData: false,
+      hasPublishingData: false
+    };
   }
 
   ngOnInit(): void {
+    this.event.hasMoreDetailsData = this.checkSessionEventData.eventHasMoreDetailsData();
+    this.event.hasScheduleData = this.checkSessionEventData.eventHasScheduleData();
+    this.event.hasTicketingData = this.checkSessionEventData.eventHasTicketingData();
+    this.event.hasPublishingData = this.checkSessionEventData.eventHasPublishingData();
+
     var data: any =  sessionStorage.getItem('created_event')
     data = JSON.parse(data)
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time;
+    this.event.recurring = data.event[0].recurring;
 
     this.eventId = data.event[0].id;
     this.eventBanner = data.event[0].banner_image;
@@ -97,6 +115,7 @@ export class CreateEventPublishComponent implements OnInit {
           console.log(res);
           this.isLoading = false;
           if(res.message == 'OK') {
+            sessionStorage.setItem('preview_event_id', this.eventId);
             this.router.navigateByUrl('/event_details');                        
           }
           this.publishErrors = [];
