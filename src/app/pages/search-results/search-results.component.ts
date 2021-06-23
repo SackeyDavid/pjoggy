@@ -23,7 +23,7 @@ export class SearchResultsComponent implements OnInit {
       res => {
         if (res) {
           console.log(res);  
-          this.searchData = res.event.data;        
+          this.searchData = res.events.data;        
         }        
       },
       err => {

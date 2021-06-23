@@ -104,7 +104,7 @@
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" formControlName="linkedin"
                               [ngClass]="{'is-invalid': saved && f.linkedin.errors, 'is-valid': saved && f.linkedin.value!='' && !f.linkedin.errors}">
-                            <label for="floatingTitle">Linked-In</label>
+                            <label for="floatingTitle">LinkedIn</label>
                             <small *ngIf="saved && f.linkedin.errors" id="titleHelp" class="form-text invalid-feedback">
                               Please provide a valid url
                             </small>                                  
@@ -186,7 +186,7 @@
                                 <small>
                                   Facebook : <a class="link-text" href="{{organizer.facebook}}" target="_blank">{{organizer.facebook}}</a><br>
                                   Twitter : <a class="link-text" href="{{organizer.twitter}}" target="_blank">{{organizer.twitter}}</a><br>
-                                  Linked-In : <a class="link-text" href="{{organizer.linkedin}}" target="_blank">{{organizer.linkedin}}</a><br>
+                                  LinkedIn : <a class="link-text" href="{{organizer.linkedin}}" target="_blank">{{organizer.linkedin}}</a><br>
                                   Instagram : <a class="link-text" href="{{organizer.instagram}}" target="_blank">{{organizer.instagram}}</a><br>
                                 </small>
                               </p>

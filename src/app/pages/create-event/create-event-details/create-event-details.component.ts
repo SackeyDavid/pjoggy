@@ -68,6 +68,8 @@ export class CreateEventDetailsComponent implements OnInit {
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
     this.eventID = data.event[0].id
+
+    this.getExistingVideos();
   }
 
   previous() {
@@ -266,6 +268,7 @@ export class CreateEventDetailsComponent implements OnInit {
   }
 
   getExistingVideos(): any {
+    console.log('getting live events');
     this.eventDetailsService.getVideos(this.eventID).then(
       videos => {
         _.forEach(videos, (video, i) => {

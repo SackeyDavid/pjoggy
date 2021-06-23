@@ -39,7 +39,7 @@ export class HomePageComponent implements OnInit {
     this.eventService.getEventsHappeningNow().then(
       res => {
         console.log(res);
-        this.eventsNow = res.event.data;
+        this.eventsNow = res.events?.data;
       },
       err => {
         console.log(err);

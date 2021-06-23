@@ -162,7 +162,7 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
     this.eventService.getEventsHappeningNow().then(
       res => {
         console.log(res);
-        this.eventsNow = res.event.data;
+        this.eventsNow = res.events?.data;
       },
       err => {
         console.log(err);
@@ -274,7 +274,7 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
       this.userFavoriteService.getUserFavorites(this.userID).then(
         res => {
           console.log(res);
-          this.userFavorites = res.event.data;
+          this.userFavorites = res.event?.data;
           for (let i = 0; i < this.userFavorites.length; i++) {
             this.users_favorite_event_ids.push(this.userFavorites[i].id)
             this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites[i].id, fav_id: this.userFavorites[i].fav_id })

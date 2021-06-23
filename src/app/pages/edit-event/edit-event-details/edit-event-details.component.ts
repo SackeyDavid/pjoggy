@@ -324,6 +324,7 @@ export class EditEventDetailsComponent implements OnInit {
   }
 
   getExistingVideos(): any {
+    console.log('getting live events');
     this.eventDetailsService.getVideos(this.eventID).then(
       videos => {
         _.forEach(videos, (video, i) => {

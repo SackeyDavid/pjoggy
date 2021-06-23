@@ -113,7 +113,6 @@ export class CreateBasicInfoComponent implements OnInit {
     console.log(today);
 
     // check if event date is greater than today's date
-    // TODO: this check aint working
     if (sd >= today) this.isDateCorrect = true;
     else this.isDateCorrect = false;
       

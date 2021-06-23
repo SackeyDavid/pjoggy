@@ -14,8 +14,7 @@
                                 <img [src]="imgSrc" alt="{{currentUser.name}}'s photo" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                              
                                 <!-- <img src="../../../../assets/images/avatar-placeholder.png" alt="" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                        -->
                                 <div class="avatar-edit" (click)="photoUpload.click()"><i class="bi bi-pencil-fill"></i></div>
-                            </div>
-                           
+                            </div>                           
                         </div>
                         <div *ngIf="currentUser" class="col-lg-4 col-md-6 my-auto profile-summary">
                             {{currentUser.name}} <br>
@@ -550,10 +549,11 @@
                             <div class="mt-2">
                                 <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Date of Birth</label>
                                 <input type="text" class="form-control form-element" id="floatingStartDate" aria-describedby="titleHelp"
-                                    formControlName="dob" [owlDateTime]="sd" [owlDateTimeTrigger]="sd">
-                                <owl-date-time #sd pickerType="calendar"></owl-date-time>
+                                    formControlName="dob" [owlDateTime]="bday" [owlDateTimeTrigger]="bday">
+                                <owl-date-time #bday pickerType="calendar"></owl-date-time>
                             </div>
                             <small *ngIf="errorMsgs?.errors.dob"><span *ngFor="let x of errorMsgs?.errors?.dob" class="text-danger">{{x}}</span></small>
+                            <small *ngIf="!isBdayCorrect"><span class="text-danger">Age needs to be at least 18 years</span></small>
                         </div>
                         <div class="col">
                             <div class="mt-2">
@@ -561,6 +561,7 @@
                                 <select type="text" class="form-control form-element" id="floatingInput" style="height: 42px;" formControlName="gender" required>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
+                                    <option value="O">Other</option>
                                 </select>
                             </div>
                             <small *ngIf="errorMsgs?.errors.gender"><span *ngFor="let x of errorMsgs?.errors?.gender" class="text-danger">{{x}}</span></small>

@@ -158,7 +158,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     this.eventsService.getAllEvents().then(
       res => {
         console.log(res);
-        this.allEvents = res.events.data;
+        this.allEvents = res.events?.data;
       },
       err => {
         console.log(err);
@@ -186,7 +186,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
       this.eventsService.getCategoryEvents(categoryId).then(
         res => {
           console.log(res);
-          this.categoryEvents[i] = res.event.data;
+          this.categoryEvents[i] = res.event?.data;
           this.loadIndex[i] = 5
           console.log(this.categoryEvents[i])
         },
@@ -204,8 +204,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     if(this.userID !== '') {
       this.userFavoriteService.getUserFavorites(this.userID).then(
         res => {
-          // console.log(res.event.data);
-          this.userFavorites = res.event.data;
+          this.userFavorites = res.event?.data;
 
           for (let i = 0; i < this.userFavorites.length; i++) {
             this.users_favorite_event_ids.push(this.userFavorites[i].id)
@@ -245,7 +244,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     this.eventsService.getEventsInSixHours().then(
       res => {
         console.log(res);
-        this.events_in_six_hrs = res.events.data;
+        this.events_in_six_hrs = res.events?.data;
         this.events_events_in_six_hrs_empty = ((this.events_in_six_hrs.length > 0)? false: true)
         this.events_in_six_hrs.sort(function(a: any, b:any){
           // Turn your strings into dates, and then subtract them
@@ -264,7 +263,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     this.eventsService.getPopularEvents().then(
       res => {
         console.log(res);
-        this.popularEvents = res.event.data;
+        this.popularEvents = res.event?.data;
       },
       err => {
         console.log(err);
@@ -276,7 +275,7 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
     this.eventsService.getNewEvents().then(
       res => {
         console.log(res);
-        this.newEvents = res.events.data;
+        this.newEvents = res.events?.data;
       },
       err => {
         console.log(err);
