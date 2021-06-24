@@ -23,7 +23,7 @@
                   <div class="form-group">                   
                     <div class="form-floating">
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Speaker name"
+                        <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="Speaker's full name"
                             formControlName="name" [ngClass]="{'is-invalid': saved && f.name.errors, 'is-valid': !f.name.errors}">
                         <label for="floatingTitle">Speaker Name</label>
                         <small *ngIf="saved && f.name.errors" id="titleHelp" class="form-text invalid-feedback">
@@ -36,7 +36,7 @@
 
                   <div class="form-group">
                     <div class="form-floating">
-                      <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Event description" formControlName="bio" maxlength="250"></textarea>
+                      <textarea class="form-control" id="floatingDesc" style="height: 100px" aria-describedby="descHelp" placeholder="Speaker's profile" formControlName="bio" maxlength="250"></textarea>
                       <label for="floatingDesc">Speaker Bio</label>                      
                     </div>
                     <small class="form-text text-muted">

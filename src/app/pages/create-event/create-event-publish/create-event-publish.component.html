@@ -62,7 +62,7 @@
             </div>
   
             <div *ngIf="!event.hasTicketingData" class="alert alert-danger alert-dismissable">
-              <p style="margin-bottom: 0rem !important;">Please create a ticket in the previous step
+              <p style="margin-bottom: 0rem !important;">Please create a ticket(s) in the previous step
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -114,7 +114,16 @@
                         {{eventDescription}}
                       </p>
                       <p *ngFor="let ticket of eventTickets" class="card-text" style="font-weight: bold">
-                        <small><i class="bi-cash-stack"></i> {{ticket.currency}}{{ticket.price}} &nbsp; - &nbsp; <i class="bi-person"></i> {{ticket.max_quantity}}</small>
+                        <small><i class="bi-cash-stack"></i> 
+                          <ng-container *ngIf="ticket.price == 1"> Donations ({{ ticket.currency }})</ng-container>
+                          <ng-container *ngIf="ticket.price !== 1">{{ ticket.currency }} {{ ticket.price }}</ng-container>
+                         
+                          <!-- {{ticket.currency}}{{ticket.price}}  -->
+                          &nbsp; - &nbsp; 
+                          <i class="bi-person"></i> 
+                          <ng-container *ngIf="ticket.max_quantity == 1"> Unlimited</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity !== 1">{{ticket.max_quantity}}</ng-container>
+                        </small>
                       </p>
                       <p class="card-text" style="font-size: 12px;">
                         <span *ngIf="eventOrganizer != null">By: {{eventOrganizer}}</span> <br>

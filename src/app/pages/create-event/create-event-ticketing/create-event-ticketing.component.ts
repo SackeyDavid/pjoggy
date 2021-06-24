@@ -57,6 +57,10 @@ export class CreateEventTicketingComponent implements OnInit {
     this.eventDate = data.event[0].start_date_time;
     this.eventTicketing = data.event[0].ticketing;
     if(this.eventTicketing == '0') this.f.price.disable();
+    if(this.eventTicketing == '2') {
+      this.f.price.setValue('1');
+      // this.f.price.disable();
+    }
   }
 
   

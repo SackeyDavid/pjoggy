@@ -107,7 +107,8 @@
                       formControlName="price" [ngClass]="{'is-invalid': saved && f.price.errors, 'is-valid': !f.price.errors && f.price.value != ''}">
                       <label for="floatingTitle">Price</label>
                       <div class="form-description">
-                        <p class="lead">Enter "0" if tickets are free</p>
+                        <p class="lead" *ngIf="eventTicketing !== '2'">Enter "0" if tickets are free</p>
+                        <p class="lead" *ngIf="eventTicketing == '2'">Donations can be any amount starting from 1</p>
                       </div>
                       <small *ngIf="saved && f.price.errors" id="titleHelp" class="form-text invalid-feedback">
                         Price should be a number.
@@ -245,8 +246,16 @@
                         <div class="card-body">
                           <h5 class="card-title">{{ ticket.name }}</h5>
                           <p class="card-text">
-                            On Sale &nbsp; - {{ ticket.max_quantity || ticket.quantity }} <br>
-                            {{ ticket.currency }} {{ ticket.price }}
+                            On Sale &nbsp; - 
+                            
+                          <ng-container *ngIf="(ticket.max_quantity == 1) || (ticket.quantity == 1)"> Unlimited</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity !== 1">{{ticket.max_quantity || ticket.quantity}}</ng-container>
+                            
+                            <br>
+                            
+                            <ng-container *ngIf="ticket.price == 1">Donations in {{ ticket.currency }}</ng-container>
+                            <ng-container *ngIf="ticket.price !== 1">{{ ticket.currency }} {{ ticket.price }}</ng-container>
+                               
                           </p>
                           <p class="card-text">
                             <small *ngIf="ticket.salesStartDate" class="text-muted">
