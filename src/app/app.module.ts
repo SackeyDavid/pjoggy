@@ -15,11 +15,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 import { OwlModule } from 'ngx-owl-carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/user-auth/login-page/login-page.component';
@@ -186,7 +188,7 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
     MagiclinkSuccessComponent,
     MagiclinkInvalidComponent,
     AccountProfileComponent,
-    AccountSettingsComponent,
+    AccountSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -203,13 +205,16 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
     MatStepperModule,
     MatSnackBarModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
     OwlModule,
     NgbModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    TimeagoModule.forRoot()
+
   ],
   providers: [],
   bootstrap: [AppComponent],

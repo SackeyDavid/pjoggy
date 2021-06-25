@@ -88,7 +88,7 @@
                             <hr>
                             <p class="card-text" *ngIf="event.description">{{event.description}}</p>
                             <p>
-                                <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.start_date_time)}}</small><br>
                                 <small class="text-muted">Category : {{event.Category}}</small><br>
                             </p>
                             <hr>
@@ -257,7 +257,7 @@
                                 <hr>
                                 <p class="card-text">{{event.description}}</p>
                                 <p>
-                                    <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                    <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.start_date_time)}}</small><br>
                                     <small class="text-muted">Category : {{event.Category}}</small><br>
                                 </p>
                                 <hr>
@@ -343,7 +343,7 @@
                               <hr>
                               <p class="card-text">{{event.description}}</p>
                               <p>
-                                  <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                  <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.start_date_time)}}</small><br>
                                   <small class="text-muted">Category : {{event.Category}}</small><br>
                               </p>
                               <hr>
@@ -429,7 +429,7 @@
                                 <hr>
                                 <p class="card-text">{{event.description}}</p>
                                 <p>
-                                    <small class="text-muted">Date : {{event.start_date_time | date:'mediumDate'}} to {{event.start_date_time | date:'mediumDate'}}</small><br>
+                                    <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.start_date_time)}}</small><br>
                                     <small class="text-muted">Category : {{event.Category}}</small><br>
                                 </p>
                                 <hr>

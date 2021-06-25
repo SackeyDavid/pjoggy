@@ -136,7 +136,7 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.getTimeDiff('2021-06-16 08:00:49');
+    console.log(this.getTimeDiff('2021-06-16 08:00:49'));
     this.getEventsHappeningNow()
     // using  http://events369.logitall.biz/api/get_events_by_type/1 for now, waiting for happening now api
 
@@ -320,6 +320,18 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
     var date_diff = new Date( milisec_diff );
 
     return days + " Days "+ date_diff.getHours() + " Hours " + date_diff.getMinutes() + " Minutes " + date_diff.getSeconds() + " Seconds";
+    // if( days > 1) {
+    //    return days;
+    // }
+    // if( date_diff.getHours() > 1) {
+    //   return date_diff.getHours();
+    // }
+    // if( date_diff.getMinutes() > 1 ) {
+    //   return date_diff.getMinutes();
+    // }
+    // if( date_diff.getSeconds() > 1 ) {
+    //   return date_diff.getSeconds();
+    // }
   }
 
 }

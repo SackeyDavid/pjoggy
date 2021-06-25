@@ -212,7 +212,8 @@
 }
 
 .btn-lg {
-  width: 42%;
+  width: max-content;
+  padding: .5rem 3rem !important;
 }
 
 .btn {

@@ -33,4 +33,20 @@ export class SearchService {
     });
   }
 
+  liveSearch(searchword: string): Promise<any> {
+    var url = this.searchUrl + searchword;
+    return new Promise((resolve, reject) => {
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('live_search_ok: ', res);
+          resolve(res);                     
+        },
+        err => {
+          console.error('live_search_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
 }

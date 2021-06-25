@@ -1,10 +1,44 @@
 <nav [class.ev-navbar] = "userAuthenticated === false" [class.ev-navbar-authenticated] = "userAuthenticated === true" class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="position: sticky;">
   <a id="brand-name" class="navbar-brand mr-5" routerLink="/"><b class="ev-brandname-orange"> events</b> <b [class.ev-brandname-darkblue]="userAuthenticated === false" [class.ev-brandname-white]="userAuthenticated === true">369</b></a>
   
-  <form class="form" class="search-form">
+  <form [formGroup] = "formGroup" class="form search-form">
     <div class="form-group has-search" style="margin-bottom: 0rem !important;">
-      <span class="bi bi-search form-control-feedback"></span>
-      <input [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()">
+      <span class="bi bi-search position-top form-control-feedback"></span>
+      <mat-form-field>
+
+      <input formControlName="search" matInput [matAutocomplete] = "auto" [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()">
+      
+      <mat-autocomplete #auto = "matAutocomplete">
+         <mat-option *ngFor ="let item of live_search_results" [value]="item.title">
+          <!-- <ul class="w3-ul w3-card-4">
+            <li class="w3-bar">
+                <img src="http://events369.logitall.biz/storage/banner/{{item.banner_image}}" class="bg w3-bar-item w3-circle w3-hide-small" style="width:50px">
+                <div class="w3-bar-item">
+                  <span class="w3-large">{{item.title}}</span><br>
+                  <span>{{ getEventDateFormatted(item.start_date_time)}}</span>
+                </div>
+              </li>
+            </ul> -->
+            <table (click)="gotoPreview(item.id)">
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="http://events369.logitall.biz/storage/banner/{{item.banner_image}}" class="bg w3-bar-item w3-circle w3-hide-small" style="width:50px; height: 50px;">
+                
+                  </td>
+                  <td style="padding-left: 5%;">
+                    <span class="w3-large">{{item.title}}</span>
+                    <span class="present_date">{{ getEventDateFormatted(item.start_date_time)}}</span>
+                    <span class="search_price">{{item.price}}</span>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+         </mat-option>
+       </mat-autocomplete>
+
+      </mat-form-field>
     </div>
   </form>
 
