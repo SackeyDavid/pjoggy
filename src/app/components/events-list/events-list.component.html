@@ -103,9 +103,9 @@
           <!-- <div class="all-slider" *ngIf="allEvents"> -->
           <owl-carousel #upcomingSlider [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="events_in_six_hrs?.length">
             <div *ngFor="let event of events_in_six_hrs">              
-              <div class="card mb-5 event-card">
+              <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
-                  <div></div>
+                  
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
                       <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
                           <svg
@@ -121,9 +121,7 @@
                                   d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
                               ></path>
                           </svg>
-                      </button>
-                      
-                      
+                      </button>                      
                   </div>
 
                   <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
@@ -141,20 +139,19 @@
                                 d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
                             ></path>
                         </svg>
-                    </button>
-                    
-                    
+                    </button>                    
+                  </div>
+
                 </div>
+
+                <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                
               </div>
-                <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top" alt="{{event.title}}">
-                <div class="card-body"  (click)="gotoPreview(event.id)">
-                  <p class="card-text">
-                    <span class="bold card-title">{{event.title}}</span>
-                    <span class="lead text-muted">By: {{event.created_by}}</span><br>
-                    <span class="lead">{{getEventStartDateFormatted(event.start_date_time)}}</span>
-                    <!-- event.start_date_time | date:'long' -->
-                  </p>
-                </div>
+              <div (click)="gotoPreview(event.id)">
+                <p class="card-text">
+                  <span class="bold card-title">{{event.title}}</span>
+                  <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span><br>
+                  <span class="lead text-muted">Hosted by: <span style="color: #03cad5;">{{event.created_by}}</span></span>
+                </p>
               </div>
             </div>             
             
@@ -287,7 +284,7 @@
                     <p class="card-text">
                       <span class="bold card-title">{{event.title}}</span>
                       <span class="lead text-muted">By: {{event.created_by}}</span><br>
-                      <span class="lead">{{getEventStartDateFormatted(event.start_date_time)}}</span>
+                      <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span>
                     </p>
                   </div>
                 </div>
@@ -385,19 +382,38 @@
               
               <!-- </div> -->
             </div>
-            </ng-container>
+          </ng-container>
 
             <owl-carousel #newSlider [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="newEvents?.length">
-              <div *ngFor="let event of newEvents"> 
-                <div class="save_live_event_div_container" style="padding: 8px;">
-                  <div></div>
-                  <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
-                      <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+              <div *ngFor="let event of newEvents">
+                <div class="card mb-2 event-card">
+                  <div class="save_live_event_div_container" style="padding: 8px;">
+                    
+                    <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                        <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                            <svg
+                                class="favorite-{{event.id}}"
+                                viewBox="0 0 32 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                                style="display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                aria-hidden="true"
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <path
+                                    d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                ></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                      <button aria-label="Unsave this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
                           <svg
                               class="favorite-{{event.id}}"
                               viewBox="0 0 32 32"
                               xmlns="http://www.w3.org/2000/svg"
-                              style="display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                              style="display: block; fill: rgba(255, 101, 80, 0.4); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
                               aria-hidden="true"
                               role="presentation"
                               focusable="false"
@@ -407,37 +423,18 @@
                               ></path>
                           </svg>
                       </button>
-                      
-                      
-                  </div>
+                    </div>
 
-                  <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
-                    <button aria-label="Unsave this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
-                        <svg
-                            class="favorite-{{event.id}}"
-                            viewBox="0 0 32 32"
-                            xmlns="http://www.w3.org/2000/svg"
-                            style="display: block; fill: rgba(255, 101, 80, 0.4); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
-                            aria-hidden="true"
-                            role="presentation"
-                            focusable="false"
-                        >
-                            <path
-                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
-                            ></path>
-                        </svg>
-                    </button>
-                    
-                    
                 </div>
+
+                <img src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top" alt="...">
               </div>             
-                <div class="card mb-5 event-card" (click)="gotoPreview(event.id)">
-                  <img src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top" alt="...">
+              <div (click)="gotoPreview(event.id)">
                   <div class="card-body">
                     <p class="card-text">
                       <span class="bold card-title">{{event.title}}</span>
-                      <span class="lead text-muted">By: {{event.created_by}}</span><br>
-                      <span class="lead">{{getEventStartDateFormatted(event.start_date_time)}}</span>
+                      <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span><br>
+                      <span class="lead text-muted">Hosted by: <span style="color: #03cad5;">{{event.created_by}}</span></span>
                     </p>
                   </div>
                 </div>
@@ -636,149 +633,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="col-sm-12 col-md-3 col-lg-3">
-              <div class="card mb-2">
-                <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">
-                    <span class="bold">Emy's Techpreneur SDG Conference</span>
-                    <br>
-                    <span class="lead">Mon, Apr 19, 2021 3:00PM (GMT)</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3">
-              <div class="card mb-2">
-                <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">
-                    <span class="bold">Emy's Techpreneur SDG Conference</span>
-                    <br>
-                    <span class="lead">Mon, Apr 19, 2021 3:00PM (GMT)</span>
-                  </p>
-                </div>
-              </div>
-            </div><div class="col-sm-12 col-md-3 col-lg-3">
-              <div class="card mb-2">
-                <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">
-                    <span class="bold">Emy's Techpreneur SDG Conference</span>
-                    <br>
-                    <span class="lead">Mon, Apr 19, 2021 3:00PM (GMT)</span>
-                  </p>
-                </div>
-              </div>
-            </div><div class="col-sm-12 col-md-3 col-lg-3">
-              <div class="card mb-2">
-                <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">
-                    <span class="bold">Emy's Techpreneur SDG Conference</span>
-                    <br>
-                    <span class="lead">Mon, Apr 19, 2021 3:00PM (GMT)</span>
-                  </p>
-                </div>
-              </div>
-            </div><div class="col-sm-12 col-md-3 col-lg-3">
-              <div class="card mb-2">
-                <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">
-                    <span class="bold">Emy's Techpreneur SDG Conference</span>
-                    <br>
-                    <span class="lead">Mon, Apr 19, 2021 3:00PM (GMT)</span>
-                  </p>
-                </div>
-              </div>
-            </div><div class="col-sm-12 col-md-3 col-lg-3">
-              <div class="card mb-2">
-                <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2018/11/event-speaker-template-1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">
-                    <span class="bold">Emy's Techpreneur SDG Conference</span>
-                    <br>
-                    <span class="lead">Mon, Apr 19, 2021 3:00PM (GMT)</span>
-                  </p>
-                </div>
-              </div>
-            </div> -->

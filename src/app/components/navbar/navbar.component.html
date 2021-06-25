@@ -6,7 +6,7 @@
       <span class="bi bi-search form-control-feedback"></span>
       <input [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()">
     </div>
-   </form>
+  </form>
 
    
 
@@ -24,8 +24,9 @@
       <span class="bi bi-search form-control-feedback"></span>
       <input class="form-control mr-sm-2 ev-nav-searchbar-input" type="search" placeholder="What do you want to attend?" aria-label="Search">
     </div>
-   </form>
-   <span class="cancel-btn search-on-mobile-only" (click)="hideMobileSearch()">Cancel</span>
+  </form>
+  
+  <span class="cancel-btn search-on-mobile-only" (click)="hideMobileSearch()">Cancel</span>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="nav navbar-nav mr-auto ml-5 ev-navbar-dropdown-content ev-nav-list">

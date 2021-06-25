@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 import moment from 'moment';
@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.scss']
 })
-export class EventsListComponent implements OnInit, AfterViewChecked {
+export class EventsListComponent implements OnInit {
 
   categories: any;
   allEvents: any;
@@ -84,27 +84,33 @@ export class EventsListComponent implements OnInit, AfterViewChecked {
    
     this.getCategories();
     this.getUsersFavorites()  
-    console.log(this.users_favorite_event_ids)  
-
-    this.sliderOptions = {
-      items: 4,
-      margin: 15,
-      dots: false,      
-      responsive:{        
-        450: { items:2 },
-        600: { items:3 },
-        900: { items:4 }
-      }
-    };
+    console.log(this.users_favorite_event_ids);
+    
+    this.initCarousel();
   }
 
-  ngAfterViewChecked() {
-    try {
-      // this.getUsersFavorites()
-      
-    } catch (error) {
-      
-    }
+  initCarousel() {
+    var screenSize = window.innerWidth;
+    console.log(screenSize);
+
+    var owlItems = 4;
+
+    if(screenSize > 900) owlItems = 4;
+    else if(screenSize < 750 && screenSize > 600) owlItems = 3;
+    else if(screenSize < 600 && screenSize > 450) owlItems = 2;
+    else if(screenSize < 450) owlItems = 1;
+
+    this.sliderOptions = {
+      items: owlItems,
+      margin: 20,
+      dots: false,      
+      responsive:{        
+        450: { items: 1 },
+        600: { items: 2 },
+        750: { items: 3 },
+        900: { items: 4 }
+      }
+    };
   }
 
   toCamelCase(sentenceCase: any) {
