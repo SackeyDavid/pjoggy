@@ -348,7 +348,7 @@ export class CreateBasicInfoComponent implements OnInit {
 
   public handleAddressChange(address: any) {
     this.formattedAddress = address.formatted_address;
-    this.addressCoordinates = address.geometry.viewport.Eb.g + ', ' + address.geometry.viewport.lc.g;
+    this.addressCoordinates = address.geometry.viewport.Eb.g + ', ' + address.geometry.viewport.mc.g;
     this.f.gps.setValue(this.addressCoordinates);
     console.log(address);
   }

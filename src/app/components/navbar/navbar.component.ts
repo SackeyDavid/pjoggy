@@ -123,6 +123,9 @@ export class NavbarComponent implements OnInit {
 
   logout(e: any){
     e.preventDefault();
+    // sessionStorage.removeItem('x_auth_token');
+    // window.location.href = '/'
+
     const apiUrl = 'http://events369.logitall.biz/api/v1/';
     this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
       res =>  {

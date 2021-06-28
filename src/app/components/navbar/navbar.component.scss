@@ -445,7 +445,7 @@ ev-avatar img {
 }
 
 .position-top {
-  top: 2.2vh !important;
+  top: 22% !important;
 }
 
 input:focus {
@@ -458,6 +458,7 @@ input {
 
 .form-control {
   min-width: -moz-available !important;
+  min-width: -webkit-fill-available !important;
   width: 280px !important;
 }
 

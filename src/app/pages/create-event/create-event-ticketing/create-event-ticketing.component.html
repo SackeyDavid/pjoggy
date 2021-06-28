@@ -248,7 +248,7 @@
                           <p class="card-text">
                             On Sale &nbsp; - 
                             
-                          <ng-container *ngIf="(ticket.max_quantity == 1) || (ticket.quantity == 1)"> Unlimited</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity == 1"> Unlimited</ng-container>
                           <ng-container *ngIf="ticket.max_quantity !== 1">{{ticket.max_quantity || ticket.quantity}}</ng-container>
                             
                             <br>
