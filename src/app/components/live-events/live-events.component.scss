@@ -304,6 +304,7 @@ p.card-text {
   .live_event_image_video_div_container {
     margin-bottom: 10px !important;
   }
+
   .live_event_image_video_div_container_core {
     overflow: hidden;
     position: relative !important;
@@ -312,7 +313,15 @@ p.card-text {
     border-radius: 12px !important;
     pointer-events: none !important;
     // border: 1px solid #e1e1e1;
+    height: 29.5vh;
   }
+
+  @media (max-width: 597px) {
+    .live_event_image_video_div_container_core {
+      height: 29.5vh;
+    }
+  }
+
   .live_event_image_video_div_container_core::after {
     content: "" !important;
     position: absolute !important;
