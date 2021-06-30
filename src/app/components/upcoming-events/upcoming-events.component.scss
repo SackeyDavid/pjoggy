@@ -162,7 +162,7 @@ span.title {
   }
   
   .card {
-    border-radius: 12px;
+    border-radius: 0px;
   }
   
   .btn-dark {
@@ -337,7 +337,7 @@ span.title {
     position: relative !important;
     text-align: center !important;
     text-decoration: none !important;
-    background: transparent none repeat scroll 0% 0% !important;
+    background: #3332 !important;
     touch-action: manipulation !important;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
     font-size: 16px !important;
@@ -366,4 +366,23 @@ span.title {
     margin-bottom: .5vh;
 }
 
-  
+.img-fit-img-fix-background-cover {
+  border-radius: 0px;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+}
+
+.price-span {
+  position: absolute;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.41);
+  backdrop-filter: blur(5px);
+  bottom: 0px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-end-end-radius: 0px;
+  color: #fff;
+  border-start-start-radius: 10px;
+}

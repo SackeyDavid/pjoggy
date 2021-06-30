@@ -197,12 +197,34 @@ export class PopularEventsComponent implements OnInit {
     this.eventsService.getPopularEvents().then(
       res => {
         console.log(res);
-        this.popularEvents = res.event.data;
+        this.popularEvents = res.events.data;
       },
       err => {
         console.log(err);
       }
     );
+  }
+
+  getTicketSalesStatus(ticket_sales_end_date: string) {
+    var ticket_end_date = ticket_sales_end_date.split(' ')[0];
+    var ticket_end_time = ticket_sales_end_date.split(' ')[1];
+
+    let date = new Date();
+    date.setHours(0,0,0,0);
+    let today = date.valueOf();
+    // let sd = Date.parse(this.f.start_date.value);
+    let ed = Date.parse(ticket_end_date);    
+    let now = new Date().getTime();
+    // let st = new Date(this.f.start_time.value).getTime();
+    let et = new Date(ticket_end_time).getTime();
+      
+    // check if ticket sale end date  and timeis greater start date  and time 
+    
+    if (ed > today && et > now) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 
 }

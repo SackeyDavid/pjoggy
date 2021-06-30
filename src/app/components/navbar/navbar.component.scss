@@ -227,7 +227,16 @@ nav {
   .navbar-standalone-search-icon {
     color: #fff !important;
   }
+
+  .ev-navbar-dropdown-content {
+    background-color: var(--ev-create-event-nav-background) !important;
+  }
   
+  .authenticated-link {
+    color: grey !important;
+  }
+
+
 }
 
 
@@ -389,6 +398,17 @@ ev-avatar img {
   }
 }
 
+@media (max-height: 500px) and (orientation : landscape) {
+  .only-non-mobile {
+    display: none;
+    visibility: hidden;
+  }
+  .only-mobile {
+    display: block;
+    visibility: visible;
+  }
+}
+ 
 .avatar-container {
   margin-top: 0vh;margin-bottom: 0;height: 4vh;width: 4vh;
   display: block ruby;
@@ -474,6 +494,7 @@ input {
 
 .form-control {
   min-width: -webkit-fill-available !important;
+  // min-width: ;
   width: 280px !important;
 }
 
@@ -571,6 +592,8 @@ input {
 	background-size: cover;
 	height: 100%;
 }
+
+
 
 
 

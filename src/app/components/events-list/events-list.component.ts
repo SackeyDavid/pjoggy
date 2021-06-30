@@ -192,7 +192,7 @@ export class EventsListComponent implements OnInit {
       this.eventsService.getCategoryEvents(categoryId).then(
         res => {
           console.log(res);
-          this.categoryEvents[i] = res.event?.data;
+          this.categoryEvents[i] = res.events?.data;
           this.loadIndex[i] = 5
           console.log(this.categoryEvents[i])
         },
@@ -269,7 +269,7 @@ export class EventsListComponent implements OnInit {
     this.eventsService.getPopularEvents().then(
       res => {
         console.log(res);
-        this.popularEvents = res.event?.data;
+        this.popularEvents = res.events?.data;
       },
       err => {
         console.log(err);
@@ -445,9 +445,9 @@ export class EventsListComponent implements OnInit {
     // let st = new Date(this.f.start_time.value).getTime();
     let et = new Date(ticket_end_time).getTime();
 
-    console.log(Date.parse(ticket_end_date));
-    console.log(Date.parse(ticket_end_time));
-    console.log(today);
+    // console.log(Date.parse(ticket_end_date));
+    // console.log(Date.parse(ticket_end_time));
+    // console.log(today);
 
     // check if event date is greater than today's date
     // if (sd >= today) this.isDateCorrect = true;
@@ -462,6 +462,4 @@ export class EventsListComponent implements OnInit {
     }
   }
  
-
-
 }

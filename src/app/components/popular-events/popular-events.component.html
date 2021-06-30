@@ -1,9 +1,9 @@
 <div class="container mt-5">
     <div class="row mb-4">
       <div class="col-12 ev-padlr-0">
-        
         <h3 class="display-6 ev-head-padl ev-display-only-non-mobile">
-          <i class="bi bi-graph-up"></i> &nbsp; Popular
+          <!-- <i class="bi bi-graph-up"></i> &nbsp;  -->
+          Popular
           
         </h3>
       </div>
@@ -24,57 +24,74 @@
     <!-- <owl-carousel #upcomingSlider [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="events_in_six_hrs.length"> -->
       <div class="row">
           <div class="col-sm-12 col-md-3 col-lg-3" *ngFor="let event of popularEvents; let i = index">              
-          <div class="card mb-5 event-card" (click)="gotoPreview(event.id)"  *ngIf="i < loadIndex">
-              <div class="save_live_event_div_container" style="padding: 8px;">
-              <div></div>
-              <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
-                  <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
-                      <svg
-                          viewBox="0 0 32 32"
-                          xmlns="http://www.w3.org/2000/svg"
-                          style="display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
-                          aria-hidden="true"
-                          role="presentation"
-                          focusable="false"
-                      >
-                          <path
-                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
-                          ></path>
-                      </svg>
-                  </button>
+            <div  (click)="gotoPreview(event.id)"  *ngIf="i < loadIndex">              
+              <div class="card mb-2 event-card">
+                <div class="save_live_event_div_container" style="padding: 8px;">
                   
-                  
-              </div>
+                  <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                      <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                          <svg
+                              class="favorite-{{event.id}}"
+                              viewBox="0 0 32 32"
+                              xmlns="http://www.w3.org/2000/svg"
+                              style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                              aria-hidden="true"
+                              role="presentation"
+                              focusable="false"
+                          >
+                              <path
+                                  d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                              ></path>
+                          </svg>
+                      </button>                      
+                  </div>
 
-              <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
-                  <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
-                      <svg
-                          viewBox="0 0 32 32"
-                          xmlns="http://www.w3.org/2000/svg"
-                          style="display: block; fill: rgba(255, 101, 80, 0.4); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
-                          aria-hidden="true"
-                          role="presentation"
-                          focusable="false"
-                      >
-                          <path
-                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
-                          ></path>
-                      </svg>
-                  </button>
-                  
-                  
+                  <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                    <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                        <svg
+                            class="favorite-{{event.id}}"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <path
+                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                            ></path>
+                        </svg>
+                    </button>                    
+                  </div>
+
+                </div>
+                <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                <ng-container *ngIf="event.ticketing == '0'">
+                  <span class="price-span">Free</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '2'">
+                  <span class="price-span">Donation</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1'">
+                  <span class="price-span">{{event.price}}</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                  <span class="price-span">Sold out</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                  <span class="price-span">Sales ended</span>
+                </ng-container> 
+                </div>
+                <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
               </div>
-          </div>
-              <img src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top" alt="{{event.title}}">
-              <div class="card-body">
-              <p class="card-text">
+              <div (click)="gotoPreview(event.id)">
+                <p class="card-text">
                   <span class="bold card-title">{{event.title}}</span>
-                  <span class="lead text-muted">By: {{event.created_by}}</span><br>
-                  <span class="lead">{{getEventStartDateFormatted(event.start_date_time)}}</span>
-                  <!-- event.start_date_time | date:'long' -->
-              </p>
+                  <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span><br>
+                  <span class="lead text-muted">Hosted by: <span style="color: #fe5104;">{{event.created_by}}</span></span>
+                </p>
               </div>
-          </div>
+            </div>  
           </div>     
       </div> 
 

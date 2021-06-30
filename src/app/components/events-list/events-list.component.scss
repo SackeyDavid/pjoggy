@@ -95,7 +95,7 @@ ul.nav {
 }
 
 .ev-martop-5 {
-  margin-top: 5% !important;
+  margin-top: 2.5% !important;
 }
 
 .ev-display-only-non-mobile {
@@ -175,7 +175,7 @@ p.card-text {
 }
 
 .card {
-  border-radius: 12px;
+  border-radius: 0px;
 }
 
 .btn-dark {
@@ -245,7 +245,7 @@ ul.nav {
   font-style: inherit !important;
   font-variant: inherit !important;
   line-height: inherit !important;
-  color: rgb(34, 34, 34) !important;
+  color: #454545 !important;
   text-decoration: underline !important;
   border-radius: 4px !important;
   font-weight: 600 !important;
@@ -350,7 +350,8 @@ ul.nav {
   position: relative !important;
   text-align: center !important;
   text-decoration: none !important;
-  background: transparent none repeat scroll 0% 0% !important;
+  // background: transparent none repeat scroll 0% 0% !important;
+  background: #3332 !important;
   touch-action: manipulation !important;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
   font-size: 16px !important;
@@ -364,10 +365,10 @@ ul.nav {
   align-items: center !important;
   justify-content: center !important;
   border: medium none !important;
-  color: rgb(34, 34, 34) !important;
+  color: #222 !important;
   margin: 0px !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: 26px !important;
+  height: 26px !important;
 }
 
 
@@ -381,7 +382,7 @@ ul.nav {
 }
 
 .text-muted {
-  font-weight: bold !important;
+  font-weight: 400 !important;
 }
 
 @media(min-width: 1500px) {
@@ -401,7 +402,7 @@ ul.nav {
 }
 
 .img-fit-img-fix-background-cover {
-  border-radius: 10px;
+  border-radius: 0px;
 	background-position: 50%;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -416,9 +417,17 @@ ul.nav {
     bottom: 0px;
     padding: 5px 10px;
     font-size: 12px;
-    border-end-end-radius: 10px;
+    border-end-end-radius: 0px;
     color: #fff;
-    border-start-start-radius: 7px;
+    border-start-start-radius: 10px;
 }
 
+@media (max-height: 500px) and (orientation : landscape) {
+    .img-fit-img-fix-background-cover {
+      height: 40vh !important;
+    }
+}
 
+.card-body {
+    padding: 0 !important;
+}

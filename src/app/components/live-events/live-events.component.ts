@@ -297,41 +297,13 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
   }
 
   getTimeDiff(datetime: any ) {
-    // var datetime = typeof datetime !== 'undefined' ? datetime : "2021-01-01 01:02:03.123456";
-    // console.log(datetime)
-    datetime = new Date( datetime ).getTime();
-    var now = new Date().getTime();
+    
+  }
 
-    if( isNaN(datetime) )
-    {
-        return "";
-    }
-
-    console.log( datetime + " " + now);
-
-    if (datetime < now) {
-        var milisec_diff = now - datetime;
-    }else{
-        var milisec_diff = datetime - now;
-    }
-
-    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
-
-    var date_diff = new Date( milisec_diff );
-
-    return days + " Days "+ date_diff.getHours() + " Hours " + date_diff.getMinutes() + " Minutes " + date_diff.getSeconds() + " Seconds";
-    // if( days > 1) {
-    //    return days;
-    // }
-    // if( date_diff.getHours() > 1) {
-    //   return date_diff.getHours();
-    // }
-    // if( date_diff.getMinutes() > 1 ) {
-    //   return date_diff.getMinutes();
-    // }
-    // if( date_diff.getSeconds() > 1 ) {
-    //   return date_diff.getSeconds();
-    // }
+  getRandomInt(min: any, max: any) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
 }

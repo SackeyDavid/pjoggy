@@ -318,7 +318,7 @@ p.card-text {
 
   @media (max-width: 597px) {
     .live_event_image_video_div_container_core {
-      height: 29.5vh;
+      height: 20.5vh;
     }
   }
 
@@ -476,7 +476,14 @@ p.card-text {
 
   }
   .time_ago_span {
-    color: rgb(34, 34, 34) !important;
+    color: #222222 !important;
+    max-height: 30px;
+    max-width: max-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
   ._a7a5sx {
     color: rgb(113, 113, 113) !important;
@@ -749,6 +756,12 @@ p.card-text {
 
 .slick-track {
   width: max-content !important;
+}
+
+@media (max-width: 567px) {
+  .bi-clock {
+    font-size: 12px !important;
+  }
 }
   
   
