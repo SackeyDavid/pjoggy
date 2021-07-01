@@ -1,3 +1,4 @@
+// @import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
 
 @media(max-width: 567px) {
   ::ng-deep .owl-stage-outer {
@@ -199,6 +200,7 @@ ul.nav {
 
 .event-card{
   cursor: pointer;
+  box-shadow: 0 2px 3px rgba(0,0,0,.1);
 }
 
 .card-title{
@@ -334,15 +336,24 @@ ul.nav {
   -moz-box-pack: justify !important;
   position: absolute !important;
   right: 0% !important;
-  display: flex !important;
+  display: block !important;
   justify-content: space-between !important;
   z-index: 999 !important;
 }
-.save_live_event_div {
+.event-card:hover .event_social_share {
+  visibility: visible !important;
+}
+.save_live_event_div, .event_social_share {
   pointer-events: auto !important;
   margin-top: -5px !important;
   margin-right: -3px !important;
+  margin-bottom: 15px !important;
 }
+
+.event_social_share:hover {
+  visibility: visible !important;
+}
+
 .save_live_event_button {
   -moz-box-pack: center !important;
   -moz-box-align: center !important;
@@ -424,10 +435,35 @@ ul.nav {
 
 @media (max-height: 500px) and (orientation : landscape) {
     .img-fit-img-fix-background-cover {
-      height: 40vh !important;
+      height: 50vh !important;
     }
+}
+
+@media (max-width: 1400px) and (min-height: 900px) {
+  .img-fit-img-fix-background-cover {
+    height: 30vh !important;
+  }
+}
+
+@media (max-width: 1400px) and (max-height: 900px) {
+  .img-fit-img-fix-background-cover {
+    height: 30vh !important;
+  }
 }
 
 .card-body {
     padding: 0 !important;
+}
+
+@media (max-width: 567px) and (orientation: portrait) {
+  .controls-top {
+    padding-top: 1vh;
+  }
+}
+
+
+@media (max-height: 567px) and (orientation: landscape) {
+  .controls-top {
+    padding-top: 1vh;
+  }
 }

@@ -1,0 +1,123 @@
+.zm-share-modal .ant-modal-body {
+    padding: 32px 32px 44px;
+}
+
+.modal-body {
+    padding: 24px;
+    font-size: 14px;
+    line-height: 1.5715;
+    word-wrap: break-word;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);
+    pointer-events: auto;
+}
+
+.modal {
+    box-sizing: border-box;
+    color: #222230;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum";
+    pointer-events: none;
+    position: relative;
+    top: 200px;
+    width: auto;
+    max-width: calc(100vw - 32px);
+    margin: 0 auto;
+    padding: 0 0 24px;
+}
+
+::ng-deep .modal-dialog {
+    top: 10vh;
+}
+
+.zm-share-header {
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+
+.zm-share-media-container {
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 32px;
+}
+
+.zm-share-link-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222230;
+    line-height: 24px;
+}
+
+.zm-share-copy-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.zm-share-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    color: #232333;
+    margin-bottom: 0;
+    float: left;
+}
+
+.zm-share-close {
+    font-size: 18px;
+    float: right;
+    margin-top: 5.5px;
+    cursor: pointer;
+}
+
+.anticon {
+    display: inline-block;
+    vertical-align: -.125em;
+    line-height: 0;
+}
+
+.zm-share-media-item {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.zm-share-media-item .zm-share-media-item-icon {
+    color: rgba(4,4,19,.56);
+}
+
+.anticon svg {
+    display: inline-block;
+}
+
+.zm-share-url {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    border-width: 0;
+    outline: none;
+}
+
+.zm-share-copy-icon {
+    font-size: 24px;
+}
+
+.anticon[tabindex] {
+    cursor: pointer;
+}

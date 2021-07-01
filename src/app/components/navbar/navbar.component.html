@@ -26,8 +26,7 @@
                     <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px;height: 67px;">
 
                     </div>
-                    <!-- <img src="http://events369.logitall.biz/storage/banner/{{item.banner_image}}" class="bg w3-bar-item w3-circle w3-hide-small" style="width:50px; height: 50px;"> -->
-                
+                   
                   </td>
                   <td style="padding-left: 5%;">
                     <span class="w3-large">{{item.title}}</span>
@@ -56,10 +55,38 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <form class="form search-form-for-sm search-on-mobile-only">
+  <form [formGroup] = "formGroup" class="form search-form-for-sm search-on-mobile-only">
     <div class="form-group has-search" style="margin-bottom: 0rem !important;">
       <span class="bi bi-search form-control-feedback"></span>
-      <input class="form-control mr-sm-2 ev-nav-searchbar-input" type="search" placeholder="What do you want to attend?" aria-label="Search">
+
+      <mat-form-field>
+      <input formControlName="search" matInput [matAutocomplete] = "auto" class="form-control mr-sm-2 ev-nav-searchbar-input" [(ngModel)]="this.searchQuery" type="search" placeholder="What do you want to attend?" (keydown.enter)="doSearch()" autofocus="true" aria-label="Search">
+    
+      
+      <mat-autocomplete #auto = "matAutocomplete">
+        <mat-option *ngFor ="let item of live_search_results" [value]="item.title">
+          <table (click)="gotoPreview(item.id)">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px;height: 67px;">
+
+                  </div>
+                 
+                </td>
+                <td style="padding-left: 5%;">
+                  <span class="w3-large">{{item.title}}</span>
+                  <span class="present_date">{{ getEventDateFormatted(item.start_date_time)}}</span>
+                  <span class="search_price">{{item.price}}</span>
+                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+       </mat-option>
+     </mat-autocomplete>
+
+    </mat-form-field>
     </div>
   </form>
   

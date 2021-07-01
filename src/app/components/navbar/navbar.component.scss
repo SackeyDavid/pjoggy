@@ -207,7 +207,7 @@ nav {
 
 .ev-navbar {
   width: 100%;
-  z-index: 99999;
+  z-index: 999;
   background-color: var(--ev-background) !important;
   color: var(--primary-color);
 }
@@ -385,6 +385,13 @@ ev-avatar img {
     display: block;
     visibility: visible;
   }
+  .search-on-mobile-only input {
+    width: auto !important;
+  }
+  .has-search .form-control-feedback {
+    line-height: 3rem !important;
+  }
+  
 }
 
 @media (min-width: 781px) {
@@ -417,6 +424,16 @@ ev-avatar img {
     border: 2px solid var(--ion-color-step-100);border-radius: 50%;height: inherit;
     max-width: inherit !important;
     margin-top: .5vh !important;
+  }
+}
+
+@media (height: 1024px) and (width: 1366px) {
+  .avatar-container {
+
+    img {
+      margin-top: 0vh !important;
+
+    }
   }
 }
 
@@ -591,6 +608,15 @@ input {
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100%;
+}
+
+@media (height: 1024px) and (width: 1366px) {
+  .dropdown-content_user {
+    margin-left: -220% !important;
+  }
+  .avatar-container {
+    margin-top: 0vh !important;
+  }
 }
 
 

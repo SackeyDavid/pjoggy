@@ -20,6 +20,7 @@ export class EventsService {
   getEventsByTypeUrl: string
   getAllEventsUrl: string;
   getTodaysEventsUrl: string;
+  getEventsByHostingUrl: string;
   getEventsInSixHoursUrl: string; // upcoming events
   getPopularEventsUrl: string;
   getNewEventsUrl: string;
@@ -37,6 +38,7 @@ export class EventsService {
     this.getEventsByTypeUrl = this.endpoint.apiHost + '/get_events_by_type/';
     this.getAllEventsUrl = this.endpoint.apiHost + '/get_events_by_type/1';
     this.getTodaysEventsUrl =  this.endpoint.apiHost + '/get_todays_events';
+    this.getEventsByHostingUrl =  this.endpoint.apiHost + '/get_events_by_hosting/';
     this.getEventsInSixHoursUrl = this.endpoint.apiHost + '/events_six_hours';
     this.getPopularEventsUrl = this.endpoint.apiHost + '/get_popular_events';
     this.getNewEventsUrl = this.endpoint.apiHost + '/get_new_events';
@@ -182,6 +184,7 @@ export class EventsService {
       );
     });
   }
+  
 
   getCategories(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -267,6 +270,24 @@ export class EventsService {
         },
         err => {
           console.log('get_todays_events_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getEventsByHosting(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let events_by_hosting: any[] = [];
+      const url = this.getEventsByHostingUrl + id;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_events_by_hosting_ok_', id, ': ', res);
+          events_by_hosting = res;
+          resolve(events_by_hosting);
+        },
+        err => {
+          console.log('get_events_by_hosting_error_', id, ': ', err);
           reject(err);
         }
       );

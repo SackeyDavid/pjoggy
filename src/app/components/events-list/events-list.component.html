@@ -5,6 +5,12 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
         </li>
+        <li class="nav-item" role="presentation" *ngIf="onlineEvents.length">
+          <a class="nav-link" id="pills-online-tab" data-toggle="pill" href="#pills-online" role="tab" aria-controls="pills-profile" aria-selected="false">Online</a>
+        </li>
+        <li class="nav-item" role="presentation" *ngIf="todaysEvents.length">
+          <a class="nav-link" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-profile" aria-selected="false">Today</a>
+        </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="pills-foryou-tab" data-toggle="pill" href="#pills-foryou" role="tab" aria-controls="pills-profile" aria-selected="false">Your Favorites</a>
         </li>
@@ -20,7 +26,8 @@
           <div class="row mb-4"  *ngIf="events_in_six_hrs?.length > 0">
             <div class="col-12 ev-padlr-0">
               
-              <h3 class="display-6 ev-head-padl ev-display-only-non-mobile">
+              <!-- removed class to hide navigation buttons on mobile - ev-display-only-non-mobile -->
+              <h3 class="display-6 ev-head-padl">
                 <!-- <i class="bi bi-clock"></i> &nbsp;  -->
                 Upcoming
                 
@@ -29,7 +36,7 @@
                   <div class="happening_now_show_more" *ngIf="events_in_six_hrs?.length > 5">   
                     <a *ngIf="events_in_six_hrs?.length  > 5"
                         href="/events/upcoming/"
-                        class="happening_now_show_more_link ev-display-only-non-mobile"
+                        class="happening_now_show_more_link"
                     >
                         Show more
                     </a>                
@@ -143,6 +150,31 @@
                     </button>                    
                   </div>
 
+                  <div class="event_social_share" style="visibility: hidden;">
+                    <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                        <svg 
+                          version="1.1" 
+                          id="Capa_1" 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          xmlns:xlink="http://www.w3.org/1999/xlink" 
+                          x="0px" 
+                          y="0px"
+                          viewBox="0 0 512 512" 
+                          style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                            
+                          <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+	
+                          </svg>
+                    </button>                      
+                </div>
+
                 </div>
                 <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
                 <ng-container *ngIf="event.ticketing == '0'">
@@ -187,7 +219,7 @@
                     <div class="happening_now_show_more" *ngIf="popularEvents.length > 5">  
                       <a *ngIf="popularEvents.length > 5"
                           href="/events/popular/"
-                          class="happening_now_show_more_link ev-display-only-non-mobile"
+                          class="happening_now_show_more_link"
                       >
                           Show more
                       </a>                  
@@ -296,6 +328,31 @@
                           
                           
                       </div>
+
+                      <div class="event_social_share" style="visibility: hidden;">
+                        <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                            <svg 
+                              version="1.1" 
+                              id="Capa_1" 
+                              xmlns="http://www.w3.org/2000/svg" 
+                              xmlns:xlink="http://www.w3.org/1999/xlink" 
+                              x="0px" 
+                              y="0px"
+                              viewBox="0 0 512 512" 
+                              style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                
+                              <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                    c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                    c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                    C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                    l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                    C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                    M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                    s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+      
+                              </svg>
+                        </button>                      
+                    </div>
                     </div>
                     <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
                       <ng-container *ngIf="event.ticketing == '0'">
@@ -348,14 +405,15 @@
             <div class="col-12  ev-padlr-0">
               <h3 class="display-6 ev-head-padl">
                 <!-- <i class="bi-megaphone"></i> &nbsp;  -->
-                New Events
+                
+                New
                 
                   <!--Controls-->
                   <div style="float: right;" class="controls-top">
                     <div class="happening_now_show_more"  *ngIf="newEvents?.length > 5">  
                       <a *ngIf="newEvents?.length > 5"
                           href="/events/new/"
-                          class="happening_now_show_more_link ev-display-only-non-mobile"
+                          class="happening_now_show_more_link"
                       >
                           Show more
                       </a>                 
@@ -461,6 +519,31 @@
                       </button>
                     </div>
 
+                    <div class="event_social_share" style="visibility: hidden;">
+                      <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                          <svg 
+                            version="1.1" 
+                            id="Capa_1" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            x="0px" 
+                            y="0px"
+                            viewBox="0 0 512 512" 
+                            style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                              
+                            <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                  c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                  c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                  C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                  l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                  C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                  M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                  s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+    
+                            </svg>
+                      </button>                      
+                  </div>
+
                   </div>
                   <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
                     <ng-container *ngIf="event.ticketing == '0'">
@@ -511,12 +594,271 @@
           <!-- /.New events end -->
         </div>
 
+        <div *ngIf="onlineEvents.length" class="tab-pane fade" id="pills-online" role="tabpanel" aria-labelledby="pills-online-tab">
+          
+          <!-- Your favorites tab  -->
+          <div class="row" style="margin-bottom: 2%;" *ngIf="onlineEvents">
+            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of onlineEvents; let i = index">
+              <div class="card mb-2 event-card" *ngIf="i < online_events_loadIndex">
+                <div class="save_live_event_div_container" style="padding: 8px;">
+                  <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)">
+                      <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                          <svg
+                              class="favorite-{{event.id}}"
+                              viewBox="0 0 32 32"
+                              xmlns="http://www.w3.org/2000/svg"
+                              style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                              aria-hidden="true"
+                              role="presentation"
+                              focusable="false"
+                          >
+                              <path
+                                  d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                              ></path>
+                          </svg>
+                      </button>
+                  </div>
+
+                  <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)">
+                    <button aria-label="Unsave this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                        <svg
+                            class="favorite-{{event.id}}"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <path
+                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                            ></path>
+                        </svg>
+                    </button>
+                  </div>
+
+                  <div class="event_social_share" style="visibility: hidden;">
+                    <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                        <svg 
+                          version="1.1" 
+                          id="Capa_1" 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          xmlns:xlink="http://www.w3.org/1999/xlink" 
+                          x="0px" 
+                          y="0px"
+                          viewBox="0 0 512 512" 
+                          style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                            
+                          <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+	
+                          </svg>
+                    </button>                      
+                </div>
+                </div>
+              <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                <ng-container *ngIf="event.ticketing == '0'">
+                  <span class="price-span">Free</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '2'">
+                  <span class="price-span">Donation</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1'">
+                  <span class="price-span">{{event.price}}</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                  <span class="price-span">Sold out</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                  <span class="price-span">Sales ended</span>
+                </ng-container>
+              </div>
+                <!-- <img (click)="gotoPreview(favorites.id)" src="http://events369.logitall.biz/storage/banner/{{favorites.banner_image}}" class="card-img-top" alt="..."> -->                
+              </div>
+              <div class="" (click)="gotoPreview(event.id)">
+                <p class="card-text">
+                  <span class="bold card-title">{{event.title}}</span>
+                  <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span><br>
+                  <span class="lead text-muted">Hosted by: <span style="color: #fe5104;">{{event.created_by}}</span></span>
+                </p>
+              </div>
+            </div>
+            
+            <div class="row" *ngIf="!onlineEvents || onlineEvents?.length == 0">
+              <div style="height: 20%;width: 100%;padding-bottom: 10%;">
+                <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                  <i class="bi bi-camera-video-off-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                  <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">No online events</span>
+                  <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                    Please check back later
+
+                </p>
+              </div>
+              
+           
+
+            </div>
+            
+            
+            <br><br><br>
+            <div class="d-flex justify-content-center">
+              <button  *ngIf="online_events_loadIndex < onlineEvents?.length" class="btn btn-dark btn-lg" (click)="loadMoreOnlineEvents()" type="button">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                  Show more
+                </button>
+                
+                <!-- <button  *ngIf="(online_events_loadIndex >= onlineEvents?.length) && (onlineEvents?.length >= 8)" class="btn btn-dark btn-lg" (click)="loadLessFavorites()" type="button">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Show less
+              </button> -->
+            </div>
+            </div>
+
+            <br><br><br><br>
+        </div>
+
+        <div *ngIf="todaysEvents.length" class="tab-pane fade" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab">
+          
+          <!-- Your favorites tab  -->
+          <div class="row" style="margin-bottom: 2%;" *ngIf="todaysEvents">
+            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of todaysEvents; let i = index">
+              <div class="card mb-2 event-card" *ngIf="i < todays_events_loadIndex">
+                <div class="save_live_event_div_container" style="padding: 8px;">
+                  <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)">
+                      <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                          <svg
+                              class="favorite-{{event.id}}"
+                              viewBox="0 0 32 32"
+                              xmlns="http://www.w3.org/2000/svg"
+                              style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                              aria-hidden="true"
+                              role="presentation"
+                              focusable="false"
+                          >
+                              <path
+                                  d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                              ></path>
+                          </svg>
+                      </button>
+                  </div>
+
+                  <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)">
+                    <button aria-label="Unsave this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                        <svg
+                            class="favorite-{{event.id}}"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <path
+                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                            ></path>
+                        </svg>
+                    </button>
+                  </div>
+
+                  <div class="event_social_share" style="visibility: hidden;">
+                    <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                        <svg 
+                          version="1.1" 
+                          id="Capa_1" 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          xmlns:xlink="http://www.w3.org/1999/xlink" 
+                          x="0px" 
+                          y="0px"
+                          viewBox="0 0 512 512" 
+                          style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                            
+                          <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+	
+                          </svg>
+                    </button>                      
+                </div>
+                </div>
+              <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                <ng-container *ngIf="event.ticketing == '0'">
+                  <span class="price-span">Free</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '2'">
+                  <span class="price-span">Donation</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1'">
+                  <span class="price-span">{{event.price}}</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                  <span class="price-span">Sold out</span>
+                </ng-container>
+                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                  <span class="price-span">Sales ended</span>
+                </ng-container>
+              </div>
+                <!-- <img (click)="gotoPreview(favorites.id)" src="http://events369.logitall.biz/storage/banner/{{favorites.banner_image}}" class="card-img-top" alt="..."> -->                
+              </div>
+              <div class="" (click)="gotoPreview(event.id)">
+                <p class="card-text">
+                  <span class="bold card-title">{{event.title}}</span>
+                  <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span><br>
+                  <span class="lead text-muted">Hosted by: <span style="color: #fe5104;">{{event.created_by}}</span></span>
+                </p>
+              </div>
+            </div>
+            
+            <div class="row" *ngIf="!todaysEvents|| todaysEvents?.length == 0">
+              <div style="height: 20%;width: 100%;padding-bottom: 10%;">
+                <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                  <i class="bi bi-clock" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                  <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">No events Today</span>
+                  <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                    Kindly check back tomorrow
+
+                </p>
+              </div>
+              
+          
+
+            </div>
+            
+            
+            <br><br><br>
+            <div class="d-flex justify-content-center">
+              <button  *ngIf="todays_events_loadIndex < todaysEvents?.length" class="btn btn-dark btn-lg" (click)="loadMoreTodaysEvents()" type="button">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                  Show more
+                </button>
+                
+                <!-- <button  *ngIf="(todays_events_loadIndex >= todaysEvents?.length) && (userFavorites?.length >= 8)" class="btn btn-dark btn-lg" (click)="loadLessFavorites()" type="button">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Show less
+              </button> -->
+            </div>
+            </div>
+
+            <br><br><br><br>
+        </div>
+
+
         <div class="tab-pane fade" id="pills-foryou" role="tabpanel" aria-labelledby="pills-profile-tab">
           
           <!-- Your favorites tab  -->
           <div class="row" style="margin-bottom: 2%;" *ngIf="userFavorites">
             <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let favorites of userFavorites; let i = index">
-              <div class="card mb-2" *ngIf="i < favorites_loadIndex">
+              <div class="card mb-2 event-card" *ngIf="i < favorites_loadIndex">
                 <div class="save_live_event_div_container" style="padding: 8px;">
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(favorites.id)">
                       <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(favorites.id)" class="save_live_event_button">
@@ -553,6 +895,31 @@
                         </svg>
                     </button>
                   </div>
+
+                  <div class="event_social_share" style="visibility: hidden;">
+                    <button aria-label="Save this Event" type="button" (click)="openModal(favorites.event_url)" class="save_live_event_button">
+                        <svg 
+                          version="1.1" 
+                          id="Capa_1" 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          xmlns:xlink="http://www.w3.org/1999/xlink" 
+                          x="0px" 
+                          y="0px"
+                          viewBox="0 0 512 512" 
+                          style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                            
+                          <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+	
+                          </svg>
+                    </button>                      
+                </div>
                 </div>
               <div (click)="gotoPreview(favorites.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{favorites.banner_image}}&quot;);height: 20vh;">
                 <ng-container *ngIf="favorites.ticketing == '0'">
@@ -617,12 +984,14 @@
 
             <br><br><br><br>
         </div>
+
+
         
         <div *ngFor="let x of categories; index as i" class="tab-pane fade" [id]="toCamelCase(x.temp_name)" role="tabpanel" aria-labelledby="pills-profile-tab">
           <div class="row">
             <div *ngFor="let event of categoryEvents[i];  let i = index" class="col-sm-12 col-md-3 col-lg-3" style="padding-left: 10px; padding-right: 10px;">
               <ng-container *ngIf="i < loadIndex[i]">
-              <div class="card mb-2"  >
+              <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
                   <div></div>
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)">
@@ -660,6 +1029,31 @@
                         </svg>
                     </button>                                  
                 </div>
+
+                <div class="event_social_share" style="visibility: hidden;">
+                  <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                      <svg 
+                        version="1.1" 
+                        id="Capa_1" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        x="0px" 
+                        y="0px"
+                        viewBox="0 0 512 512" 
+                        style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                          
+                        <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                              c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                              c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                              C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                              l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                              C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                              M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                              s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+
+                        </svg>
+                  </button>                      
+              </div>
                 </div>
                 <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
                   <ng-container *ngIf="event.ticketing == '0'">

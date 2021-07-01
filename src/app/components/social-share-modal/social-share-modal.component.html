@@ -1,0 +1,84 @@
+<!-- <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+</div> -->
+<div class="modal-body">
+    <div class="zm-share-header">
+        <h3 class="zm-share-title">Share</h3>
+        <i (click)="modalRef.close()" tabindex="0" class="anticon anticon-NjmAp-57zq-OfIvXLHkSN anticon-acc-no-outline bi bi-x zm-share-close" aria-label="Close">
+            <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#NjmAp-57zq-OfIvXLHkSN"></use></svg> -->
+        </i>
+    </div>
+    <div class="zm-share-media-container">
+        <a
+            class="zm-share-media-item"
+            href="https://www.facebook.com/dialog/share?locale=en_US&amp;display=popup&amp;app_id=281876326159158&amp;href=https%3A%2F%2Fon.zoom.us%2Fev%2FAGlNzAo5tKKzulUYzirOkdEFDb7MOr4XpIUH783WBdSVmX99fef087HFQwdBcLwC1ns6AhE%3Flmt%3D1624590153083&amp;hashtag="
+            target="_blank"
+            aria-label="Share this event on Facebook"
+        >
+            <i tabindex="-1" class="anticon anticon-t2B1JGvazIHPdl_SFLwmR anticon-acc-no-outline bi bi-facebook zm-share-media-item-icon">
+                <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#t2B1JGvazIHPdl_SFLwmR"></use></svg> -->
+            </i>
+        </a>
+        <a
+            class="zm-share-media-item"
+            href="http://www.facebook.com/dialog/send?app_id=281876326159158&amp;display=popup&amp;redirect_uri=https%3A%2F%2Fon.zoom.us&amp;link=https%3A%2F%2Fon.zoom.us%2Fev%2FAGlNzAo5tKKzulUYzirOkdEFDb7MOr4XpIUH783WBdSVmX99fef087HFQwdBcLwC1ns6AhE%3Flmt%3D1624590153083"
+            target="_blank"
+            aria-label="Share this event on Messenger"
+        >
+            <i tabindex="-1" class="anticon anticon-3w7FWimqqtKfT80hek_Ul anticon-acc-no-outline bi bi-messenger zm-share-media-item-icon">
+                <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#3w7FWimqqtKfT80hek_Ul"></use></svg> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" style="margin-bottom: -.2vh;" fill="currentColor" class="bi bi-messenger" viewBox="0 0 16 16">
+                    <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z"/>
+                  </svg>
+            </i>
+        </a>
+        <a
+            class="zm-share-media-item"
+            href="https://twitter.com/intent/tweet?via=&amp;hashtags=&amp;text=Check%20out%20this%20event%20on%20Zoom%20Events%3A%20Thursday%20Tree%20Study&amp;url=https%3A%2F%2Fon.zoom.us%2Fev%2FAGlNzAo5tKKzulUYzirOkdEFDb7MOr4XpIUH783WBdSVmX99fef087HFQwdBcLwC1ns6AhE%3Flmt%3D1624590153083"
+            target="_blank"
+            aria-label="Share this event on Twitter"
+        >
+            <i tabindex="-1" class="anticon anticon-cw8t-3S92_USUAoRfWzBD anticon-acc-no-outline bi bi-twitter zm-share-media-item-icon">
+                <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#cw8t-3S92_USUAoRfWzBD"></use></svg> -->
+            </i>
+        </a>
+        <a
+            class="zm-share-media-item"
+            href="https://www.linkedin.com/shareArticle/?mini=true&amp;source=&amp;url=https%3A%2F%2Fon.zoom.us%2Fev%2FAGlNzAo5tKKzulUYzirOkdEFDb7MOr4XpIUH783WBdSVmX99fef087HFQwdBcLwC1ns6AhE%3Flmt%3D1624590153083&amp;title=Check%20out%20this%20event%20on%20Zoom%20Events%3A%20Thursday%20Tree%20Study&amp;summary=Hey%2C%20check%20out%20this%20event%20on%20Zoom%20Events%3A%20Thursday%20Tree%20Study%20on%2007%2F01%2F21%20%4004%3A00PM(GMT)%2C%20interested%3F"
+            target="_blank"
+            aria-label="Share this event on LinkedIn"
+        >
+            <i tabindex="-1" class="anticon anticon-S4aDnAlh9BmwV9YUfhcCG anticon-acc-no-outline bi bi-linkedin zm-share-media-item-icon">
+                <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#S4aDnAlh9BmwV9YUfhcCG"></use></svg> -->
+            </i>
+        </a>
+        <a
+            class="zm-share-media-item"
+            href="mailto:?subject=Check%20out%20this%20event%20on%20Zoom%20Events%3A%20Thursday%20Tree%20Study&amp;body=Hey%2C%20check%20out%20this%20event%20on%20Zoom%20Events%3A%20Thursday%20Tree%20Study%20on%2007%2F01%2F21%20%4004%3A00PM(GMT)%2C%20interested%3F%0Ahttps%3A%2F%2Fon.zoom.us%2Fev%2FAGlNzAo5tKKzulUYzirOkdEFDb7MOr4XpIUH783WBdSVmX99fef087HFQwdBcLwC1ns6AhE%3Flmt%3D1624590153083"
+            target="_blank"
+            aria-label="Share this event by Email"
+        >
+            <i tabindex="-1" class="anticon anticon-xNI7pxUQ8Pa5NoyX3wn_I anticon-acc-no-outline bi bi-envelope-fill zm-share-media-item-icon">
+                <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#xNI7pxUQ8Pa5NoyX3wn_I"></use></svg> -->
+            </i>
+        </a>
+    </div>
+    <div class="zm-share-link-title">Share Event Link</div>
+    <div class="zm-share-copy-container">
+        <i tabindex="-1" class="anticon anticon-b9u_c6QH4Zxs47kyry2bq anticon-acc-no-outline bi bi-link-45deg zm-share-link-icon">
+            <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#b9u_c6QH4Zxs47kyry2bq"></use></svg> -->
+        </i>
+        <input class="zm-share-url" readonly="" value="{{url}}" />
+        <i tabindex="0" class="anticon anticon-RAQE_sbFqZHrAhP5ThIgI anticon-acc-no-outline bi bi-clipboard-plus zm-share-copy-icon" aria-label="Copy Link">
+            <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#RAQE_sbFqZHrAhP5ThIgI"></use></svg> -->
+        </i>
+    </div>
+</div>
+
+<!-- <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+        Close
+    </button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+</div> -->

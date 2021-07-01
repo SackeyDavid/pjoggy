@@ -33,6 +33,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingButtonComponent } from './components/loading-button/loading-button.component';
 
+
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { AdBannerComponent } from './components/ad-banner/ad-banner.component';
 import { LiveEventsComponent } from './components/live-events/live-events.component';
@@ -105,6 +108,7 @@ import { MagiclinkSuccessComponent } from './pages/user-auth/magiclink-success/m
 import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/magiclink-invalid.component';
 import { AccountProfileComponent } from './pages/profile/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
+import { SocialShareModalComponent } from './components/social-share-modal/social-share-modal.component';
 
 
 @NgModule({
@@ -188,7 +192,8 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
     MagiclinkSuccessComponent,
     MagiclinkInvalidComponent,
     AccountProfileComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    SocialShareModalComponent
   ],
   imports: [
     BrowserModule,
@@ -213,7 +218,8 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     GooglePlaceModule,
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+    MdbModalModule
 
   ],
   providers: [],

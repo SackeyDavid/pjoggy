@@ -763,6 +763,12 @@ p.card-text {
     font-size: 12px !important;
   }
 }
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .live_event_image_video_div_container_core {
+    height: 20.5vh !important;
+  }
+}
   
   
 

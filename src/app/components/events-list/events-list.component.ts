@@ -4,7 +4,10 @@ import { UsersFavoritesService } from 'src/app/services/users-favorites/users-fa
 import moment from 'moment';
 import { OwlCarousel } from 'ngx-owl-carousel';
 import { Router } from '@angular/router';
-import { HappeningNowService } from 'src/app/services/happening-now/happening-now.service';
+import { UpcomingEventsComponent } from 'src/app/components/upcoming-events/upcoming-events.component';
+import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
+// import { HappeningNowService } from 'src/app/services/happening-now/happening-now.service';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 declare var $: any;
 
@@ -15,8 +18,12 @@ declare var $: any;
 })
 export class EventsListComponent implements OnInit {
 
+  modalRef: any;
+
   categories: any;
   allEvents: any;
+  onlineEvents: any;
+  todaysEvents: any;
   categoryEvents: any[] = [];
   slideConfig: any;
 
@@ -37,6 +44,8 @@ export class EventsListComponent implements OnInit {
   loadIndex = [5, 5, 5]
 
   favorites_loadIndex = 8
+  online_events_loadIndex = 8
+  todays_events_loadIndex = 8
 
   
   users_favorite_event_id_and_fav_id: any = []
@@ -50,12 +59,15 @@ export class EventsListComponent implements OnInit {
     private router: Router,
     private eventsService: EventsService,
     private userFavoriteService: UsersFavoritesService,
-    private eventsHappeningNow: HappeningNowService,
+    // private eventsHappeningNow: HappeningNowService,
+    private modalService: MdbModalService
     ) { 
       this.getEventsInSixHrs();
       this.getPopularEvents();
       this.getNewEvents();
       this.getAllEvents();
+      this.getOnlineEvents();
+      this.getTodaysEvents();
       this.getUsersFavorites();
 
 
@@ -70,6 +82,7 @@ export class EventsListComponent implements OnInit {
         });
 
       });
+
 
 
     }
@@ -157,7 +170,8 @@ export class EventsListComponent implements OnInit {
 
   gotoPreview(eventId: any) {
     sessionStorage.setItem('preview_event_id', eventId);
-    this.router.navigateByUrl('/event_details');
+    // this.router.navigateByUrl('/event_details');
+    window.open('/event_details', "_blank");
   }
   
   getAllEvents(): void {
@@ -165,6 +179,30 @@ export class EventsListComponent implements OnInit {
       res => {
         console.log(res);
         this.allEvents = res.events?.data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getOnlineEvents(): void {
+    this.eventsService.getEventsByHosting('0').then(
+      res => {
+        console.log(res);
+        this.onlineEvents = res.events?.data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getTodaysEvents(): void {
+    this.eventsService.getTodaysEvents().then(
+      res => {
+        console.log(res);
+        this.todaysEvents = res.events?.data;
       },
       err => {
         console.log(err);
@@ -423,6 +461,26 @@ export class EventsListComponent implements OnInit {
     this.loading = false
   }
 
+  loadMoreOnlineEvents() {
+
+    this.loading = true
+    if(this.online_events_loadIndex < this.onlineEvents.length) {
+      this.online_events_loadIndex += 5
+    }
+    
+    this.loading = false
+  }
+
+  loadMoreTodaysEvents() {
+
+    this.loading = true
+    if(this.todays_events_loadIndex < this.todaysEvents.length) {
+      this.todays_events_loadIndex += 5
+    }
+    
+    this.loading = false
+  }
+
   loadLessFavorites() {
     this.loading = true
     if(this.favorites_loadIndex >= this.userFavorites.length) {
@@ -460,6 +518,10 @@ export class EventsListComponent implements OnInit {
     } else {
       return 1;
     }
+  }
+
+  openModal(url: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
   }
  
 }
