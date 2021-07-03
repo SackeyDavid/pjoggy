@@ -4,6 +4,8 @@ import { OwlCarousel } from 'ngx-owl-carousel';
 import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 import moment from 'moment';
 import { Router } from '@angular/router';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
 
 @Component({
   selector: 'app-upcoming-events',
@@ -11,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./upcoming-events.component.scss']
 })
 export class UpcomingEventsComponent implements OnInit {
+
+  
+  modalRef: any;
 
   events_in_six_hrs: any = []
   
@@ -25,12 +30,13 @@ export class UpcomingEventsComponent implements OnInit {
 
   loading: boolean = false
   
-  loadIndex = 20
+  loadIndex = 15
 
   constructor(
     private eventsService: EventsService,
     private userFavoriteService: UsersFavoritesService,
-    private router: Router
+    private router: Router,
+    private modalService: MdbModalService
   ) { 
     this.getEventsInSixHrs();
   }
@@ -43,7 +49,7 @@ export class UpcomingEventsComponent implements OnInit {
     this.getUsersFavorites()  
     console.log(this.users_favorite_event_ids) 
 
-    this.loadIndex = 5 
+    this.loadIndex = 15 
 
     // this.sliderOptions = {
     //   items: 5,
@@ -71,13 +77,28 @@ export class UpcomingEventsComponent implements OnInit {
     this.eventsService.getEventsInSixHours().then(
       res => {
         console.log(res);
-        this.events_in_six_hrs = res.events.data;
-        this.events_in_six_hrs.sort(function(a: any, b:any){
+        this.events_in_six_hrs = res.events;
+        this.events_in_six_hrs.data.sort(function(a: any, b:any){
           // Turn your strings into dates, and then subtract them
           // to get a value that is either negative, positive, or zero.
           return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
         });
 
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getEventsInSixHrsPage(page: any): void {
+    this.eventsService.getEventsInSixHoursPage(page).then(
+      res => {
+        console.log(res);
+        this.events_in_six_hrs = res.events;
+        this.events_in_six_hrs.data.sort(function(a: any, b:any){
+          return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        });
       },
       err => {
         console.log(err);
@@ -186,7 +207,7 @@ export class UpcomingEventsComponent implements OnInit {
   loadMore() {
     this.loading = true
     if(this.loadIndex < this.events_in_six_hrs.length) {
-      this.loadIndex += 5
+      this.loadIndex += 15
     }
     
     this.loading = false
@@ -212,6 +233,10 @@ export class UpcomingEventsComponent implements OnInit {
     } else {
       return 1;
     }
+  }
+
+  openModal(url: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
   }
   
 }

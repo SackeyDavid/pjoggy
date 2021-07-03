@@ -321,14 +321,27 @@ span.title {
     -moz-box-pack: justify !important;
     position: absolute !important;
     right: 0% !important;
-    display: flex !important;
+    display: block !important;
     justify-content: space-between !important;
-    // z-index: 9999 !important;
+    z-index: 999 !important;
   }
   .save_live_event_div {
     pointer-events: auto !important;
     margin-top: -5px !important;
     margin-right: -3px !important;
+  }
+  .event-card:hover .event_social_share {
+    visibility: visible !important;
+  }
+  .save_live_event_div, .event_social_share {
+    pointer-events: auto !important;
+    margin-top: -5px !important;
+    margin-right: -3px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .event_social_share:hover {
+    visibility: visible !important;
   }
   .save_live_event_button {
     -moz-box-pack: center !important;
@@ -374,6 +387,25 @@ span.title {
 	height: 100%;
 }
 
+@media (max-height: 500px) and (orientation : landscape) {
+  .img-fit-img-fix-background-cover {
+    height: 50vh !important;
+  }
+}
+
+@media (max-width: 1400px) and (min-height: 900px) {
+.img-fit-img-fix-background-cover {
+  height: 30vh !important;
+}
+}
+
+@media (max-width: 1400px) and (max-height: 900px) {
+.img-fit-img-fix-background-cover {
+  height: 30vh !important;
+}
+}
+
+
 .price-span {
   position: absolute;
   right: 0;
@@ -385,4 +417,10 @@ span.title {
   border-end-end-radius: 0px;
   color: #fff;
   border-start-start-radius: 10px;
+}
+
+.page-link {
+  // border: none !important;
+  font-size: 15px !important;
+  color: var(--ev-create-event-nav-background);
 }

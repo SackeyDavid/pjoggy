@@ -14,42 +14,42 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">Drafts
-                <ng-container *ngIf="createdEvents.length">
-                    ({{createdEvents.length}})
+            <a *ngIf="createdEvents" class="nav-link active" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">Drafts
+                <ng-container *ngIf="createdEvents.total">
+                    ({{createdEvents.total}})
                 </ng-container>
             </a>
             
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">Published
-                <ng-container *ngIf="publishedEvents.length">
-                    ({{publishedEvents.length}})
+            <a  *ngIf="publishedEvents" class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">Published
+                <ng-container *ngIf="publishedEvents.total">
+                    ({{publishedEvents?.total}})
                     <!-- <span style="color: inherit;background-color: #fff;border-radius: 50%;">{{publishedEvents.length}})</span> -->
                 </ng-container>
             </a>
             
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">Cancelled
-                <ng-container *ngIf="cancelledEvents.length">
-                    ({{cancelledEvents.length}})
+            <a  *ngIf="cancelledEvents" class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">Cancelled
+                <ng-container *ngIf="cancelledEvents.total">
+                    ({{cancelledEvents?.total}})
                 </ng-container>
             </a>
             
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
-                <ng-container *ngIf="archivedEvents.length">
-                    ({{archivedEvents.length}})
+            <a  *ngIf="archivedEvents" class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
+                <ng-container *ngIf="archivedEvents.total">
+                    ({{archivedEvents.total}})
                 </ng-container>
             </a>
             
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All 
-              <ng-container *ngIf="userEvents.length">
-                  ({{userEvents.length}})
+          <a  *ngIf="userEvents" class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All 
+              <ng-container *ngIf="userEvents.total">
+                  ({{userEvents.total}})
               </ng-container>
           </a>
       </li>
@@ -73,7 +73,7 @@
           </div>
 
         <div class="row">
-            <div *ngFor="let event of createdEvents; let i = index" class="col-lg-4 mb-4">
+            <div *ngFor="let event of createdEvents.data; let i = index" class="col-lg-4 mb-4">
                 <div class="card" *ngIf="i < draft_loadIndex" (click)="showHideMoreDraft(event.id)">
                     <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                     <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" class="card-img-top" height="250" alt="{{event.title}}">
@@ -112,15 +112,35 @@
             <!-- <br><br><br> -->
             <div class="row">
                 <div class="col-12">
-                  <div class="d-flex flex-row justify-content-end p-1">
-                    <div class="btn-group" role="group" aria-label="Basic example">
+                  <div class="d-flex flex-row justify-content-center p-1" *ngIf="createdEvents.prev_page_url || createdEvents.next_page_url">
+                    <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
                       <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
                         <i class="bi-arrow-up"></i>
                       </button> -->
-                      <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
+                      <!-- <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
                         <i class="bi-arrow-down"></i>
-                      </button>
-                    </div>
+                      </button> -->
+                      
+                      <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                          <li class="page-item" *ngIf="createdEvents.current_page !== 1">
+                            <a class="page-link" (click)="openDraftedEventsNextPage(createdEvents.prev_page_url)" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item"><a class="page-link">{{createdEvents.current_page}} of {{createdEvents.last_page}}</a></li>
+                          <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                          <li class="page-item" *ngIf="createdEvents.to < createdEvents.total">
+                            <a class="page-link" (click)="openDraftedEventsNextPage(createdEvents.next_page_url)" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    <!-- </div> -->
                   </div>
                 </div>
                 <br><br><br>
@@ -146,7 +166,7 @@
             <div class="row">  
                 
                 
-            <div class="row" *ngIf="!userEvents || userEvents.length == 0">
+            <div class="row" *ngIf="!userEvents?.data || userEvents?.data.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-camera-reels-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -159,7 +179,7 @@
   
               </div>
 
-                <div *ngFor="let event of userEvents; let i = index" class="col-lg-4 mb-4">
+                <div *ngFor="let event of userEvents?.data; let i = index" class="col-lg-4 mb-4">
                     <div class="card" *ngIf="i < loadIndex" (click)="showHideMore(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250px" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" height="250px" alt="{{event.title}}">
@@ -198,15 +218,36 @@
                 <!-- <br><br><br> -->
                 <div class="row">
                     <div class="col-12">
-                      <div class="d-flex flex-row justify-content-end p-1">
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                      <div class="d-flex flex-row justify-content-center p-1" *ngIf="userEvents.prev_page_url || userEvents.next_page_url">
+                        <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
                           <!-- <button *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLess()">
                             <i class="bi-arrow-up"></i>
                           </button> -->
-                          <button *ngIf="loadIndex < userEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMore()">
+                          <!-- <button *ngIf="loadIndex < userEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMore()">
                             <i class="bi-arrow-down"></i>
-                          </button>
-                        </div>
+                          </button> -->
+                          
+                          <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item" *ngIf="userEvents.current_page !== 1">
+                                <a class="page-link" (click)="openAllEventsNextPage(userEvents.prev_page_url)" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link">{{userEvents.current_page}} of {{userEvents.last_page}}</a></li>
+                              <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                              <li class="page-item" *ngIf="userEvents.to < userEvents.total">
+                                <a class="page-link" (click)="openAllEventsNextPage(userEvents.next_page_url)" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+
+                        <!-- </div> -->
                       </div>
                     </div>
                     <br><br><br>
@@ -229,7 +270,7 @@
         <div class="tab-pane fade" id="pills-published" role="tabpanel" aria-labelledby="pills-published-tab">
 
             
-            <div class="row" *ngIf="!publishedEvents || publishedEvents.length == 0">
+            <div class="row" *ngIf="!publishedEvents?.data || publishedEvents?.data.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-check-circle-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -243,7 +284,7 @@
               </div>
 
             <div class="row">
-                <div *ngFor="let event of publishedEvents; let i = index" class="col-lg-4 mb-4">
+                <div *ngFor="let event of publishedEvents?.data; let i = index" class="col-lg-4 mb-4">
                     <div class="card" (click)="showHideMorePublished(event.id)" *ngIf="i < published_loadIndex" (click)="showHideMore(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" class="card-img-top" height="250" alt="{{event.title}}">
@@ -281,15 +322,32 @@
                 <!-- <br><br><br> -->
                 <div class="row">
                     <div class="col-12">
-                      <div class="d-flex flex-row justify-content-end p-1">
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                      <div class="d-flex flex-row justify-content-center p-1" *ngIf="publishedEvents.prev_page_url || publishedEvents.next_page_url">
+                        <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
                           <!-- <button *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessPublished()">
                             <i class="bi-arrow-up"></i>
                           </button> -->
-                          <button *ngIf="published_loadIndex < publishedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMorePublished()">
-                            <i class="bi-arrow-down"></i>
-                          </button>
-                        </div>
+                          
+                          <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item" *ngIf="publishedEvents.current_page !== 1">
+                                <a class="page-link" (click)="openPublishedEventsNextPage(publishedEvents.prev_page_url)" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link">{{publishedEvents.current_page}} of {{publishedEvents.last_page}}</a></li>
+                              <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                              <li class="page-item" *ngIf="publishedEvents.to < publishedEvents.total">
+                                <a class="page-link" (click)="openPublishedEventsNextPage(publishedEvents.next_page_url)" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                        <!-- </div> -->
                       </div>
                     </div>
                     <br><br><br>
@@ -314,7 +372,7 @@
         
         <div class="tab-pane fade" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
 
-          <div class="row" *ngIf="!cancelledEvents || cancelledEvents.length == 0">
+          <div class="row" *ngIf="!cancelledEvents?.data || cancelledEvents?.data.length == 0">
               <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                 <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                   <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -328,7 +386,7 @@
             </div>
 
           <div class="row">
-              <div *ngFor="let event of cancelledEvents; let i = index" class="col-lg-4 mb-4">
+              <div *ngFor="let event of cancelledEvents?.data; let i = index" class="col-lg-4 mb-4">
                   <div class="card" *ngIf="i < cancelled_loadIndex" (click)="showHideMoreCancelled(event.id)">
                       <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                       <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" class="card-img-top" height="250" alt="{{event.title}}">
@@ -368,15 +426,35 @@
               <!-- <br><br><br> -->
               <div class="row">
                   <div class="col-12">
-                    <div class="d-flex flex-row justify-content-end p-1">
-                      <div class="btn-group" role="group" aria-label="Basic example">
+                    <div class="d-flex flex-row justify-content-center p-1" *ngIf="cancelledEvents.prev_page_url || cancelledEvents.next_page_url">
+                      <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
                         <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
                           <i class="bi-arrow-up"></i>
                         </button> -->
-                        <button *ngIf="cancelled_loadIndex < cancelledEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreCancelled()">
+                        <!-- <button *ngIf="cancelled_loadIndex < cancelledEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreCancelled()">
                           <i class="bi-arrow-down"></i>
-                        </button>
-                      </div>
+                        </button> -->
+                      <!-- </div> -->
+                      
+                      <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                          <li class="page-item" *ngIf="cancelledEvents.current_page !== 1">
+                            <a class="page-link" (click)="openCancelledEventsNextPage(cancelledEvents.prev_page_url)" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item"><a class="page-link">{{cancelledEvents.current_page}} of {{cancelledEvents.last_page}}</a></li>
+                          <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                          <li class="page-item" *ngIf="cancelledEvents.to < cancelledEvents.total">
+                            <a class="page-link"  (click)="openCancelledEventsNextPage(cancelledEvents.next_page_url)" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
                     </div>
                   </div>
                   <br><br><br>
@@ -400,7 +478,7 @@
       </div>
         <div class="tab-pane fade" id="pills-archived" role="tabpanel" aria-labelledby="pills-archived-tab">
             
-            <div class="row" *ngIf="!archivedEvents || archivedEvents.length == 0">
+            <div class="row" *ngIf="!archivedEvents?.data || archivedEvents?.data.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -414,7 +492,7 @@
               </div>
 
             <div class="row">
-                <div *ngFor="let event of archivedEvents" class="col-lg-4 mb-4">
+                <div *ngFor="let event of archivedEvents?.data" class="col-lg-4 mb-4">
                     <div class="card"  (click)="showHideMoreArchived(event.id)">
                         <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250" class="card-img-top" alt="{{event.title}}">
                         <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" class="card-img-top" height="250" alt="{{event.title}}">
@@ -452,15 +530,35 @@
                 <!-- <br><br><br> -->
                 <div class="row">
                     <div class="col-12">
-                      <div class="d-flex flex-row justify-content-end p-1">
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                      <div class="d-flex flex-row justify-content-center p-1" *ngIf="(archivedEvents.prev_page_url) || (archivedEvents.next_page_url)">
+                        <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
                           <!-- <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
                             <i class="bi-arrow-up"></i>
                           </button> -->
-                          <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
+                          <!-- <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
                             <i class="bi-arrow-down"></i>
-                          </button>
-                        </div>
+                          </button> -->
+                          
+                          <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item" *ngIf="archivedEvents.current_page !== 1">
+                                <a class="page-link" (click)="openArchivedEventsNextPage(archivedEvents.prev_page_url)" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link">{{archivedEvents.current_page}} of {{archivedEvents.last_page}}</a></li>
+                              <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                              <li class="page-item" *ngIf="archivedEvents.to < archivedEvents.total">
+                                <a class="page-link" (click)="openArchivedEventsNextPage(archivedEvents.next_page_url)" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                        <!-- </div> -->
                       </div>
                     </div>
                     <br><br><br>

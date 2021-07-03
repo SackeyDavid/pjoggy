@@ -205,4 +205,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/event_details');
   }
 
+  openManageEventsPage() {
+    window.open('/user_events', "_blank");
+  }
+
 }

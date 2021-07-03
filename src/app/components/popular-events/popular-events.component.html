@@ -10,7 +10,7 @@
     </div>  
 
     
-    <ng-container *ngIf="!popularEvents.length">
+    <ng-container *ngIf="!popularEvents.data.length">
       <div class="d-flex justify-content-center">
         <!-- <div class="spinner-grow" role="status">  -->
           <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
@@ -23,7 +23,7 @@
 
     <!-- <owl-carousel #upcomingSlider [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="events_in_six_hrs.length"> -->
       <div class="row">
-          <div class="col-sm-12 col-md-3 col-lg-3" *ngFor="let event of popularEvents; let i = index">              
+          <div class="col-sm-12 col-md-3 col-lg-3 mb-5" *ngFor="let event of popularEvents.data; let i = index">              
             <div  (click)="gotoPreview(event.id)"  *ngIf="i < loadIndex">              
               <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
@@ -99,13 +99,33 @@
     <!-- </owl-carousel> -->
     
 <br><br><br>
-<div class="d-flex justify-content-center">
-  <button  *ngIf="loadIndex < popularEvents.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+<div class="d-flex justify-content-center" *ngIf="popularEvents?.data.length">
+  <!-- <button  *ngIf="loadIndex < popularEvents.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Load more
     </button>
 
-    <a href="/" *ngIf="loadIndex >= popularEvents.length" class="btn btn-dark btn-lg">Show all events</a>
+    <a href="/" *ngIf="loadIndex >= popularEvents.length" class="btn btn-dark btn-lg">Show all events</a> -->
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="popularEvents.current_page !== 1">
+          <a class="page-link" href="#" aria-label="Previous" (click)="getPopularEventsPage(popularEvents.current_page - 1)">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">{{popularEvents.current_page}} of {{popularEvents.last_page}}</a></li>
+        <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+        <li class="page-item" *ngIf="popularEvents.to < popularEvents.total">
+          <a class="page-link" href="#" aria-label="Next" (click)="getPopularEventsPage(popularEvents.current_page + 1)">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 </div>
 
 </div>
