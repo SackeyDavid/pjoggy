@@ -503,6 +503,12 @@ p.card-text {
     -webkit-line-clamp: 1 !important;
     -moz-box-orient: vertical !important;
   }
+
+  @media (max-width: 567px) {
+    .live_event_location_div {
+      min-width: 60vw !important; max-width: 60vw !important;
+    }
+  }
   .live_event_title {
     font-weight: 600 !important;
     color: var(--card-typography-color-primary, #222222) !important;
