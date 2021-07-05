@@ -64,7 +64,7 @@ export class CreateEventTicketingComponent implements OnInit {
       this.f.name.setValue('Free');
 
       // not working want to auto create a free ticket if ticketing is free
-      // this.ticketFormElement?.ngSubmit.emit();
+      this.f.submit();
       
     }
     if(this.eventTicketing == '2') {

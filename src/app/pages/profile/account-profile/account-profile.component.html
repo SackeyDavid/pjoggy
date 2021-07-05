@@ -11,7 +11,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="profile-image-div text-center">
                                 <input type="file" class="photo-input" formControlName="photo" (change)="onFileSelected($event)" #photoUpload>
-                                <img [src]="imgSrc" alt="{{currentUser.name}}'s photo" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                              
+                                <img *ngIf="currentUser" [src]="imgSrc" alt="{{currentUser.name}}'s photo" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                              
                                 <!-- <img src="../../../../assets/images/avatar-placeholder.png" alt="" class="rounded-circle photo-image" width="150" height="150" (click)="photoUpload.click()">                        -->
                                 <div class="avatar-edit" (click)="photoUpload.click()"><i class="bi bi-pencil-fill"></i></div>
                             </div>                           

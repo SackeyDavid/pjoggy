@@ -35,9 +35,9 @@ export class AccountProfileComponent implements OnInit {
     this.imgSrc = '../../../../assets/images/avatar-placeholder.png';
   }  
   
-  ngOnInit(): void {    
+  ngOnInit(): void {   
+    this.getUser(); 
     // this.initForm();
-    this.getUser();
   }
 
   initForm(): void {
