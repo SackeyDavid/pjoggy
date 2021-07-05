@@ -39,6 +39,8 @@ export class PreviewEventPageComponent implements OnInit {
     private router: Router
     ) { 
 
+      this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + sessionStorage.getItem('preview_event_id');
+    
       this.string_from_url = decodeURI(this.router.url);
 
       var ind1 = this.string_from_url.indexOf('=');
@@ -48,14 +50,13 @@ export class PreviewEventPageComponent implements OnInit {
       this.id = this.string_from_url.substring(ind1+1, ind2);
       console.log(this.id)
 
-      if(this.id !== null) {
-        sessionStorage.setItem('preview_event_id', this.id);
+      if(this.id.length > 0) {
+        // sessionStorage.setItem('preview_event_id', this.id);
         this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + this.id;
         console.log('http://events369.logitall.biz/api/get_event_data/', this.id)
       }
       
-      this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + sessionStorage.getItem('preview_event_id');
-    
+      
   }
 
   ngOnInit(): void {
@@ -68,10 +69,10 @@ export class PreviewEventPageComponent implements OnInit {
     this.id = this.string_from_url.substring(ind1+1, ind2);
     console.log(this.id)
 
-    if(this.id !== null) {
-      sessionStorage.setItem('preview_event_id', this.id);
+    if(this.id.length > 0 ) {
+      // sessionStorage.setItem('preview_event_id', this.id);
       this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + this.id;
-      console.log('http://events369.logitall.biz/api/get_event_data/', this.id)
+      console.log(this.dataUrl, sessionStorage.getItem('preview_event_id'))
     }
 
   }
