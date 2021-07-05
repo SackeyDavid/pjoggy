@@ -116,7 +116,7 @@
                       <p *ngFor="let ticket of eventTickets" class="card-text" style="font-weight: bold">
                         <small><i class="bi-cash-stack"></i> 
                           <ng-container *ngIf="ticket.price == 1"> Donations ({{ ticket.currency }})</ng-container>
-                          <ng-container *ngIf="ticket.price !== 1">{{ ticket.currency }} {{ ticket.price }}</ng-container>
+                          <ng-container *ngIf="ticket.price !== 1"> {{ ticket.currency }} {{ ticket.price }}</ng-container>
                          
                           <!-- {{ticket.currency}}{{ticket.price}}  -->
                           &nbsp; - &nbsp; 

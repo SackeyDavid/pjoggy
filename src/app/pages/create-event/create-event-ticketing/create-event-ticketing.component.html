@@ -39,7 +39,7 @@
     </div> -->
 
     <div class="col-md-4 col-lg-4 col-sm-12">
-      <form class="form" [formGroup]="form" (ngSubmit)="create()">
+      <form class="form" [formGroup]="form" (ngSubmit)="create()" #ticketForm>
         <div class="divider mb-1 mt-5"></div>
         <div class="form-item">
           <div class="form-header">
@@ -58,7 +58,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="ticket name eg. Premium"
+                      <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="ticket name eg. Early Bird"
                         formControlName="name" [ngClass]="{'is-invalid': saved && f.name.errors, 'is-valid': !f.name.errors}">
                       <label for="floatingTitle">Name</label>
                       <small *ngIf="saved && f.name.errors" id="titleHelp" class="form-text invalid-feedback">

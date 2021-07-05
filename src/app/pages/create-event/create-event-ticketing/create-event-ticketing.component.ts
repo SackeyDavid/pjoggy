@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { TicketsService } from 'src/app/services/tickets/tickets.service';
 import moment from 'moment';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
@@ -12,6 +12,8 @@ import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service
   styleUrls: ['./create-event-ticketing.component.scss']
 })
 export class CreateEventTicketingComponent implements OnInit {
+
+  @ViewChild('ticketForm') ticketFormElement: NgForm | undefined;
 
   eventTitle: string = '';
   eventDate: string = '';
@@ -56,7 +58,15 @@ export class CreateEventTicketingComponent implements OnInit {
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time;
     this.eventTicketing = data.event[0].ticketing;
-    if(this.eventTicketing == '0') this.f.price.disable();
+    if(this.eventTicketing == '0') 
+    {
+      this.f.price.disable();
+      this.f.name.setValue('Free');
+
+      // not working want to auto create a free ticket if ticketing is free
+      // this.ticketFormElement?.ngSubmit.emit();
+      
+    }
     if(this.eventTicketing == '2') {
       this.f.price.setValue('1');
       // this.f.price.disable();
@@ -78,6 +88,7 @@ export class CreateEventTicketingComponent implements OnInit {
       salesEndDate: [''],
       salesStartDate: ['']
     });
+
   }
 
   displayFailedDeleteToast(): void {}
@@ -271,6 +282,7 @@ export class CreateEventTicketingComponent implements OnInit {
     this.f.quantity.setValue('1');
     this.f.salesEndDate.setValue('');
     this.f.salesStartDate.setValue('');
+    if(this.eventTicketing == '0') this.f.name.setValue('Free')
   }
 
   saveCreatedEvent(eventId: any): Promise<boolean> {
