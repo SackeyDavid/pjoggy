@@ -214,6 +214,8 @@ export class UpcomingEventsComponent implements OnInit {
   }
 
   getTicketSalesStatus(ticket_sales_end_date: string) {
+    if (ticket_sales_end_date == null) return 1;
+    
     var ticket_end_date = ticket_sales_end_date.split(' ')[0];
     var ticket_end_time = ticket_sales_end_date.split(' ')[1];
 
