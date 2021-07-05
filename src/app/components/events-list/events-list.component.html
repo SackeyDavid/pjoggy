@@ -5,10 +5,10 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="onlineEvents.length">
+        <li class="nav-item" role="presentation" *ngIf="onlineEvents?.length">
           <a class="nav-link" id="pills-online-tab" data-toggle="pill" href="#pills-online" role="tab" aria-controls="pills-profile" aria-selected="false">Online</a>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="todaysEvents.length">
+        <li class="nav-item" role="presentation" *ngIf="todaysEvents?.length">
           <a class="nav-link" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-profile" aria-selected="false">Today</a>
         </li>
         <li class="nav-item" role="presentation">
@@ -594,7 +594,7 @@
           <!-- /.New events end -->
         </div>
 
-        <div *ngIf="onlineEvents.length" class="tab-pane fade" id="pills-online" role="tabpanel" aria-labelledby="pills-online-tab">
+        <div *ngIf="onlineEvents?.length" class="tab-pane fade" id="pills-online" role="tabpanel" aria-labelledby="pills-online-tab">
           
           <!-- Your favorites tab  -->
           <div class="row" style="margin-bottom: 2%;" *ngIf="onlineEvents">
@@ -723,7 +723,7 @@
             <br><br><br><br>
         </div>
 
-        <div *ngIf="todaysEvents.length" class="tab-pane fade" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab">
+        <div *ngIf="todaysEvents?.length" class="tab-pane fade" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab">
           
           <!-- Your favorites tab  -->
           <div class="row" style="margin-bottom: 2%;" *ngIf="todaysEvents">
