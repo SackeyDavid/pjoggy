@@ -989,7 +989,7 @@
         
         <div *ngFor="let x of categories; index as i" class="tab-pane fade" [id]="toCamelCase(x.temp_name)" role="tabpanel" aria-labelledby="pills-profile-tab">
           <div class="row">
-            <div *ngFor="let event of categoryEvents[i];  let i = index" class="col-sm-12 col-md-3 col-lg-3" style="padding-left: 10px; padding-right: 10px;">
+            <div *ngFor="let event of categoryEvents[i];  let i = index" class="col-sm-12 col-md-3 col-lg-3 mb-5" style="padding-left: 10px; padding-right: 10px;">
               <!-- <ng-container *ngIf="i < loadIndex[i]"> -->
               <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
