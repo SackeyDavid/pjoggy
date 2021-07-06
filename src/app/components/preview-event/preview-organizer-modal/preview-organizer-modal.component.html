@@ -1,0 +1,28 @@
+<mat-dialog-content>
+    <div class="container-fluid">
+        <div class="w-100 mx-auto" role="document" style="max-width: 100%;">
+            <div class="row gx-4">
+                <div class="col-lg-6 col-md-6 col-sm-12 p-4">
+                    <div class="ts-organizer-popup-img text-center p-4">
+                    <img *ngIf="data.image != null" class="rounded-circle" src="http://events369.logitall.biz/storage/organizer/{{data.image}}" alt="" style="width: 100%;">
+                    <img *ngIf="data.image == null" class="rounded-circle" src="../../../../assets/images/avatar-placeholder.png" alt="" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 my-auto">
+                    <div class="ts-organizer-popup-content">
+                    <h3 class="ts-title">{{data.name}}</h3>
+                    <br>
+                    <p>{{data.bio}}</p>
+                    <br>
+                    <div class="ts-organizers-social">
+                        <i class="bi bi-facebook"></i> Facebook : <a href="data.facebook">{{data.facebook}}</a><br>
+                        <i class="bi bi-twitter"></i> Twitter : <a href="data.twitter">{{data.twitter}}</a><br>
+                        <i class="bi bi-instagram"></i> Instagram: <a href="data.instagram">{{data.instagram}}</a><br>
+                        <i class="bi bi-linkedin"></i> Linked-In: <a href="data.linkedin">{{data.linkedin}}</a><br>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

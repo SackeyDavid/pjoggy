@@ -156,12 +156,12 @@ export class CreateEventDetailsComponent implements OnInit {
     const file:File = e.target.files[0];
     if (file) {
       this.isBannerSet = true;
-
       this.f.banner_image.value = file;
 
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e: any) => {
+        console.log(e.target);
         this.imgSrc = e.target.result;
       }
     }

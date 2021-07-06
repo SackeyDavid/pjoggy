@@ -170,16 +170,18 @@ export class EditEventDetailsComponent implements OnInit {
 
   onFileSelected(e: any){
     const file:File = e.target.files[0];
-    if (file) {
+    if (file) {      
       this.isBannerSet = true;
-
       // this.f.banner_image.value = file;
       this.imgStore = file;
 
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e: any) => {
+        console.log(e.target);
         this.imgSrc = e.target.result;
+        var width = e.target.width;
+        var height = e.target.height;
       }
     }
   }

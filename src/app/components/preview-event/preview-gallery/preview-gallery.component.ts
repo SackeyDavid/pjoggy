@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PreviewGalleryModalComponent } from '../preview-gallery-modal/preview-gallery-modal.component';
 
 @Component({
   selector: 'app-preview-gallery',
@@ -9,8 +11,6 @@ export class PreviewGalleryComponent implements OnInit {
 
   @Input() images?: any;
 
-  viewImage: any;
-
   sliderOptions = {
     items: 5,
     nav: true,
@@ -20,15 +20,15 @@ export class PreviewGalleryComponent implements OnInit {
     autoplay: true,
   };
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  setImage(e: any, i: any){
+  openModal(e: any, i: any) {
     e.preventDefault();
-    this.viewImage = this.images[i].url;
-    console.log(this.images[i].url);
+    this.dialog.open(PreviewGalleryModalComponent, { data: this.images[i].url });
+    console.log('opening modal');
   }
 
 }

@@ -70,7 +70,7 @@
             <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#b9u_c6QH4Zxs47kyry2bq"></use></svg> -->
         </i>
         <input class="zm-share-url" readonly="" value="{{url}}" />
-        <i tabindex="0" class="anticon anticon-RAQE_sbFqZHrAhP5ThIgI anticon-acc-no-outline bi bi-clipboard-plus zm-share-copy-icon" aria-label="Copy Link">
+        <i [cdkCopyToClipboard]="url" (click)="openSnackBar()" tabindex="0" class="anticon anticon-RAQE_sbFqZHrAhP5ThIgI anticon-acc-no-outline bi bi-clipboard-plus zm-share-copy-icon" aria-label="Copy Link">
             <!-- <svg width="1em" height="1em" fill="currentColor" class=""><use xlink:href="#RAQE_sbFqZHrAhP5ThIgI"></use></svg> -->
         </i>
     </div>
