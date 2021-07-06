@@ -10,6 +10,7 @@ import { UpcomingEventsPageComponent } from "./pages/upcoming-events-page/upcomi
 import { PopularEventsPageComponent } from "./pages/popular-events-page/popular-events-page.component";
 import { NewEventsPageComponent } from "./pages/new-events-page/new-events-page.component";
 import { HelpPageComponent } from "./pages/help-page/help-page.component";
+import { FavoritePageComponent } from './pages/favorites-page/favorite-page.component';
 
 import { CreateBasicInfoComponent } from './pages/create-event/create-basic-info/create-basic-info.component';
 import { CreateEventSchedulesComponent } from './pages/create-event/create-event-schedules/create-event-schedules.component';
@@ -239,7 +240,11 @@ const routes: Routes = [
       {
         path: 'new',
         component: NewEventsPageComponent
-      }
+      },
+      {
+        path: 'favorites',
+        component: FavoritePageComponent
+      },
     ]
   }
 ];

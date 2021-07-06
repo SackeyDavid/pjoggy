@@ -200,6 +200,19 @@
                   <span class="bold card-title">{{event.title}}</span>
                   <span class="lead text-muted">{{getEventStartDateFormatted(event.start_date_time)}}</span><br>
                   <span class="lead text-muted">Hosted by: <span style="color: #fe5104;">{{event.created_by}}</span></span>
+                  <!-- <span class="lead text-muted">
+                    <div class="live_event_location_div" style="min-width: 10vw; max-width: 14vw;text-overflow: ellipsis;overflow: hidden;">
+                    <ng-container *ngIf="event.venue">
+                      {{event.venue}}
+                    </ng-container>
+                    <ng-container *ngIf="event.hosting == '0'">
+                      Online Event
+                    </ng-container>
+                    <ng-container *ngIf="event.venue_tobe_announced">
+                      TBA
+                    </ng-container>
+                  </div>
+                </span> -->
                 </p>
               </div>
             </div>             
@@ -596,7 +609,7 @@
 
         <div *ngIf="onlineEvents?.length" class="tab-pane fade" id="pills-online" role="tabpanel" aria-labelledby="pills-online-tab">
           
-          <!-- Your favorites tab  -->
+          <!-- Your online events tab  -->
           <div class="row" style="margin-bottom: 2%;" *ngIf="onlineEvents">
             <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of onlineEvents; let i = index">
               <div class="card mb-2 event-card" *ngIf="i < online_events_loadIndex">
@@ -929,7 +942,7 @@
                   <span class="price-span">Donation</span>
                 </ng-container>
                 <ng-container *ngIf="favorites.ticketing == '1'">
-                  <span class="price-span">{{favorites.price}}</span>
+                  <span class="price-span">{{favorites.currency}}{{favorites.price}}</span>
                 </ng-container>
                 <ng-container *ngIf="favorites.ticketing == '1' && favorites.qty_remaining == 0">
                   <span class="price-span">Sold out</span>
@@ -1090,15 +1103,11 @@
 
           </div>
           <div class="d-flex justify-content-center" *ngIf="categoryEvents[i]">
-            <button  *ngIf="loadIndex[i] < categoryEvents[i]?.length" class="btn btn-dark btn-lg" (click)="loadMore(i)" type="button">
+            <button  *ngIf="loadIndex[i] <= categoryEvents[i]?.length" class="btn btn-dark btn-lg" (click)="loadMore(i)" type="button">
                 <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
-                Load more
+                Show more
               </button>
               
-              <button  *ngIf="(loadIndex[i] >= categoryEvents[i]?.length) && (categoryEvents[i]?.length >= 5)" class="btn btn-dark btn-lg" (click)="loadLess(i)" type="button">
-                <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
-                Show less
-            </button>
           </div>
         </div>
       </div>

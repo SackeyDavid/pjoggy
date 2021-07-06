@@ -83,7 +83,7 @@ export class CreateEventTicketingComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       quantity: ['1', Validators.pattern("^[0-9]*$")],
-      price: ['0', Validators.pattern("^[0-9]*$")],
+      price: ['0'],
       currency: ['GHS'],
       salesEndDate: [''],
       salesStartDate: ['']

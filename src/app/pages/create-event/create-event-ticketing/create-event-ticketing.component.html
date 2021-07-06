@@ -103,7 +103,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <div class="form-floating mb-3">
-                      <input type="text" [disabled]= "eventTicketing == '0'" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="price"
+                      <input type="number" [disabled]= "eventTicketing == '0'" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="price"
                       formControlName="price" [ngClass]="{'is-invalid': saved && f.price.errors, 'is-valid': !f.price.errors && f.price.value != ''}">
                       <label for="floatingTitle">Price</label>
                       <div class="form-description">
