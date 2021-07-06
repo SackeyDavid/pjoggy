@@ -111,6 +111,8 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
 import { SocialShareModalComponent } from './components/social-share-modal/social-share-modal.component';
 import { FavoritePageComponent } from './pages/favorites-page/favorite-page.component';
 import { FavoritesComponentComponent } from './components/favorites-component/favorites-component.component';
+import { EventsByCategoryComponent } from './components/events-by-category/events-by-category.component';
+import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
 
 
 @NgModule({
@@ -197,7 +199,9 @@ import { FavoritesComponentComponent } from './components/favorites-component/fa
     AccountSettingsComponent,
     SocialShareModalComponent,
     FavoritePageComponent,
-    FavoritesComponentComponent
+    FavoritesComponentComponent,
+    EventsByCategoryComponent,
+    CategoryEventsPageComponent
   ],
   imports: [
     BrowserModule,

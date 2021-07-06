@@ -43,6 +43,7 @@ import { MagiclinkSuccessComponent } from './pages/user-auth/magiclink-success/m
 import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/magiclink-invalid.component';
 import { AccountProfileComponent } from './pages/profile/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
+import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
 
 
 const routes: Routes = [
@@ -244,6 +245,10 @@ const routes: Routes = [
       {
         path: 'favorites',
         component: FavoritePageComponent
+      },
+      {
+        path: 'events-by-category/:id',
+        component: CategoryEventsPageComponent
       },
     ]
   }

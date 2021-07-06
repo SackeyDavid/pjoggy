@@ -41,7 +41,7 @@ export class EventsListComponent implements OnInit {
   users_favorite_event_ids: any = []
 
   loading: boolean = true;
-  loadIndex = [15, 15, 15]
+  loadIndex = [12, 12, 12]
 
   favorites_loadIndex = 8
   online_events_loadIndex = 8
@@ -231,7 +231,7 @@ export class EventsListComponent implements OnInit {
         res => {
           console.log(res);
           this.categoryEvents[i] = res.events?.data;
-          this.loadIndex[i] = 15
+          this.loadIndex[i] = 12
           console.log(this.categoryEvents[i])
         },
         err => {
@@ -432,12 +432,14 @@ export class EventsListComponent implements OnInit {
   }
 
   
-  loadMore(categoryId: any) {
-
+  loadMore(categoryId: any) {    
     this.loading = true
-    if(this.loadIndex[categoryId] < this.categoryEvents[categoryId].length) {
-      this.loadIndex[categoryId] += 15
-    }
+    console.log(categoryId);
+    this.router.navigateByUrl('/events/events-by-category/'+ categoryId);
+    
+    // if(this.loadIndex[categoryId] < this.categoryEvents[categoryId].length) {
+    //   this.loadIndex[categoryId] += 12
+    // }
     
     this.loading = false
   }
@@ -445,7 +447,7 @@ export class EventsListComponent implements OnInit {
   loadLess(categoryId: any) {
     this.loading = true
     if(this.loadIndex[categoryId] >= this.categoryEvents[categoryId].length) {
-      this.loadIndex[categoryId] -= 15
+      this.loadIndex[categoryId] -= 12
     }
     
     this.loading = false

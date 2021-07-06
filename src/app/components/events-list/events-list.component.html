@@ -1103,7 +1103,7 @@
 
           </div>
           <div class="d-flex justify-content-center" *ngIf="categoryEvents[i]">
-            <button  *ngIf="loadIndex[i] <= categoryEvents[i]?.length" class="btn btn-dark btn-lg" (click)="loadMore(i)" type="button">
+            <button  *ngIf="loadIndex[i] <= categoryEvents[i]?.length" class="btn btn-dark btn-lg" (click)="loadMore(categories[i].id)" type="button">
                 <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                 Show more
               </button>
