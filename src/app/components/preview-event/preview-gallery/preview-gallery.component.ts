@@ -9,16 +9,7 @@ import { PreviewGalleryModalComponent } from '../preview-gallery-modal/preview-g
 })
 export class PreviewGalleryComponent implements OnInit {
 
-  @Input() images?: any;
-
-  sliderOptions = {
-    items: 5,
-    nav: true,
-    margin: 30,
-    // center: true,
-    loop: true,
-    autoplay: true,
-  };
+  @Input() images?: any;  
 
   constructor(public dialog: MatDialog) { }
 
@@ -27,7 +18,7 @@ export class PreviewGalleryComponent implements OnInit {
 
   openModal(e: any, i: any) {
     e.preventDefault();
-    this.dialog.open(PreviewGalleryModalComponent, { data: this.images[i].url });
+    this.dialog.open(PreviewGalleryModalComponent, { data: { images: this.images, index: i } });
     console.log('opening modal');
   }
 

@@ -1,7 +1,11 @@
 <mat-dialog-content>    
-    <div class="w-100 mx-auto" role="document" style="max-width: 100%;">        
-        <div class="text-center">
-            <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{data}}" alt="">
+    <owl-carousel [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']">
+        <div *ngFor="let image of data?.images">
+            <div class="w-100 mx-auto" role="document" style="max-width: 100%;">        
+                <div class="text-center">
+                    <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{image.url}}" alt="">
+                </div>
+            </div>
         </div>
-    </div>
+    </owl-carousel>            
 </mat-dialog-content>

@@ -10,13 +10,11 @@
        </div>
 
        <div class="row">
-            <owl-carousel [options]="sliderOptions" [carouselClasses]="['owl-theme', 'row', 'sliding']" *ngIf="images">
-                <div *ngFor="let image of images; index as i" class="col">
-                    <!-- <a href="#" (click)="openModal($event, i)"> -->
-                        <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{image.url}}" alt="" (click)="openModal($event, i)">
-                    <!-- </a> -->
-                </div>
-            </owl-carousel>            
+            <div *ngFor="let image of images; index as i" class="col text-center">
+                <a href="#" (click)="openModal($event, i)">
+                    <img class="img-fluid gallery-1"  src="http://events369.logitall.biz/storage/event_images/{{image.url}}" alt="" width="200" height="160" (click)="openModal($event, i)">
+                </a>
+            </div>
        </div>
     </div>
 </div>

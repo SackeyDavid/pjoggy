@@ -14,4 +14,13 @@ export class PreviewGalleryModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  sliderOptions = {
+    items: 1,
+    margin: 30,
+    center: true,
+    loop: true,
+    autoplay: true,
+    startPosition: this.data?.index,
+  };
+
 }

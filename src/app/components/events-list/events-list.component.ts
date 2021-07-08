@@ -230,9 +230,9 @@ export class EventsListComponent implements OnInit {
       this.eventsService.getCategoryEvents(categoryId).then(
         res => {
           console.log(res);
-          this.categoryEvents[i] = res.events?.data;
+          this.categoryEvents[i] = res.events;
           this.loadIndex[i] = 12
-          console.log(this.categoryEvents[i])
+          console.log(this.categoryEvents[i].data)
         },
         err => {
           console.log(err);
@@ -432,10 +432,35 @@ export class EventsListComponent implements OnInit {
   }
 
   
-  loadMore(categoryId: any) {    
+  loadMore(url: string, index: any) {    
     this.loading = true
-    console.log(categoryId);
-    this.router.navigateByUrl('/events/events-by-category/'+ categoryId);
+
+    this.eventsService.getCategoryEventsNextPage(url).then(
+      res => {
+        console.log(res);
+
+        let nextEvents = []
+        nextEvents = res.events
+        nextEvents.data.forEach((event: any) => {
+          this.categoryEvents[index].data.push(event);
+        });
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.categoryEvents[index].next_page_url = nextEvents.next_page_url
+
+        
+        // this.categoryEvents[index].data.sort(function(a: any, b:any){
+        //   return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        // });
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
+
+    // console.log(categoryId);
+    // this.router.navigateByUrl('/events/events-by-category/'+ categoryId);
     
     // if(this.loadIndex[categoryId] < this.categoryEvents[categoryId].length) {
     //   this.loadIndex[categoryId] += 12
