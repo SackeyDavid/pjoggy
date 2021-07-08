@@ -5,10 +5,10 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="onlineEvents?.length">
+        <li class="nav-item" role="presentation" *ngIf="onlineEvents?.data.length">
           <a class="nav-link" id="pills-online-tab" data-toggle="pill" href="#pills-online" role="tab" aria-controls="pills-profile" aria-selected="false">Online</a>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="todaysEvents?.length">
+        <li class="nav-item" role="presentation" *ngIf="todaysEvents?.data.length">
           <a class="nav-link" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-profile" aria-selected="false">Today</a>
         </li>
         <li class="nav-item" role="presentation">
@@ -18,6 +18,7 @@
           <a class="nav-link" id="pills-profile-tab" data-toggle="pill" [href]="formatTabPaneId(x.temp_name)" role="tab" aria-controls="pills-profile" aria-selected="false">{{x.temp_name}}</a>
         </li>
       </ul>
+      
       <div class="tab-content pt-3" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
           <!-- All Events -->
@@ -607,12 +608,12 @@
           <!-- /.New events end -->
         </div>
 
-        <div *ngIf="onlineEvents?.length" class="tab-pane fade" id="pills-online" role="tabpanel" aria-labelledby="pills-online-tab">
+        <div *ngIf="onlineEvents?.data.length" class="tab-pane fade" id="pills-online" role="tabpanel" aria-labelledby="pills-online-tab">
           
           <!-- Your online events tab  -->
-          <div class="row" style="margin-bottom: 2%;" *ngIf="onlineEvents">
-            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of onlineEvents; let i = index">
-              <div class="card mb-2 event-card" *ngIf="i < online_events_loadIndex">
+          <div class="row" style="margin-bottom: 2%;" *ngIf="onlineEvents.data">
+            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of onlineEvents.data; let i = index">
+              <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)">
                       <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
@@ -703,7 +704,7 @@
               </div>
             </div>
             
-            <div class="row" *ngIf="!onlineEvents || onlineEvents?.length == 0">
+            <div class="row" *ngIf="!onlineEvents.data || onlineEvents?.data.length == 0">
               <div style="height: 20%;width: 100%;padding-bottom: 10%;">
                 <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                   <i class="bi bi-camera-video-off-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -720,28 +721,23 @@
             
             
             <br><br><br>
-            <div class="d-flex justify-content-center">
-              <button  *ngIf="online_events_loadIndex < onlineEvents?.length" class="btn btn-dark btn-lg" (click)="loadMoreOnlineEvents()" type="button">
+            <div class="d-flex justify-content-center" *ngIf="onlineEvents?.next_page_url">
+              <button  *ngIf="onlineEvents.next_page_url" class="btn btn-dark btn-lg" (click)="loadMoreOnlineEvents(onlineEvents.next_page_url)" type="button">
                   <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                   Show more
                 </button>
-                
-                <!-- <button  *ngIf="(online_events_loadIndex >= onlineEvents?.length) && (onlineEvents?.length >= 8)" class="btn btn-dark btn-lg" (click)="loadLessFavorites()" type="button">
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  Show less
-              </button> -->
             </div>
             </div>
 
             <br><br><br><br>
         </div>
 
-        <div *ngIf="todaysEvents?.length" class="tab-pane fade" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab">
+        <div *ngIf="todaysEvents?.data.length" class="tab-pane fade" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab">
           
           <!-- Todays tab  -->
-          <div class="row" style="margin-bottom: 2%;" *ngIf="todaysEvents">
-            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of todaysEvents; let i = index">
-              <div class="card mb-2 event-card" *ngIf="i < todays_events_loadIndex">
+          <div class="row" style="margin-bottom: 2%;" *ngIf="todaysEvents?.data">
+            <div *ngFor="let event of todaysEvents?.data; let i = index" class="col-sm-12 col-md-3 col-lg-3 mb-5" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;">
+              <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)">
                       <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
@@ -832,13 +828,13 @@
               </div>
             </div>
             
-            <div class="row" *ngIf="!todaysEvents|| todaysEvents?.length == 0">
+            <div class="row" *ngIf="!todaysEvents.data || todaysEvents?.data.length == 0">
               <div style="height: 20%;width: 100%;padding-bottom: 10%;">
                 <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                   <i class="bi bi-clock" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
-                  <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">No events Today</span>
+                  <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">No events today</span>
                   <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
-                    Kindly check back tomorrow
+                    Kindly check back later
 
                 </p>
               </div>
@@ -848,17 +844,12 @@
             </div>
             
             
-            <br><br><br>
-            <div class="d-flex justify-content-center">
-              <button  *ngIf="todays_events_loadIndex < todaysEvents?.length" class="btn btn-dark btn-lg" (click)="loadMoreTodaysEvents()" type="button">
+            <br><br><br><br>
+            <div class="d-flex justify-content-center" *ngIf="todaysEvents?.next_page_url">
+              <button  *ngIf="todaysEvents.next_page_url" class="btn btn-dark btn-lg" (click)="loadMoreTodaysEvents(todaysEvents.next_page_url)" type="button">
                   <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                   Show more
                 </button>
-                
-                <!-- <button  *ngIf="(todays_events_loadIndex >= todaysEvents?.length) && (userFavorites?.length >= 8)" class="btn btn-dark btn-lg" (click)="loadLessFavorites()" type="button">
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  Show less
-              </button> -->
             </div>
             </div>
 
@@ -991,7 +982,7 @@
             
             
             <br><br><br><br>
-            <div class="d-flex justify-content-center"*ngIf="userFavorites.next_page_url">
+            <div class="d-flex justify-content-center" *ngIf="userFavorites.next_page_url">
               <button  *ngIf="userFavorites.next_page_url" class="btn btn-dark btn-lg" (click)="loadMoreFavorites(userFavorites.next_page_url)" type="button">
                   <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                   Show more

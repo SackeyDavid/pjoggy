@@ -190,7 +190,7 @@ export class EventsListComponent implements OnInit {
     this.eventsService.getEventsByHosting('0').then(
       res => {
         console.log(res);
-        this.onlineEvents = res.events?.data;
+        this.onlineEvents = res.events;
       },
       err => {
         console.log(err);
@@ -202,7 +202,7 @@ export class EventsListComponent implements OnInit {
     this.eventsService.getTodaysEvents().then(
       res => {
         console.log(res);
-        this.todaysEvents = res.events?.data;
+        this.todaysEvents = res.events;
       },
       err => {
         console.log(err);
@@ -476,9 +476,6 @@ export class EventsListComponent implements OnInit {
     // console.log(categoryId);
     // this.router.navigateByUrl('/events/events-by-category/'+ categoryId);
     
-    // if(this.loadIndex[categoryId] < this.categoryEvents[categoryId].length) {
-    //   this.loadIndex[categoryId] += 12
-    // }
     
     this.loading = false
   }
@@ -495,6 +492,7 @@ export class EventsListComponent implements OnInit {
   loadMoreFavorites(url: string) {
 
     this.loading = true
+    
     this.eventsService.getCategoryEventsNextPage(url).then(
       res => {
         console.log(res);
@@ -521,23 +519,63 @@ export class EventsListComponent implements OnInit {
     this.loading = false
   }
 
-  loadMoreOnlineEvents() {
+  loadMoreOnlineEvents(url: string) {
 
     this.loading = true
-    if(this.online_events_loadIndex < this.onlineEvents.length) {
-      this.online_events_loadIndex += 5
-    }
     
+    this.eventsService.getCategoryEventsNextPage(url).then(
+      res => {
+        console.log(res);
+
+        let nextEvents = []
+        nextEvents = res.event
+        nextEvents.data.forEach((event: any) => {
+          this.onlineEvents.data.push(event);
+        });
+
+        // assign id of next events to userfavorites id array
+        this.getUsersFavoritesAfterNextPageLoad();
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.onlineEvents.next_page_url = nextEvents.next_page_url
+
+        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
     this.loading = false
   }
 
-  loadMoreTodaysEvents() {
+  loadMoreTodaysEvents(url: string) {
 
     this.loading = true
-    if(this.todays_events_loadIndex < this.todaysEvents.length) {
-      this.todays_events_loadIndex += 5
-    }
     
+    this.eventsService.getCategoryEventsNextPage(url).then(
+      res => {
+        console.log(res);
+
+        let nextEvents = []
+        nextEvents = res.event
+        nextEvents.data.forEach((event: any) => {
+          this.todaysEvents.data.push(event);
+        });
+
+        // assign id of next events to userfavorites id array
+        this.getUsersFavoritesAfterNextPageLoad();
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.todaysEvents.next_page_url = nextEvents.next_page_url
+
+        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
     this.loading = false
   }
 
