@@ -4,6 +4,9 @@ import { OwlCarousel } from 'ngx-owl-carousel';
 import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 import moment from 'moment';
 import { Router } from '@angular/router';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
+
 
 @Component({
   selector: 'app-popular-events',
@@ -27,11 +30,14 @@ export class PopularEventsComponent implements OnInit {
   loading: boolean = false
   
   loadIndex = 20
+  
+  modalRef: any;
 
   constructor(
     private eventsService: EventsService,
     private userFavoriteService: UsersFavoritesService,
-    private router: Router
+    private router: Router,
+    private modalService: MdbModalService
   ) { 
     this.getPopularEvents();
   }
@@ -205,8 +211,8 @@ export class PopularEventsComponent implements OnInit {
     );
   }
 
-  getPopularEventsPage(page: any): void {
-    this.eventsService.getPopularEventsPage(page).then(
+  getPopularEventsPage(url: string): void {
+    this.eventsService.getPopularEventsPage(url).then(
       res => {
         console.log(res);
         this.popularEvents = res.events;
@@ -218,6 +224,8 @@ export class PopularEventsComponent implements OnInit {
   }
 
   getTicketSalesStatus(ticket_sales_end_date: string) {
+    if (ticket_sales_end_date == null) return 1;
+
     var ticket_end_date = ticket_sales_end_date.split(' ')[0];
     var ticket_end_time = ticket_sales_end_date.split(' ')[1];
 
@@ -237,6 +245,11 @@ export class PopularEventsComponent implements OnInit {
     } else {
       return 1;
     }
+  }
+
+  
+  openModal(url: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
   }
 
 }

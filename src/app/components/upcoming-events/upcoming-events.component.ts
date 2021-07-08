@@ -91,8 +91,10 @@ export class UpcomingEventsComponent implements OnInit {
     );
   }
 
-  getEventsInSixHrsPage(page: any): void {
-    this.eventsService.getEventsInSixHoursPage(page).then(
+  getEventsInSixHrsPage(url: string): void {
+    window.scrollTo(0, 0);
+    
+    this.eventsService.getEventsInSixHoursNextPage(url).then(
       res => {
         console.log(res);
         this.events_in_six_hrs = res.events;

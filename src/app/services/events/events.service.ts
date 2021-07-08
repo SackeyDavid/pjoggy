@@ -407,18 +407,18 @@ export class EventsService {
     });
   }
 
-  getEventsInSixHoursPage(page: any): Promise<any> {
+  getEventsInSixHoursNextPage(url: any): Promise<any> {
     return new Promise((resolve, reject) => {
       let events_in_six_hrs: any[] = [];
-      const url = this.getEventsInSixHoursPageUrl + page;
+      // const url = this.getEventsInSixHoursPageUrl + page;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
-          console.log('get_events_in_six_hrs_page_ok: ', res);
+          console.log('get_events_in_six_hrs_next_page_ok: ', res);
           events_in_six_hrs = res;
           resolve(events_in_six_hrs);
         },
         err => {
-          console.log('get_events_in_six_hrs_page_error: ', err);
+          console.log('get_events_in_six_hrs_next_page_error: ', err);
           reject(err);
         }
       );
@@ -443,18 +443,18 @@ export class EventsService {
     });
   }
 
-  getPopularEventsPage(page: any): Promise<any> {
+  getPopularEventsPage(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let popular_events: any[] = [];
-      const url = this.getPopularEventsPageUrl + page;
+      // const url = this.getPopularEventsPageUrl + page;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
-          console.log('get_popular_events_page_ok: ', res);
+          console.log('get_popular_events_next_page_ok: ', res);
           popular_events = res;
           resolve(popular_events);
         },
         err => {
-          console.log('get_popular_events_page_error: ', err);
+          console.log('get_popular_events_next_page_error: ', err);
           reject(err);
         }
       );
@@ -479,18 +479,18 @@ export class EventsService {
     });
   }
 
-  getNewEventsPage(page: any): Promise<any> {
+  getNewEventsPage(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let new_events: any[] = [];
-      const url = this.getNewEventsPageUrl + page;
+      // const url = this.getNewEventsPageUrl + page;
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
-          console.log('get_new_events_page_ok: ', res);
+          console.log('get_new_events_next_page_ok: ', res);
           new_events = res;
           resolve(new_events);
         },
         err => {
-          console.log('get_new_events_page_error: ', err);
+          console.log('get_new_events_next_page_error: ', err);
           reject(err);
         }
       );

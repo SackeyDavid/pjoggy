@@ -18,7 +18,7 @@
           <a class="nav-link" id="pills-profile-tab" data-toggle="pill" [href]="formatTabPaneId(x.temp_name)" role="tab" aria-controls="pills-profile" aria-selected="false">{{x.temp_name}}</a>
         </li>
       </ul>
-      
+
       <div class="tab-content pt-3" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
           <!-- All Events -->
@@ -612,7 +612,7 @@
           
           <!-- Your online events tab  -->
           <div class="row" style="margin-bottom: 2%;" *ngIf="onlineEvents.data">
-            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of onlineEvents.data; let i = index">
+            <div class="col-sm-12 col-md-3 col-lg-3 mb-5" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let event of onlineEvents.data; let i = index">
               <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)">
