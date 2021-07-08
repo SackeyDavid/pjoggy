@@ -28,12 +28,12 @@ export class EventsListComponent implements OnInit {
   slideConfig: any;
 
   // eventsToday: any = []
-  events_in_six_hrs: any = []
+  events_in_six_hrs: any = [];
   events_events_in_six_hrs_empty: boolean = false
-  popularEvents: any = []
-  newEvents: any = []
+  popularEvents: any = [];
+  newEvents: any = [];
 
-  userFavorites: any = []
+  userFavorites: any = [];
   userID: string = '';
   user_token: string = '';
   sliderOptions: any;

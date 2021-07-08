@@ -127,11 +127,11 @@
           
           <div class="dropdown-content_user"> 
               <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-               <a href="#" id="browse_events_link"><b>Notifications <span class="dot"></span> </b> </a>
-              <a routerLink="/events/favorites"> <b> Favorites</b></a>
-              <a href="#"> <b> Following</b></a>
-              <a (click)="openManageEventsPage()" style="border-top: 1px solid #ddd;">Manage event</a>
-              <a href="#">Tickets (0)</a> 
+               <a id="browse_events_link">Notifications <span class="dot"></span> </a>
+              <a routerLink="/events/favorites" [class.bolder] = "userFavorites?.data.length > 0"> Favorites </a>
+              <a> Following</a>
+              <a (click)="openManageEventsPage()" style="border-top: 1px solid #ddd; cursor: pointer;">Manage event</a>
+              <a>Tickets (0)</a> 
 
               <!-- not working  -->
               <!-- <a href="#">Credits</a> -->

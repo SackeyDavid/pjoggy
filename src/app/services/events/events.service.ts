@@ -497,6 +497,24 @@ export class EventsService {
     });
   }
 
+  getFavoritesEventsNextPage(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let fav_events: any[] = [];
+      // const url = this.getNewEventsPageUrl + page;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_favorite_events_next_page_ok: ', res);
+          fav_events = res;
+          resolve(fav_events);
+        },
+        err => {
+          console.log('get_favorite_events_next_page_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
   getEventsHappeningNow(): Promise<any> {
     return new Promise((resolve, reject) => {
       let events_happening_now: any[] = [];

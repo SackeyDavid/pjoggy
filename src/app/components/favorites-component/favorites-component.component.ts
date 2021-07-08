@@ -247,13 +247,13 @@ export class FavoritesComponentComponent implements OnInit {
     if(this.userID !== '') {
       this.userFavoriteService.getUserFavorites(this.userID).then(
         res => {
-          this.userFavorites = res.event?.data;
+          this.userFavorites = res.event;
           console.log(this.userFavorites)
 
-          for (let i = 0; i < this.userFavorites.length; i++) {
-            this.users_favorite_event_ids.push(this.userFavorites[i].id)
-            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites[i].id, fav_id: this.userFavorites[i].fav_id })
-            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites[i].id) })
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
             
             
           }
@@ -528,18 +528,41 @@ export class FavoritesComponentComponent implements OnInit {
   }
 
   getFavoriteEventsNextPage(url: string) {
-    this.eventsService.getCancelledUsersEventsNextPage(url).then(
+    window.scrollTo(0, 0);
+    this.eventsService.getFavoritesEventsNextPage(url).then(
       res => {
         console.log(res);
-        this.userFavorites = res.all_events;
+        this.userFavorites = res.event;
         this.userFavorites.data.sort(function(a: any, b:any){
           return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });
+        
+        // add new events to favorite id array
+        this.getUsersFavoritesAfterNextPageLoad();
+
       },
       err => {
         console.log(err);
       }
     );
   }
+
+  getUsersFavoritesAfterNextPageLoad (){
+
+    if(this.userID !== '') {
+      
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
+            
+            
+          }
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
+    }
+  }
+
 
 }

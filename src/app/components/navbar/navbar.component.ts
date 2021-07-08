@@ -8,6 +8,8 @@ import { UserAccountService } from 'src/app/services/user-account/user-account.s
 import { SearchService } from 'src/app/services/search/search.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +23,9 @@ export class NavbarComponent implements OnInit {
   imgSrc: string = '';
   currentUser: any;
   live_search_results: any;
+  userID: any;
+
+  userFavorites: any = [];
 
   @Output() searchEvent = new EventEmitter<string>();
 
@@ -32,7 +37,9 @@ export class NavbarComponent implements OnInit {
     private endpoint: EndpointService,
     private userAccountsService: UserAccountService,
     private searchService: SearchService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private userFavoriteService: UsersFavoritesService,
     ) 
     { 
       this.initForm()
@@ -41,6 +48,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.checkIfUserAuthenticated();
     this.getUser();
+    this.getUsersFavorites();
     this.initForm()
     let sessionQuery = sessionStorage.getItem('search_query');
     sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
@@ -108,6 +116,9 @@ export class NavbarComponent implements OnInit {
 
   checkIfUserAuthenticated() {
     var data: any =  sessionStorage.getItem('x_auth_token')
+    var user_id: any =  sessionStorage.getItem('user_id')
+    this.userID = user_id;
+   
 
     this.userAuthenticated = ((data != null)? true : false)
     console.log('user authenticated: ', this.userAuthenticated)
@@ -125,7 +136,8 @@ export class NavbarComponent implements OnInit {
     e.preventDefault();
     // sessionStorage.removeItem('x_auth_token');
     // window.location.href = '/'
-
+    this.openSnackBar();
+    
     const apiUrl = 'http://events369.logitall.biz/api/v1/';
     this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
       res =>  {
@@ -135,7 +147,8 @@ export class NavbarComponent implements OnInit {
           sessionStorage.removeItem('user_id');
 
           // this.router.navigateByUrl('/');
-          window.location.href = '/'
+          
+          window.location.href = '/';
         }
       },
       err => {
@@ -152,6 +165,12 @@ export class NavbarComponent implements OnInit {
       if(response.length < 1) this.live_search_results = null;
       this.doLiveSearch(response);
     })
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Logging out...', 'x', {
+      duration: 3000
+    });
   }
 
 
@@ -208,6 +227,26 @@ export class NavbarComponent implements OnInit {
 
   openManageEventsPage() {
     window.open('/user_events', "_blank");
+  }
+
+  getUsersFavorites (){
+
+    if(this.userID !== '') {
+      this.userFavoriteService.getUserFavorites(this.userID).then(
+        res => {
+          this.userFavorites = res.event;
+
+          
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
+        },
+        err => {
+          console.log(err);
+        }
+      );
+
+    }  
   }
 
 }
