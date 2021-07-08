@@ -869,9 +869,9 @@
         <div class="tab-pane fade" id="pills-foryou" role="tabpanel" aria-labelledby="pills-profile-tab">
           
           <!-- Your favorites tab  -->
-          <div class="row" style="margin-bottom: 2%;" *ngIf="userFavorites">
-            <div class="col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;" *ngFor="let favorites of userFavorites; let i = index">
-              <div class="card mb-2 event-card" *ngIf="i < favorites_loadIndex">
+          <div class="row" style="margin-bottom: 2%;" *ngIf="userFavorites?.data">
+            <div *ngFor="let favorites of userFavorites?.data; let i = index" class="col-sm-12 col-md-3 col-lg-3 mb-5" style="margin-bottom: 2%;padding-left: 10px; padding-right: 10px;">
+              <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
                   <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(favorites.id)">
                       <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(favorites.id)" class="save_live_event_button">
@@ -962,7 +962,7 @@
               </div>
             </div>
             
-            <div class="row" *ngIf="!userFavorites || userFavorites?.length == 0">
+            <div class="row" *ngIf="!userFavorites?.data || userFavorites?.data.length == 0">
               <div style="height: 20%;width: 100%;padding-bottom: 10%;">
                 <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                   <i class="bi bi-heart-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -990,17 +990,12 @@
             </div>
             
             
-            <br><br><br>
-            <div class="d-flex justify-content-center">
-              <button  *ngIf="favorites_loadIndex < userFavorites?.length" class="btn btn-dark btn-lg" (click)="loadMoreFavorites()" type="button">
+            <br><br><br><br>
+            <div class="d-flex justify-content-center"*ngIf="userFavorites.next_page_url">
+              <button  *ngIf="userFavorites.next_page_url" class="btn btn-dark btn-lg" (click)="loadMoreFavorites(userFavorites.next_page_url)" type="button">
                   <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                   Show more
                 </button>
-                
-                <button  *ngIf="(favorites_loadIndex >= userFavorites?.length) && (userFavorites?.length >= 8)" class="btn btn-dark btn-lg" (click)="loadLessFavorites()" type="button">
-                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
-                  Show less
-              </button>
             </div>
             </div>
 

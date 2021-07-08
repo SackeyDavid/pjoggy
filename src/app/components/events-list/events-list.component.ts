@@ -248,12 +248,12 @@ export class EventsListComponent implements OnInit {
     if(this.userID !== '') {
       this.userFavoriteService.getUserFavorites(this.userID).then(
         res => {
-          this.userFavorites = res.event?.data;
+          this.userFavorites = res.event;
 
-          for (let i = 0; i < this.userFavorites.length; i++) {
-            this.users_favorite_event_ids.push(this.userFavorites[i].id)
-            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites[i].id, fav_id: this.userFavorites[i].fav_id })
-            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites[i].id) })
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
             
             
           }
@@ -266,13 +266,24 @@ export class EventsListComponent implements OnInit {
         }
       );
 
+    }  
+  }
+
+  getUsersFavoritesAfterNextPageLoad (){
+
+    if(this.userID !== '') {
+      
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
+            
+            
+          }
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
     }
-
-
-    
-    
-    // console.log(this.userID)
-    // console.log('Users favorites: ', this.users_favorite_event_ids)
   }
 
   getEventStartDateFormatted(date: any) {
@@ -445,6 +456,9 @@ export class EventsListComponent implements OnInit {
           this.categoryEvents[index].data.push(event);
         });
 
+        // assign id of next events to userfavorites id array
+        this.getUsersFavoritesAfterNextPageLoad();
+
         // get the next_page_url of the new events data and assigned it to the respective category data
         this.categoryEvents[index].next_page_url = nextEvents.next_page_url
 
@@ -478,13 +492,32 @@ export class EventsListComponent implements OnInit {
     this.loading = false
   }
 
-  loadMoreFavorites() {
+  loadMoreFavorites(url: string) {
 
     this.loading = true
-    if(this.favorites_loadIndex < this.userFavorites.length) {
-      this.favorites_loadIndex += 5
-    }
-    
+    this.eventsService.getCategoryEventsNextPage(url).then(
+      res => {
+        console.log(res);
+
+        let nextEvents = []
+        nextEvents = res.event
+        nextEvents.data.forEach((event: any) => {
+          this.userFavorites.data.push(event);
+        });
+
+        // assign id of next events to userfavorites id array
+        this.getUsersFavoritesAfterNextPageLoad();
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.userFavorites.next_page_url = nextEvents.next_page_url
+
+        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
     this.loading = false
   }
 
