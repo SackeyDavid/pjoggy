@@ -132,6 +132,7 @@ export class NavbarComponent implements OnInit {
         console.log(res);
         if (_.toLower(res.message) == 'ok') {
           sessionStorage.removeItem('x_auth_token');
+          sessionStorage.removeItem('user_id');
 
           // this.router.navigateByUrl('/');
           window.location.href = '/'
