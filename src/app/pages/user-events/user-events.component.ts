@@ -62,25 +62,25 @@ export class UserEventsComponent implements OnInit {
       res => {
         console.log(res);
         if (eventStatus == 0) this.createdEvents = res;
-        this.createdEvents.data.sort(function(a: any, b:any){
+        this.createdEvents?.data?.sort(function(a: any, b:any){
           return new Date(b.created_at).valueOf() - new Date(a.created_at).valueOf();
         });
  
 
         if (eventStatus == 2) this.publishedEvents = res;
-        this.publishedEvents.data.sort(function(a: any, b:any){
+        this.publishedEvents?.data?.sort(function(a: any, b:any){
           return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
         });
 
 
         if (eventStatus == 3) this.archivedEvents = res;
-        this.archivedEvents.data.sort(function(a: any, b:any){
+        this.archivedEvents?.data?.sort(function(a: any, b:any){
           return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
         });
 
         
         if (eventStatus == 4) this.cancelledEvents = res;
-        this.cancelledEvents.data.sort(function(a: any, b:any){
+        this.cancelledEvents?.data?.sort(function(a: any, b:any){
           return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
         });
 
@@ -353,6 +353,8 @@ export class UserEventsComponent implements OnInit {
   }
 
   openAllEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
     this.eventsService.getAllUsersEventsNextPage(url).then(
       res => {
         console.log(res);
@@ -368,6 +370,8 @@ export class UserEventsComponent implements OnInit {
   }
 
   openDraftedEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
     this.eventsService.getDraftedUsersEventsNextPage(url).then(
       res => {
         console.log(res);
@@ -383,10 +387,12 @@ export class UserEventsComponent implements OnInit {
   }
 
   openPublishedEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
     this.eventsService.getPublishedUsersEventsNextPage(url).then(
       res => {
         console.log(res);
-        this.publishedEvents = res.all_events;
+        this.publishedEvents = res;
         this.publishedEvents.data.sort(function(a: any, b:any){
           return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });
@@ -398,6 +404,8 @@ export class UserEventsComponent implements OnInit {
   }
 
   openArchivedEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
     this.eventsService.getArchivedUsersEventsNextPage(url).then(
       res => {
         console.log(res);
@@ -413,6 +421,8 @@ export class UserEventsComponent implements OnInit {
   }
 
   openCancelledEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
     this.eventsService.getCancelledUsersEventsNextPage(url).then(
       res => {
         console.log(res);

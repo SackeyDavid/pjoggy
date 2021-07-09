@@ -341,9 +341,20 @@ ul.nav {
   justify-content: space-between !important;
   z-index: 99 !important;
 }
+
 .event-card:hover .event_social_share {
   visibility: visible !important;
 }
+
+// .event-card:hover .img-fit-img-fix-background-cover {
+//   transform: scale(1.1);
+//   -webkit-transform: scale(1.1);
+// }
+
+// .event-card:hover {
+//   box-shadow: 0 10px 15px -3px rgba(0,0,0,.07),0 4px 6px -2px rgba(0,0,0,.05);
+// }
+
 .save_live_event_div, .event_social_share {
   pointer-events: auto !important;
   margin-top: -5px !important;

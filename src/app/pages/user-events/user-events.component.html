@@ -270,7 +270,7 @@
         <div class="tab-pane fade" id="pills-published" role="tabpanel" aria-labelledby="pills-published-tab">
 
             
-            <div class="row" *ngIf="!publishedEvents?.data || publishedEvents?.data.length == 0">
+            <div class="row" *ngIf="!publishedEvents?.data || publishedEvents?.data?.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-check-circle-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -322,7 +322,7 @@
                 <!-- <br><br><br> -->
                 <div class="row">
                     <div class="col-12">
-                      <div class="d-flex flex-row justify-content-center p-1" *ngIf="publishedEvents.prev_page_url || publishedEvents.next_page_url">
+                      <div class="d-flex flex-row justify-content-center p-1" *ngIf="publishedEvents?.prev_page_url || publishedEvents?.next_page_url">
                         <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
                           <!-- <button *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessPublished()">
                             <i class="bi-arrow-up"></i>
