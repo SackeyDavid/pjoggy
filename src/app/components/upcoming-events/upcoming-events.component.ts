@@ -23,8 +23,9 @@ export class UpcomingEventsComponent implements OnInit {
   userID: string = '';
   sliderOptions: any;
   
-  users_favorite_event_ids: any = []  
-  users_favorite_event_id_and_fav_id: any = []
+  users_favorite_event_ids: any = [];  
+  users_favorite_event_id_and_fav_id: any = [];
+  users_favorite_event_id_and_visibilty: any = [];
   
   @ViewChild('upcomingSlider') upcomingSlider: OwlCarousel | undefined;
 
@@ -92,21 +93,54 @@ export class UpcomingEventsComponent implements OnInit {
   }
 
   getEventsInSixHrsPage(url: string): void {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     
     this.eventsService.getEventsInSixHoursNextPage(url).then(
       res => {
         console.log(res);
-        this.events_in_six_hrs = res.events;
-        this.events_in_six_hrs.data.sort(function(a: any, b:any){
-          return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        let nextEvents = []
+        nextEvents = res.events
+        nextEvents.data.sort(function(a: any, b:any){
+            return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+          });
+        nextEvents.data.forEach((event: any) => {
+          this.events_in_six_hrs.data.push(event);
         });
+
+        // assign id of next events to userfavorites id array
+        if(this.userFavorites.data) this.getUsersFavoritesAfterNextPageLoad();
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.events_in_six_hrs.next_page_url = nextEvents.next_page_url
+        
+        // this.events_in_six_hrs = res.events;
+        // this.events_in_six_hrs.data.sort(function(a: any, b:any){
+        //   return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        // });
       },
       err => {
         console.log(err);
       }
     );
   }
+
+  getUsersFavoritesAfterNextPageLoad (){
+
+    if(this.userID !== '') {
+      
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
+            
+            
+          }
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
+    }
+  }
+
 
   gotoPreview(eventId: any) {
     sessionStorage.setItem('preview_event_id', eventId);

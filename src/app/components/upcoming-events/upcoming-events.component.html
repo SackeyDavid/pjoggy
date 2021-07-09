@@ -125,12 +125,13 @@
     <!-- </owl-carousel> -->
           
     <br><br><br>
-    <div class="d-flex justify-content-center" *ngIf="events_in_six_hrs.prev_page_url || events_in_six_hrs.next_page_url">
-        <!-- <button  *ngIf="loadIndex < events_in_six_hrs.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+    <div class="d-flex justify-content-center" *ngIf="events_in_six_hrs.next_page_url">
+        <button class="btn btn-dark btn-lg" (click)="getEventsInSixHrsPage(events_in_six_hrs.next_page_url)" type="button">
             <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Load more
-          </button> -->
-          <nav aria-label="Page navigation example">
+            Show more
+          </button>
+          
+          <!-- <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item" *ngIf="events_in_six_hrs.current_page !== 1">
                 <a class="page-link" aria-label="Previous" (click)="getEventsInSixHrsPage(events_in_six_hrs.prev_page_url)">
@@ -138,17 +139,17 @@
                   <span class="sr-only">Previous</span>
                 </a>
               </li>
-              <li class="page-item"><a class="page-link">{{events_in_six_hrs.current_page}} of {{events_in_six_hrs.last_page}}</a></li>
+              <li class="page-item"><a class="page-link">{{events_in_six_hrs.current_page}} of {{events_in_six_hrs.last_page}}</a></li> -->
               <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-              <li class="page-item" *ngIf="events_in_six_hrs.to < events_in_six_hrs.total">
+              <!-- <li class="page-item" *ngIf="events_in_six_hrs.to < events_in_six_hrs.total">
                 <a class="page-link" aria-label="Next" (click)="getEventsInSixHrsPage(events_in_six_hrs.next_page_url)">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Next</span>
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> -->
 
           <!-- <a href="/" *ngIf="loadIndex >= events_in_six_hrs.length" class="btn btn-dark btn-lg">Show all events</a> -->
       </div>
