@@ -389,6 +389,8 @@ p.card-text {
     pointer-events: auto !important;
     margin-top: -5px !important;
     margin-right: -3px !important;
+    position: absolute;
+    right: 5px;
   }
   .save_live_event_button {
     -moz-box-pack: center !important;
@@ -397,7 +399,8 @@ p.card-text {
     position: relative !important;
     text-align: center !important;
     text-decoration: none !important;
-    background: transparent none repeat scroll 0% 0% !important;
+    // background: transparent none repeat scroll 0% 0% !important;
+    background: #3332 !important;
     touch-action: manipulation !important;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
     font-size: 16px !important;
@@ -411,10 +414,10 @@ p.card-text {
     align-items: center !important;
     justify-content: center !important;
     border: medium none !important;
-    color: rgb(34, 34, 34) !important;
+    color: #222 !important;
     margin: 0px !important;
-    width: 32px !important;
-    height: 32px !important;
+    width: 26px !important;
+    height: 26px !important;
   }
   .video_controls_div {
     padding: 10px 15px !important;
@@ -581,10 +584,10 @@ p.card-text {
       padding-right: 8px !important;
     }
     .live_event_link {
-      border-radius: 8px !important;
+      border-radius: 0px !important;
     }
     .live_event_image_video_div_container_core {
-      border-radius: 8px !important;
+      border-radius: 0px !important;
     }
   }
   @media (min-width: 880px) and (max-width: 1059px) {
@@ -774,6 +777,24 @@ p.card-text {
   .live_event_image_video_div_container_core {
     height: 20.5vh !important;
   }
+}
+
+.event-card{
+  cursor: pointer;
+  // box-shadow: 0 2px 3px rgba(0,0,0,.1);
+  border: 1px solid rgba(0,0,0,.125);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 7%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+}
+
+.event-card:hover, .live_event_image_video_div .event_social_share {
+  visibility: visible !important;
+}
+
+.save_live_event_div, .event_social_share {
+  pointer-events: auto !important;
+  margin-top: -5px !important;
+  margin-right: -3px !important;
+  margin-bottom: 15px !important;
 }
   
   

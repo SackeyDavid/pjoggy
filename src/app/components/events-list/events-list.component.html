@@ -1000,7 +1000,7 @@
         
         <div *ngFor="let x of categories; index as i" class="tab-pane fade" [id]="toCamelCase(x.temp_name)" role="tabpanel" aria-labelledby="pills-profile-tab">
           <div class="row">
-            <div *ngFor="let event of categoryEvents[i].data;  let i = index" class="col-sm-12 col-md-3 col-lg-3 mb-5" style="padding-left: 10px; padding-right: 10px;">
+            <div *ngFor="let event of categoryEvents[i]?.data;  let i = index" class="col-sm-12 col-md-3 col-lg-3 mb-5" style="padding-left: 10px; padding-right: 10px;">
               <!-- <ng-container *ngIf="i < loadIndex[i]"> -->
               <div class="card mb-2 event-card">
                 <div class="save_live_event_div_container" style="padding: 8px;">
@@ -1100,7 +1100,7 @@
             
 
           </div>
-          <div class="d-flex justify-content-center" *ngIf="categoryEvents[i].next_page_url">
+          <div class="d-flex justify-content-center" *ngIf="categoryEvents[i]?.next_page_url">
             <button  *ngIf="categoryEvents[i].next_page_url" class="btn btn-dark btn-lg" (click)="loadMore(categoryEvents[i].next_page_url, i)" type="button">
                 <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
                 Show more

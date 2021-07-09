@@ -3,6 +3,8 @@ import { HappeningNowService } from 'src/app/services/happening-now/happening-no
 import { EventsService } from 'src/app/services/events/events.service';
 import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 import { Router } from '@angular/router';
+import { MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { SocialShareModalComponent } from '../social-share-modal/social-share-modal.component';
 
 declare var $: any;
  
@@ -28,12 +30,15 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
   users_favorite_event_id_and_fav_id: any = [];
 
   sliderOptions: any;
+  
+  modalRef: any;
 
   constructor(
     private eventsHappeningNow: HappeningNowService,
     private eventService: EventsService,
     private userFavoriteService: UsersFavoritesService,
-    private router: Router
+    private router: Router,
+    private modalService: MdbModalService
   ) { }
 
   ngAfterViewChecked() { 
@@ -134,7 +139,10 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
       this.userFavoriteService.addFavoriteEvent(event_id, this.userID).then(
         res => {
           if (res) {
-            console.log(res);            
+            console.log(res);       
+            
+            
+            this.getUsersFavorites();
           }
           else {
             console.log('didnt add to favorites');
@@ -163,7 +171,10 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
       this.userFavoriteService.removeEventFromFavorite(favorite_id).then(
         res => {
           if (res) {
-            console.log(res);             
+            console.log(res); 
+            
+            
+            this.getUsersFavorites();
           }
           else {
             console.log('didnt remove to favorites');
@@ -209,6 +220,17 @@ export class LiveEventsComponent implements OnInit, AfterViewChecked {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  
+  openModal(url: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
+  }
+
+  gotoPreview(eventId: any) {
+    sessionStorage.setItem('preview_event_id', eventId);
+    // this.router.navigateByUrl('/event_details');
+    window.open('/event_details', "_blank");
   }
 
 }
