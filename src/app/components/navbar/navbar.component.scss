@@ -80,17 +80,17 @@ nav {
 // }
 
 .navbar-light .navbar-nav .nav-link {
-  padding-left: 1rem !important;
+  padding-left: 1.8rem !important;
   padding-right: 1rem !important;
   color: var(--ev-nav-link-color);
   font-weight: 600 !important;
 }
 
-.ev-navbar-dropdown-content {
+// .ev-navbar-dropdown-content {
   // display: none;
   // margin-left: -80%;
   
-}
+// }
 
 
 
@@ -174,6 +174,8 @@ nav {
     transition: 0.5s;
   }
 }
+
+
 
 @media (min-width: 550px) {
   .collapsing {
@@ -626,6 +628,11 @@ input {
 .dropdown-content_user .bolder {
   font-weight: bolder !important;
 }
+
+// .collapse {
+//   height: 0px !important;
+//   transition: height s ease !important;
+// }
 
 
 
