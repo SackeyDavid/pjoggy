@@ -310,7 +310,7 @@ p.card-text {
     position: relative !important;
     mask-image: -webkit-radial-gradient(white, black) !important;
     contain: none !important;
-    border-radius: 12px !important;
+    border-radius: 0px !important;
     pointer-events: none !important;
     // border: 1px solid #e1e1e1;
     height: 29.5vh;
@@ -634,7 +634,7 @@ p.card-text {
     .live_event_title {
       font-size: 13px !important;
       min-width: 133px !important;
-      max-width: 133px !important;
+      // max-width: 133px !important;
     }
     .live_event_number_participating_div {
       font-size: 11px !important;

@@ -471,6 +471,9 @@ ul.nav {
   .controls-top {
     padding-top: 1vh;
   }
+  .event_social_share {
+    visibility: visible !important;
+  }
 }
 
 
@@ -478,4 +481,21 @@ ul.nav {
   .controls-top {
     padding-top: 1vh;
   }
+  .event_social_share {
+    visibility: visible !important;
+  }
 }
+
+@media (max-width: 967px) and (orientation: portrait) {
+  .event_social_share {
+    visibility: visible !important;
+  }
+}
+
+
+@media (max-height: 967px) and (orientation: landscape) {
+  .event_social_share {
+    visibility: visible !important;
+  }
+}
+

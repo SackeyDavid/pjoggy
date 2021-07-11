@@ -1,23 +1,26 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-12">
-      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
-        </li>
-        <li class="nav-item" role="presentation" *ngIf="onlineEvents?.data.length">
-          <a class="nav-link" id="pills-online-tab" data-toggle="pill" href="#pills-online" role="tab" aria-controls="pills-profile" aria-selected="false">Online</a>
-        </li>
-        <li class="nav-item" role="presentation" *ngIf="todaysEvents?.data.length">
-          <a class="nav-link" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-profile" aria-selected="false">Today</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-foryou-tab" data-toggle="pill" href="#pills-foryou" role="tab" aria-controls="pills-profile" aria-selected="false">Your Favorites</a>
-        </li>
-        <li *ngFor="let x of categories" class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" [href]="formatTabPaneId(x.temp_name)" role="tab" aria-controls="pills-profile" aria-selected="false">{{x.temp_name}}</a>
-        </li>
-      </ul>
+      <div style="overflow-x: scroll;">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="onlineEvents?.data.length">
+            <a class="nav-link" id="pills-online-tab" data-toggle="pill" href="#pills-online" role="tab" aria-controls="pills-profile" aria-selected="false">Online</a>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="todaysEvents?.data.length">
+            <a class="nav-link" id="pills-today-tab" data-toggle="pill" href="#pills-today" role="tab" aria-controls="pills-profile" aria-selected="false">Today</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-foryou-tab" data-toggle="pill" href="#pills-foryou" role="tab" aria-controls="pills-profile" aria-selected="false">Your Favorites</a>
+          </li>
+          <li *ngFor="let x of categories" class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" [href]="formatTabPaneId(x.temp_name)" role="tab" aria-controls="pills-profile" aria-selected="false">{{x.temp_name}}</a>
+          </li>
+        </ul>
+
+      </div>
 
       <div class="tab-content pt-3" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
