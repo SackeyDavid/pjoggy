@@ -469,10 +469,13 @@ ul.nav {
 
 @media (max-width: 567px) and (orientation: portrait) {
   .controls-top {
-    padding-top: 1vh;
+    padding-top: 0vh;
   }
   .event_social_share {
     visibility: visible !important;
+  }
+  .display-6 {
+    font-size: x-large !important;
   }
 }
 
@@ -489,6 +492,9 @@ ul.nav {
 @media (max-width: 967px) and (orientation: portrait) {
   .event_social_share {
     visibility: visible !important;
+  }
+  .swipeable-x {
+    overflow-x: scroll;
   }
 }
 
