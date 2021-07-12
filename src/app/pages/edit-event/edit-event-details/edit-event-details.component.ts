@@ -16,6 +16,8 @@ export class EditEventDetailsComponent implements OnInit {
   eventDate: string = ''
   eventID: string = ''
 
+  eventOrganizers: any;
+
   isLoading: boolean;
   isBannerSet: boolean;
   saved: boolean;
@@ -72,7 +74,7 @@ export class EditEventDetailsComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-    
+
     this.populateForm()
     this.initForm();
 
@@ -81,6 +83,7 @@ export class EditEventDetailsComponent implements OnInit {
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time
     this.eventID = data.event[0].id
+    this.eventOrganizers = data.organizers;
 
     this.getExistingVideos();
   }
@@ -139,17 +142,17 @@ export class EditEventDetailsComponent implements OnInit {
       console.log(this.getFormData());
       console.log( this.imgStore);
       // console.log( this.f.banner_image.value)
-      this.isLoading = true;      
+      this.isLoading = true;
       this.eventDetailsService.editEventDetails(this.getFormData(), this.imgStore, this.eventID).then(
         res => {
           if (res) {
             this.isLoading = false;
             this.getCreatedEvent(this.eventID);
-            
+
             this.saveCreatedEvent(this.eventID).then(
               ok => {
                 if (ok) this.router.navigateByUrl('/create_event/ticketing');
-              }                               
+              }
             );
           }
           else {
@@ -170,7 +173,7 @@ export class EditEventDetailsComponent implements OnInit {
 
   onFileSelected(e: any){
     const file:File = e.target.files[0];
-    if (file) {      
+    if (file) {
       this.isBannerSet = true;
       // this.f.banner_image.value = file;
       this.imgStore = file;
@@ -193,32 +196,39 @@ export class EditEventDetailsComponent implements OnInit {
       { 'id': this.details.hosted_on[2].id, 'password': '', 'meeting_id': '', 'platform': 'Youtube', 'link': this.f.youtube_hosting.value },
       { 'id': this.details.hosted_on[3].id, 'password': this.f.meet_hosting_password.value, 'meeting_id': '', 'platform': 'Meet', 'link': this.f.meet_hosting.value },
       { 'id': this.details.hosted_on[4].id, 'password': this.f.teams_hosting_password.value, 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
-    ]
+    ];
+
+    let organizer = this.f.organizer.value;
+    for(let x of this.eventOrganizers){
+      if(this.f.organizer.value == x?.name) organizer = x?.id;
+    }
 
     const data = {
       email: this.f.email.value,
       phone: this.f.phone.value,
       hosted_on: hostedObject,
-      organizer: this.f.organizer.value,
+      organizer: organizer,
     };
+
+    console.log(data);
     return data;
   }
 
   populateForm(): void {
-        
+
     var data: any =  sessionStorage.getItem('created_event')
     data = JSON.parse(data)
     console.log(data)
-    this.details.banner_image = data.event[0].banner_image;    
+    this.details.banner_image = data.event[0].banner_image;
     this.details.organizer = data.organizers[0].name;
     this.details.phone = data.event[0].contact_phone;
     this.details.email = data.event[0].contact_email;
     this.details.hosted_on = data.hosted_on_links;
 
     console.log(this.details)
-      
+
   }
-  
+
   setFacebookVisibility(){
     this.facebookVisibility = this.f.facebook_checkbox.value;
   }
@@ -295,10 +305,10 @@ export class EditEventDetailsComponent implements OnInit {
 
   // ----------------------------------------------------------------------------------------------------
   // live videos
-  
-  createVideo(): void { 
-    if(this.isVideoSet) { 
-      this.isVideoSaving = true; 
+
+  createVideo(): void {
+    if(this.isVideoSet) {
+      this.isVideoSaving = true;
       console.log(this.video)
       this.eventDetailsService.storeVideo(this.video, this.eventID).then(
         res => {
@@ -318,7 +328,7 @@ export class EditEventDetailsComponent implements OnInit {
           this.isLoading = false;
           this.isVideoSaving = false;
         }
-      );  
+      );
     }
     else {
       this.videoError = true;
@@ -360,17 +370,17 @@ export class EditEventDetailsComponent implements OnInit {
       console.log(this.getFormData());
       console.log( this.imgStore);
       // console.log( this.f.banner_image.value)
-      this.isLoading = true;      
+      this.isLoading = true;
       this.eventDetailsService.editEventDetails(this.getFormData(), this.imgStore, this.eventID).then(
         res => {
           if (res) {
             this.isLoading = false;
             this.getCreatedEvent(this.eventID);
-            
+
             this.saveCreatedEvent(this.eventID).then(
               ok => {
                 if (ok) this.router.navigateByUrl('/user_events');
-              }                               
+              }
             );
           }
           else {

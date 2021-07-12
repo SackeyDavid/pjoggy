@@ -31,7 +31,23 @@
                   <td style="padding-left: 5%;">
                     <span class="w3-large">{{item.title}}</span>
                     <span class="present_date">{{ getEventDateFormatted(item.start_date_time)}}</span>
-                    <span class="search_price">{{item.price}}</span>
+                    <span class="search_price">
+                      <ng-container *ngIf="item.ticketing == '0'">
+                        <span class="price-span">Free</span>
+                      </ng-container>
+                      <ng-container *ngIf="item.ticketing == '2'">
+                        <span class="price-span">Donation</span>
+                      </ng-container>
+                      <ng-container *ngIf="item.ticketing == '1'">
+                        <span class="price-span">{{item.price}}</span>
+                      </ng-container>
+                      <ng-container *ngIf="item.ticketing == '1' && item.qty_remaining == 0">
+                        <span class="price-span">Sold out</span>
+                      </ng-container>
+                      <ng-container *ngIf="item.ticketing == '1' && getTicketSalesStatus(item.ticket_sales_end_date) == 0">
+                        <span class="price-span">Sales ended</span>
+                      </ng-container> 
+                    </span>
                     
                   </td>
                 </tr>

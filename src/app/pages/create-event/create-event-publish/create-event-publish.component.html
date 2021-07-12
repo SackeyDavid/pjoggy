@@ -126,9 +126,9 @@
                         </small>
                       </p>
                       <p class="card-text" style="font-size: 12px;">
-                        <span *ngIf="eventOrganizer != null">By: {{eventOrganizer}}</span> <br>
-                        <span *ngIf="eventContactPhone != null">Phone No.: {{eventContactPhone}}</span><br *ngIf="eventContactPhone != null">
-                        <span *ngIf="eventContactEmail != null">Email: {{eventContactEmail}}</span>
+                        <span *ngIf="eventOrganizer !== null">By: {{eventOrganizer}}</span> <br>
+                        <span *ngIf="eventContactPhone !== 'null'">Phone No.: {{eventContactPhone}}</span><br *ngIf="eventContactPhone != null">
+                        <span *ngIf="eventContactEmail !== 'null'">Email: {{eventContactEmail}}</span>
                       </p>
                     </div>
               </div>

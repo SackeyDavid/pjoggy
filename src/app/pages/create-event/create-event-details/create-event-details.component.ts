@@ -16,13 +16,14 @@ export class CreateEventDetailsComponent implements OnInit {
   eventDate: string = ''
   eventID: string = ''
 
+  eventOrganizers: any;
+
   isLoading: boolean;
   isBannerSet: boolean;
   saved: boolean;
   form: FormGroup = new FormGroup({});
   imgSrc: string;
 
-  
   video: any;
   isVideoSet: boolean;
   videoSrcList: any[];
@@ -47,7 +48,7 @@ export class CreateEventDetailsComponent implements OnInit {
     this.saved = false;
     this.imgSrc = '../../../../assets/images/placeholder.png';
 
-    
+
     this.isVideoSet = false;
     this.videoSrcList = [];
     this.createdVideoSrc = '';
@@ -66,8 +67,9 @@ export class CreateEventDetailsComponent implements OnInit {
     var data: any =  sessionStorage.getItem('created_event')
     data = JSON.parse(data)
     this.eventTitle = data.event[0].title;
-    this.eventDate = data.event[0].start_date_time
-    this.eventID = data.event[0].id
+    this.eventDate = data.event[0].start_date_time;
+    this.eventID = data.event[0].id;
+    this.eventOrganizers = data.organizers;
 
     this.getExistingVideos();
   }
@@ -92,7 +94,7 @@ export class CreateEventDetailsComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       email: ['', Validators.email],
-      phone: ['', [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]],      
+      phone: ['', [Validators.minLength(12), Validators.maxLength(12), Validators.pattern("^[0-9]*$")]],
       hosted_on: [''],
       banner_image: [''],
       organizer: [''],
@@ -129,11 +131,11 @@ export class CreateEventDetailsComponent implements OnInit {
           if (res) {
             this.isLoading = false;
             this.getCreatedEvent(this.eventID);
-            
+
             this.saveCreatedEvent(this.eventID).then(
               ok => {
                 if (ok) this.router.navigateByUrl('/create_event/ticketing');
-              }                               
+              }
             );
           }
           else {
@@ -176,12 +178,19 @@ export class CreateEventDetailsComponent implements OnInit {
       { 'id': 0, 'password': this.f.teams_hosting_password.value, 'meeting_id': '', 'platform': 'Teams', 'link': this.f.teams_hosting.value }
     ]
 
+    let organizer = this.f.organizer.value;
+    for(let x of this.eventOrganizers){
+      if(this.f.organizer.value == x?.name) organizer = x?.id;
+    }
+
     const data = {
       email: this.f.email.value,
       phone: this.f.phone.value,
       hosted_on: hostedObject,
-      organizer: this.f.organizer.value,
+      organizer: organizer,
     };
+
+    console.log(data);
     return data;
   }
 
@@ -234,13 +243,13 @@ export class CreateEventDetailsComponent implements OnInit {
     });
   }
 
-  
+
   // ----------------------------------------------------------------------------------------------------
   // live videos
-  
-  createVideo(): void { 
-    if(this.isVideoSet) { 
-      this.isVideoSaving = true; 
+
+  createVideo(): void {
+    if(this.isVideoSet) {
+      this.isVideoSaving = true;
       console.log(this.video)
       this.eventDetailsService.storeVideo(this.video, this.eventID).then(
         res => {
@@ -260,7 +269,7 @@ export class CreateEventDetailsComponent implements OnInit {
           this.isLoading = false;
           this.isVideoSaving = false;
         }
-      );  
+      );
     }
     else {
       this.videoError = true;
@@ -308,11 +317,11 @@ export class CreateEventDetailsComponent implements OnInit {
           if (res) {
             this.isLoading = false;
             this.getCreatedEvent(this.eventID);
-            
+
             this.saveCreatedEvent(this.eventID).then(
               ok => {
                 if (ok) this.router.navigateByUrl('/user_events');
-              }                               
+              }
             );
           }
           else {

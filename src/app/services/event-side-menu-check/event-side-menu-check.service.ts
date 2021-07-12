@@ -21,10 +21,14 @@ export class EventSideMenuCheckService {
     }
   }
 
-  eventHasMoreDetailsData() {
+  eventHasMoreDetailsData() { 
     this.data = sessionStorage.getItem('created_event')
     this.data = JSON.parse(this.data)
-    if(this.data.event[0].banner_image != null) {
+    console.log(this.data);
+    // this.eventTitle = this.data.event[0].title;
+    // this.eventDate = this.data.event[0].start_date_time
+    // console.log(this.data.organizers.length);
+    if(this.data.organizers.length > 0) {
       return true
     }
     else {

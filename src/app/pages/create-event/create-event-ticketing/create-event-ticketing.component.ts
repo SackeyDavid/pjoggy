@@ -55,16 +55,17 @@ export class CreateEventTicketingComponent implements OnInit {
 
     var data: any =  sessionStorage.getItem('created_event');
     data = JSON.parse(data);
+    console.log(data.organizers.length);
     this.eventTitle = data.event[0].title;
     this.eventDate = data.event[0].start_date_time;
     this.eventTicketing = data.event[0].ticketing;
     if(this.eventTicketing == '0') 
     {
       this.f.price.disable();
-      this.f.name.setValue('Free');
+      this.f.name.setValue('General Admission');
 
       // not working want to auto create a free ticket if ticketing is free
-      this.f.submit();
+      // this.f.submit();
       
     }
     if(this.eventTicketing == '2') {

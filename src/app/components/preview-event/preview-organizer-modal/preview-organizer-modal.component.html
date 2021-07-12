@@ -10,16 +10,16 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 my-auto">
                     <div class="ts-organizer-popup-content">
-                    <h3 class="ts-title">{{data.name}}</h3>
-                    <br>
-                    <p>{{data.bio}}</p>
-                    <br>
-                    <div class="ts-organizers-social">
-                        <i class="bi bi-facebook"></i> Facebook : <a href="data.facebook">{{data.facebook}}</a><br>
-                        <i class="bi bi-twitter"></i> Twitter : <a href="data.twitter">{{data.twitter}}</a><br>
-                        <i class="bi bi-instagram"></i> Instagram: <a href="data.instagram">{{data.instagram}}</a><br>
-                        <i class="bi bi-linkedin"></i> Linked-In: <a href="data.linkedin">{{data.linkedin}}</a><br>
-                    </div>
+                        <h3 class="ts-title">{{data.name}}</h3>
+                        <br>
+                        <p>{{data.bio}}</p>
+                        <br>
+                        <div class="ts-organizers-social">
+                            <span *ngIf="data?.facebook" class="social-link"><i class="bi bi-facebook"></i> Facebook : <a href="data.facebook">{{data.facebook}}</a></span>
+                            <span *ngIf="data?.twitter" class="social-link"><i class="bi bi-twitter"></i> Twitter : <a href="data.twitter">{{data.twitter}}</a></span>
+                            <span *ngIf="data?.instagram" class="social-link"><i class="bi bi-instagram"></i> Instagram: <a href="data.instagram">{{data.instagram}}</a></span>
+                            <span *ngIf="data?.linkedin" class="social-link"><i class="bi bi-linkedin"></i> Linked-In: <a href="data.linkedin">{{data.linkedin}}</a></span>
+                        </div>
                     </div>
                 </div>
             </div>
