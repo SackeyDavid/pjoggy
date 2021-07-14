@@ -144,7 +144,7 @@
           <div class="dropdown-content_user"> 
               <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
                <a id="browse_events_link">Notifications <span class="dot"></span> </a>
-              <a routerLink="/events/favorites" [class.bolder] = "userFavorites?.data?.length > 0"> Favorites </a>
+              <a (click)="openFavoritesPage()" [class.bolder] = "userFavorites?.data?.length > 0"> Favorites </a>
               <a> Following</a>
               <a (click)="openManageEventsPage()" style="border-top: 1px solid #ddd; cursor: pointer;">Manage event</a>
               <a>Tickets (0)</a> 

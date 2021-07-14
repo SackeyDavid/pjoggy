@@ -23,7 +23,7 @@ export class SearchService {
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('search_event_ok: ', res);
-          resolve(res);                     
+          resolve(res);
         },
         err => {
           console.error('search_event_error: ', err);
@@ -33,13 +33,31 @@ export class SearchService {
     });
   }
 
+  searchEventsPage(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let search_events: any[] = [];
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_search_events_next_page_ok: ', res);
+          search_events = res;
+          resolve(search_events);
+        },
+        err => {
+          console.log('get_search_events_next_page_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+
   liveSearch(searchword: string): Promise<any> {
     var url = this.searchUrl + searchword;
     return new Promise((resolve, reject) => {
       this.http.get<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('live_search_ok: ', res);
-          resolve(res);                     
+          resolve(res);
         },
         err => {
           console.error('live_search_error: ', err);

@@ -528,17 +528,25 @@ export class FavoritesComponentComponent implements OnInit {
   }
 
   getFavoriteEventsNextPage(url: string) {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     this.eventsService.getFavoritesEventsNextPage(url).then(
       res => {
         console.log(res);
-        this.userFavorites = res.event;
-        this.userFavorites.data.sort(function(a: any, b:any){
-          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
+        let nextEvents = [];
+        nextEvents = res.event;
+        nextEvents.data.sort(function(a: any, b:any){
+            return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+          });
+        nextEvents.data.forEach((event: any) => {
+          this.userFavorites.data.push(event);
         });
+
+        // assign id of next events to userfavorites id array
+        if(this.userFavorites.data) this.getUsersFavoritesAfterNextPageLoad();
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.userFavorites.next_page_url = nextEvents.next_page_url
         
-        // add new events to favorite id array
-        this.getUsersFavoritesAfterNextPageLoad();
 
       },
       err => {

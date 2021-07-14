@@ -229,6 +229,11 @@ export class NavbarComponent implements OnInit {
     window.open('/user_events', "_blank");
   }
 
+  openFavoritesPage() {
+    window.open('/events/favorites', "_blank");
+
+  }
+
   getUsersFavorites (){
 
     if(this.userID !== '') {
