@@ -117,6 +117,17 @@ import { FavoritePageComponent } from './pages/favorites-page/favorite-page.comp
 import { FavoritesComponentComponent } from './components/favorites-component/favorites-component.component';
 import { EventsByCategoryComponent } from './components/events-by-category/events-by-category.component';
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
+import { PreviewMinimisedSpeakersComponent } from './components/preview-event/preview-minimised-speakers/preview-minimised-speakers.component';
+import { PreviewMinimisedOrganizersComponent } from './components/preview-event/preview-minimised-organizers/preview-minimised-organizers.component';
+import { PreviewMinimisedSponsorsComponent } from './components/preview-event/preview-minimised-sponsors/preview-minimised-sponsors.component';
+import { PreviewMinimisedPricingComponent } from './components/preview-event/preview-minimised-pricing/preview-minimised-pricing.component';
+import { PreviewMinimisedDescriptionComponent } from './components/preview-event/preview-minimised-description/preview-minimised-description.component';
+import { PreviewMinimisedLocationComponent } from './components/preview-event/preview-minimised-location/preview-minimised-location.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { CancelEventAlertComponent } from './components/modals/cancel-event-alert/cancel-event-alert.component';
+import { EditEventAlertComponent } from './components/modals/edit-event-alert/edit-event-alert.component';
+import { DeleteEventAlertComponent } from './components/modals/delete-event-alert/delete-event-alert.component';
+import { RecoverEventAlertComponent } from './components/modals/recover-event-alert/recover-event-alert.component';
 
 
 @NgModule({
@@ -208,7 +219,17 @@ import { CategoryEventsPageComponent } from './pages/category-events-page/catego
     FavoritePageComponent,
     FavoritesComponentComponent,
     EventsByCategoryComponent,
-    CategoryEventsPageComponent
+    CategoryEventsPageComponent,
+    PreviewMinimisedSpeakersComponent,
+    PreviewMinimisedOrganizersComponent,
+    PreviewMinimisedSponsorsComponent,
+    PreviewMinimisedPricingComponent,
+    PreviewMinimisedDescriptionComponent,
+    PreviewMinimisedLocationComponent,
+    CancelEventAlertComponent,
+    EditEventAlertComponent,
+    DeleteEventAlertComponent,
+    RecoverEventAlertComponent
   ],
   imports: [
     BrowserModule,
@@ -235,8 +256,8 @@ import { CategoryEventsPageComponent } from './pages/category-events-page/catego
     OwlNativeDateTimeModule,
     GooglePlaceModule,
     TimeagoModule.forRoot(),
-    MdbModalModule
-
+    MdbModalModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
