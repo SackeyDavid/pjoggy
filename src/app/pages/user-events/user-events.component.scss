@@ -87,7 +87,7 @@ img {
 }
 
 .btn {
-  width: 45% !important;
+  width: inherit !important;
 }
 
 .page-link {
@@ -546,4 +546,8 @@ color: var(--ev-create-event-nav-background);
 .fadeIn {
   animation-name: fadeIn;
   animation-duration: 1s;
+}
+
+.btn {
+  width: inherit !important;
 }
