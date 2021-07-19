@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { PreviewMinimisedLocationComponent } from 'src/app/components/preview-event/preview-minimised-location/preview-minimised-location.component';
 
 @Component({
   selector: 'app-preview-event-page',
@@ -29,7 +30,8 @@ export class PreviewEventPageComponent implements OnInit {
   sponsorsDisplay: Boolean = false;
   galleryDisplay: Boolean = false;
 
-  
+  isDataReady = false;
+
   string_from_url: string = '';
 
   id: string = '';
@@ -37,16 +39,16 @@ export class PreviewEventPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router
-    ) { 
+    ) {
 
-      
+
       // get id from email redirect
       // this would only work if the user is redirecting from the email
       this.string_from_url = decodeURI(this.router.url);
 
       var ind1 = this.string_from_url.indexOf('=');
       var ind2 = this.string_from_url.indexOf('&', ind1 + 1);
-      
+
 
       this.id = this.string_from_url.substring(ind1+1, ind2);
       console.log(this.id)
@@ -63,11 +65,11 @@ export class PreviewEventPageComponent implements OnInit {
         // get id from session Storage instead if the url has no id
         // console.log('preview_event_id: ', sessionStorage.getItem('preview_event_id'));
         this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + sessionStorage.getItem('preview_event_id');
-    
+
       }
 
-      
-      
+
+
   }
 
   ngOnInit(): void {
@@ -75,7 +77,7 @@ export class PreviewEventPageComponent implements OnInit {
 
     var ind1 = this.string_from_url.indexOf('=');
     var ind2 = this.string_from_url.indexOf('&', ind1 + 1);
-    
+
 
     this.id = this.string_from_url.substring(ind1+1, ind2);
     console.log(this.id)
@@ -106,6 +108,7 @@ export class PreviewEventPageComponent implements OnInit {
         res => {
           console.log(res);
           this.dataContent = res;
+
           this.eventContent = this.dataContent.event[0];
           this.speakersContent = this.dataContent.hosts;
           this.scheduleContent = this.dataContent.schedule;
@@ -116,8 +119,8 @@ export class PreviewEventPageComponent implements OnInit {
           this.hostingContent = this.dataContent.hosted_on_links;
 
           console.log(this.hostingContent);
-
           this.displayOptions();
+          this.isDataReady = true;
         },
         err => {
           console.log(err)
@@ -133,7 +136,7 @@ export class PreviewEventPageComponent implements OnInit {
     if (Object.keys(this.organisersContent)?.length > 0) this.organisersDisplay = true;
     if (Object.keys(this.sponsorsContent)?.length > 0) this.sponsorsDisplay = true;
     if (Object.keys(this.galleryContent)?.length > 0) this.galleryDisplay = true;
-    
+
     console.log({
       speakers: this.speakersDisplay,
       schedule: this.scheduleDisplay,

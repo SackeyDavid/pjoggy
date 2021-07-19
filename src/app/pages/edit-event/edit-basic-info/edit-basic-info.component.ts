@@ -12,7 +12,7 @@ import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-chec
   styleUrls: ['./edit-basic-info.component.scss']
 })
 export class EditBasicInfoComponent implements OnInit {
-  
+
   eventTitle: string = '';
   eventDate: string = '';
   eventID: string = '';
@@ -50,7 +50,7 @@ export class EditBasicInfoComponent implements OnInit {
     this.isLoading = false;
     this.saved = false;
     this.categoriesData = [];
-    this.subCategoriesData = [];    
+    this.subCategoriesData = [];
     this.tagsString = '';
     this.tagsList = [];
     this.recurringStore = '0';
@@ -71,7 +71,7 @@ export class EditBasicInfoComponent implements OnInit {
     this.startDateTime = data.event[0].start_date_time;
     this.endDateTime = data.event[0].end_date_time;
     this.eventID = data.event[0].id;
-    
+
 
     this.populateForm()
     this.initForm();
@@ -89,7 +89,7 @@ export class EditBasicInfoComponent implements OnInit {
     this.setRecurring(data.event[0].recurring)
     this.setHosting(data.event[0].hosting)
 
-    
+
   }
 
   initVars() {
@@ -141,7 +141,7 @@ export class EditBasicInfoComponent implements OnInit {
 
     this.formattedAddress = this.event.venue;
     this.addressCoordinates = this.event.gps;
-    
+
     this.setHostingValidators();
     this.setTagsChips();
   }
@@ -151,7 +151,7 @@ export class EditBasicInfoComponent implements OnInit {
     date.setHours(0,0,0,0);
     let today = date.valueOf();
     let sd = Date.parse(this.f.start_date.value);
-    let ed = Date.parse(this.f.end_date.value);    
+    let ed = Date.parse(this.f.end_date.value);
     let now = new Date().getTime();
     let st = new Date(this.f.start_time.value).getTime();
     let et = new Date(this.f.end_time.value).getTime();
@@ -164,7 +164,7 @@ export class EditBasicInfoComponent implements OnInit {
     // TODO: this check aint working
     if (sd >= today) this.isDateCorrect = true;
     else this.isDateCorrect = false;
-      
+
     // check if end date is greater start date
     if (ed >= sd) this.isDateIntervalCorrect = true;
     else this.isDateIntervalCorrect = false;
@@ -398,7 +398,7 @@ export class EditBasicInfoComponent implements OnInit {
     this.event.ticketing = data.event[0].ticketing;
     this.event.type = ((data.event[0].type === true) ? '0' : '1');
     this.event.category = data.event[0].Category_id;
-    this.event.subcategory = data.event[0].subcategory_id; 
+    this.event.subcategory = data.event[0].subcategory_id;
     this.event.tags = ((data.event[0].tags != null) ? data.event[0].tags : '');
 
     this.event.start_date = data.event[0].start_date_time.split(' ')[0];
@@ -410,7 +410,7 @@ export class EditBasicInfoComponent implements OnInit {
     this.event.venue = ((data.event[0].venue != null) ? data.event[0].venue : '');
     this.event.gps = ((data.event[0].gps != null) ? data.event[0].gps : '');
     this.event.hosting = data.event[0].hosting;
-    
+
     console.log(this.event);
   }
 
@@ -437,7 +437,7 @@ export class EditBasicInfoComponent implements OnInit {
   public handleAddressChange(address: any) {
     console.log(address);
     this.formattedAddress = address.formatted_address;
-    this.addressCoordinates = address.geometry.viewport.Eb.g + ', ' + address.geometry.viewport.mc.g;
+    this.addressCoordinates = address.geometry.location.lat() + ', ' + address.geometry.location.lng();
     this.f.gps.setValue(this.addressCoordinates);
   }
 
