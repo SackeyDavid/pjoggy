@@ -10,6 +10,7 @@ import { CancelEventAlertComponent } from 'src/app/components/modals/cancel-even
 import { EditEventAlertComponent } from 'src/app/components/modals/edit-event-alert/edit-event-alert.component';
 import { DeleteEventAlertComponent } from 'src/app/components/modals/delete-event-alert/delete-event-alert.component';
 import { RecoverEventAlertComponent } from 'src/app/components/modals/recover-event-alert/recover-event-alert.component';
+import { PostponeEventAlertComponent } from 'src/app/components/modals/postpone-event-alert/postpone-event-alert.component';
 
 @Component({
   selector: 'app-user-events',
@@ -23,6 +24,8 @@ export class UserEventsComponent implements OnInit {
   publishedEvents: any = [];
   archivedEvents: any = [];
   cancelledEvents: any = [];
+  pastEvents: any = [];
+  ongoingEvents: any = [];
 
   loading: boolean = false;
   loadIndex = 15;
@@ -67,6 +70,8 @@ export class UserEventsComponent implements OnInit {
     this.getUserEvents(2);
     this.getUserEvents(4);
     this.getUserEvents(3);
+    this.getEventCreatorsPastEvents();
+    this.getEventCreatorsOngoingEvents();
   }
 
   getAllUserEvents(): void {
@@ -120,6 +125,38 @@ export class UserEventsComponent implements OnInit {
     );
   }
 
+  getEventCreatorsPastEvents() {
+    this.eventsService.getEventCreatorsPastEvents(this.userID).then(
+      res => {
+        console.log(res);
+        this.pastEvents = res;
+        this.pastEvents.data.sort(function(a: any, b:any){
+          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  
+  getEventCreatorsOngoingEvents() {
+    this.eventsService.getEventCreatorsOngoingEvents(this.userID).then(
+      res => {
+        console.log(res);
+        this.ongoingEvents = res;
+        this.ongoingEvents.data.sort(function(a: any, b:any){
+          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
   gotoEdit(eventId: any) {
     // this.modalRef = this.modalService.open(EditEventAlertComponent, { data: { id: eventId }});
     console.log(eventId);
@@ -157,6 +194,10 @@ export class UserEventsComponent implements OnInit {
 
   archiveEvent(eventId: any){
     this.modalRef = this.modalService.open(DeleteEventAlertComponent, { data: { id: eventId }});   
+  }
+
+  postPoneEvent(eventId: any){
+    this.modalRef = this.modalService.open(PostponeEventAlertComponent, { data: { id: eventId }});   
   }
 
   cancelEvent(eventId: any){
@@ -361,6 +402,44 @@ export class UserEventsComponent implements OnInit {
     }
   }
 
+  showHideMorePast(event_id: any) {
+    var dots = document.getElementById("past-dots-"+event_id) as HTMLSpanElement;
+    var moreText = document.getElementById("past-more-"+event_id) as HTMLSpanElement;
+    var btnText = document.getElementById("past-myBtn-"+event_id)  as HTMLSpanElement;
+    var icons = document.getElementById("past-icons-"+event_id)  as HTMLSpanElement;
+
+    if (dots?.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "See more"; 
+      moreText.style.display = "none";
+      icons.style.display = "inline";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "See less"; 
+      moreText.style.display = "inline";
+      icons.style.display = "none";
+    }
+  }
+
+  showHideMoreOngoing(event_id: any) {
+    var dots = document.getElementById("ongoing-dots-"+event_id) as HTMLSpanElement;
+    var moreText = document.getElementById("ongoing-more-"+event_id) as HTMLSpanElement;
+    var btnText = document.getElementById("ongoing-myBtn-"+event_id)  as HTMLSpanElement;
+    var icons = document.getElementById("ongoing-icons-"+event_id)  as HTMLSpanElement;
+
+    if (dots?.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "See more"; 
+      moreText.style.display = "none";
+      icons.style.display = "inline";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "See less"; 
+      moreText.style.display = "inline";
+      icons.style.display = "none";
+    }
+  }
+
   openAllEventsNextPage(url: string) {
     window.scrollTo(0, 0);
 
@@ -420,6 +499,40 @@ export class UserEventsComponent implements OnInit {
         console.log(res);
         this.archivedEvents = res;
         this.archivedEvents.data.sort(function(a: any, b:any){
+          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  openPastEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
+    this.eventsService.getPastUsersEventsNextPage(url).then(
+      res => {
+        console.log(res);
+        this.pastEvents = res;
+        this.pastEvents.data.sort(function(a: any, b:any){
+          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  openOngoingEventsNextPage(url: string) {
+    window.scrollTo(0, 0);
+
+    this.eventsService.getOngoingUsersEventsNextPage(url).then(
+      res => {
+        console.log(res);
+        this.ongoingEvents = res;
+        this.ongoingEvents.data.sort(function(a: any, b:any){
           return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });
       },

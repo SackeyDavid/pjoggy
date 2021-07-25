@@ -28,6 +28,10 @@ export class EventsService {
   getNewEventsUrl: string;
   getNewEventsPageUrl: string;
   getEventsHappeningNowUrl: string;
+  getEventCreatorsPastEventsUrl: string;
+  getEventCreatorsOngoingEventsUrl: string;
+  postPoneEventUrl: string;
+
   
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
@@ -49,6 +53,9 @@ export class EventsService {
     this.getNewEventsUrl = this.endpoint.apiHost + '/get_new_events';
     this.getNewEventsPageUrl = this.endpoint.apiHost + '/get_new_events?page=';
     this.getEventsHappeningNowUrl = this.endpoint.apiHost + '/events_happening_now';
+    this.getEventCreatorsPastEventsUrl = this.endpoint.apiHost + '/v1/get_user_past_events/';
+    this.getEventCreatorsOngoingEventsUrl = this.endpoint.apiHost + '/v1/get_user_ongoing_events/';
+    this.postPoneEventUrl = this.endpoint.apiHost + '/v1/postpone_event/';
   }
 
   archiveEvent(eventId: any): Promise<any> {    
@@ -66,6 +73,27 @@ export class EventsService {
         },
         err => {
           console.error('archive_event_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  postPoneEvent(eventId: any): Promise<any> {    
+    const url = this.postPoneEventUrl + eventId;
+    return new Promise((resolve, reject) => {     
+      this.http.post<any>(url, null, { headers: this.headers}).subscribe(
+        res => {
+          console.log('postpont_event_ok: ', res);
+          if (_.toLower(res.message) == 'ok') {
+            resolve(res.id);            
+          }
+          else {
+            resolve(0);
+          }
+        },
+        err => {
+          console.error('postpone_event_error: ', err);
           reject(err);
         }
       );
@@ -255,6 +283,44 @@ export class EventsService {
         },
         err => {
           console.log('get_archived_events_next_page_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getPastUsersEventsNextPage(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let events: any[] = [];
+      // var userId = sessionStorage.getItem('events_user_id');
+      // const url = this.getAllUserEventsUrl + userId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_past_events_next_page_ok: ', res);
+          events = res.all_events;
+          resolve(events);
+        },
+        err => {
+          console.log('get_past_events_next_page_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getOngoingUsersEventsNextPage(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let events: any[] = [];
+      // var userId = sessionStorage.getItem('events_user_id');
+      // const url = this.getAllUserEventsUrl + userId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_ongoing_events_next_page_ok: ', res);
+          events = res.all_events;
+          resolve(events);
+        },
+        err => {
+          console.log('get_ongoing_events_next_page_error: ', err);
           reject(err);
         }
       );
@@ -527,6 +593,44 @@ export class EventsService {
         },
         err => {
           console.log('get_events_happening_now_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getEventCreatorsPastEvents(userId: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let events: any[] = [];
+      // var userId = sessionStorage.getItem('events_user_id');
+      const url = this.getEventCreatorsPastEventsUrl + userId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_event_creators_past_events: ', res);
+          events = res.all_events;
+          resolve(events);
+        },
+        err => {
+          console.log('get_event_creators_past_events: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getEventCreatorsOngoingEvents(userId: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let events: any[] = [];
+      // var userId = sessionStorage.getItem('events_user_id');
+      const url = this.getEventCreatorsOngoingEventsUrl + userId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_event_creators_ongoing_events: ', res);
+          events = res.all_events;
+          resolve(events);
+        },
+        err => {
+          console.log('get_event_creators_ongoing_events: ', err);
           reject(err);
         }
       );

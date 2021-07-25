@@ -128,6 +128,7 @@ import { CancelEventAlertComponent } from './components/modals/cancel-event-aler
 import { EditEventAlertComponent } from './components/modals/edit-event-alert/edit-event-alert.component';
 import { DeleteEventAlertComponent } from './components/modals/delete-event-alert/delete-event-alert.component';
 import { RecoverEventAlertComponent } from './components/modals/recover-event-alert/recover-event-alert.component';
+import { PostponeEventAlertComponent } from './components/modals/postpone-event-alert/postpone-event-alert.component';
 
 
 @NgModule({
@@ -229,7 +230,8 @@ import { RecoverEventAlertComponent } from './components/modals/recover-event-al
     CancelEventAlertComponent,
     EditEventAlertComponent,
     DeleteEventAlertComponent,
-    RecoverEventAlertComponent
+    RecoverEventAlertComponent,
+    PostponeEventAlertComponent
   ],
   imports: [
     BrowserModule,
