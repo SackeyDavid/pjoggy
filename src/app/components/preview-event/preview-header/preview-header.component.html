@@ -8,26 +8,23 @@
             <li *ngIf="intro == true" class="nav-item">
                <a class="nav-link" href="#" (click)="onIntroClicked($event)">Intro</a>
             </li>
-            <li *ngIf="speakers == true" class="nav-item">
-               <a class="nav-link" href="#" (click)="onSpeakersClicked($event)">Speakers</a>
-            </li>
             <!-- <li *ngIf="schedule == true" class="nav-item">
                <a class="nav-link" href="#" (click)="onScheduleClicked($event)">Schedule</a>
             </li> -->
             <li *ngIf="pricing== true" class="nav-item">
-               <a class="nav-link" href="#" (click)="onPricingClicked($event)">Pricing</a>
-            </li>
-            <li *ngIf="organizers== true" class="nav-item">
-               <a class="nav-link" href="#" (click)="onOrganizersClicked($event)">Organizers</a>
+               <a class="nav-link" href="#" (click)="onPricingSponsorsClicked($event)">Pricing</a>
             </li>
             <li *ngIf="sponsors== true" class="nav-item">
-               <a class="nav-link" href="#" (click)="onSponsorsClicked($event)">Sponsors</a>
+               <a class="nav-link" href="#" (click)="onPricingSponsorsClicked($event)">Sponsors</a>
+            </li>
+            <li *ngIf="speakers" class="nav-item">
+                <a class="nav-link" href="#" (click)="onSpeakersOrganizersClicked($event)">Speakers</a>
+            </li>
+            <li *ngIf="organizers" class="nav-item">
+                <a class="nav-link" href="#" (click)="onSpeakersOrganizersClicked($event)">Organizers</a>
             </li>
             <li *ngIf="gallery == true" class="nav-item">
                <a class="nav-link" href="#" (click)="onGalleryClicked($event)">Gallery</a>
-            </li>
-            <li *ngIf="location == true" class="nav-item">
-               <a class="nav-link" href="#" (click)="onLocationClicked($event)">Location</a>
             </li>
             <button class="btn btn-outline-primary ml-4 ticket-button" type="button">Buy Ticket</button>
          </ul>

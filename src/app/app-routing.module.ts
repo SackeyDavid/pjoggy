@@ -44,6 +44,8 @@ import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/m
 import { AccountProfileComponent } from './pages/profile/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
+import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
+import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 
 
 const routes: Routes = [
@@ -182,7 +184,7 @@ const routes: Routes = [
       },
       {
         path: 'schedule',
-        component: EditEventSchedulesComponent 
+        component: EditEventSchedulesComponent
       },
       {
         path: 'more_details',
@@ -249,6 +251,19 @@ const routes: Routes = [
       {
         path: 'events-by-category/:id',
         component: CategoryEventsPageComponent
+      },
+    ]
+  },
+  {
+    path: 'rsvp',
+    children: [
+      {
+        path: 'payment',
+        component: RsvpPaymentComponent
+      },
+      {
+        path: 'user',
+        component: RsvpUserComponent
       },
     ]
   }

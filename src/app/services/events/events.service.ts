@@ -79,17 +79,32 @@ export class EventsService {
     });
   }
 
-  postPoneEvent(eventId: any): Promise<any> {    
-    const url = this.postPoneEventUrl + eventId;
-    return new Promise((resolve, reject) => {     
-      this.http.post<any>(url, null, { headers: this.headers}).subscribe(
+  /**
+   * Postpone an event.
+   * @param eventID Event ID.
+   * @param start_date Date
+   * @param end_date Date
+   * @returns 
+   */ 
+   postPoneEvent(eventID: any, date: any): Promise<any> {
+    // console.log(this.createBasicUrl);
+    const url = this.postPoneEventUrl + eventID
+    return new Promise((resolve, reject) => {
+      const body = {
+        'start_date': date.start_date,        
+        'end_date': date.end_date,        
+      };
+
+      console.log(body);
+
+      this.http.post<any>(url, JSON.stringify(body), { headers: this.headers}).subscribe(
         res => {
-          console.log('postpont_event_ok: ', res);
+          console.log('postpone_event_ok: ', res);
           if (_.toLower(res.message) == 'ok') {
-            resolve(res.id);            
+            resolve(true);            
           }
           else {
-            resolve(0);
+            resolve(false);
           }
         },
         err => {
@@ -99,6 +114,27 @@ export class EventsService {
       );
     });
   }
+
+  // postPoneEvent(eventId: any): Promise<any> {    
+  //   const url = this.postPoneEventUrl + eventId;
+  //   return new Promise((resolve, reject) => {     
+  //     this.http.post<any>(url, null, { headers: this.headers}).subscribe(
+  //       res => {
+  //         console.log('postpont_event_ok: ', res);
+  //         if (_.toLower(res.message) == 'ok') {
+  //           resolve(res.id);            
+  //         }
+  //         else {
+  //           resolve(0);
+  //         }
+  //       },
+  //       err => {
+  //         console.error('postpone_event_error: ', err);
+  //         reject(err);
+  //       }
+  //     );
+  //   });
+  // }
 
   cancelEvent(eventId: any): Promise<any> {    
     const url = this.cancelEventUrl + eventId;

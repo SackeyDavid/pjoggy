@@ -552,3 +552,51 @@ color: var(--ev-create-event-nav-background);
   width: inherit !important;
   font-size: .9rem !important;
 }
+
+
+@media (max-width: 967px) and (orientation: portrait) {
+  .event_social_share {
+    visibility: visible !important;
+  }
+  .swipeable-x {
+    overflow-x: scroll;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  .event_social_share {
+    visibility: visible !important;
+  }
+  .swipeable-x {
+    overflow-x: scroll;
+  }
+}
+
+
+.icons i .tooltip{
+  position: absolute;
+  top: calc(100% - 80px);
+  // left: calc();
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(185, 184, 184, .9);
+  color: gray;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0s;
+}
+.icons i:hover .tooltip{
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  // top: calc(100% - 70px);
+  // transform: translateY(-50%);
+}
+// .icons .tooltip{
+//   display: none;
+// }

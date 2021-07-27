@@ -17,15 +17,15 @@ export class PreviewHeaderComponent implements OnInit {
   @Input() sponsors?: Boolean;
   @Input() gallery?: Boolean;
   @Input() location?: Boolean;
-  
+
   @Output() introEvent = new EventEmitter<any>();
-  @Output() speakersEvent = new EventEmitter<any>();
-  @Output() scheduleEvent = new EventEmitter<any>();
-  @Output() pricingEvent = new EventEmitter<any>();
-  @Output() organizersEvent = new EventEmitter<any>();
-  @Output() sponsorsEvent = new EventEmitter<any>();
+  @Output() speakersOrganizersEvent = new EventEmitter<any>();
+  // @Output() scheduleEvent = new EventEmitter<any>();
+  @Output() pricingSponsorsEvent = new EventEmitter<any>();
+  // @Output() organizersEvent = new EventEmitter<any>();
+  // @Output() sponsorsEvent = new EventEmitter<any>();
   @Output() galleryEvent = new EventEmitter<any>();
-  @Output() locationEvent = new EventEmitter<any>();
+  // @Output() locationEvent = new EventEmitter<any>();
 
   ngOnInit(): void {
   }
@@ -35,39 +35,24 @@ export class PreviewHeaderComponent implements OnInit {
     this.introEvent.emit();
   }
 
-  onSpeakersClicked(e: any) {
+  onSpeakersOrganizersClicked(e: any) {
     e.preventDefault();
-    this.speakersEvent.emit();
+    this.speakersOrganizersEvent.emit();
   }
 
-  onScheduleClicked(e: any) {
-    e.preventDefault();
-    this.scheduleEvent.emit();
-  }
+  // onScheduleClicked(e: any) {
+  //   e.preventDefault();
+  //   this.scheduleEvent.emit();
+  // }
 
-  onPricingClicked(e: any) {
+  onPricingSponsorsClicked(e: any) {
     e.preventDefault();
-    this.pricingEvent.emit();
-  }
-
-  onOrganizersClicked(e: any) {
-    e.preventDefault();
-    this.organizersEvent.emit();
-  }
-
-  onSponsorsClicked(e: any) {
-    e.preventDefault();
-    this.sponsorsEvent.emit();
+    this.pricingSponsorsEvent.emit();
   }
 
   onGalleryClicked(e: any) {
     e.preventDefault();
     this.galleryEvent.emit();
-  }
-
-  onLocationClicked(e: any) {
-    e.preventDefault();
-    this.locationEvent.emit();
   }
 
 }

@@ -63,6 +63,9 @@ export class FacebookMagiclinkComponent implements OnInit {
 
       sessionStorage.setItem('user_id', this.id);
       sessionStorage.setItem('x_auth_token', this.user_token);
+      sessionStorage.setItem('events_user_id', this.id);
+      // sessionStorage.setItem('events_user_name', res.user.name);
+      // sessionStorage.setItem('events_user_email', res.user.email);
       
       if (this.user_token != null) this.router.navigateByUrl('/');
 

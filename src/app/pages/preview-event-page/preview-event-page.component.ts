@@ -152,9 +152,9 @@ export class PreviewEventPageComponent implements OnInit {
     document.querySelector('#intro')?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  gotoSpeakers() {
+  gotoSpeakersOrganizers() {
     console.log('going to speakers...');
-    document.querySelector('#speakers')?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#speakersOrganizers')?.scrollIntoView({ behavior: 'smooth' });
   }
 
   gotoSchedule() {
@@ -162,20 +162,20 @@ export class PreviewEventPageComponent implements OnInit {
     document.querySelector('#schedule')?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  gotoPricing() {
+  gotoPricingSponsors() {
     console.log('going to pricing...');
-    document.querySelector('#pricing')?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#pricingSponsors')?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  gotoOrganizers() {
-    console.log('going to organizers...');
-    document.querySelector('#organizers')?.scrollIntoView({ behavior: 'smooth' });
-  }
+  // gotoOrganizers() {
+  //   console.log('going to organizers...');
+  //   document.querySelector('#organizers')?.scrollIntoView({ behavior: 'smooth' });
+  // }
 
-  gotoSponsors() {
-    console.log('going to sponsors...');
-    document.querySelector('#sponsors')?.scrollIntoView({ behavior: 'smooth' });
-  }
+  // gotoSponsors() {
+  //   console.log('going to sponsors...');
+  //   document.querySelector('#sponsors')?.scrollIntoView({ behavior: 'smooth' });
+  // }
 
   gotoGallery() {
     console.log('going to gallery...');

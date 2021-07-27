@@ -172,7 +172,9 @@ export class UserEventsComponent implements OnInit {
 
   gotoPreview(eventId: any) {
     sessionStorage.setItem('preview_event_id', eventId);
-    this.router.navigateByUrl('/event_details');
+    // this.router.navigateByUrl('/event_details');
+    window.open('/event_details', "_blank");
+    // window.href = '/event_details'
   }
 
   saveSelectedEvent(eventId: any): Promise<boolean> {

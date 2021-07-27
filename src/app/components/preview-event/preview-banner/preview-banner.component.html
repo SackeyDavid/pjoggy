@@ -1,13 +1,13 @@
 <!-- <div class="banner-item" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(&quot;../../../../../../assets/images/default-event-banner.jpg&quot;);"> -->
 <div class="banner-item" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent?.banner_image}}&quot;);">
-  
+
    <div class="container">
       <div class="row">
          <div class="col-lg-8">
             <div class="banner-content-wrap">
                <p class="banner-info wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="500ms">
                   <!-- {{eventContent?.start_date_time | date:'mediumDate'}} to {{eventContent?.end_date_time | date:'mediumDate'}}, {{eventContent?.venue}} -->
-               
+
                <ng-container *ngIf="getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time)">
                {{getEventStartDateFormatted(eventContent?.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventContent?.end_date_time)}}
                </ng-container>
@@ -42,7 +42,7 @@
                </div>
 
                <div class="banner-btn wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">
-                  <a href="index.html#" class="btn btn-primary">Buy Ticket</a>
+                  <a routerLink="/rsvp/payment" href="index.html#" class="btn btn-primary">Register</a>
                </div>
             </div>
          </div>

@@ -11,6 +11,8 @@
       </div>
 
     <div class="col-12">
+      
+    <div class="swipeable-x">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         
         <li class="nav-item" role="presentation">
@@ -70,12 +72,24 @@
           </a>
       </li>
     </ul>
+    </div>
 
     
     <div class="tab-content pt-3" id="pills-tabContent">
       <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
+        
+      <ng-container *ngIf="!createdEvents?.data">
+        <div class="d-flex justify-content-center">
+          <!-- <div class="spinner-grow" role="status">  -->
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+          
+          <!-- </div> -->
+        </div>        
+      </ng-container>  
 
-        <div class="row" *ngIf="!createdEvents || createdEvents?.length == 0">
+        <div class="row" *ngIf="createdEvents?.data?.length == 0">
             <div style="height: 50%;width: 100%;padding-bottom: 10%;">
               <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                 <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -158,23 +172,41 @@
                     </div>
     
                     </div>
-                    <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                    <ng-container *ngIf="event.ticketing == '0'">
-                      <span class="price-span">Free</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '2'">
-                      <span class="price-span">Donation</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '1'">
-                      <span class="price-span">{{event.price}}</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                      <span class="price-span">Sold out</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                      <span class="price-span">Sales ended</span>
-                    </ng-container> 
+                    <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                        <ng-container *ngIf="event.ticketing == '0'">
+                          <span class="price-span">Free</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '2'">
+                          <span class="price-span">Donation</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1'">
+                          <span class="price-span">{{event.price}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                          <span class="price-span">Sold out</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                          <span class="price-span">Sales ended</span>
+                        </ng-container> 
                     </div>
+
+                      <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                          <ng-container *ngIf="event.ticketing == '0'">
+                            <span class="price-span">Free</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '2'">
+                            <span class="price-span">Donation</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1'">
+                            <span class="price-span">{{event.price}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                            <span class="price-span">Sold out</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                            <span class="price-span">Sales ended</span>
+                          </ng-container> 
+                      </div>
                     <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                   </div>
                   <div (click)="showHideMoreDraft(event.id)">
@@ -219,8 +251,15 @@
                   <span class="py-2 fadeIn">
                     <span id="draft-myBtn-{{event.id}}" (click)="showHideMoreDraft(event.id)" class="see-more-or-less p-2">See More 
                     </span>
-                    <span id="draft-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>&nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">                        
-                    </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash"></i>
+                    <span id="draft-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                      <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                        <span class="tooltip">Preview</span>                        
+                    </i>&nbsp;&nbsp;
+                    <i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
+                      <span class="tooltip">Edit</span>
+                    </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                      <span class="tooltip">Delete</span>
+                    </i>
                     </span>
                   </span>
                 
@@ -285,9 +324,19 @@
     </div>
     <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
             <div class="row">  
+               
+            <ng-container *ngIf="!userEvents?.data">
+              <div class="d-flex justify-content-center">
+                <!-- <div class="spinner-grow" role="status">  -->
+                  <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
                 
+                <!-- </div> -->
+              </div>        
+            </ng-container>  
                 
-            <div class="row" *ngIf="!userEvents?.data || userEvents?.data.length == 0">
+            <div class="row" *ngIf="userEvents?.data?.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-camera-reels-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -397,22 +446,40 @@
                         </div>
         
                         </div>
-                        <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                        <ng-container *ngIf="event.ticketing == '0'">
-                          <span class="price-span">Free</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '2'">
-                          <span class="price-span">Donation</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '1'">
-                          <span class="price-span">{{event.price}}</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                          <span class="price-span">Sold out</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                          <span class="price-span">Sales ended</span>
-                        </ng-container> 
+                        <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                          <ng-container *ngIf="event.ticketing == '0'">
+                            <span class="price-span">Free</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '2'">
+                            <span class="price-span">Donation</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1'">
+                            <span class="price-span">{{event.price}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                            <span class="price-span">Sold out</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                            <span class="price-span">Sales ended</span>
+                          </ng-container> 
+                      </div>
+  
+                        <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                            <ng-container *ngIf="event.ticketing == '0'">
+                              <span class="price-span">Free</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '2'">
+                              <span class="price-span">Donation</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1'">
+                              <span class="price-span">{{event.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                              <span class="price-span">Sold out</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                              <span class="price-span">Sales ended</span>
+                            </ng-container> 
                         </div>
                         <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                       </div>
@@ -507,9 +574,19 @@
             </div>
         </div>
         <div class="tab-pane fade" id="pills-published" role="tabpanel" aria-labelledby="pills-published-tab">
-
+          
+          <ng-container *ngIf="!publishedEvents?.data">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>        
+          </ng-container>  
             
-            <div class="row" *ngIf="!publishedEvents?.data || publishedEvents?.data?.length == 0">
+            <div class="row" *ngIf="publishedEvents?.data?.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-check-circle-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -592,22 +669,40 @@
                         </div>
         
                         </div>
-                        <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                        <ng-container *ngIf="event.ticketing == '0'">
-                          <span class="price-span">Free</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '2'">
-                          <span class="price-span">Donation</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '1'">
-                          <span class="price-span">{{event.price}}</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                          <span class="price-span">Sold out</span>
-                        </ng-container>
-                        <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                          <span class="price-span">Sales ended</span>
-                        </ng-container> 
+                        <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                          <ng-container *ngIf="event.ticketing == '0'">
+                            <span class="price-span">Free</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '2'">
+                            <span class="price-span">Donation</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1'">
+                            <span class="price-span">{{event.price}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                            <span class="price-span">Sold out</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                            <span class="price-span">Sales ended</span>
+                          </ng-container> 
+                      </div>
+  
+                        <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                            <ng-container *ngIf="event.ticketing == '0'">
+                              <span class="price-span">Free</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '2'">
+                              <span class="price-span">Donation</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1'">
+                              <span class="price-span">{{event.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                              <span class="price-span">Sold out</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                              <span class="price-span">Sales ended</span>
+                            </ng-container> 
                         </div>
                         <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                       </div>
@@ -653,7 +748,7 @@
                       <span class="py-2 fadeIn">
                         <span id="published-myBtn-{{event.id}}" (click)="showHideMorePublished(event.id)" class="see-more-or-less p-2">See More 
                         </span>
-                        <span id="published-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>&nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">                        
+                        <span id="published-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>&nbsp;&nbsp;<i (click)="postPoneEvent(event.id)" class="bi bi-clock-history"></i> &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">                        
                         </i>&nbsp;&nbsp;<i (click)="cancelEvent(event.id)" class="bi bi-x-square"></i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash"></i>
                         </span>
                       </span>
@@ -719,7 +814,19 @@
         
         <div class="tab-pane fade" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
 
-          <div class="row" *ngIf="!cancelledEvents?.data || cancelledEvents?.data.length == 0">
+          
+          <ng-container *ngIf="!cancelledEvents?.data">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>        
+          </ng-container> 
+
+          <div class="row" *ngIf="cancelledEvents?.data?.length == 0">
               <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                 <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                   <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -802,22 +909,40 @@
                       </div>
       
                       </div>
-                      <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                      <ng-container *ngIf="event.ticketing == '0'">
-                        <span class="price-span">Free</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '2'">
-                        <span class="price-span">Donation</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '1'">
-                        <span class="price-span">{{event.price}}</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                        <span class="price-span">Sold out</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                        <span class="price-span">Sales ended</span>
-                      </ng-container> 
+                      <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                        <ng-container *ngIf="event.ticketing == '0'">
+                          <span class="price-span">Free</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '2'">
+                          <span class="price-span">Donation</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1'">
+                          <span class="price-span">{{event.price}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                          <span class="price-span">Sold out</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                          <span class="price-span">Sales ended</span>
+                        </ng-container> 
+                    </div>
+
+                      <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                          <ng-container *ngIf="event.ticketing == '0'">
+                            <span class="price-span">Free</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '2'">
+                            <span class="price-span">Donation</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1'">
+                            <span class="price-span">{{event.price}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                            <span class="price-span">Sold out</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                            <span class="price-span">Sales ended</span>
+                          </ng-container> 
                       </div>
                       <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                     </div>
@@ -930,8 +1055,18 @@
 
       <!-- archived events tab  -->
         <div class="tab-pane fade" id="pills-archived" role="tabpanel" aria-labelledby="pills-archived-tab">
-            
-            <div class="row" *ngIf="!archivedEvents?.data || archivedEvents?.data.length == 0">
+          <ng-container *ngIf="!archivedEvents?.data">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>        
+          </ng-container> 
+
+            <div class="row" *ngIf="archivedEvents?.data?.length == 0">
                 <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                   <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                     <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -1014,22 +1149,40 @@
                       </div>
       
                       </div>
-                      <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                      <ng-container *ngIf="event.ticketing == '0'">
-                        <span class="price-span">Free</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '2'">
-                        <span class="price-span">Donation</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '1'">
-                        <span class="price-span">{{event.price}}</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                        <span class="price-span">Sold out</span>
-                      </ng-container>
-                      <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                        <span class="price-span">Sales ended</span>
-                      </ng-container> 
+                      <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                        <ng-container *ngIf="event.ticketing == '0'">
+                          <span class="price-span">Free</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '2'">
+                          <span class="price-span">Donation</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1'">
+                          <span class="price-span">{{event.price}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                          <span class="price-span">Sold out</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                          <span class="price-span">Sales ended</span>
+                        </ng-container> 
+                    </div>
+
+                      <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                          <ng-container *ngIf="event.ticketing == '0'">
+                            <span class="price-span">Free</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '2'">
+                            <span class="price-span">Donation</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1'">
+                            <span class="price-span">{{event.price}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                            <span class="price-span">Sold out</span>
+                          </ng-container>
+                          <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                            <span class="price-span">Sales ended</span>
+                          </ng-container> 
                       </div>
                       <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                     </div>
@@ -1143,7 +1296,18 @@
         <!-- past events tab  -->
         <div class="tab-pane fade" id="pills-past" role="tabpanel" aria-labelledby="pills-past-tab">
             
-          <div class="row" *ngIf="!pastEvents?.data || pastEvents?.data.length == 0">
+          <ng-container *ngIf="!pastEvents?.data">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>        
+          </ng-container> 
+
+          <div class="row" *ngIf="pastEvents?.data?.length == 0">
               <div style="height: 50%;width: 100%;padding-bottom: 10%;">
                 <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                   <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -1226,22 +1390,40 @@
                     </div>
     
                     </div>
-                    <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                    <ng-container *ngIf="event.ticketing == '0'">
-                      <span class="price-span">Free</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '2'">
-                      <span class="price-span">Donation</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '1'">
-                      <span class="price-span">{{event.price}}</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                      <span class="price-span">Sold out</span>
-                    </ng-container>
-                    <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                      <span class="price-span">Sales ended</span>
-                    </ng-container> 
+                    <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                      <ng-container *ngIf="event.ticketing == '0'">
+                        <span class="price-span">Free</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '2'">
+                        <span class="price-span">Donation</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '1'">
+                        <span class="price-span">{{event.price}}</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                        <span class="price-span">Sold out</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                        <span class="price-span">Sales ended</span>
+                      </ng-container> 
+                  </div>
+
+                    <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                        <ng-container *ngIf="event.ticketing == '0'">
+                          <span class="price-span">Free</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '2'">
+                          <span class="price-span">Donation</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1'">
+                          <span class="price-span">{{event.price}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                          <span class="price-span">Sold out</span>
+                        </ng-container>
+                        <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                          <span class="price-span">Sales ended</span>
+                        </ng-container> 
                     </div>
                     <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                   </div>
@@ -1356,7 +1538,19 @@
       <!-- ongoing events tab  -->
       <div class="tab-pane fade" id="pills-ongoing" role="tabpanel" aria-labelledby="pills-ongoing-tab">
             
-        <div class="row" *ngIf="!ongoingEvents?.data || ongoingEvents?.data.length == 0">
+        
+      <ng-container *ngIf="!ongoingEvents?.data">
+        <div class="d-flex justify-content-center">
+          <!-- <div class="spinner-grow" role="status">  -->
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+          
+          <!-- </div> -->
+        </div>        
+      </ng-container>  
+
+        <div class="row" *ngIf="ongoingEvents?.data?.length == 0">
             <div style="height: 50%;width: 100%;padding-bottom: 10%;">
               <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
                 <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
@@ -1439,22 +1633,40 @@
                   </div>
   
                   </div>
-                  <div (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
-                  <ng-container *ngIf="event.ticketing == '0'">
-                    <span class="price-span">Free</span>
-                  </ng-container>
-                  <ng-container *ngIf="event.ticketing == '2'">
-                    <span class="price-span">Donation</span>
-                  </ng-container>
-                  <ng-container *ngIf="event.ticketing == '1'">
-                    <span class="price-span">{{event.price}}</span>
-                  </ng-container>
-                  <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
-                    <span class="price-span">Sold out</span>
-                  </ng-container>
-                  <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
-                    <span class="price-span">Sales ended</span>
-                  </ng-container> 
+                  <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                    <ng-container *ngIf="event.ticketing == '0'">
+                      <span class="price-span">Free</span>
+                    </ng-container>
+                    <ng-container *ngIf="event.ticketing == '2'">
+                      <span class="price-span">Donation</span>
+                    </ng-container>
+                    <ng-container *ngIf="event.ticketing == '1'">
+                      <span class="price-span">{{event.price}}</span>
+                    </ng-container>
+                    <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                      <span class="price-span">Sold out</span>
+                    </ng-container>
+                    <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                      <span class="price-span">Sales ended</span>
+                    </ng-container> 
+                </div>
+
+                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                      <ng-container *ngIf="event.ticketing == '0'">
+                        <span class="price-span">Free</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '2'">
+                        <span class="price-span">Donation</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '1'">
+                        <span class="price-span">{{event.price}}</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                        <span class="price-span">Sold out</span>
+                      </ng-container>
+                      <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                        <span class="price-span">Sales ended</span>
+                      </ng-container> 
                   </div>
                   <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
                 </div>
@@ -1486,8 +1698,8 @@
                     <hr>
                     <div class="text-center fadeIn">
                       <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
-                      <button (click)="postPoneEvent(event.id)" class="btn btn-warning px-4 mb-1 mx-1"> Postpone</button>
-                      <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
+                      <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
+                      <!-- <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button> -->
                     </div>
 
                     <!-- <div class="text-center p-2">
@@ -1500,7 +1712,7 @@
                   <span id="ongoing-myBtn-{{event.id}}" (click)="showHideMoreOngoing(event.id)" class="see-more-or-less p-2">See More 
                   </span>
                   <span id="ongoing-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>                       
-                    &nbsp;&nbsp;<i (click)="postPoneEvent(event.id)" class="bi bi-clock-history"></i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash"></i>
+                    &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square"></i>
                   </span>
                 </span>
               

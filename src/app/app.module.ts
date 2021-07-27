@@ -129,6 +129,8 @@ import { EditEventAlertComponent } from './components/modals/edit-event-alert/ed
 import { DeleteEventAlertComponent } from './components/modals/delete-event-alert/delete-event-alert.component';
 import { RecoverEventAlertComponent } from './components/modals/recover-event-alert/recover-event-alert.component';
 import { PostponeEventAlertComponent } from './components/modals/postpone-event-alert/postpone-event-alert.component';
+import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
+import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 
 
 @NgModule({
@@ -231,7 +233,9 @@ import { PostponeEventAlertComponent } from './components/modals/postpone-event-
     EditEventAlertComponent,
     DeleteEventAlertComponent,
     RecoverEventAlertComponent,
-    PostponeEventAlertComponent
+    PostponeEventAlertComponent,
+    RsvpPaymentComponent,
+    RsvpUserComponent
   ],
   imports: [
     BrowserModule,

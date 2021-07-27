@@ -136,13 +136,14 @@ export class NavbarComponent implements OnInit {
     e.preventDefault();
     // sessionStorage.removeItem('x_auth_token');
     // window.location.href = '/'
-    this.openSnackBar();
+    
     
     const apiUrl = 'http://events369.logitall.biz/api/v1/';
     this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
       res =>  {
         console.log(res);
         if (_.toLower(res.message) == 'ok') {
+          this.openSnackBar();
           sessionStorage.removeItem('x_auth_token');
           sessionStorage.removeItem('user_id');
 
@@ -153,6 +154,14 @@ export class NavbarComponent implements OnInit {
       },
       err => {
         console.log(err);
+        this.openSnackBar();
+        sessionStorage.removeItem('x_auth_token');
+        sessionStorage.removeItem('user_id');
+
+        // this.router.navigateByUrl('/');
+        
+        window.location.href = '/';
+
       }
     )
   }
