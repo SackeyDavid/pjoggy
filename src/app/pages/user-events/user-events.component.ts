@@ -53,7 +53,9 @@ export class UserEventsComponent implements OnInit {
     private basicInfoService: BasicInfoService,
     private userFavoriteService: UsersFavoritesService,
     private modalService: MdbModalService
-  ) { }
+  ) { 
+  
+  }
 
   ngOnInit() {  
     var user_token = sessionStorage.getItem('x_auth_token');

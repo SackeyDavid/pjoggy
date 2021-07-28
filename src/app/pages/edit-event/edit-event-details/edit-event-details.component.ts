@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import _ from 'lodash';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-edit-event-details',
@@ -24,6 +25,7 @@ export class EditEventDetailsComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   imgSrc: string;
   imgStore: any;
+  imageChangedEvent: any;
 
   facebookVisibility: boolean;
   zoomVisibility: boolean;
@@ -183,6 +185,7 @@ export class EditEventDetailsComponent implements OnInit {
       reader.onload = (e: any) => {
         console.log(e.target);
         this.imgSrc = e.target.result;
+        // this.imageCropped(e);
         var width = e.target.width;
         var height = e.target.height;
       }
@@ -398,6 +401,21 @@ export class EditEventDetailsComponent implements OnInit {
       console.log(this.getFormData());
     }
   }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.imgStore = event;
+    this.imgSrc  = event.base64!;
+  }
+  imageLoaded() {
+      // show cropper
+  }
+  cropperReady() {
+      // cropper ready
+  }
+  loadImageFailed() {
+      // show message
+  }
+
 
 }
 

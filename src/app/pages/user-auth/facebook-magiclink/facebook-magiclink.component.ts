@@ -89,7 +89,8 @@ export class FacebookMagiclinkComponent implements OnInit {
       if (platform) this.platform = platform[1];
 
       sessionStorage.setItem('user_id', this.id);
-
+      sessionStorage.setItem('events_user_id', this.id);
+      
       this.magicLinkData = new FormGroup({
         id: new FormControl(this.id, [Validators.required]),
         name: new FormControl(this.name, [Validators.required]),

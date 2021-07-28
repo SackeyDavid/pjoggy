@@ -748,8 +748,18 @@
                       <span class="py-2 fadeIn">
                         <span id="published-myBtn-{{event.id}}" (click)="showHideMorePublished(event.id)" class="see-more-or-less p-2">See More 
                         </span>
-                        <span id="published-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>&nbsp;&nbsp;<i (click)="postPoneEvent(event.id)" class="bi bi-clock-history"></i> &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">                        
-                        </i>&nbsp;&nbsp;<i (click)="cancelEvent(event.id)" class="bi bi-x-square"></i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash"></i>
+                        <span id="published-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                          <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                            <span class="tooltip">Preview</span>  
+                          </i>&nbsp;&nbsp;<i (click)="postPoneEvent(event.id)" class="bi bi-clock-history">
+                            <span class="tooltip">Postpone</span>  
+                          </i> &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">  
+                            <span class="tooltip">Edit event</span>                        
+                        </i>&nbsp;&nbsp;<i (click)="cancelEvent(event.id)" class="bi bi-x-square">
+                          <span class="tooltip">Cancel event</span>  
+                        </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                          <span class="tooltip">Delete event</span>  
+                        </i>
                         </span>
                       </span>
                     
@@ -988,8 +998,15 @@
                     <span class="py-2 fadeIn">
                       <span id="cancelled-myBtn-{{event.id}}" (click)="showHideMoreCancelled(event.id)" class="see-more-or-less p-2">See More 
                       </span>
-                      <span id="cancelled-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>                       
-                        &nbsp;&nbsp;<i (click)="recoverEvent(event.id)" class="bi bi-arrow-repeat"></i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash"></i>
+                      <span id="cancelled-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                        <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                          <span class="tooltip">Preview</span>  
+                        </i>                       
+                        &nbsp;&nbsp;<i (click)="recoverEvent(event.id)" class="bi bi-arrow-repeat">
+                          <span class="tooltip">Recover</span>  
+                        </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                          <span class="tooltip">Delete</span>  
+                        </i>
                       </span>
                     </span>
                   
@@ -1226,8 +1243,13 @@
                     <span class="py-2 fadeIn">
                       <span id="archived-myBtn-{{event.id}}" (click)="showHideMoreArchived(event.id)" class="see-more-or-less p-2">See More 
                       </span>
-                      <span id="archived-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>                       
-                        &nbsp;&nbsp;<i (click)="recoverEvent(event.id)" class="bi bi-arrow-repeat"></i>
+                      <span id="archived-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                        <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                          <span class="tooltip" style="right: .4rem;">Preview</span>  
+                        </i>                       
+                        &nbsp;&nbsp;<i (click)="recoverEvent(event.id)" class="bi bi-arrow-repeat">
+                          <span class="tooltip" style="right: .4rem;">Recover</span>  
+                        </i>
                       </span>
                     </span>
                   
@@ -1468,8 +1490,15 @@
                   <span class="py-2 fadeIn">
                     <span id="past-myBtn-{{event.id}}" (click)="showHideMorePast(event.id)" class="see-more-or-less p-2">See More 
                     </span>
-                    <span id="past-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>                       
-                      &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square"></i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash"></i>
+                    <span id="past-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                      <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                        <span class="tooltip">Preview</span>  
+                      </i>                       
+                      &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
+                        <span class="tooltip">Edit</span>  
+                      </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                        <span class="tooltip">Delete </span>  
+                      </i>
                     </span>
                   </span>
                 
@@ -1711,8 +1740,13 @@
                 <span class="py-2 fadeIn">
                   <span id="ongoing-myBtn-{{event.id}}" (click)="showHideMoreOngoing(event.id)" class="see-more-or-less p-2">See More 
                   </span>
-                  <span id="ongoing-icons-{{event.id}}" class="px-2" style="float: right;"><i (click)="gotoPreview(event.id)" class="bi bi-display"></i>                       
-                    &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square"></i>
+                  <span id="ongoing-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                    <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                      <span class="tooltip" style="right: .5rem">Preview</span>  
+                    </i>                       
+                    &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
+                      <span class="tooltip" style="right: .5rem">Edit</span>  
+                    </i>
                   </span>
                 </span>
               

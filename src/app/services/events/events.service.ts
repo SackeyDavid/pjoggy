@@ -186,7 +186,8 @@ export class EventsService {
       let page_number = 1;
       let last_page = 1;
 
-      var userId = sessionStorage.getItem('events_user_id');
+      // var userId = sessionStorage.getItem('events_user_id');
+      var userId = sessionStorage.getItem('user_id');
 
      
       let url = this.getUserEventsUrl + userId + '/' + status + '?page=' + page_number;

@@ -53,7 +53,7 @@ export class GoogleMagiclinkComponent implements OnInit {
 
       if (token) this.user_token = token[1];
 
-      console.log(this.user_token)
+      console.log(this.user_token);
 
       sessionStorage.setItem('user_id', this.id);
       sessionStorage.setItem('x_auth_token', this.user_token);
@@ -83,7 +83,8 @@ export class GoogleMagiclinkComponent implements OnInit {
       if (platform) this.platform = platform[1];
 
       sessionStorage.setItem('user_id', this.id);
-
+      sessionStorage.setItem('events_user_id', this.id);
+      
       this.magicLinkData = new FormGroup({
         id: new FormControl(this.id, [Validators.required]),
         name: new FormControl(this.name, [Validators.required]),

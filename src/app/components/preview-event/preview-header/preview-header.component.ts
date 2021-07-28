@@ -28,6 +28,7 @@ export class PreviewHeaderComponent implements OnInit {
   // @Output() locationEvent = new EventEmitter<any>();
 
   ngOnInit(): void {
+    
   }
 
   onIntroClicked(e: any) {

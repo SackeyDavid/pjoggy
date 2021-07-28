@@ -131,6 +131,8 @@ import { RecoverEventAlertComponent } from './components/modals/recover-event-al
 import { PostponeEventAlertComponent } from './components/modals/postpone-event-alert/postpone-event-alert.component';
 import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 
 @NgModule({
@@ -264,6 +266,7 @@ import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
     TimeagoModule.forRoot(),
     MdbModalModule,
     GoogleMapsModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent],
