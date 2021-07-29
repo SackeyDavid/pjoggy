@@ -28,9 +28,9 @@ span.lead {
 
 p.card-text {
   // line-height: 20px;
-  text-overflow: ellipsis; 
-  overflow: hidden;
-  display: -webkit-box;
+  // text-overflow: ellipsis; 
+  // overflow: hidden;
+  // display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
@@ -167,7 +167,7 @@ span.lead {
 p.card-text {
   line-height: 20px;
   min-height: 15vh;
-  max-height: 15vh;
+  max-height: max-content;
 }
 
 .display-6 {
