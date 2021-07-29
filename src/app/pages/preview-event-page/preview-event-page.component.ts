@@ -1,3 +1,4 @@
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -38,7 +39,9 @@ export class PreviewEventPageComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private title: Title,
+    private meta: Meta
     ) {
 
 
@@ -73,6 +76,7 @@ export class PreviewEventPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.string_from_url = decodeURI(this.router.url);
 
     var ind1 = this.string_from_url.indexOf('=');
@@ -99,6 +103,7 @@ export class PreviewEventPageComponent implements OnInit {
 
   dataCall() {
     return this.http.get(this.dataUrl);
+    
 
   }
 
@@ -121,6 +126,16 @@ export class PreviewEventPageComponent implements OnInit {
           console.log(this.hostingContent);
           this.displayOptions();
           this.isDataReady = true;
+          this.title.setTitle(this.eventContent.title);
+          this.meta.updateTag({ name: 'description', content: this.eventContent.description });
+          this.meta.updateTag({ property: "og:image", content: this.eventContent.banner_image });
+          this.meta.updateTag({ property: "og:type", content: this.eventContent.type + ' event' });
+          this.meta.updateTag({ property: "og:title", content: this.eventContent.title });
+          this.meta.updateTag({ property: "og:description", content: this.eventContent.description });
+          this.meta.updateTag({ property: "og:url", content: this.eventContent.event_url });
+          this.meta.updateTag({ property: "og:start_time", content: this.eventContent.start_date_time });
+          // this.meta.updateTag({ property: "og:image", content: this.eventContent.banner_image });
+      
         },
         err => {
           console.log(err)

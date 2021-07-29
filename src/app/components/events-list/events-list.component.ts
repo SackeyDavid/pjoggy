@@ -622,8 +622,8 @@ export class EventsListComponent implements OnInit {
     }
   }
 
-  openModal(url: string) {
-    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
+  openModal(url: string, title: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url, title: title }});
   }
  
 }
