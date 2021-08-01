@@ -41,9 +41,13 @@
                   </div>
                </div>
 
-               <div class="banner-btn wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">
-                  <a routerLink="/rsvp/payment" href="index.html#" class="btn btn-primary">Register</a>
+               <div *ngIf="userID == null" class="banner-btn wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">
+                  <a routerLink="/login" class="btn btn-primary">Login to Register</a>
                </div>
+               <div *ngIf="userID !== null" class="banner-btn wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">
+                  <a routerLink="/rsvp/user" href="index.html#" class="btn btn-primary">Register</a>
+               </div>
+
             </div>
          </div>
       </div>

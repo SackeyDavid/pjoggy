@@ -11,6 +11,7 @@ import { EditEventAlertComponent } from 'src/app/components/modals/edit-event-al
 import { DeleteEventAlertComponent } from 'src/app/components/modals/delete-event-alert/delete-event-alert.component';
 import { RecoverEventAlertComponent } from 'src/app/components/modals/recover-event-alert/recover-event-alert.component';
 import { PostponeEventAlertComponent } from 'src/app/components/modals/postpone-event-alert/postpone-event-alert.component';
+import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
 
 @Component({
   selector: 'app-user-events',
@@ -26,6 +27,8 @@ export class UserEventsComponent implements OnInit {
   cancelledEvents: any = [];
   pastEvents: any = [];
   ongoingEvents: any = [];
+
+  attendees: any = [];
 
   loading: boolean = false;
   loadIndex = 15;
@@ -52,7 +55,8 @@ export class UserEventsComponent implements OnInit {
     private eventsService: EventsService, 
     private basicInfoService: BasicInfoService,
     private userFavoriteService: UsersFavoritesService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private rsvpService: RsvpService
   ) { 
   
   }
@@ -74,6 +78,19 @@ export class UserEventsComponent implements OnInit {
     this.getUserEvents(3);
     this.getEventCreatorsPastEvents();
     this.getEventCreatorsOngoingEvents();
+  }
+
+  getAttendees(eventId: string) {
+    this.rsvpService.getEventAttendees(eventId).then(
+      res => {
+        // console.log(res);
+        var attendees = res;
+        return attendees.total
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   getAllUserEvents(): void {

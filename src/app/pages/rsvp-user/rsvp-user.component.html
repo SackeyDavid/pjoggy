@@ -2,75 +2,100 @@
 
 <div class="container mt-4">
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Name Prefix</label>
-            <input type="text" class="form-control" id="cc-prefix" placeholder="" required>
-            <div class="invalid-feedback">
-                Name Prefix is required
+    <div *ngIf="eventData?.event[0].ticketing == '1'" class="row gx-2 mb-5">
+        <div *ngFor="let ticket of eventData?.tickets" class="col ticket-card">
+            <div class="card" [class.active-ticket]="selectedTicket == ticket.id" (click)="selectTicket(ticket.id, ticket.currency, ticket.price)">
+                <div class="card-body text-center">
+                    <p class="h6">{{ticket.name}}</p>
+                    <p>{{ticket.currency}} {{ticket.price}}</p>
+                    <label for="cc-quantity" class="mb-0"><small>Quantity</small></label>
+                    <input [(ngModel)]="ticketQuantity" type="text" formControlName="prefix" class="form-control form-control-sm px-4" id="cc-quantity" placeholder="">
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">First Name</label>
-            <input type="text" class="form-control" id="cc-first-name" placeholder="" required>
-            <div class="invalid-feedback">
-                First Name is required
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div *ngIf="isPrefixIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Name Prefix</label>
+                <input type="text" formControlName="prefix" class="form-control" id="cc-prefix" placeholder="" required>
+                <div *ngIf="saved && f.prefix.errors" class="text-danger">
+                    Name Prefix is required
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Last Name</label>
-            <input type="text" class="form-control" id="cc-last-name" placeholder="" required>
-            <div class="invalid-feedback">
-                Last Name is required
+        <div *ngIf="isFirstNameIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">First Name</label>
+                <input type="text" formControlName="firstname" class="form-control" id="cc-first-name" placeholder="" required>
+                <div *ngIf="saved && f.firstname.errors" class="text-danger">
+                    First Name is required
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Gender</label>
-            <select type="text" class="form-control form-select" id="cc-first-name" placeholder="" required>
-                <option selected></option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-            <div class="invalid-feedback">
-                First Name is required
+        <div *ngIf="isLastNameIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Last Name</label>
+                <input type="text" formControlName="lastname" class="form-control" id="cc-last-name" placeholder="" required>
+                <div *ngIf="saved && f.lastname.errors" class="text-danger">
+                    Last Name is required
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Email</label>
-            <input type="text" class="form-control" id="cc-email" placeholder="" required>
-            <div class="invalid-feedback">
-                Email is required
+        <div *ngIf="isGenderIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Gender</label>
+                <select type="text" formControlName="gender" class="form-control form-select" id="cc-first-name" placeholder="" required>
+                    <option selected></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <div *ngIf="saved && f.gender.errors" class="text-danger">
+                    Gender is required
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Phone No.</label>
-            <input type="text" class="form-control" id="cc-phone" placeholder="" required>
-            <div class="invalid-feedback">
-                Phone No. is required
+        <div *ngIf="isEmailIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Email</label>
+                <input type="text" formControlName="email" class="form-control" id="cc-email" placeholder="" required>
+                <div *ngIf="saved && f.email.errors" class="text-danger">
+                    Email is required
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg float-right" type="submit">Submit</button>
+        <div *ngIf="isPhoneIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Phone No.</label>
+                <input type="text" formControlName="phone" class="form-control" id="cc-phone" placeholder="" required>
+                <div *ngIf="saved && f.phone.errors" class="text-danger">
+                    Phone No. is required
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div *ngIf="isAddressIncluded" class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Phone No.</label>
+                <textarea type="text" formControlName="address" rows="3" class="form-control" id="cc-address" placeholder="" required></textarea>
+                <div *ngIf="saved && f.address.errors" class="text-danger">
+                    Address is required
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg float-right" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
 
 </div>

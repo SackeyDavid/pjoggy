@@ -23,12 +23,24 @@ export class PreviewBannerComponent implements OnInit, OnDestroy {
   public minutesToDday: any;
   public hoursToDday: any;
   public daysToDday: any;
+
+  
+  userID: string = '';
+  user_token: any;
   
   constructor() { }
 
   ngOnInit(): void {    
     this.subscription = interval(1000)
       .subscribe(x => { this.getTimeDifference(); });
+
+    var user_token = sessionStorage.getItem('x_auth_token')
+    this.user_token = ((user_token !== null? user_token: ''))
+    var user_id: any =  sessionStorage.getItem('user_id')
+    // user_id = JSON.parse(user_id)
+    // console.log(user_token)
+    this.userID = user_id;
+    
   }
 
   ngOnDestroy() {
