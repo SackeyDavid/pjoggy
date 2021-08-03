@@ -71,6 +71,15 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('events_user_email', res.user.email);
               this.router.navigateByUrl('/');
             }
+
+            // redirect to intended route if user came here because of authguard
+            // this.auth.isLoggedIn = true;
+            if (this.auth.redirectUrl) {
+              this.router.navigate([this.auth.redirectUrl]);
+              this.auth.redirectUrl = null;
+            }
+
+
           },
           err => {
             console.log(err);

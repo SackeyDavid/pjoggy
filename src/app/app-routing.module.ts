@@ -46,6 +46,7 @@ import { AccountSettingsComponent } from './pages/profile/account-settings/accou
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
 import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
+import { AuthGuard } from './services/auth-guard/auth.guard';
 
 
 const routes: Routes = [
@@ -259,10 +260,12 @@ const routes: Routes = [
     children: [
       {
         path: 'payment',
+        canActivate: [AuthGuard],
         component: RsvpPaymentComponent
       },
       {
         path: 'user',
+        canActivate: [AuthGuard],
         component: RsvpUserComponent
       },
     ]

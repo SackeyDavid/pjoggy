@@ -132,6 +132,7 @@ import { PostponeEventAlertComponent } from './components/modals/postpone-event-
 import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { AuthGuard } from './services/auth-guard/auth.guard';
 
 
 
@@ -268,7 +269,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     GoogleMapsModule,
     ImageCropperModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
