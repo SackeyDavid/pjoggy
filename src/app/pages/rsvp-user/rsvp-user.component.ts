@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
 import moment from 'moment';
 import { UserAccountService } from 'src/app/services/user-account/user-account.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-rsvp-user',
@@ -58,7 +59,8 @@ export class RsvpUserComponent implements OnInit {
 
 
   constructor(private rsvpService: RsvpService, private rsvp: RsvpService, private router: Router, 
-    private userAccountsService: UserAccountService, ) {
+    private userAccountsService: UserAccountService,
+    private _snackBar: MatSnackBar,) {
     this.isLoading = false;
     this.isCardSending = false;
     this.isMobileSending = false;
@@ -232,6 +234,9 @@ export class RsvpUserComponent implements OnInit {
         .then(
           res => {
             console.log(res);
+            if(res.message == 'Ticket sales ended.') {
+              this.openSnackBar('Ticket sales ended.')
+            }
             this.isSending = false;
             if (this.eventData.event[0].ticketing == '1' || res.event[0].ticketing == '2'){
               sessionStorage.setItem('rsvp_ticket', JSON.stringify(this.getFormData()));
@@ -387,6 +392,12 @@ export class RsvpUserComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'x', {
+      duration: 3000
+    });
   }
 
 
