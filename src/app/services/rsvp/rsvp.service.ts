@@ -87,11 +87,11 @@ export class RsvpService {
       const url = this.makeMobilePaymentUrl;
       this.http.post<any>(url, mobileData, { headers: this.headers}).subscribe(
         res => {
-          console.log('make_card_payment_ok: ', res);
+          console.log('make_mobile_money_payment_ok: ', res);
           resolve(res);
         },
         err => {
-          console.log('make_card_payment_err: ', err);
+          console.log('make_mobile_money_payment_err: ', err);
           reject(err);
         }
       );

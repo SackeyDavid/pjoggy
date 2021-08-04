@@ -16,6 +16,7 @@ export class RsvpPaymentComponent implements OnInit {
   isCardSaved: boolean;
   isMobileSaved: boolean;
   CardErrorMsgs: any;
+  errorMsgs: any;
   MobileErrorMsgs: any;
   cardForm: FormGroup = new FormGroup({});
   mobileForm: FormGroup = new FormGroup({});

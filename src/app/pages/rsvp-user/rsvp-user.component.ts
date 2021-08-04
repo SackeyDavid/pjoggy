@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
 import moment from 'moment';
+import { UserAccountService } from 'src/app/services/user-account/user-account.service';
 
 @Component({
   selector: 'app-rsvp-user',
@@ -10,6 +11,8 @@ import moment from 'moment';
   styleUrls: ['./rsvp-user.component.scss']
 })
 export class RsvpUserComponent implements OnInit {
+
+  currentUser: any;
 
   isLoading: boolean;
   isSending: boolean;
@@ -23,8 +26,9 @@ export class RsvpUserComponent implements OnInit {
   eventData: any;
   selectedTicket = 0;
   selectedTicketCurrency = '';
-  selectedTicketPrice = '';
+  selectedTicketPrice: number = 0;
   ticketQuantity: number = 1;
+  selectTicketName = '';
 
   isPrefixIncluded: boolean = false;
   isFirstNameIncluded: boolean = false;
@@ -34,26 +38,68 @@ export class RsvpUserComponent implements OnInit {
   isPhoneIncluded: boolean = false;
   isAddressIncluded: boolean = false;
 
-  constructor(private rsvpService: RsvpService, private router: Router) {
+  submittedContactInfo: boolean = false;
+  rsvpCompleted: boolean = false;
+
+  // for payment 
+  isCardSending: boolean;
+  isMobileSending: boolean;
+  isCardSaved: boolean;
+  isMobileSaved: boolean;
+  CardErrorMsgs: any;
+  MobileErrorMsgs: any;
+  cardForm: FormGroup = new FormGroup({});
+  mobileForm: FormGroup = new FormGroup({});
+
+  r_switch: any;
+
+  
+  rsvpTicket: any;
+
+
+  constructor(private rsvpService: RsvpService, private rsvp: RsvpService, private router: Router, 
+    private userAccountsService: UserAccountService, ) {
     this.isLoading = false;
+    this.isCardSending = false;
+    this.isMobileSending = false;
+    this.isCardSaved = false;
+    this.isMobileSaved = false;
     this.isSending = false;
     this.saved = false;
   }
 
   ngOnInit(): void {
-    this.initForm();
+    this.getUser();
     this.getRsvpForm();
     this.getEventData();
+
+    this.getEventData();
+
+
+    this.rsvpTicket = sessionStorage.getItem('rsvp_ticket');
+
   }
 
   initForm(): void {
+    var code, number;
+    if(this.currentUser.phone){
+      code = this.currentUser.phone.substring(0,3);
+      number = this.currentUser.phone.substring(3);
+      console.log(code);
+      console.log(number);
+    }
+    else {
+      code = '';
+      number = '';
+    }
+
     this.form = new FormGroup({
       prefix: new FormControl(''),
-      firstname: new FormControl(''),
-      lastname: new FormControl(''),
-      phone: new FormControl(''),
-      gender: new FormControl(''),
-      email: new FormControl(''),
+      firstname: new FormControl(this.currentUser?.firstname, Validators.required),
+      lastname: new FormControl(this.currentUser?.lastname, Validators.required),
+      phone: new FormControl(number, [Validators.minLength(9), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
+      gender: new FormControl(this.currentUser?.gender),
+      email: new FormControl(this.currentUser?.email, Validators.required),
       address: new FormControl(''),
     })
   }
@@ -62,10 +108,11 @@ export class RsvpUserComponent implements OnInit {
     return this.form.controls;
   }
 
-  selectTicket(ticketId: any, currency: any, price: any){
+  selectTicket(ticketId: any, currency: any, price: any, name: string){
     this.selectedTicket = ticketId;
     this.selectedTicketCurrency = currency;
     this.selectedTicketPrice = price;
+    this.selectTicketName = name;
   }
 
   getFormData(): any {
@@ -99,6 +146,10 @@ export class RsvpUserComponent implements OnInit {
         console.log(res);
         this.eventData = res;
         sessionStorage.setItem('created_event', JSON.stringify(res));
+
+        // initialize selected ticket to the first ticket
+        this.selectTicket(this.eventData?.tickets[0].id, this.eventData?.tickets[0].currency, this.eventData?.tickets[0].price, this.eventData?.tickets[0].name);
+    
       },
       err => {
         console.log(err);
@@ -184,7 +235,8 @@ export class RsvpUserComponent implements OnInit {
             this.isSending = false;
             if (this.eventData.event[0].ticketing == '1' || res.event[0].ticketing == '2'){
               sessionStorage.setItem('rsvp_ticket', JSON.stringify(this.getFormData()));
-              this.router.navigateByUrl('/rsvp/payment');
+              // this.router.navigateByUrl('/rsvp/payment');
+              this.submittedContactInfo = true;
             }
           },
           err => {
@@ -210,5 +262,133 @@ export class RsvpUserComponent implements OnInit {
     return moment(date).format('h:mm A');
 
   }
+
+  initCardForm(): void {
+    const numberRegEx = /\-?\d*\.?\d{1,2}/;
+
+    this.cardForm = new FormGroup({
+      customer_email: new FormControl(this.currentUser?.email, Validators.required),
+      r_switch: new FormControl('', Validators.required),
+      card_holder: new FormControl(this.currentUser?.firstname + ' ' + this.currentUser?.lastname, Validators.required),
+      pan: new FormControl('', Validators.required),
+      exp_month: new FormControl('', [Validators.required, Validators.pattern(numberRegEx)]),
+      exp_year: new FormControl('', [Validators.required, Validators.pattern(numberRegEx)]),
+      cvv: new FormControl('', [Validators.required, Validators.pattern(numberRegEx)]),
+    })
+  }
+
+  initMobileForm(): void {
+    const numberRegEx = /\-?\d*\.?\d{1,2}/;
+
+    this.mobileForm = new FormGroup({
+      r_switch: new FormControl('', Validators.required),
+      subscriber_number: new FormControl(this.currentUser.phone, Validators.required),
+      voucher_code: new FormControl('', [Validators.pattern(numberRegEx)]),
+    })
+  }
+
+  public get h(): any {
+    return this.cardForm.controls;
+  }
+
+  public get g(): any {
+    return this.mobileForm.controls;
+  }
+
+  getCardFormData(): any {
+    const data = {
+      customer_email: this.h.customer_email.value,
+      r_switch: this.h.r_switch.value,
+      card_holder: this.h.card_holder.value,
+      pan: this.h.pan.value,
+      exp_month: this.h.exp_month.value,
+      exp_year: this.h.exp_year.value,
+      cvv: this.h.cvv.value,
+      // currency: this.rsvpTicket.currency,
+      // amount: this.rsvpTicket.price,
+      currency: this.selectedTicketCurrency,
+      amount: this.selectedTicketPrice*this.ticketQuantity,
+    };
+    return data;
+  }
+
+  getMobileFormData(): any {
+    const data = {
+      r_switch: this.g.r_switch.value,
+      subscriber_number: this.g.subscriber_number.value,
+      voucher_code: this.g.voucher_code.value,
+      // amount: this.rsvpTicket.price,
+      amount: this.selectedTicketPrice*this.ticketQuantity,
+
+    };
+    return data;
+  }
+
+  onCardSubmit(){
+    console.log(this.getCardFormData());
+    this.isCardSaved = true;
+
+    if (this.cardForm.valid) {
+      this.isCardSending = true;
+      this.rsvp.makeCardPayment(this.getCardFormData())
+        .then(
+          res => {
+            console.log(res);
+            this.isCardSending = false;
+            this.rsvpCompleted = true;
+          },
+          err => {
+            console.log(err)
+            this.isCardSending = false;
+            this.CardErrorMsgs = err.error;
+          }
+        );
+    }
+  }
+
+  onMobileSubmit(){
+    console.log(this.getMobileFormData());
+    this.isMobileSaved = true;
+
+    if (this.mobileForm.valid) {
+      this.isMobileSending = true;
+      this.rsvp.makeMobilePayment(this.getMobileFormData())
+        .then(
+          res => {
+            console.log(res);
+            this.isMobileSending = false;
+            this.rsvpCompleted = true;
+          },
+          err => {
+            console.log(err)
+            this.isMobileSending = false;
+            this.MobileErrorMsgs = err.error;
+            this.rsvpCompleted = true;
+          }
+        );
+    }
+  }
+
+  getUser(): void {
+    this.userAccountsService.getCurrentUser().then(
+      res => {
+        console.log(res);
+        this.currentUser = res;
+        this.initForm();
+        
+        this.initCardForm();
+        this.initMobileForm();
+
+        // if (res.profile) {
+        //   this.imgSrc = 'http://events369.logitall.biz/storage/profile/' + res.profile
+        // }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
 
 }

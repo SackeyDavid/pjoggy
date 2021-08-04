@@ -1,11 +1,21 @@
+@font-face {
+  font-family: Dura;
+  src: url(../../../assets/fonts/Duru_Sans/DuruSans-Regular.ttf) format("opentype");
+}
+
+* {
+  font-family: 'Dura';
+}
+
 .ticket-card{
   max-width: 180px;
 }
 
 .active-ticket{
   cursor: pointer;
-  color: #fff;
-  background-color: rgb(11, 11, 243);
+  // color: #fff;
+  // background-color: rgb(11, 11, 243);
+  border: 2px solid #0d79f8 !important;
 }
 
 .ticket-card .card:hover{
@@ -16,6 +26,55 @@
 
 .expiration-input{
   width: 40%;
+}
+
+.btn-view-tickets {
+  font-family: 'Roboto', sans-serif;
+  // font-size: 11px;
+  // text-transform: uppercase;
+  // letter-spacing: 2.5px;
+  // font-weight: 500;
+  color: var(--ev-brandname-darkblue) !important;
+  background-color: white !important;
+  border: 2px solid rgba(0,0,0,.09) !important;
+  border-radius: 8px;
+  box-shadow: none !important;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-view-tickets:hover {
+  background-color:#f42f0c !important;
+  border: 2px solid#f42f0c !important;
+  color: #fff !important;
+}
+
+.profile-details{
+  // position: fixed;
+  bottom: 0;
+  width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,0,0,.0);
+  color: var(--ev-brandname-darkblue);
+  padding: 12px 0;
+  transition: all 0.5s ease;
+}
+
+.discover-user-checkmark {
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  height: 13px;
+  width: 13px;
+  text-align: center;
+  padding-bottom: 6px;
+  color: gray;
+  transform: translate(-9px, 38px);
+  font-size: .6rem;
+
 }
 
 .btn-primary, .login-button {
@@ -46,10 +105,17 @@
   padding: .7rem 2.8rem !important;
 }
 
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+	color: #fff;
+	background-color: #f05537;
+	border-color: #f42f0c;
+	box-shadow: 0 0 0 .25rem rgba(244,47,12,.5);
+}
+
 .alert-secondary {
   margin: .7rem !important;
   margin-left: 0rem !important;
-  background-color: #eaeae5 !important;
+  background-color: rgba(0,0,0,.03) !important;
   color: #41464b !important;
 }
 
@@ -57,11 +123,12 @@
   padding: .5rem .5rem !important;
   border-radius: 0px !important;
   border: none;
+  margin-top: 0 !important;
 }
 
-select {
+select.ticket-quantity {
 	background-color: inherit;
-	border: 2px solid #0d79f8;
+	border: 2px solid rgba(0,0,0,.1);
 	padding: .8rem 1rem;
 	font-weight: bolder;
 	padding-right: 2rem;
@@ -85,3 +152,34 @@ select {
     padding: 0 !important;
   }
   
+.event-title {
+  display: block;text-align: center;font-size: 1.4rem !important;margin-bottom: 0;font-weight: 398;
+}
+
+.card-body {
+  padding-top: 0 !important;
+}
+
+.nav-pills .nav-link {
+	background: 0 0;
+	border: 0;
+	border-radius: .25rem;
+	background-color: rgba(13, 110,253,.1);
+}
+
+.nav-pills .nav-link {
+	border-radius: 0.25rem;
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 17px 29px 16px 29px;
+	line-height: 1;
+	// background-color: #f5f5f5;
+	font-weight: 500;
+	color: #0d6efd;
+	margin: 0.5rem;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+	color: #fff;
+	background-color: #0d6efd;
+}
