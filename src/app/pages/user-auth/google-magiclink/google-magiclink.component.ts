@@ -62,7 +62,7 @@ export class GoogleMagiclinkComponent implements OnInit {
       // sessionStorage.setItem('events_user_email', res.user.email);
       
       if (this.user_token != null) {
-
+        console.log('auth redirect url', this.auth.redirectUrl)
         // redirect to intended route if user came here because of authguard
         // this.auth.isLoggedIn = true;
         if (this.auth.redirectUrl) {

@@ -355,7 +355,8 @@ export class RsvpUserComponent implements OnInit {
       subscriber_number: this.g.subscriber_number.value,
       voucher_code: this.g.voucher_code.value,
       // amount: this.rsvpTicket.price,
-      amount: this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex],
+      // amount: this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex],
+      amount: 1,
 
     };
     return data;

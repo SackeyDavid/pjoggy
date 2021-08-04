@@ -75,7 +75,7 @@
                         formControlName="quantity" [ngClass]="{'is-invalid': saved && f.quantity.errors, 'is-valid': !f.quantity.errors && f.quantity.value != ''}">
                       <label for="floatingTitle">Quantity</label>
                       <div class="form-description">
-                        <p class="lead">Enter "1" if quantity is unlimited</p>
+                        <p class="lead">Enter "-1" if quantity is unlimited</p>
                       </div>
                       <small *ngIf="saved && f.quantity.errors" id="titleHelp" class="form-text invalid-feedback">
                         Quantity should be a number.
@@ -248,8 +248,8 @@
                           <p class="card-text">
                             On Sale &nbsp; - 
                             
-                          <ng-container *ngIf="ticket.max_quantity == 1"> Unlimited</ng-container>
-                          <ng-container *ngIf="ticket.max_quantity !== 1">{{ticket.max_quantity}}</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity == -1"> Unlimited</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity !== -1">{{ticket.max_quantity}}</ng-container>
                             
                             <br>
                             
