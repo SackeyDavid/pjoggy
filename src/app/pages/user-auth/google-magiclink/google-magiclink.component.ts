@@ -61,13 +61,17 @@ export class GoogleMagiclinkComponent implements OnInit {
       // sessionStorage.setItem('events_user_name', res.user.name);
       // sessionStorage.setItem('events_user_email', res.user.email);
       
-      if (this.user_token != null) this.router.navigateByUrl('/');
+      if (this.user_token != null) {
 
-      // redirect to intended route if user came here because of authguard
-      // this.auth.isLoggedIn = true;
-      if (this.auth.redirectUrl) {
-        this.router.navigate([this.auth.redirectUrl]);
-        this.auth.redirectUrl = null;
+        // redirect to intended route if user came here because of authguard
+        // this.auth.isLoggedIn = true;
+        if (this.auth.redirectUrl) {
+          this.router.navigate([this.auth.redirectUrl]);
+          this.auth.redirectUrl = null;
+        } else {
+          this.router.navigateByUrl('/');
+
+        }
       }
 
 
