@@ -263,8 +263,12 @@ export class RsvpUserComponent implements OnInit {
           res => {
             console.log(res);
             if(res.message == 'Ticket sales ended.') {
-              return this.openSnackBar('Oops, ticket sales ended.')
+              return this.openSnackBar('Oops, ticket sales ended.');
             }
+            if(res.message == 'Ticket sold out.') {
+              return this.openSnackBar('Oops, tickets sold out.') 
+            }
+
             this.isSending = false;
             if (this.eventData.event[0].ticketing == '1' || res.event[0].ticketing == '2'){
               sessionStorage.setItem('rsvp_ticket', JSON.stringify(this.getFormData()));

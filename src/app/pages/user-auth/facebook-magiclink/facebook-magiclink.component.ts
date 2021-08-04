@@ -49,7 +49,7 @@ export class FacebookMagiclinkComponent implements OnInit {
     
 
     this.id = this.string_from_url.substring(ind1+1, ind2);
-    console.log(this.id)
+    // console.log(this.id)
 
     
     // check if the url has a token which means user's email isn't associated with any events369 account
@@ -59,7 +59,7 @@ export class FacebookMagiclinkComponent implements OnInit {
 
       if (token) this.user_token = token[1];
 
-      console.log(this.user_token)
+      // console.log(this.user_token)
 
       sessionStorage.setItem('user_id', this.id);
       sessionStorage.setItem('x_auth_token', this.user_token);
@@ -68,6 +68,13 @@ export class FacebookMagiclinkComponent implements OnInit {
       // sessionStorage.setItem('events_user_email', res.user.email);
       
       if (this.user_token != null) this.router.navigateByUrl('/');
+
+      // redirect to intended route if user came here because of authguard
+      // this.auth.isLoggedIn = true;
+      if (this.auth.redirectUrl) {
+        this.router.navigate([this.auth.redirectUrl]);
+        this.auth.redirectUrl = null;
+      }
 
 
     }
