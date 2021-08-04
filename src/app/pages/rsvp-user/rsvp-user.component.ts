@@ -15,6 +15,8 @@ import { EventsService } from 'src/app/services/events/events.service';
 export class RsvpUserComponent implements OnInit {
 
   currentUser: any;
+  eventHost: any;
+  eventHostImgSrc: string = '';
 
   eventCreatorsEvents: any = [];
 
@@ -422,6 +424,23 @@ export class RsvpUserComponent implements OnInit {
         // if (res.profile) {
         //   this.imgSrc = 'http://events369.logitall.biz/storage/profile/' + res.profile
         // }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getEventHost(): void {
+    this.userAccountsService.getAnyUser(this.eventData?.event[0].user_id).then(
+      res => {
+        console.log(res);
+        this.eventHost = res;
+        
+
+        if (res.profile) {
+          this.eventHostImgSrc = 'http://events369.logitall.biz/storage/profile/' + res.profile
+        }
       },
       err => {
         console.log(err);

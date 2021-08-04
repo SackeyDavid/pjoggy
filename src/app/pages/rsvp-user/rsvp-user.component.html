@@ -1046,9 +1046,9 @@
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                <div class="name-job p-2">
-                  <div class="profile_name">Kofi Ahen</div>
-                  <div class="job" style="font-size: .8rem;opacity: .7;" *ngIf="eventCreatorsEvents?.total">{{eventCreatorsEvents?.total}} events &bull; Joined 2021</div>
+                <div class="name-job p-2" *ngIf="eventHost">
+                  <div class="profile_name">{{eventHost.name}}</div>
+                  <div class="job" style="font-size: .8rem;opacity: .7;" *ngIf="eventCreatorsEvents?.total">{{eventCreatorsEvents?.total}} events &bull; Joined {{eventHost.created_at | date : 'yyyy'}}</div>
                   <div class="job" style="font-size: .7rem;opacity: .6;">Event Host</div>
                 </div>
                 <!-- <i class='bx bx-log-out' ></i> -->
