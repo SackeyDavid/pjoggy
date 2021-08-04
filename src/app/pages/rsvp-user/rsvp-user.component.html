@@ -1048,7 +1048,7 @@
                   <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
                 <div class="name-job p-2">
                   <div class="profile_name">Kofi Ahen</div>
-                  <div class="job" style="font-size: .8rem;opacity: .7;">199 events &bull; Joined 2021</div>
+                  <div class="job" style="font-size: .8rem;opacity: .7;" *ngIf="eventCreatorsEvents?.total">{{eventCreatorsEvents?.total}} events &bull; Joined 2021</div>
                   <div class="job" style="font-size: .7rem;opacity: .6;">Event Host</div>
                 </div>
                 <!-- <i class='bx bx-log-out' ></i> -->

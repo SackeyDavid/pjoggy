@@ -5,6 +5,7 @@ import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
 import moment from 'moment';
 import { UserAccountService } from 'src/app/services/user-account/user-account.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventsService } from 'src/app/services/events/events.service';
 
 @Component({
   selector: 'app-rsvp-user',
@@ -14,6 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RsvpUserComponent implements OnInit {
 
   currentUser: any;
+
+  eventCreatorsEvents: any = [];
 
   isLoading: boolean;
   isSending: boolean;
@@ -62,7 +65,8 @@ export class RsvpUserComponent implements OnInit {
 
 
   constructor(private rsvpService: RsvpService, private rsvp: RsvpService, private router: Router, 
-    private userAccountsService: UserAccountService,
+    private userAccountsService: UserAccountService, 
+    private eventsService: EventsService, 
     private _snackBar: MatSnackBar,) {
     this.isLoading = false;
     this.isCardSending = false;
@@ -79,6 +83,7 @@ export class RsvpUserComponent implements OnInit {
     this.getEventData();
 
     this.getEventData();
+    
 
 
     this.rsvpTicket = sessionStorage.getItem('rsvp_ticket');
@@ -172,6 +177,9 @@ export class RsvpUserComponent implements OnInit {
         
         // initialize first ticket quantity to 1
         this.ticketQuantity[0] = 1;
+
+        // get event creators events count
+        this.getAllEventCreatorsEvents();
       },
       err => {
         console.log(err);
@@ -420,6 +428,21 @@ export class RsvpUserComponent implements OnInit {
     this._snackBar.open(message, 'x', {
       duration: 3000
     });
+  }
+
+  getAllEventCreatorsEvents(): void {
+    this.eventsService.getAllEventCreatorsEvents(this.eventData?.event[0].user_id).then(
+      res => {
+        console.log(res);
+        this.eventCreatorsEvents = res.all_events;
+        this.eventCreatorsEvents.data.sort(function(a: any, b:any){
+          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 
