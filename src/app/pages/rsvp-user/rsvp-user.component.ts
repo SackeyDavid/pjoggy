@@ -25,10 +25,11 @@ export class RsvpUserComponent implements OnInit {
   rsvpData: any;
 
   eventData: any;
+  selectedIndex = 0;
   selectedTicket = 0;
   selectedTicketCurrency = '';
   selectedTicketPrice: number = 0;
-  ticketQuantity: number = 1;
+  ticketQuantity: any[] = [];
   selectTicketName = '';
 
   isPrefixIncluded: boolean = false;
@@ -51,6 +52,8 @@ export class RsvpUserComponent implements OnInit {
   MobileErrorMsgs: any;
   cardForm: FormGroup = new FormGroup({});
   mobileForm: FormGroup = new FormGroup({});
+
+  transactionId: any;
 
   r_switch: any;
 
@@ -110,11 +113,26 @@ export class RsvpUserComponent implements OnInit {
     return this.form.controls;
   }
 
-  selectTicket(ticketId: any, currency: any, price: any, name: string){
+  selectTicket(index: any, ticketId: any, currency: any, price: any, name: string){
+    this.selectedIndex = index;
     this.selectedTicket = ticketId;
     this.selectedTicketCurrency = currency;
     this.selectedTicketPrice = price;
     this.selectTicketName = name;
+
+    // if the ticket quantity was previouly 0 because it was deselected, set it to 1 on select
+    if(this.ticketQuantity[index] <= 0) this.ticketQuantity[index] = 1;
+
+    // set ticket quantity if quantity not set
+    if(!this.ticketQuantity[index]) this.ticketQuantity[index] = 1;
+
+    // set all other tickets to 0 when a particular ticket is selected
+    for(var i=0; i<this.ticketQuantity.length; i++){
+      if(i !== this.selectedIndex) this.ticketQuantity[i] = 0;
+      
+      // if(i == this.selectedIndex) this.ticketQuantity[i] = 1;
+
+    }
   }
 
   getFormData(): any {
@@ -134,7 +152,7 @@ export class RsvpUserComponent implements OnInit {
       user_id: sessionStorage.getItem('user_id'),
       ticket_id: this.selectedTicket,
       paid: this.eventData?.event[0].ticketing,
-      quantity: this.ticketQuantity,
+      quantity: this.ticketQuantity[this.selectedIndex],
       price: this.selectedTicketPrice,
       currency: this.selectedTicketCurrency,
     }
@@ -150,8 +168,10 @@ export class RsvpUserComponent implements OnInit {
         sessionStorage.setItem('created_event', JSON.stringify(res));
 
         // initialize selected ticket to the first ticket
-        this.selectTicket(this.eventData?.tickets[0].id, this.eventData?.tickets[0].currency, this.eventData?.tickets[0].price, this.eventData?.tickets[0].name);
-    
+        this.selectTicket(this.selectedIndex, this.eventData?.tickets[0].id, this.eventData?.tickets[0].currency, this.eventData?.tickets[0].price, this.eventData?.tickets[0].name);
+        
+        // initialize first ticket quantity to 1
+        this.ticketQuantity[0] = 1;
       },
       err => {
         console.log(err);
@@ -235,7 +255,7 @@ export class RsvpUserComponent implements OnInit {
           res => {
             console.log(res);
             if(res.message == 'Ticket sales ended.') {
-              this.openSnackBar('Ticket sales ended.')
+              return this.openSnackBar('Oops, ticket sales ended.')
             }
             this.isSending = false;
             if (this.eventData.event[0].ticketing == '1' || res.event[0].ticketing == '2'){
@@ -312,7 +332,7 @@ export class RsvpUserComponent implements OnInit {
       // currency: this.rsvpTicket.currency,
       // amount: this.rsvpTicket.price,
       currency: this.selectedTicketCurrency,
-      amount: this.selectedTicketPrice*this.ticketQuantity,
+      amount: this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex],
     };
     return data;
   }
@@ -323,7 +343,7 @@ export class RsvpUserComponent implements OnInit {
       subscriber_number: this.g.subscriber_number.value,
       voucher_code: this.g.voucher_code.value,
       // amount: this.rsvpTicket.price,
-      amount: this.selectedTicketPrice*this.ticketQuantity,
+      amount: this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex],
 
     };
     return data;
@@ -341,6 +361,7 @@ export class RsvpUserComponent implements OnInit {
             console.log(res);
             this.isCardSending = false;
             this.rsvpCompleted = true;
+            this.transactionId = res.transaction_id;
           },
           err => {
             console.log(err)
@@ -363,6 +384,7 @@ export class RsvpUserComponent implements OnInit {
             console.log(res);
             this.isMobileSending = false;
             this.rsvpCompleted = true;
+            this.transactionId = res.transaction_id;
           },
           err => {
             console.log(err)

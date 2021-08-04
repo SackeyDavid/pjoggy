@@ -134,6 +134,14 @@ select.ticket-quantity {
 	padding-right: 2rem;
 }
 
+.ticket-name {
+  color: rgba(0,0,0,.5);
+}
+
+.active-ticket-name {
+  color: var(--ev-brandname-darkblue);
+}
+
 .img-fit-img-fix-background-cover {
   border-radius: 0px;
   background-position: 50%;
@@ -182,4 +190,13 @@ select.ticket-quantity {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	color: #fff;
 	background-color: #0d6efd;
+}
+
+.social-media-links a i, .social-media-links a svg {
+  cursor: pointer;
+}
+
+.social-media-links a {
+  color: var(--ev-brandname-darkblue) !important;
+  
 }

@@ -4,7 +4,7 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-8">
-            <div class="banner-content-wrap">
+            <div class="banner-content-wrap" *ngIf="eventContent?.start_date_time">
                <p class="banner-info wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="500ms">
                   <!-- {{eventContent?.start_date_time | date:'mediumDate'}} to {{eventContent?.end_date_time | date:'mediumDate'}}, {{eventContent?.venue}} -->
 
@@ -45,6 +45,16 @@
                   <a routerLink="/rsvp/user" href="index.html#" class="btn btn-primary">Register</a>
                </div>
 
+            </div>
+            <div class="banner-content-wrap" *ngIf="!eventContent?.start_date_time">
+               <div class="d-flex justify-content-center">
+                  <!-- <div class="spinner-grow" role="status">  -->
+                    <span class="spinner-grow spinner-grow-sm text-white ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-white ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-white ev-spinner" role="status" aria-hidden="true"></span>
+                  
+                  <!-- </div> -->
+                </div>
             </div>
          </div>
       </div>
