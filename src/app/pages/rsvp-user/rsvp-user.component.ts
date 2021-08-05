@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
@@ -12,7 +12,7 @@ import { EventsService } from 'src/app/services/events/events.service';
   templateUrl: './rsvp-user.component.html',
   styleUrls: ['./rsvp-user.component.scss']
 })
-export class RsvpUserComponent implements OnInit {
+export class RsvpUserComponent implements OnInit, AfterViewInit {
 
   currentUser: any;
   eventHost: any;
@@ -89,6 +89,14 @@ export class RsvpUserComponent implements OnInit {
 
     this.rsvpTicket = sessionStorage.getItem('rsvp_ticket');
 
+  }
+
+  ngAfterViewInit() {
+    
+    this.getUser();
+    this.getRsvpForm();
+    
+    // window.open('/rsvp/user', "_self");
   }
 
   initForm(): void {

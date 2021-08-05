@@ -76,4 +76,8 @@ export class PreviewBannerComponent implements OnInit, OnDestroy {
     return moment(date).format('ddd, MMM D, YYYY h:mm A');
   }
 
+  openRSVPForm() {
+    window.open('/rsvp/user');
+
+  }
 }
