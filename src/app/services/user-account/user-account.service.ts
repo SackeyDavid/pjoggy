@@ -74,7 +74,7 @@ export class UserAccountService {
   getAnyUser(user_id: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const url = this.getAnyUserUrl + user_id;
-      this.http.get<any>(url, { headers: this.headers}).subscribe(
+      this.http.post<any>(url, { headers: this.headers}).subscribe(
         res => {
           console.log('get_events369_user_ok: ', res);
           resolve(res);

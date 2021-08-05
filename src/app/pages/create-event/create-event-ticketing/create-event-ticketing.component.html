@@ -253,8 +253,8 @@
                             
                             <br>
                             
-                            <ng-container *ngIf="ticket.price == 1">Donations in {{ ticket.currency }}</ng-container>
-                            <ng-container *ngIf="ticket.price !== 1">{{ ticket.currency }} {{ ticket.price }}</ng-container>
+                            <ng-container *ngIf="eventTicketing == '2'">Donations in {{ ticket.currency }}</ng-container>
+                            <ng-container *ngIf="ticket.price">{{ ticket.currency }} {{ ticket.price }}</ng-container>
                                
                           </p>
                           <p class="card-text">

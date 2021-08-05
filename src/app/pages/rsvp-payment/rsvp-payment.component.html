@@ -6,9 +6,10 @@
         <div class="col">
             <div class="card price-card">
                 <div class="card-body">
+                    <span class="h4"><i class="bi bi-tag mr-2"></i>{{rsvpTicket?.name}}</span> <br>
                     <span class="h4"><i class="bi bi-cash mr-2"></i>{{rsvpTicket?.currency}} {{rsvpTicket?.price}}</span>
                     <span class="text-muted mx-3">X</span>
-                    <span class="h4"><i class="bi bi-people mr-2"></i>{{rsvpTicket?.quantity}} {{rsvpTicket?.quantity}}</span>
+                    <span class="h4"><i class="bi bi-people mr-2"></i>{{rsvpTicket?.quantity}}</span>
                     <h3 class="h3"><strong>{{rsvpTicket?.currency}} {{rsvpTicket?.price * rsvpTicket?.quantity}}</strong></h3>
                 </div>
             </div>
@@ -65,7 +66,7 @@
                         </div>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <label for="cc-number">Credit card number</label>
+                        <label for="cc-number">Credit/Debit Card No.</label>
                         <input type="text" formControlName="pan" class="form-control" id="cc-number" placeholder="" required>
                         <div *ngIf="isCardSaved && f.pan.errors" class="text-danger">
                           Credit card number is required

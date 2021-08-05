@@ -30,8 +30,8 @@ export class RsvpUserComponent implements OnInit {
   rsvpData: any;
 
   eventData: any;
-  selectedIndex = 0;
   selectedTicket = 0;
+  selectedIndex = 0;
   selectedTicketCurrency = '';
   selectedTicketPrice: number = 0;
   ticketQuantity: any[] = [];
@@ -48,7 +48,7 @@ export class RsvpUserComponent implements OnInit {
   submittedContactInfo: boolean = false;
   rsvpCompleted: boolean = false;
 
-  // for payment 
+  // for payment
   isCardSending: boolean;
   isMobileSending: boolean;
   isCardSaved: boolean;
@@ -62,7 +62,7 @@ export class RsvpUserComponent implements OnInit {
 
   r_switch: any;
 
-  
+
   rsvpTicket: any;
 
 
@@ -291,12 +291,12 @@ export class RsvpUserComponent implements OnInit {
     }
   }
 
-  
+
   getEventDateWithoutTime(date: string) {
     return moment(date).format('YYYY-MM-DD');
   }
 
-  
+
   getEventStartDateFormatted(date: any) {
     return moment(date).format('ddd, MMM D, YYYY h:mm A');
   }
@@ -440,7 +440,7 @@ export class RsvpUserComponent implements OnInit {
         console.log(res);
         this.currentUser = res;
         this.initForm();
-        
+
         this.initCardForm();
         this.initMobileForm();
 

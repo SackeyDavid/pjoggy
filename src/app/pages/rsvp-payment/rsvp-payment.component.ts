@@ -41,7 +41,11 @@ export class RsvpPaymentComponent implements OnInit {
     this.initMobileForm();
     this.getEventData();
 
-    this.rsvpTicket = sessionStorage.getItem('rsvp_ticket');
+    let sessionTicket = sessionStorage.getItem('rsvp_ticket')
+    if(sessionTicket){
+      this.rsvpTicket = JSON.parse(sessionTicket);
+      console.log(this.rsvpTicket);
+    }
   }
 
   // selectTicket(ticketId: any, currency: any, price: any){
