@@ -908,7 +908,7 @@
                     <hr class="mb-4">
 
                     <span class="w-100 font-weight-bold">Total
-                        <span *ngIf="ticketQuantity[selectedIndex]" class="float-right">{{selectedTicketCurrency}}  {{(ticketQuantity[selectedIndex]*selectedTicketPrice)}}</span>
+                        <span *ngIf="ticketQuantity[selectedIndex]" class="float-right">{{selectedTicketCurrency}}  {{(ticketQuantity[selectedIndex]*selectedTicketPrice).toFixed(2)}}</span>
                     </span>
                 </div>
 

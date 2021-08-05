@@ -357,7 +357,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
       // amount: this.rsvpTicket.price,
       // currency: this.selectedTicketCurrency,
       currency: 'GHS',
-      // amount: this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex],
+      // amount: (this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex]).toFixed(2),
       amount: 10,
     };
     return data;
@@ -369,7 +369,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
       subscriber_number: this.g.subscriber_number.value,
       voucher_code: this.g.voucher_code.value,
       // amount: this.rsvpTicket.price,
-      // amount: this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex],
+      // amount: (this.selectedTicketPrice*this.ticketQuantity[this.selectedIndex]).toFixed(2),
       amount: 1,
 
     };
