@@ -95,8 +95,6 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
     
     this.getUser();
     this.getRsvpForm();
-    
-    // window.open('/rsvp/user', "_self");
   }
 
   initForm(): void {
