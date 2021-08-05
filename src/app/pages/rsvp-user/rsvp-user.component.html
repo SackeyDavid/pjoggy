@@ -709,7 +709,10 @@
                         <div class="row">
                             <div class="col-md-12 mb-3 mt-4">
                                 <hr class="mb-4">
-                                <button class="btn btn-primary btn-lg float-right" type="submit">Register</button>
+                                <button class="btn btn-primary btn-lg float-right" type="submit">
+                                    <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Register
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -784,7 +787,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="cc-number">Credit card number</label>
-                                            <input type="text" formControlName="pan" class="form-control" id="cc-number" placeholder="" maxlength="15" required>
+                                            <input type="text" formControlName="pan" class="form-control" id="cc-number" placeholder="" required>
                                             <div *ngIf="isCardSaved && h.pan.errors" class="text-danger">
                                             Credit card number is required
                                             </div>
@@ -837,7 +840,10 @@
                                         </div>
                                         </div>
                                         <hr class="mb-4">
-                                        <button class="btn btn-primary btn-lg float-right" type="submit">Continue</button>
+                                        <button class="btn btn-primary btn-lg float-right" type="submit">
+                                            <span *ngIf="isCardSending || isMobileSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            Continue
+                                        </button>
                                     </form>
                                     </div>
 
@@ -937,7 +943,7 @@
                     <hr class="mb-4">
                 </div>
 
-                <div *ngIf="eventData?.event[0].ticketing == '1'">
+                <div *ngIf="eventData?.event[0].ticketing == '1' || eventData?.event[0].ticketing == '2' || eventData?.event[0].ticketing == '0'">
                     <div *ngFor="let ticket of eventData?.tickets; index as i;">
                         
                             <div class="mb-3" *ngIf="i == selectedIndex">
@@ -956,7 +962,7 @@
                                                 {{ticketQuantity[selectedIndex]}} tickets
                                             </ng-container>
                                             sent to </small> <br>
-                                    <span class="font-weight-initial" style="font-size: .8rem;">{{currentUser?.email}}</span> <br>
+                                    <span class="font-weight-initial" style="font-size: .8rem;">{{rsvpTicket?.details.value}}</span> <br>
                                     <!-- <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small> -->
                                
                                     </div>
@@ -974,9 +980,9 @@
                                             {{eventData?.event[0].venue}}
                                           </ng-container>
                                           <ng-container *ngIf="eventData?.event[0].hosting == '0'">
-                                            &bull; Online Event &bull;
+                                            Online Event
                                           </ng-container>
-                                          <ng-container *ngIf="eventData?.event[0].venue_tobe_announced">
+                                          <ng-container *ngIf="eventData?.event[0].venue_tobe_announced == '1'">
                                             TBA
                                           </ng-container>
                                     </span> <br>
@@ -1039,14 +1045,15 @@
             </div>
 
         </div>
-        <div class="card-footer">
+        <div class="card-footer"  *ngIf="eventHost">
            
             <div class="profile-details ml-4 my-4" style="display: flex;justify-content: flex-start;">
                 <div class="profile-content" style="border: 1px solid rgba(255,255,255, .9);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img *ngIf ="!eventHostImgSrc" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img *ngIf = "eventHostImgSrc" [src]="eventHostImgSrc" style="height: 50px;width: 50px;border-radius: 50%;" alt="eventHost.name">
                 
                   <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                <div class="name-job p-2" *ngIf="eventHost">
+                <div class="name-job p-2">
                   <div class="profile_name">{{eventHost.name}}</div>
                   <div class="job" style="font-size: .8rem;opacity: .7;" *ngIf="eventCreatorsEvents?.total">{{eventCreatorsEvents?.total}} events &bull; Joined {{eventHost.created_at | date : 'yyyy'}}</div>
                   <div class="job" style="font-size: .7rem;opacity: .6;">Event Host</div>

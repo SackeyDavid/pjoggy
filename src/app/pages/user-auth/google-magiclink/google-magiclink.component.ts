@@ -63,7 +63,7 @@ export class GoogleMagiclinkComponent implements OnInit {
       
       if (this.user_token != null) {
         this.auth.redirectUrl = sessionStorage.getItem('auth_redirect_url'); 
-        console.log('auth redirect url', this.auth.redirectUrl)
+        // console.log('auth redirect url', this.auth.redirectUrl)
         // redirect to intended route if user came here because of authguard
         // this.auth.isLoggedIn = true;
         if (this.auth.redirectUrl) {

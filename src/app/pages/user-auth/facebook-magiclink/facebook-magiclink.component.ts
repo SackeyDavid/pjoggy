@@ -68,12 +68,15 @@ export class FacebookMagiclinkComponent implements OnInit {
       // sessionStorage.setItem('events_user_email', res.user.email);
       
       if (this.user_token != null) {
-
+        this.auth.redirectUrl = sessionStorage.getItem('auth_redirect_url'); 
+        // console.log('auth redirect url', this.auth.redirectUrl)
         // redirect to intended route if user came here because of authguard
         // this.auth.isLoggedIn = true;
         if (this.auth.redirectUrl) {
           this.router.navigate([this.auth.redirectUrl]);
           this.auth.redirectUrl = null;
+          sessionStorage.removeItem('auth_redirect_url');
+
         } else {
           this.router.navigateByUrl('/');
 
