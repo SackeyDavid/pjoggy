@@ -266,6 +266,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
 
     if (this.form.valid) {
       this.isSending = true;
+      console.log('reached send rsvp code');
       this.rsvpService.sendRsvp(this.getFormData())
         .then(
           res => {
@@ -299,6 +300,8 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
             this.errorMsgs = err.error;
           }
         );
+    } else {
+      console.log('rsvp form invalid');
     }
   }
 
