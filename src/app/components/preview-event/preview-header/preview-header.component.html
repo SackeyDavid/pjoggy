@@ -26,7 +26,7 @@
             <li *ngIf="gallery == true" class="nav-item">
                <a class="nav-link" href="#" (click)="onGalleryClicked($event)">Gallery</a>
             </li>
-            <button class="btn btn-outline-primary ml-4 ticket-button" type="button">Buy Ticket</button>
+            <button (click)="openRSVPForm()" class="btn btn-outline-primary ml-4 ticket-button" type="button">Buy Ticket</button>
          </ul>
       </div>
    </div>

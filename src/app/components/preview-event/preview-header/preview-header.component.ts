@@ -55,5 +55,10 @@ export class PreviewHeaderComponent implements OnInit {
     e.preventDefault();
     this.galleryEvent.emit();
   }
+  
+  openRSVPForm() {
+    window.open('/rsvp/user');
+
+  }
 
 }

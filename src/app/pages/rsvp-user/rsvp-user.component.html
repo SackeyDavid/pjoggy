@@ -962,7 +962,7 @@
                                                 {{ticketQuantity[selectedIndex]}} tickets
                                             </ng-container>
                                             sent to </small> <br>
-                                    <span class="font-weight-initial" style="font-size: .8rem;">{{rsvpTicket?.details.value}}</span> <br>
+                                    <span class="font-weight-initial" style="font-size: .8rem;">{{currentUser?.email}}</span> <br>
                                     <!-- <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small> -->
 
                                     </div>
@@ -1049,7 +1049,7 @@
            
             <div class="profile-details ml-4 my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                 <div class="profile-content">
-                  <div style="border: 1px solid rgba(255,255,255, .9);padding: 4px;border-radius: 50%;">
+                  <div style="border: 1px solid rgba(255,255,255, 100);padding: 4px;border-radius: 50%;">
                     <img *ngIf ="!eventHostImgSrc" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                     <img *ngIf = "eventHostImgSrc" [src]="eventHostImgSrc" style="height: 50px;width: 50px;border-radius: 50%;" alt="eventHost.name">
                   

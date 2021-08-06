@@ -282,11 +282,16 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
             }
 
             this.isSending = false;
-            if (this.eventData?.event[0].ticketing == '1' || this.eventData?.event[0].ticketing == '2' || this.eventData?.event[0].ticketing == '0'){
-              sessionStorage.setItem('rsvp_ticket', JSON.stringify(this.getFormData()));
+            sessionStorage.setItem('rsvp_ticket', JSON.stringify(this.getFormData()));
+            
+            if (this.eventData?.event[0].ticketing == '1' || this.eventData?.event[0].ticketing == '2'){
               // this.router.navigateByUrl('/rsvp/payment');
               this.submittedContactInfo = true;
+            } 
+            if (this.eventData?.event[0].ticketing == '0') {
+              this.rsvpCompleted = true;
             }
+
           },
           err => {
             console.log(err)
