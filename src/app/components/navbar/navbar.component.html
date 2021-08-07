@@ -147,7 +147,14 @@
               <a (click)="openFavoritesPage()" [class.bolder] = "userFavorites?.data?.length > 0"> Favorites </a>
               <a> Following</a>
               <a (click)="openManageEventsPage()" style="border-top: 1px solid #ddd; cursor: pointer;">Manage event</a>
-              <a>Tickets (0)</a> 
+              <a href="/tickets" >Tickets
+                <ng-container *ngIf = "usersTickets?.total > 0">
+                  ({{usersTickets?.total}})
+                </ng-container>
+                <ng-container *ngIf = "usersTickets?.total == 0">
+                  (0)
+                </ng-container>
+              </a> 
 
               <!-- not working  -->
               <!-- <a href="#">Credits</a> -->
