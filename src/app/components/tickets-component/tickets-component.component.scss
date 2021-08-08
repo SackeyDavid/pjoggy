@@ -37,10 +37,10 @@ div.workspace-core {
     background-color: inherit;
     
     .container {
-        overflow-y: scroll;
+        overflow-y: hidden;
         height: 100vh;
         overflow-x: hidden;
-        scrollbar-color: rgba(0,0,0,.3);
+        scrollbar-color: rgba(0,0,0,.3) rgba(0,0,0,.03);
         scrollbar-width: thin;
     }
 }
