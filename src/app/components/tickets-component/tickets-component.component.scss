@@ -43,6 +43,10 @@ div.workspace-core {
         scrollbar-color: rgba(0,0,0,.3) rgba(0,0,0,.03);
         scrollbar-width: thin;
     }
+
+    .h-scroll {
+        overflow-y: scroll !important;
+    }
 }
 
 .card-horizontal {
