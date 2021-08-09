@@ -141,7 +141,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
     this.selectedIndex = index;
     this.selectedTicket = ticketId;
     this.selectedTicketCurrency = currency;
-    this.selectedTicketPrice = price;
+    if(this.selectedTicketPrice == 0) this.selectedTicketPrice = price;
     this.selectTicketName = name;
 
     // if the ticket quantity was previouly 0 because it was deselected, set it to 1 on select

@@ -172,7 +172,7 @@
                     </div>
     
                     </div>
-                    <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                    <div *ngIf="event.banner_image" (click)="gotoEdit(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
                         <ng-container *ngIf="event.ticketing == '0'">
                           <span class="price-span">Free</span>
                         </ng-container>
@@ -190,7 +190,7 @@
                         </ng-container> 
                     </div>
 
-                      <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                      <div *ngIf="event.banner_image == null" (click)="gotoEdit(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
                           <ng-container *ngIf="event.ticketing == '0'">
                             <span class="price-span">Free</span>
                           </ng-container>
@@ -237,7 +237,7 @@
                       <hr>
                       <div class="text-center fadeIn">
                         <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
-                        <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
+                        <!-- <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button> -->
                         <!-- <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1"> Cancel</button> -->
                         <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
                     </div>
@@ -252,9 +252,9 @@
                     <span id="draft-myBtn-{{event.id}}" (click)="showHideMoreDraft(event.id)" class="see-more-or-less p-2">See More 
                     </span>
                     <span id="draft-icons-{{event.id}}" class="px-2 icons" style="float: right;">
-                      <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                      <!-- <i (click)="gotoPreview(event.id)" class="bi bi-display">
                         <span class="tooltip">Preview</span>                        
-                    </i>&nbsp;&nbsp;
+                    </i>&nbsp;&nbsp; -->
                     <i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
                       <span class="tooltip">Edit</span>
                     </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">

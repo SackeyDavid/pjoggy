@@ -249,6 +249,7 @@ const routes: Routes = [
       },
       {
         path: 'favorites',
+        canActivate: [AuthGuard],
         component: FavoritePageComponent
       },
       {
