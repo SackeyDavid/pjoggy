@@ -168,6 +168,7 @@
                       <input type="text" class="form-control" id="floatingTitle" aria-describedby="titleHelp" placeholder="233500002323"
                         formControlName="phone" [ngClass]="{'is-invalid': saved && f.phone.errors, 'is-valid': saved && f.phone.value!='' && !f.phone.errors}">
                       <label for="floatingTitle">Phone Number</label>
+                      <small class="text-muted">Eg. 233500002323</small>
                       <small *ngIf="saved && f.phone.errors" id="titleHelp" class="form-text invalid-feedback">
                         Please enter a valid phone number. Start with country code
                       </small>
