@@ -223,7 +223,7 @@
                                         {{ticket.event_start_date | date: 'MMM'}} <br> 
                                         <small class="text-muted"> {{ticket.event_start_date | date: 'dd'}}</small>
                                     </span>
-                                    <div style="display: flex; flex-direction: column;">
+                                    <div style="display: flex; flex-direction: column;flex: auto;">
                                         
                                         <div class="card-horizontal">
                                             
@@ -247,7 +247,7 @@
                                                 </ng-container>
                                             </span><br>
                                             <span *ngIf="ticket.ticket_price !== 0">
-                                                <small class="text-white">Price: <small style="font-size: .9rem;">{{ticket.ticket_currency}} {{ticket.ticket_price}}</small></small>
+                                                <small class="text-white"><small style="font-size: .9rem;">{{ticket.ticket_currency}} {{ticket.ticket_price}}</small></small>
                                                 <br></span> 
                                             <span class="lead">
                                                 <!-- <ng-container *ngIf="getEventDateWithoutTime(ticket.event_start_date) == getEventDateWithoutTime(ticket.event_end_date)">
