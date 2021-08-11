@@ -313,7 +313,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
           }
         );
     } else {
-      console.log('rsvp form invalid');
+      console.log(this.form.errors);
     }
   }
 
