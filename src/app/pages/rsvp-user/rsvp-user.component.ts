@@ -324,7 +324,6 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
           }
         );
     } else {
-      console.log(this.form.errors);
       console.log(this.findInvalidControls())
     }
   }
