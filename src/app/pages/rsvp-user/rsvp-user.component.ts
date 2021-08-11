@@ -159,6 +159,17 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.form.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    return invalid;
+}
+
   getFormData(): any {
     var details = {};
 
@@ -314,6 +325,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit {
         );
     } else {
       console.log(this.form.errors);
+      console.log(this.findInvalidControls())
     }
   }
 
